@@ -1,0 +1,25 @@
+= simple_form_for([:admins, @ad_box], multipart: true) do |f|
+
+	fieldset
+		legend Basic Info
+		
+		= f.input :pod, :label => "Ad Box JPG"
+		
+		img src="#{@ad_box.pod.thumb.url}"
+		
+		= f.input :name, :label => "Reference Name"
+		
+		= f.input :url_link, :label => "URL"
+		
+	fieldset
+		legend Status
+		= f.input :active
+		= f.input :position
+		
+	hr
+	
+	= f.button :submit, "Save/Update Ad Box", :class => "btn btn-primary"
+	
+	= " "
+	
+	= link_to "Cancel", admins_ad_boxes_path, :class => "btn"

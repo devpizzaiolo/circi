@@ -1,0 +1,89 @@
+- content_for(:title) {"Locations"}
+- content_for(:heading) {("FIND YOUR <br> CLOSEST <br>PIZZAIOLO").html_safe}
+- content_for(:description) {"Enter your postal code or select an area"}
+- content_for(:body_class) {"location_page"}
+
+#location-search class="#{if !params[:find_location_near_me] then 'visible' end}"
+	div.top-bar
+		h1 
+			= link_to raw('&#8592;'), orders_pickup_address_path
+			| Choose Pickup Location
+
+	.body-container.min-height
+		.container
+			.row
+				.search-loation-block.col-12.col-md-12
+					div.search-locations-forms.location-row.row
+						form.default-form.inline.search-location-form.col-12#search_locations
+							- if params[:find_location_near_me]
+								input.input-small.google-autocomplete.location-input#find_location_near_me name="find_location_near_me" data-mask="phone" type="text" placeholder="Address or Postal Code" value="#{params[:find_location_near_me].upcase}"
+							- else
+								input.input-small.google-autocomplete.location-input#find_location_near_me name="find_location_near_me" data-mask="phone" type="text" placeholder="Address or Postal Code"
+						
+							p.text-center.regular-txt.m-b-15 Or
+
+						
+							= select_tag "find_location_in_area", options_for_select(@all_areas, params[:find_location_in_area]), class: "location-input", prompt: "Select Area"
+
+							button.button.default.full.no-m.select-location-btn type="submit" id="search-locations"
+								| Search
+							a.button.secondary-btn.full.no-m href="/orders/choose_pickup_location" id="clear-locations"
+								| Clear
+		
+#location-filter class="#{if params[:find_location_near_me] && params[:find_location_near_me] != "" then 'visible container' end}"
+	
+	div.body-container.min-height.clearfix.container
+		//.row.location-content-panel
+			/ div
+			/ 	h2.heading-green.hidden-phone.light.m-b-20.inner-page-sub-title Pizzaiolo locations in your area
+		div.top-bar.text-center
+			h3 class="#{if @locations.count < 1 then 'hide' end}" 
+				/ a#back_to_location_search
+				/ 	| &#8592;
+				| Pizzaiolo Stores in your areas
+		.row.location-search-result
+			- unless @locations.count < 1
+				div.regular-p.text-center.m-b-20.col-12.ranked-closest Ranked closest to you
+				- for location in @locations do
+					div class="area col-12 col-md-4 area-#{location.area_name.parameterize}"
+						div.location-card.clearfix
+							.map.hidden-phone
+								a href="#{location.google_maps_url}" target="_blank" class="store-map-pin"
+									- map = GoogleStaticMap.new(:zoom => 17, :center => MapLocation.new(:latitude => location.latitude, :longitude => location.longitude), :format => "gif", :width => 500, :height => 250, :api_key => "AIzaSyDPVYwXziaEirqCtv-YJnnM0KUcsot5a2Y")
+									/ - map.markers << MapMarker.new(:color => "green", :location => MapLocation.new(:latitude => location.latitude, :longitude => location.longitude))
+									- image_url = map.url(:auto)
+									img src="#{image_url}" rel="tooltip" title="click to view full size map" class="img-polaroid" alt="Location map"
+									img class="store-logo-pin" src="/assets/new_design/store-pin-icon.png"
+							.info.text-center
+								div.address #{location.address}<br /> #{location.city}, #{location.province} #{location.postal_code}
+								div
+									- unless location.address_details.blank?
+										| #{location.address_details}
+									- if location.respond_to?('distance')
+										div
+											- distance_km = location.distance * 1.6
+											small Distance: #{distance_km.round(1)} km, #{Geocoder::Calculations.compass_point(location.bearing)}
+								
+								h3.large-green #{link_to location.phone, "tel:#{location.phone.delete('-')}"}
+							
+							.text-center.card-button
+								= link_to "Select Location", orders_set_pickup_location_path(location.id), :class => "button default full hidden-phone"
+
+							.map.visible-phone
+								a href="#{location.google_maps_url}" target="_blank"
+									- map = GoogleStaticMap.new(:zoom => 13, :center => MapLocation.new(:latitude => location.latitude, :longitude => location.longitude), :format => "gif", :width => 110, :height => 110, :api_key => "AIzaSyDPVYwXziaEirqCtv-YJnnM0KUcsot5a2Y")
+									- map.markers << MapMarker.new(:color => "green", :location => MapLocation.new(:latitude => location.latitude, :longitude => location.longitude))
+									- image_url = map.url(:auto)
+									img src="#{image_url}" rel="tooltip" title="click to view full size map" class="img-polaroid" alt="Location map"
+							div.text-center.visible-phone
+								= link_to "Select Location", orders_set_pickup_location_path(location.id), :class => "button default full"
+						
+			- else
+				div.row
+				.text-center.col-12.ranked-text
+					p.regular-p.red.p-style The postal code entered was not found, or there were no locations in the vicinity.
+					
+					p.regular-p.m-b-20.p-style Please verify the postal code, or manually select a location to order from.
+
+					= link_to "Back to locations.", locations_path, class: 'button default'
+

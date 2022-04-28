@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.2">
+<Document>
+  <name>698 Queen St. E</name>
+  <description><![CDATA[698 Queen St. E,
+Toronto, ON 
+M4M 1H1
+416-406-3456]]></description>
+  <Style id="style1">
+    <LineStyle>
+      <color>40000000</color>
+      <width>3</width>
+    </LineStyle>
+    <PolyStyle>
+      <color>73FF6633</color>
+      <fill>1</fill>
+      <outline>1</outline>
+    </PolyStyle>
+  </Style>
+  <Placemark>
+    <name>698 Queen St. Delivery area</name>
+    <description><![CDATA[<div dir="ltr">698 Queen St. E,<br>Toronto, ON <br>M4M 1H1<br>416-406-3456</div>]]></description>
+    <styleUrl>#style1</styleUrl>
+    <Polygon>
+      <outerBoundaryIs>
+        <LinearRing>
+          <tessellate>1</tessellate>
+          <coordinates>
+            -79.330803,43.677910,0.000000
+            -79.323639,43.660110,0.000000
+            -79.318367,43.647381,0.000000
+            -79.327042,43.640999,0.000000
+            -79.337425,43.640301,0.000000
+            -79.343338,43.646969,0.000000
+            -79.346992,43.651009,0.000000
+            -79.349953,43.654610,0.000000
+            -79.353561,43.657841,0.000000
+            -79.355400,43.661381,0.000000
+            -79.357628,43.669079,0.000000
+            -79.357742,43.670071,0.000000
+            -79.359573,43.672260,0.000000
+            -79.356056,43.673180,0.000000
+            -79.355988,43.673302,0.000000
+            -79.345558,43.675282,0.000000
+            -79.338890,43.676720,0.000000
+            -79.338631,43.676670,0.000000
+            -79.336128,43.677200,0.000000
+            -79.335251,43.677429,0.000000
+            -79.330803,43.677910,0.000000
+          </coordinates>
+        </LinearRing>
+      </outerBoundaryIs>
+    </Polygon>
+  </Placemark>
+</Document>
+</kml>

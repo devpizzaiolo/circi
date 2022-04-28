@@ -1,0 +1,503 @@
+- if @order.total_price <= 0
+	.text-center.col-12
+		p.regular-p Please add items to your order
+		= link_to "Continue Shopping", orders_path, :class => "button btn-green black full hidden-phone continue_shopping"
+.left-container-dsk.col-12.col-md-8.left-side-order-data
+	table.table.table-condensed.checkout-table.order-details-table
+		tbody
+			- count = 0
+			- @order.order_items.where("deal_id IS NOT NULL").group_by(&:deal_id).each do |deal_id, order_items|
+				tr.deals-title-no-padding
+					td
+						h2 = order_items.first.deal_title.html_safe
+					td
+						div.text-right
+							p.item_title.deals-title-right-padding = raw "#{number_to_currency( @order.deal_price(deal_id) * order_items.first.quantity.to_i )}"
+				- order_items.each_with_index do |order_item, index|
+					tr.inner-item-alignment
+						- cache [@order, order_item, 'edit_shopping_cart_order_item_single_deal'] do 
+							/ td.hidden-phone
+							/ 	= image_tag order_item.item_image
+							td.deal-item-left_indent
+								p.item_title = order_item.item_title
+								- if order_item.product_info['product_type'] != "calzone"
+									- selected_toppings = order_item.toppings_1
+									- if selected_toppings.count > 0
+									
+										a.show-details.more-details.visible-phone
+											= image_tag "ui/gray-triangle.png"
+										p.pizza-topping.hide = raw "#{pluralize(order_item.num_paid_toppings, 'topping')}"
+										div.item-details
+											ul.toppings-list
+												- if selected_toppings.any? { |s| s.include?('Whole Pizza') }
+													p.strong.m-t-10 Whole Pizza
+													ul
+														- selected_toppings.each do |t|
+															- if t.include?('Whole Pizza') then
+																li
+																	= raw "#{t[11..-1]}"
+												- if selected_toppings.any? { |s| s.include?('Left Side') }
+													p.strong.m-t-10 Left Side
+													ul
+														- selected_toppings.each do |t|
+															- if t.include?('Left Side') then
+																li
+																	= raw "#{t[9..-1]}"
+												- if selected_toppings.any? { |s| s.include?('Right Side') }
+													p.strong.m-t-10 Right Side
+													ul
+														- selected_toppings.each do |t|
+															- if t.include?('Right Side') then
+																li
+																	= raw "#{t[10..-1]}"
+											
+											= image_tag order_item.item_image, class: 'visible-phone'
+									- else
+										p.hide = raw "#{pluralize(0, 'topping')}"
+
+									- @pizza_preset = PizzaPreset.find_by_id(order_item[:product_info]['pizza_preset_id'])
+									- if @pizza_preset.present? && @pizza_preset.is_product_combo
+											div.mb-3
+												- @product_combo = ProductCombo.find_by_id(@pizza_preset.product_combo_id)
+												- @additional_items_names = @product_combo.categories_of_additional_items ? @product_combo.categories_of_additional_items.split(',') : []
+												- @beverages_additional_items = @product_combo.beverages_additional_items ? @product_combo.beverages_additional_items.split(',') : []
+												- if order_item.order_additional_count > 1
+													p.strong.m-t-10
+														| Additional
+
+												- if order_item.order_additional_count > 0
+													- if order_item.product_info["order_additional"]['dipping_sauces'] && order_item.product_info["order_additional"]['dipping_sauces'].count > 0
+														- order_item.product_info["order_additional"]['dipping_sauces'].each do |dipping_sauce|
+															- if dipping_sauce[1].to_i > 0
+																p
+																	strong = "- #{get_dipping_sauce_name(dipping_sauce[0])} Dipping Sauce"
+																	= " "
+																	small
+																		= "x #{dipping_sauce[1]}"
+
+													- if order_item.product_info["order_additional"]['beverages'] && order_item.product_info["order_additional"]['beverages'].count > 0
+														- order_item.product_info["order_additional"]['beverages'].each do |beverage|
+															- if beverage[1].to_i > 0
+																p
+																	strong = "- #{get_beverage_name(beverage[0])}"
+																	= " "
+																	small
+																		= "x #{beverage[1]}"
+												- if order_item.order_additional_count <= 1 && @product_combo.try(:title) == "Delivery Special"
+													.alert.fade.in.alert-danger= "#{order_item.popup_message} <a href='#{edit_order_item_path(order_item.id)}'>click here to edit</a>".html_safe
+								- else
+									- if order_item.toppings.count > 0
+										a.show-details.more-details.visible-phone
+											= image_tag "ui/gray-triangle.png"
+										div.item-details
+											p.hide = raw "#{pluralize(order_item.num_paid_toppings, 'paid topping')}"
+											- order_item.toppings.each do |t|
+												p = raw "#{t}"
+
+							td
+								div.text-right.hide
+									/p = raw "#{number_to_currency( order_item.price)} x #{order_item.quantity} = #{number_to_currency( order_item.price * order_item.quantity.to_i )}"
+									p.item_title = raw "#{number_to_currency( order_item.price * order_item.quantity.to_i )}"
+
+				tr.border-bottom
+					td
+						div.cart-wrapper
+							div.details-cart-quantity.deal-cart-quantity data-index="#{count}"
+								.box-border.border-black
+									= image_tag "ui/minus.png", class: 'minus_pizza minus' 
+									input type="hidden" name="order_id#{count}" id="order_id_#{count}" value="#{@order.id}"
+									input type="hidden" name="deal_id#{count}" id="deal_id_#{count}" value="#{deal_id}"
+									input data-previousValue="#{order_items.first.quantity}" name="quantity_#{count}" id="quantity_#{count}" value="#{order_items.first.quantity}" class="span1 deal_order_qty validate[required,custom[integer]]"
+									= image_tag "ui/plus.png", class: 'plus_pizza plus'
+
+						div.order-actions
+							= link_to "Edit", @order.deal_edit_path(deal_id), :class => "small-link edit-remove", :id => "#edit_button_#{order_items.first.id.to_s}"
+							span.small-link |
+							= link_to "Remove", order_path(order_items.first.id), :method => :delete, :confirm => "Are you sure you want to remove this item from your order?", :class => "small-link edit-remove"
+
+					tr.mobile-tr-only
+						td colspan="2"
+
+				- count = count + 1
+
+			- @order.order_items.where(deal_id: nil).each_with_index do |order_item, index|
+				tr.border-bottom
+					- cache [@order, order_item, 'edit_shopping_cart_order_item_single'] do 
+						/ td.hidden-phone
+		 				/ 	= image_tag order_item.item_image
+						td
+							p.item_title = order_item.try(:item_title) 
+							- if order_item.is_catering
+								p.strong.catering_item.hide = "Catering Order" 
+							- if order_item && order_item.product_info && order_item.product_info['product_type'] != "calzone"
+								- selected_toppings = order_item.toppings_1
+								- if selected_toppings.count > 0
+								
+									a.show-details.more-details.visible-phone
+										= image_tag "ui/gray-triangle.png"
+									p.pizza-topping.hide = raw "#{pluralize(order_item.num_paid_toppings, 'topping')}"
+									div.item-details
+										ul.toppings-list
+											- if selected_toppings.any? { |s| s.include?('Whole Pizza') }
+												p.strong.m-t-10 Whole Pizza
+												ul
+													- selected_toppings.each do |t|
+														- if t.include?('Whole Pizza') then
+															li
+																= raw "#{t[11..-1]}"
+											- if selected_toppings.any? { |s| s.include?('Left Side') }
+												p.strong.m-t-10 Left Side
+												ul
+													- selected_toppings.each do |t|
+														- if t.include?('Left Side') then
+															li
+																= raw "#{t[9..-1]}"
+											- if selected_toppings.any? { |s| s.include?('Right Side') }
+												p.strong.m-t-10 Right Side
+												ul
+													- selected_toppings.each do |t|
+														- if t.include?('Right Side') then
+															li
+																= raw "#{t[10..-1]}"
+										
+						 				= image_tag order_item.item_image, class: 'visible-phone'
+								- else
+									p.hide = raw "#{pluralize(0, 'topping')}"
+
+								- @pizza_preset = PizzaPreset.find_by_id(order_item[:product_info]['pizza_preset_id'])
+								- if @pizza_preset.present? && @pizza_preset.is_product_combo
+										div.mb-3
+											- @product_combo = ProductCombo.find_by_id(@pizza_preset.product_combo_id)
+											- @additional_items_names = @product_combo.categories_of_additional_items ? @product_combo.categories_of_additional_items.split(',') : []
+											- @beverages_additional_items = @product_combo.beverages_additional_items ? @product_combo.beverages_additional_items.split(',') : []
+											- if order_item.order_additional_count > 1
+												p.strong.m-t-10
+													| Additional
+
+											- if order_item.order_additional_count > 0
+												- if order_item.product_info["order_additional"]['dipping_sauces'] && order_item.product_info["order_additional"]['dipping_sauces'].count > 0
+													- order_item.product_info["order_additional"]['dipping_sauces'].each do |dipping_sauce|
+														- if dipping_sauce[1].to_i > 0
+															p
+																strong = "- #{get_dipping_sauce_name(dipping_sauce[0])} Dipping Sauce"
+																= " "
+																small
+																	= "x #{dipping_sauce[1]}"
+
+												- if order_item.product_info["order_additional"]['beverages'] && order_item.product_info["order_additional"]['beverages'].count > 0
+													- order_item.product_info["order_additional"]['beverages'].each do |beverage|
+														- if beverage[1].to_i > 0
+															p
+																strong = "- #{get_beverage_name(beverage[0])}"
+																= " "
+																small
+																	= "x #{beverage[1]}"
+											- if order_item.order_additional_count <= 1 && @product_combo.try(:title) == "Delivery Special"
+												.alert.fade.in.alert-danger= "#{order_item.popup_message} <a href='#{edit_order_item_path(order_item.id)}'>click here to edit</a>".html_safe
+							- else
+								- if order_item && order_item.toppings && order_item.toppings.count > 0
+									a.show-details.more-details.visible-phone
+										= image_tag "ui/gray-triangle.png"
+									div.item-details
+										p.hide = raw "#{pluralize(order_item.num_paid_toppings, 'paid topping')}"
+										- order_item.toppings.each do |t|
+											p = raw "#{t}"
+							/ p = raw "Quantity: #{order_item.quantity}"
+							div.cart-wrapper
+								div.details-cart-quantity data_id="#{index}" style="#{if order_item.product_info.present? && order_item.product_info['product_type'] == "calzone" ||  params[:calzone_preset_id] then "display:none;" end}"
+									.box-border.border-black
+										= image_tag "ui/minus.png", class: 'minus_pizza minus' 
+										input type="hidden" name="order_item_id_#{index}" id="order_item_id_#{index}" value="#{order_item.id}"
+										input data-previousValue="#{order_item.quantity}" name="order_item_qty_#{index}" id="order_item_qty_#{index}" value="#{params[:calzone_preset_id].present? ? '1' : order_item.quantity}" class="span1 order_item_qty validate[required,custom[integer]]"
+										= image_tag "ui/plus.png", class: 'plus_pizza plus'
+								
+								div 
+									- if order_item.show_upsize
+										div class="details-upsize-btn #{if @pizza_preset.present? && @pizza_preset.is_product_combo  then "hide" end}"   style="#{if  order_item.product_info['product_type'] == "calzone" || params[:calzone_preset_id] then "display:none;" end}"
+											a.button.default.details-upsize-button.upsize-black-btn data_order_item_id="#{order_item.id}" data_order_id="#{@order.id}" data_upsize="#{order_item.next_size}"
+												| UPSIZE TO <span class="size">#{order_item.next_size_short}</span> <br /><span class="price-dff">+#{order_item.pizza_size_difference}</span>
+									/ - elsif order_item.show_downsize
+									/ 	div.details-downsize-btn style="#{if params[:calzone_preset_id] then "display:none;" end}"
+									/ 		a.button.default.details-downsize-button data_order_item_id="#{order_item.id}" data_order_id="#{@order.id}" data_downsize="#{order_item.next_downsize}"
+									/ 			| Downsize
+
+
+							div.order-actions
+							 	- if order_item[:product_info].present? && order_item[:product_info]["pizza_size"] === "10_inches" && order_item[:product_info]["product_name"] != "Create Your Own Pizza"
+									= link_to "Remove", order_path(order_item.id), :method => :delete, :confirm => "Are you sure you want to remove this item from your order?", :class => "small-link edit-remove"
+								- else
+									= link_to "Edit", edit_order_item_path(order_item.id), :class => "small-link edit-remove", :id => "#edit_button_#{order_item.id.to_s}"
+									span.small-link |
+									= link_to "Remove", order_path(order_item.id), :method => :delete, :confirm => "Are you sure you want to remove this item from your order?", :class => "small-link edit-remove"
+								/ - if order_item.pickup_special? && @order.for_pickup?
+								/ 	<p style=" padding: 0px; margin: 0px; font-size: 13px; font-style: italic; ">Pickup special pricing applied.</p>
+						td
+							div.text-right
+								/p = raw "#{number_to_currency( order_item.price)} x #{order_item.quantity} = #{number_to_currency( order_item.price * order_item.quantity.to_i )}"
+								p.item_title = raw "#{number_to_currency( order_item.price * order_item.quantity.to_i )}"
+				tr.mobile-tr-only
+					td colspan="2"
+			- unless @order.order_additional.blank?
+				
+				// dipping sauces
+					
+				- @order.order_additional['dipping_sauces'] && @order.order_additional['dipping_sauces'].each_with_index do |dipping_sauce, index|
+					tr.border-bottom
+					- if dipping_sauce[1].to_i > 0
+						td.hidden-phone
+						- cache [@order, dipping_sauce, 'edit_shopping_cart_dipping_sauces_info'] do	
+							td
+								p.item_title = "#{get_dipping_sauce_name(dipping_sauce[0])} Dipping Sauce"
+								div.box-border.border-black.order-additional-quantity data_order_id="#{@order.id}" data_order_additional="dipping_sauces" data_order_additional_index="#{index}" data_key="dipping_sauce"
+									= image_tag "ui/minus.png", class: 'minus_pizza minus' 
+									input type="hidden" name="dipping_sauce_#{index}" id="dipping_sauce_#{index}" value="#{dipping_sauce[0]}"
+									input name="dipping_sauce_qty_#{index}" id="dipping_sauce_qty_#{index}" data-previousValue="#{dipping_sauce[1]}" value="#{dipping_sauce[1]}" class="span1 order_additional_qty validate[required,custom[integer]]"
+									= image_tag "ui/plus.png", class: 'plus_pizza plus'
+
+								div.order-actions
+									= link_to "Edit", "/orders/additional_items#Dipping", :class => "small-link edit-remove padding-left0" 
+									span.small-link |
+									= link_to "Remove", orders_remove_additional_path('dipping_sauces',dipping_sauce[0]), :remote => true, :confirm => "Are you sure you want to remove this item from your order?", :class => "small-link edit-remove"
+							td
+								div.text-right
+									p = number_to_currency( get_dipping_sauce_price_total(dipping_sauce[0],dipping_sauce[1]) )
+							
+									
+				
+				
+				
+				// beverages
+			
+				- @order.order_additional['beverages'] && @order.order_additional['beverages'].each_with_index do |beverage, index|
+					- if beverage[1].to_i > 0
+						tr.border-bottom
+							td.hidden-phone
+							- cache [@order, beverage, 'edit_shopping_cart_beverages_info'] do
+								td
+									p.item_title = "#{get_beverage_name(beverage[0])}"
+									div.box-border.border-black.order-additional-quantity data_order_id="#{@order.id}" data_order_additional="beverages" data_order_additional_index="#{index}" data_key="beverage"
+										= image_tag "ui/minus.png", class: 'minus_pizza minus' 
+										input type="hidden" name="beverage_#{index}" id="beverage_#{index}" value="#{beverage[0]}"
+										input name="beverage_qty_#{index}" id="beverage_qty_#{index}" data-previousValue="#{beverage[1]}" value="#{beverage[1]}" class="span1 order_additional_qty validate[required,custom[integer]]"
+										= image_tag "ui/plus.png", class: 'plus_pizza plus'
+
+									div.order-actions
+										= link_to "Edit", "/orders/additional_items#Bottles", :class => "small-link edit-remove padding-left0"
+										span.small-link |
+										= link_to "Remove", orders_remove_additional_path('beverages',beverage[0]), :confirm => "Are you sure you want to remove this item from your order?", :class => "small-link edit-remove"
+								td
+									div.text-right
+										p = number_to_currency( get_beverage_price_total(beverage[0],beverage[1]) )
+								
+				
+				
+				// salads
+				- @order.order_additional['salads'] && @order.order_additional['salads'].each_with_index do |salad, index|
+					- if salad[1].to_i > 0
+						tr.border-bottom
+							td.hidden-phone
+							- cache [@order, salad, 'edit_shopping_cart_salads_info'] do
+								td
+									p.item_title = get_salad_name(salad[0])
+									div.box-border.border-black.order-additional-quantity data_order_id="#{@order.id}" data_order_additional="salads" data_order_additional_index="#{index}" data_key="salad"
+										= image_tag "ui/minus.png", class: 'minus_pizza minus' 
+										input type="hidden" name="salad_#{index}" id="salad_#{index}" value="#{salad[0]}"
+										input name="salad_qty_#{index}" id="salad_qty_#{index}" data-previousValue="#{salad[1]}" value="#{salad[1]}" class="span1 order_additional_qty validate[required,custom[integer]]"
+										= image_tag "ui/plus.png", class: 'plus_pizza plus'
+
+									div.order-actions
+										= link_to "Edit", "/orders/additional_items#salads", :class => "small-link edit-remove padding-left0"
+										span.small-link |
+										= link_to "Remove", orders_remove_additional_path('salads',salad[0]), :confirm => "Are you sure you want to remove this item from your order?", :class => "small-link edit-remove"
+								td
+									div.text-right
+										p = number_to_currency(get_salad_price_total(@order, salad[0], salad[1]) )
+										
+				// garlic_breads
+				- @order.order_additional['garlic_breads'] && @order.order_additional['garlic_breads'].each_with_index do |garlic_bread, index|
+					- if garlic_bread[1].to_i > 0
+						tr.border-bottom
+							td.hidden-phone
+							- cache [@order, garlic_bread, 'edit_shopping_cart_garlic_breads_info'] do
+								td
+									p.item_title = get_garlic_bread_name(garlic_bread[0])
+									div.box-border.border-black.order-additional-quantity data_order_id="#{@order.id}" data_order_additional="garlic_breads" data_order_additional_index="#{index}" data_key="garlic_bread"
+										= image_tag "ui/minus.png", class: 'minus_pizza minus' 
+										input type="hidden" name="garlic_bread_#{index}" id="garlic_bread_#{index}" value="#{garlic_bread[0]}"
+										input name="garlic_bread_qty_#{index}" id="garlic_bread_qty_#{index}" data-previousValue="#{garlic_bread[1]}" value="#{garlic_bread[1]}" class="span1 order_additional_qty validate[required,custom[integer]]"
+										= image_tag "ui/plus.png", class: 'plus_pizza plus'
+
+									div.order-actions
+										= link_to "Edit", "/orders/additional_items#garlic", :class => "small-link edit-remove padding-left0"
+										span.small-link |
+										= link_to "Remove", orders_remove_additional_path('garlic_breads',garlic_bread[0]), :confirm => "Are you sure you want to remove this item from your order?", :class => "small-link edit-remove"
+								td
+									div.text-right
+										p = number_to_currency(get_garlic_bread_price_total(@order, garlic_bread[0], garlic_bread[1]) )						
+				
+				// cannolis
+				- @order.order_additional['cannolis'] && @order.order_additional['cannolis'].each_with_index do |cannoli, index|
+					- if cannoli[1].to_i > 0
+						tr.border-bottom
+							td.hidden-phone
+							- cache [@order, cannoli, 'edit_shopping_cart_cannolis_info'] do
+								td
+									p.item_title = "#{get_cannoli_name(cannoli[0])} x #{cannoli[1]}"
+								td
+									div.text-right
+										p = "Free"
+
+				// desserts
+				- if @order.order_additional['catering_order'] == "1"
+					- @order.order_additional['desserts'] && @order.order_additional['desserts'].each_with_index do |dessert, index|
+						- if dessert[1].to_i > 0
+							tr.border-bottom
+								td.hidden-phone
+								- cache [@order, dessert, 'edit_shopping_cart_desserts_info'] do
+									td
+										p.item_title = "#{get_dessert_name(dessert[0])}"
+										div.box-border.border-black.order-additional-quantity data_order_id="#{@order.id}" data_order_additional="desserts" data_order_additional_index="#{index}" data_key="dessert"
+											= image_tag "ui/minus.png", class: 'minus_pizza minus' 
+											input type="hidden" name="dessert_#{index}" id="dessert_#{index}" value="#{dessert[0]}"
+											input name="dessert_qty_#{index}" id="dessert_qty_#{index}" data-previousValue="#{dessert[1]}" value="#{dessert[1]}" class="span1 order_additional_qty validate[required,custom[integer]]"
+											= image_tag "ui/plus.png", class: 'plus_pizza plus'
+									
+										div.order-actions
+											= link_to "Edit", "/orders/additional_items", :class => "small-link edit-remove padding-left0"
+											span.small-link |
+											= link_to "Remove", orders_remove_additional_path('desserts',dessert[0]), :confirm => "Are you sure you want to remove this item from your order?", :class => "small-link edit-remove"
+									td
+										div.text-right
+											- cache [@order, dessert, 'shopping_cart_desserts_pricing'] do
+												p = number_to_currency( get_dessert_price_total(dessert[0], dessert[1]))
+											
+											
+											
+				// utensils
+				- if @order.order_additional['catering_order'] == "1"
+					- @order.order_additional['utensils'] && @order.order_additional['utensils'].each_with_index do |utensil, index|
+						- if utensil[1].to_i > 0
+							tr.border-bottom
+								td.hidden-phone
+								- cache [@order, utensil, 'edit_shopping_cart_utensils_info'] do
+									td								
+										p.item_title = "#{get_utensil_name(utensil[0])}"
+										p = "Quantity: #{utensil[1]}"
+										div.order-additional-quantity.utensils-select-box-cart
+											select id="utensil_quantity" name="utensil_#{index}" class="utensil_quantity select-input inline" data_order_id="#{@order.id}" data_order_additional="utensils" data_key="utensil" data_order_additional_index="#{index}" data_order_additional_id="#{utensil[0]}"
+												- numbers = [0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100]
+												- numbers.each do |n|
+													- if n === utensil[1].to_i
+														option value="#{n}" selected="" #{n}
+													- else 
+														option value="#{n}" #{n}
+										/ div.box-border.border-black.order-additional-quantity data_order_id="#{@order.id}" data_order_additional="utensils" data_order_additional_index="#{index}" data_key="utensil"
+										/ 	= image_tag "ui/minus.png", class: 'minus_pizza minus' 
+										/ 	input type="hidden" name="utensil_#{index}" id="utensil_#{index}" value="#{utensil[0]}"
+										/ 	input name="utensil_qty_#{index}" id="utensil_qty_#{index}" data-previousValue="#{utensil[1]}" value="#{utensil[1]}" class="span1 order_additional_qty validate[required,custom[integer]]"
+										/ 	= image_tag "ui/plus.png", class: 'plus_pizza plus'
+										
+										div.order-actions
+											= link_to "Edit", "/orders/additional_items", :class => "small-link hide edit-remove padding-left0"
+											span.small-link.hide |
+											= link_to "Remove", orders_remove_additional_path('utensils',utensil[0]), :confirm => "Are you sure you want to remove this item from your order?", :class => "small-link edit-remove padding-remove-free-item"
+									td
+										div.text-right
+											p = "free"
+																	
+				
+			- unless @order.total_price_including_sales_tax == 0
+				tr.subtotal.hidden-dsk
+					td 
+						p Subtotal
+					td.text-right
+						= "#{number_to_currency(@order.total_price)}"
+
+				- if params[:action] == 'summary' && !@order.for_pickup?
+					tr.delivery.hidden-dsk
+						td
+							p Delivery
+						td.text-right
+							= "#{number_to_currency(@order.delivery)}"
+						
+				tr.hst.hidden-dsk
+					td
+						p HST (13%)
+					td.text-right
+						= "#{number_to_currency(@order.sales_tax)}"
+							
+				tr.total.hidden-dsk
+					td Total
+					td.text-right
+						= number_to_currency(@order.total_price_including_sales_tax)
+	
+	
+	.bottom-actions.text-center.order_actions_bottom
+		.visible-phone
+			.span12
+				= link_to "Place Order For Pickup", orders_pickup_path, :class => "button default full"
+				= link_to "Place Order For Delivery", orders_delivery_path, :class => "button default full", :id => "order_for_delivery"
+			.span12.text-center
+			- unless @order.ordered?
+				p.text-center.m-t-20
+					em Note that delivery orders will add $#{Constant::DELIVERY_CHARGE}				
+			
+							
+- if @order.total_price > 0
+	#order-summary-table.col-md-4
+		.summary-container.cart
+			table.table.table-condensed.default-table.green.gray-body.summary-table
+				thead
+					th.first Order Summary
+					th
+				tbody
+					tr
+						td.text-left 
+							p Subtotal
+						td.text-right
+							p = "#{number_to_currency(@order.total_price)}"
+					- if params[:action] == 'summary' && !@order.for_pickup?
+						tr.delivery
+							td.text-left
+								p Delivery
+							td.text-right
+								= "#{number_to_currency(@order.delivery)}"
+					tr.hst
+						td.text-left
+							p HST (13%)
+						td.text-right
+							= "#{number_to_currency(@order.sales_tax)}"
+					tr.total.border-top
+						td.text-left Total
+						td.text-right
+							= number_to_currency(@order.total_price_including_sales_tax)
+
+			.bottom-actions.text-center.order_actions_bottom.order-action
+				.hidden-phone
+					= link_to "Add more items", orders_path, :class => "button black full hidden-phone continue_shopping more-space"
+					= link_to "Place Order for Pickup", orders_pickup_path, :class => "button default full"
+					- unless @order && @order.ordered?
+						- if @order && @order.potential_pickup_special?	&& @order.calculate_pickup_special_pricing_difference > 0
+							p.text-center.m-t-20.delivery-charges-lable
+								span Pickup special: you can save #{number_to_currency(@order.calculate_pickup_special_pricing_difference)} <br>when you pickup this order.
+					= link_to "Place Order for Delivery", orders_delivery_path, :class => "button default full", :id => "order_for_delivery"
+					
+					- unless @order && @order.ordered?
+						p.text-center.m-t-20.delivery-charges-lable
+							span Delivery orders will add $#{Constant::DELIVERY_CHARGE}
+							/ - if @order.potential_pickup_special?	&& @order.calculate_pickup_special_pricing_difference > 0
+							/ 	br
+							/ 	span Pickup orders will save #{number_to_currency(@order.calculate_pickup_special_pricing_difference)}
+					
+					
+
+				.visible-phone
+					.span12
+						= link_to "Place Order For Pickup", orders_pickup_path, :class => "button default full"
+						= link_to "Place Order For Delivery", orders_delivery_path, :class => "button default full", :id => "order_for_delivery"
+					.span12.text-center
+					- unless @order.ordered?
+						p.text-center.m-t-20
+							em Note that delivery orders will add $#{Constant::DELIVERY_CHARGE}
+
+#total_price_calc data-total-price="#{@order.total_price}"

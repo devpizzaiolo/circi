@@ -1,0 +1,27 @@
+.container
+	.body-container
+		= simple_form_for([:admins, @cannoli], multipart: true) do |f|
+			
+			fieldset
+				legend Product Details
+			
+				=f.input :name, :required => true
+				=f.input :active, :label => "Show Cannoli"
+				
+				=f.input :description, :required => false
+				
+				=f.input :product_image, :as => :file, :label => "Image"
+				
+			fieldset
+				legend Pricing (Cublic)
+				
+				=f.input :price, :as => :string, :label => "Price $"
+
+			hr
+				= f.button :submit, "Save/Update Cannoli", :class => "btn btn-primary"
+				
+				= " "
+				
+				= link_to "Cancel", admins_cannolis_path, :class => "btn"
+				
+				

@@ -1,0 +1,257 @@
+- meta title: "Pizzaiolo | Gourmet Pizza | Pizza Delivery Toronto | Take Out Pizza",
+	description: "Pizzaiolo prides themselves on making fresh pizza with fresh ingredients daily. Pizza delivery Toronto, best pizza delivery Toronto. Gluten-free pizza, wheat free pizza dough, thin crust pizza. Pizzaiolo is a pizza catering company, pizza delivery company, order pizza online, popular pizza.",
+	keywords: "Pizzaiolo"
+
+- content_for(:heading) {("CONFIRM<br>YOUR ORDER").html_safe}
+- content_for(:body_class) {"confirm_your_order_page"}
+div.top-bar
+	h1 
+		= link_to raw('&#8592;'), request.referer.present? ? request.referer : root_path
+		| Order Summary
+.red-alert.visible-phone
+	p TO PLACE YOUR ORDER, review and confirm below.
+.body-container.p-t-0
+	.container
+		.row.summary-page-layout
+			/ .p-t-40.col-12
+			/ 	h2.super-header-top.m-b-20.green CONFIRM<br>YOUR ORDER
+			.col-12.margin-top-bottom	
+				div.regular-p.red-text TO PLACE YOUR ORDER, review and confirm below.
+				- if @order.for_pickup == false
+					div.regular-p.red-text = @store_close_message
+		.row.summary-table-data
+			= render(:partial => 'orders/shopping_cart_table_summary')
+			
+			.col-12.col-md-7.order-summary-details.payment-cart-padding
+				div
+					div.cart-border-box.payment-card-decor
+						div.regular-p.green.m-t-0.store-tag-line Your order will be prepared fresh by:
+						p.regular-p
+							strong Pizzaiolo<br>
+							=@order.franchise_location.address
+						p.regular-p
+							span.hidden-phone=@order.franchise_location.phone
+							span.visible-phone = raw link_to @order.franchise_location.phone, "tel:#{@order.franchise_location.phone.delete('-')}"
+							- if @order.for_pickup?
+								p.regular-p.order-in
+									span= "You can pickup your order in #{@order.baked_items_count >=3 ? "30" : "25"} minutes after order confirmation."
+							- else
+								p.regular-p.order-in
+									- if !@order.order_additional.blank? && @order.order_additional['catering_order'] && @order.order_additional['catering_order'] == "1"
+										span.hide 
+									- else 
+										span= "Estimated time of arrival #{@order.baked_items_count >=3 ? "45-55" : "40"} minutes after order confirmation."
+
+					/ - if @order.for_pickup
+					/ 	p.regular-p.m-t-20.green
+					/ 		| Your order will be ready for pickup:
+					/ 	p = l(@order.to_be_ready_at, :format => :long_wam)
+			
+					/ - else
+					/ 		p.regular-p.green.m-t-20.delivery-to Delivered by:
+					/ 		p.regular-p = l(@order.to_be_ready_at, :format => :long_wam)
+							
+							p.regular-p.green.m-t-20.delivery-to Delivering to:
+							p.regular-p = @order.delivery_address_1
+							-unless @order.delivery_address_2.blank?
+								p.regular-p = @order.delivery_address_2
+								p.regular-p = @order.delivery_city
+								p.regular-p = @order.delivery_postal_code
+					.m-t-30.select-payment-method.cart-border-boxs
+						= simple_form_for(@order, :url => orders_submit_order_path, :html => {:id => "payment_method", :class => 'default-form'}) do |f|
+							div.cart-border-box.payment-card-decor
+								h3.pinkish Special Instructions
+								-if @order.for_pickup == false
+									= f.input :special_instructions, :label => false, :placeholder => "Special Instructions for Delivery (example: Please leave order on the porch and ring the bell. or Please use the side door.)", :input_html => {:class => "span6", :rows => 6}
+								- else
+									= f.input :special_instructions, :label => false, :placeholder => "Special Instructions for Pickup (example: Curb side pick up or make it crispy.)", :input_html => {:class => "span6", :rows => 6}
+								/ - if @order.for_pickup == false
+
+							div.cart-border-box.payment-card-decor
+								input id="order_id" name="order[id]" type="hidden" value="#{@order.id}"
+								input id="order_token" name="order[token]" type="hidden"
+								input id="order_postal_code" name="order[postal_code]" type="hidden"
+								input id="order_name" name="order[name]" type="hidden"
+								input id="order_first_name" name="order[first_name]" type="hidden"
+								input id="order_last_name" name="order[last_name]" type="hidden"
+								input id="order_email" name="order[email]" type="hidden"
+								input id="order_phone_number" name="order[phone_number]" type="hidden"
+								input id="order_city" name="order[city]" type="hidden"
+								input id="order_address_line1" name="order[address_line1]" type="hidden"
+								input id="order_address_line2" name="order[address_line2]" type="hidden"
+								input id="order_province" name="order[province]" type="hidden"
+								input id="order_country" name="order[country]" type="hidden"
+								input id="tip_percentage_value" name="tip_percentage_value" type="hidden" value="#{@order.tip_percentage}"
+						
+								h4.regular-p.green.m-t-20.payment-type Select Payment method:
+								.row
+											.span6.col-12.col-md-12
+												div.payment_type
+													- if @order.for_pickup == false
+														- if @order.franchise_location.try(:enable_online_payments) 
+															- MethodOfPayment.active.order("id desc").where('slug NOT IN (?)', ["credit-or-debit-at-store"]).each do |pay_type|
+																div.pay_type.payment_method class='#{MethodOfPayment.active.order("id desc").where('slug NOT IN (?)', ["credit-or-debit-at-store"]).first.id === pay_type.id ? "selected" : "" }' data-pay_id='#{pay_type.id}'
+																	= raw("#{pay_type.name}")
+														- else
+															- MethodOfPayment.active.order("id desc").where('slug NOT IN (?)', ["pay-online", "credit-or-debit-at-store"]).each do |pay_type|
+																div.pay_type.payment_method class='#{ MethodOfPayment.active.order("id desc").where('slug NOT IN (?)', ["pay-online", "credit-or-debit-at-store"]).first.id === pay_type.id ? "selected" : "" }' data-pay_id='#{pay_type.id}'
+																	= raw("#{pay_type.name}")
+														= f.input :method_of_payment_id, :input_html => {:class => "hide"},  collection: @order.franchise_location.try(:enable_online_payments) ? MethodOfPayment.active.order("id desc").where('slug NOT IN (?)', ["credit-or-debit-at-store"]) : MethodOfPayment.active.order("id desc").where('slug NOT IN (?)', ["pay-online", "credit-or-debit-at-store"]), :label => false, :selected => @order.franchise_location.try(:enable_online_payments) ? MethodOfPayment.active.order("id desc").where('slug NOT IN (?)', ["credit-or-debit-at-store"]).first.id : MethodOfPayment.active.order("id desc").where('slug NOT IN (?)', ["pay-online", "credit-or-debit-at-store"]).first.try(:id)
+														//= f.input :method_of_payment_id, collection: @order.franchise_location.try(:enable_online_payments) ? MethodOfPayment.active.order("id desc").where('slug NOT IN (?)', ["credit-or-debit-at-store"]) : MethodOfPayment.active.order("id desc").where('slug NOT IN (?)', ["pay-online", "credit-or-debit-at-store"]), :label => false, :selected => @order.franchise_location.try(:enable_online_payments) ? MethodOfPayment.active.order("id desc").where('slug NOT IN (?)', ["credit-or-debit-at-store"]).first.id : MethodOfPayment.active.order("id desc").where('slug NOT IN (?)', ["pay-online", "credit-or-debit-at-store"]).first.id
+													- else
+														- if @order.franchise_location.try(:enable_online_payments) 
+															- MethodOfPayment.active.order("id desc").where('slug NOT IN (?)', ["credit-or-debit-at-door"]).each do |pay_type|
+																div.pay_type.payment_method class='#{MethodOfPayment.active.order("id desc").where('slug NOT IN (?)', ["credit-or-debit-at-door"]).first.id === pay_type.id ? "selected" : "" }' data-pay_id='#{pay_type.id}'
+																	= raw("#{pay_type.name}")
+														- else
+															- MethodOfPayment.active.order("id desc").where('slug NOT IN (?)', ["pay-online", "credit-or-debit-at-door"]).each do |pay_type|
+																div.pay_type.payment_method class='#{MethodOfPayment.active.order("id desc").where('slug NOT IN (?)', ["pay-online", "credit-or-debit-at-door"]).first.id === pay_type.id ? "selected" : "" }' data-pay_id='#{pay_type.id}'
+																	= raw("#{pay_type.name}")
+														= f.input :method_of_payment_id, :input_html => {:class => "hide"},  collection: @order.franchise_location.try(:enable_online_payments) ? MethodOfPayment.active.order("id desc").where('slug NOT IN (?)', ["credit-or-debit-at-door"]) : MethodOfPayment.active.order("id desc").where('slug NOT IN (?)', ["pay-online", "credit-or-debit-at-door"]), :label => false, :selected => @order.franchise_location.try(:enable_online_payments) ? MethodOfPayment.active.order("id desc").where('slug NOT IN (?)', ["credit-or-debit-at-door"]).first.id : MethodOfPayment.active.order("id desc").where('slug NOT IN (?)', ["pay-online", "credit-or-debit-at-door"]).first.try(:id)
+													- MethodOfPayment.where("active = ? AND disclaimer <> ''", true).each do |mop|
+														p.muted
+															em
+																= mop.disclaimer
+								.m-t-20
+								- if !@order.order_additional.blank? && @order.order_additional['catering_order'] == "1"
+									h4.regular-p.note-for-catering.green = "Note: this is a Catering Order for #{@order.order_additional['catering_order_group_number']} people."
+
+								div.payment-box.pay-hide
+									div.payment-container
+										br/
+										div.row 
+											div.col-md-12
+												h4 = "Show your support with a tip"
+												p = "Delivery people are critical to our communities at this time. Add a tip to say thanks."
+
+										div.row 
+											.col-md-12
+												.tip-options
+													.tip-option-button#10_percent_tip data-percentage="10"
+														.tip-percentage 10%
+														.tip-amount = number_to_currency(@order.percentage_tip_amount('10'))
+													.tip-option-button#15_percent_tip data-percentage="15"
+														.tip-percentage 15%
+														.tip-amount = number_to_currency(@order.percentage_tip_amount('15'))
+													.tip-option-button#20_percent_tip data-percentage="20"
+														.tip-percentage 20%
+														.tip-amount = number_to_currency(@order.percentage_tip_amount('20'))
+													.tip-option-button#25_percent_tip data-percentage="25"
+														.tip-percentage 25%
+														.tip-amount = number_to_currency(@order.percentage_tip_amount('25'))
+													.tip-option-button#custom-tip data-percentage="0"
+														.tip-custom Edit
+
+										div.row
+											.col-md-12
+												div#custom-tip-wrapper.hide
+													input#custom_tip_amount.bambora-postal-code placeholder="Enter tip amount(for example: $5.60)" type="number"
+
+										div.row 
+											.col-md-12
+												hr/
+
+										form#checkout-form
+											#card-number
+											label#card-number-error
+											div.row
+												div.col-md-6
+													#card-expiry
+													label#card-expiry-error
+												div.col-md-6
+													#card-cvv
+													label#card-cvv-error
+											div.row 
+												div.col-md-12 
+													.check-mark style="margin-top: 35px;"
+														input#billing_address_as_shipping_address name="billing_address_as_shipping_address" type="checkbox" data-order_attributes="#{@order.payment_transactions.count > 0 ? @order.payment_transactions.last.attributes.to_json : @order.attributes.to_json}"/
+														label.checkbox.small.color-black for="billing_address_as_shipping_address"  Billing address same as delivery address
+
+											div.row 
+												div.col-md-6
+													input#bambora_name.bambora-postal-code.mb-35 name="bambora_name" type="text" placeholder="Name" /
+												div.col-md-6
+													input#bambora_email.bambora-postal-code.mb-35 name="bambora_email" type="email" placeholder="Email" /
+											div.row 
+												div.col-md-12
+													input#bambora_phone_number.bambora-postal-code.mb-35 name="bambora_phone_number" type="phone" placeholder="Phone" /
+
+											div.row 
+												div.col-md-12
+													input#bambora_address_line1.bambora-postal-code.mb-35.google-autocomplete name="bambora_address_line1" type="text" placeholder="Address 1" data_id="payment-form"/
+											
+											div.row
+												div.col-md-12
+													input#bambora_address_line2.bambora-postal-code.mb-35 name="bambora_address_line2" type="text" placeholder="Address 2(e.g. unit #574, buzzer code: 12)" /
+
+											div.row 
+												div.col-md-6
+													input#bambora_city.bambora-postal-code.mb-35 name="bambora_city" type="text" placeholder="City" /
+												div.col-md-6
+													input#bambora_postal_code.bambora-postal-code.mb-35 name="bambora_postal_code" type="text" placeholder="Postal code" /
+											
+											div.row 
+												div.col-md-6
+													select#bambora_province.bambora-province.mb-35 name="bambora_province"
+														option value="" Select province
+														option value="AB" Alberta
+														option value="BC" British Columbia
+														option value="MB" Manitoba
+														option value="NB" New Brunswick
+														option value="NL" Newfoundland and Labrador
+														option value="NT" Northwest Territories
+														option value="NS" Nova Scotia
+														option{value="ON" selected="true"}  Ontario
+														option value="PE" Prince Edward Island
+														option value="QC" Quebec
+														option value="SK" Saskatchewan
+														option value="YT" Yukon
+												div.col-md-6
+													select#bambora_country.bambora-country.mb-35 name="bambora_country"
+														option value="" Select country
+														option value="CA" Canada
+											div.pay_online_btns
+												
+												input#pay-button.button.default.disable disabled="true" type="submit" value="Pay" /
+												
+												= link_to "Edit order", "/orders/details", :class => "button order-edit-btn gray border full"
+
+					div.place-order-box.hide
+						.bottom-actions.order_actions_bottom
+							.hidden-phone.order-actions-btns.place-order-btn
+								- if @order.for_pickup?
+									= link_to "PLACE ORDER", orders_submit_order_path, :class => "button default full", :id => "submit_pickup_order_for_processing"
+								- else
+									= link_to "PLACE ORDER", orders_submit_order_path, :class => "button default full", :id => "submit_delivery_order_for_processing"
+								
+								= link_to "Edit order", "/orders/details", :class => "button order-edit-btn gray border full"
+
+							//p.red.m-t-20 This order will be sent to your local store.
+
+							
+							
+							
+							
+							
+				/ = render partial: "order_summary_table", locals: { show_on_mobile: true }
+
+
+		.visible-phone
+			= link_to "Edit/Update Order", orders_path, :class => "button gray full"
+
+			- if @order.for_pickup?
+				= link_to "Confirm & Submit Order", orders_submit_order_path, :class => "button default full", :id => "submit_pickup_order_for_processing_phone"
+			- else
+				= link_to "Confirm & Submit Order", orders_submit_order_path, :class => "button default full", :id => "submit_delivery_order_for_processing_phone"
+
+			p.text-center.m-t-20.red
+				/ make it red
+				small By clicking "Confirm & Submit Order", the order shown above will be sent to your local store.
+
+#printerStatus.modal.custom-printer-message aria-hidden="true" aria-labelledby="printerStatus" role="dialog" tabindex="12" 
+  .modal-body
+    p Location Printer is not online. Please select another payment method.
+  .text-center
+    a#modalLinkOrderMore.button.default aria-hidden="true" data-dismiss="modal"  Close.
+
+/ script src="bambora.js"

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.2">
+<Document>
+  <name>205 Dundas St. W</name>
+  <description><![CDATA[205 Dundas St. W
+Toronto, Ontario
+416-506-1052]]></description>
+  <Style id="style1">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/intl/en_ALL/mapfiles/ms/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Placemark>
+    <name>Pizzaiolo Pizza</name>
+    <description><![CDATA[<div dir="ltr">205 Dundas St. W<br>Toronto, Ontario<br>416-506-1052</div>]]></description>
+    <styleUrl>#style1</styleUrl>
+    <Point>
+      <coordinates>-79.387489,43.654915,0.000000</coordinates>
+    </Point>
+  </Placemark>
+</Document>
+</kml>

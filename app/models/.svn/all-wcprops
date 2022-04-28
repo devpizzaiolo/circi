@@ -1,0 +1,197 @@
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/pizzaioloca/!svn/ver/270/trunk/pizzaiolo.ca/app/models
+END
+pizza_crust_style.rb
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/pizzaioloca/!svn/ver/59/trunk/pizzaiolo.ca/app/models/pizza_crust_style.rb
+END
+pizza_crust.rb
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/app/models/pizza_crust.rb
+END
+franchise_enquiry.rb
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/pizzaioloca/!svn/ver/270/trunk/pizzaiolo.ca/app/models/franchise_enquiry.rb
+END
+customer_service.rb
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/pizzaioloca/!svn/ver/187/trunk/pizzaiolo.ca/app/models/customer_service.rb
+END
+utensil.rb
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/app/models/utensil.rb
+END
+salad.rb
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/pizzaioloca/!svn/ver/226/trunk/pizzaiolo.ca/app/models/salad.rb
+END
+print_test_report.rb
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/pizzaioloca/!svn/ver/235/trunk/pizzaiolo.ca/app/models/print_test_report.rb
+END
+pizza_category.rb
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/app/models/pizza_category.rb
+END
+ad_box.rb
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/pizzaioloca/!svn/ver/199/trunk/pizzaiolo.ca/app/models/ad_box.rb
+END
+contact_phone_number.rb
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/app/models/contact_phone_number.rb
+END
+method_of_payment.rb
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/pizzaioloca/!svn/ver/73/trunk/pizzaiolo.ca/app/models/method_of_payment.rb
+END
+customer.rb
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/pizzaioloca/!svn/ver/244/trunk/pizzaiolo.ca/app/models/customer.rb
+END
+catering_group_size.rb
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/app/models/catering_group_size.rb
+END
+.gitkeep
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/app/models/.gitkeep
+END
+type_of_topping.rb
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/app/models/type_of_topping.rb
+END
+dessert.rb
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/app/models/dessert.rb
+END
+dipping_sauce.rb
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/app/models/dipping_sauce.rb
+END
+order.rb
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/pizzaioloca/!svn/ver/269/trunk/pizzaiolo.ca/app/models/order.rb
+END
+delivery_pickup_time.rb
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/app/models/delivery_pickup_time.rb
+END
+calzone_preset.rb
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/pizzaioloca/!svn/ver/153/trunk/pizzaiolo.ca/app/models/calzone_preset.rb
+END
+post_code.rb
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/pizzaioloca/!svn/ver/251/trunk/pizzaiolo.ca/app/models/post_code.rb
+END
+pizza_preset.rb
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/pizzaioloca/!svn/ver/245/trunk/pizzaiolo.ca/app/models/pizza_preset.rb
+END
+beverage.rb
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/pizzaioloca/!svn/ver/66/trunk/pizzaiolo.ca/app/models/beverage.rb
+END
+topping.rb
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/pizzaioloca/!svn/ver/230/trunk/pizzaiolo.ca/app/models/topping.rb
+END
+flyer.rb
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/pizzaioloca/!svn/ver/121/trunk/pizzaiolo.ca/app/models/flyer.rb
+END
+print_order_report.rb
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/app/models/print_order_report.rb
+END
+address.rb
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/app/models/address.rb
+END
+pizza_size.rb
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/pizzaioloca/!svn/ver/257/trunk/pizzaiolo.ca/app/models/pizza_size.rb
+END
+admin.rb
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/pizzaioloca/!svn/ver/201/trunk/pizzaiolo.ca/app/models/admin.rb
+END
+order_item.rb
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/pizzaioloca/!svn/ver/257/trunk/pizzaiolo.ca/app/models/order_item.rb
+END
+constant.rb
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/pizzaioloca/!svn/ver/256/trunk/pizzaiolo.ca/app/models/constant.rb
+END
+franchise_location.rb
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/pizzaioloca/!svn/ver/257/trunk/pizzaiolo.ca/app/models/franchise_location.rb
+END

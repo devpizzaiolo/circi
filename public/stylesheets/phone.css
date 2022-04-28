@@ -1,0 +1,20 @@
+div.container#content {
+	background-color: #fff;
+	border: 0px;
+	// padding: 8px;
+	// margin-top: 24px;
+}
+
+div.padded_box {
+	padding: 6px;
+}
+
+select.small {
+	margin-left:0px;
+	font-size: 0.8em;
+	line-height: 20px;
+}
+
+.modal.picview {
+	top: 60px;
+}

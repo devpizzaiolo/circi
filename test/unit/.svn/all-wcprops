@@ -1,0 +1,185 @@
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/pizzaioloca/!svn/ver/270/trunk/pizzaiolo.ca/test/unit
+END
+utensil_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/test/unit/utensil_test.rb
+END
+salad_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/test/unit/salad_test.rb
+END
+address_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/test/unit/address_test.rb
+END
+pizza_size_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/test/unit/pizza_size_test.rb
+END
+admin_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/test/unit/admin_test.rb
+END
+order_item_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/test/unit/order_item_test.rb
+END
+constant_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/test/unit/constant_test.rb
+END
+franchise_location_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/test/unit/franchise_location_test.rb
+END
+pizza_category_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/test/unit/pizza_category_test.rb
+END
+ad_box_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/pizzaioloca/!svn/ver/199/trunk/pizzaiolo.ca/test/unit/ad_box_test.rb
+END
+contact_phone_number_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/test/unit/contact_phone_number_test.rb
+END
+pizza_crust_style_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/pizzaioloca/!svn/ver/59/trunk/pizzaiolo.ca/test/unit/pizza_crust_style_test.rb
+END
+customer_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/test/unit/customer_test.rb
+END
+method_of_payment_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/pizzaioloca/!svn/ver/73/trunk/pizzaiolo.ca/test/unit/method_of_payment_test.rb
+END
+catering_group_size_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/test/unit/catering_group_size_test.rb
+END
+type_of_topping_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/test/unit/type_of_topping_test.rb
+END
+.gitkeep
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/test/unit/.gitkeep
+END
+dessert_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/test/unit/dessert_test.rb
+END
+dipping_sauce_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/test/unit/dipping_sauce_test.rb
+END
+order_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/test/unit/order_test.rb
+END
+delivery_pickup_time_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/test/unit/delivery_pickup_time_test.rb
+END
+pizza_crust_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/test/unit/pizza_crust_test.rb
+END
+calzone_preset_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/test/unit/calzone_preset_test.rb
+END
+franchise_enquiry_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/pizzaioloca/!svn/ver/270/trunk/pizzaiolo.ca/test/unit/franchise_enquiry_test.rb
+END
+pizza_preset_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/test/unit/pizza_preset_test.rb
+END
+post_code_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/pizzaioloca/!svn/ver/251/trunk/pizzaiolo.ca/test/unit/post_code_test.rb
+END
+topping_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/test/unit/topping_test.rb
+END
+beverage_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/test/unit/beverage_test.rb
+END
+customer_service_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/test/unit/customer_service_test.rb
+END
+flyer_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/pizzaioloca/!svn/ver/102/trunk/pizzaiolo.ca/test/unit/flyer_test.rb
+END

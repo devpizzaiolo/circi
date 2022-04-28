@@ -1,0 +1,27 @@
+.body-container
+	.page-header
+		h1 Cannolis
+		
+	table.table
+		thead
+			tr
+				th Name
+				th 
+				th Show in Menu
+				th Options
+		tbody
+			- @cannolis.each do |cannoli|
+				
+				tr
+					td= cannoli.name
+					td= image_tag cannoli.product_image.thumbnail.url
+					td
+						- if cannoli.active?
+							| Yes
+						- else
+							| No
+					td 
+						= link_to "Edit", edit_admins_cannoli_path(cannoli.id), :class => "btn btn-mini"
+						= link_to "Delete", admins_cannoli_path(cannoli.id), :class => "btn btn-mini", :method => :delete
+		
+	= link_to "New Cannoli", new_admins_cannoli_path, class: 'button default'

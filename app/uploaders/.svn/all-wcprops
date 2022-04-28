@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/pizzaioloca/!svn/ver/199/trunk/pizzaiolo.ca/app/uploaders
+END
+ad_box_uploader.rb
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/pizzaioloca/!svn/ver/199/trunk/pizzaiolo.ca/app/uploaders/ad_box_uploader.rb
+END
+flyer_uploader.rb
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/pizzaioloca/!svn/ver/111/trunk/pizzaiolo.ca/app/uploaders/flyer_uploader.rb
+END
+product_image_uploader.rb
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/pizzaioloca/!svn/ver/106/trunk/pizzaiolo.ca/app/uploaders/product_image_uploader.rb
+END
+kml_uploader.rb
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/pizzaioloca/!svn/ver/150/trunk/pizzaiolo.ca/app/uploaders/kml_uploader.rb
+END

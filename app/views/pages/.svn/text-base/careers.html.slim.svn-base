@@ -1,0 +1,22 @@
+- content_for(:title) {"Careers"}
+- @header = "careers"
+- @heading = "careers"
+
+
+h1 style="display:none;" Careers
+
+p.lead Are you energetic and driven? Are you passionate about pizza and people?
+
+p Pizzaiolo offers a great environment for people to earn, learn and have fun. From serving customers in the front zone to preparing food in our kitchens, Pizzaiolo restaurant positions are always interesting and rewarding. As a Pizzaiolo crew member, you will have the opportunity to:
+
+ul
+	li Be part of an exciting team and meet new people
+	li Multi-task and gain valuable skills that can be transferred into future career opportunities
+	li Learn the benefits of committing to Customer Service Excellence
+	li Enjoy a fun, friendly and safe work environment
+
+p
+	| Pizzaiolo locations are always on the lookout for passionate people who are eager to be part of a fun, fast-paced environment. If you think you have what it takes to join a local Pizzaiolo, please email your resume to 
+	= mail_to('jobs@pizzaiolo.ca') + "."
+
+br

@@ -1,0 +1,36 @@
+.container
+	.body-container
+		= simple_form_for([:admins, @garlic_bread], multipart: true) do |f|
+			
+			fieldset
+				legend Product Details
+			
+				=f.input :name, :required => true
+				=f.input :extra_info, :label => "Extra Info"
+				=f.input :active, :label => "Show Garlic Bread"
+				
+				=f.input :description, :required => true
+				
+				=f.input :product_image, :as => :file, :label => "Show Garlic Bread"
+				
+			fieldset
+				legend Pricing (Cublic)
+				
+				=f.input :price, :as => :string, :label => "Price $"
+				
+			fieldset
+				legend Pricing (Catering)
+				
+				=f.input :price_one_to_five, :as => :string, :label => "Price (1-5) $"
+				=f.input :price_six_to_nineteen, :as => :string, :label => "Price (6-19) $"
+				=f.input :price_twenty_plus, :as => :string, :label => "Price (20+) $"
+				
+
+			hr
+				= f.button :submit, "Save/Update Garlic Bread", :class => "btn btn-primary"
+				
+				= " "
+				
+				= link_to "Cancel", admins_garlic_breads_path, :class => "btn"
+				
+				

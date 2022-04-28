@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  price_one_to_five: 9.99
+  price_six_to_nineteen: 9.99
+  price_twenty_plus: 9.99
+  active: false
+
+two:
+  name: MyString
+  price_one_to_five: 9.99
+  price_six_to_nineteen: 9.99
+  price_twenty_plus: 9.99
+  active: false

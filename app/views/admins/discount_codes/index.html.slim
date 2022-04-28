@@ -1,0 +1,50 @@
+.body-container
+	.page-header
+		h1 Discount Codes
+		
+	table.table
+		thead
+			tr
+				th Code
+				th Promotion Name
+				th Value
+				th Type
+				th Filters
+				th One Time Use
+				th One Time Used At
+				th Order Id
+				th Active?
+				th Exclude Deals?
+				/ th Expired At
+				th Options
+		tbody
+			- @discount_codes.each do |discount_code|
+				tr
+					td= discount_code.code
+					td= discount_code.promotion_name
+					td= discount_code.value
+					td= discount_code.discount_type
+					td= discount_code.filters.try(:html_safe)
+					td
+						- if discount_code.one_time_use
+							| Yes
+						- else
+							| No
+					td= discount_code.one_time_used_at
+					td= discount_code.used_order_id
+					td
+						- if discount_code.active
+							| Yes
+						- else
+							| No
+					td
+						- if discount_code.exclude_deals
+							| Yes
+						- else
+							| No
+					/ td= discount_code.expired_at
+					td
+						= link_to "Edit", edit_admins_discount_code_path(discount_code.id), :class => "btn btn-mini"
+						= link_to "Delete", admins_discount_code_path(discount_code.id), :class => "btn btn-mini", :method => :delete
+
+	= link_to "New Discount Code", new_admins_discount_code_path, class: 'button default'

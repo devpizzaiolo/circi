@@ -1,0 +1,14 @@
+- content_for(:title) {"Welcome"}
+
+br
+			
+.row.hidden-phone
+	- cache('ad_pods_homepage') do
+		- AdBox.where(:active => true).order(:position).each do |ad_box|
+			.span4
+				- unless ad_box.url_link.blank?
+					a href="#{ad_box.url_link}"
+						img src="#{ad_box.pod.url}?#{ad_box.updated_at.to_i}" class="homepage-pods"
+				- else
+					img src="#{ad_box.pod.url}?#{ad_box.updated_at.to_i}" class="homepage-pods"
+

@@ -1,0 +1,34 @@
+.body-container
+	.page-header
+		h1 Discount Code Filters
+		
+	table.table
+		thead
+			tr
+				th Filter Type
+				th Email
+				th Franchise Location
+				th Toppings
+				th Discount Code
+				th Active?
+				th Options
+		tbody
+			- @discount_code_filters.each do |discount_code_filter|
+				tr
+					td= discount_code_filter.filter_type.try(:titleize)
+					td= discount_code_filter.email
+					td= discount_code_filter.franchise_location.try(:address)
+					td
+						- if !discount_code_filter.toppings.blank?
+							= discount_code_filter.toppings_name
+					td= discount_code_filter.discount_code.try(:code)
+					td
+						- if discount_code_filter.active
+							| Yes
+						- else
+							| No
+					td
+						= link_to "Edit", edit_admins_discount_code_filter_path(discount_code_filter.id), :class => "btn btn-mini"
+						= link_to "Delete", admins_discount_code_filter_path(discount_code_filter.id), :class => "btn btn-mini", :method => :delete
+
+	= link_to "New Discount Code Filter", new_admins_discount_code_filter_path, class: 'button default'

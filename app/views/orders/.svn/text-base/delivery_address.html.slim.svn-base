@@ -1,0 +1,135 @@
+.page-header
+	h1 Place Order For Delivery
+	
+
+- unless current_customer
+
+	h2 Delivery Address
+
+	p Please enter and/or update the delivery address below.
+	
+
+	= simple_form_for(@order, :url => orders_update_order_with_delivery_address_path) do |f|
+		
+		- if @order.delivery_address_1.blank?
+			= f.input :delivery_address_1, :required => true, :input_html => {:value => @order.address_1}
+		- else
+			= f.input :delivery_address_1, :required => true
+			
+		- if @order.delivery_address_2.blank?
+			= f.input :delivery_address_2, :required => false, :input_html => {:value => @order.address_2}
+		- else
+			= f.input :delivery_address_2, :required => false
+			
+		- if @order.delivery_city.blank?
+			= f.input :delivery_city, :required => true, :input_html => {:value => @order.city}
+		- else
+			= f.input :delivery_city, :required => true
+			
+		- if @order.delivery_postal_code.blank?
+			= f.input :delivery_postal_code, :required => true, :input_html => {:value => @order.postal_code}
+		- else
+			= f.input :delivery_postal_code, :required => true
+		
+		br
+		
+		= link_to "Go back", orders_delivery_path, :class => "btn"
+		= " "
+		= f.button :submit, "Submit/Next", :class => "btn btn-primary"
+		
+- else
+	
+	.row
+		.span5
+		
+			h3 Confirm Delivery Address
+	
+			p Select an address from below as the delivery location.
+	
+			br
+			
+			.row
+				.span5
+					.row
+						.span3
+							.address
+								= current_customer.address_1
+								- unless current_customer.address_2.blank?
+									br
+									= current_customer.address_2
+								br
+								= current_customer.city
+								br
+								= current_customer.postal_code
+						.span2
+							br
+							- @address = Address.new
+							= simple_form_for(@address, :url => orders_add_delivery_address_path) do |f|
+
+								= f.input :address_1, :as => :hidden, :required => true, :input_html => {:value => current_customer.address_1}
+								= f.input :address_2, :as => :hidden, :required => false, :input_html => {:value => current_customer.address_2}
+								= f.input :city, :as => :hidden, :required => true, :input_html => {:value => current_customer.city}
+								= f.input :postal_code, :as => :hidden, :required => true, :input_html => {:value => current_customer.postal_code}
+								/ = f.input :address_id, :as => :hidden, :input_html => {:value => address.id}
+							
+								= f.button :submit, "Deliver Here", :class => "btn btn-primary"
+							
+							br
+							br
+			
+			- if current_customer.addresses.count > 0
+		
+				.row
+					- current_customer.addresses.order("created_at DESC").limit(3).each do |address|			
+						.span5
+							.row
+								.span3
+									.address
+										= address.address_1
+										- unless address.address_2.blank?
+											br
+											= address.address_2
+										br
+										= address.city
+										br
+										= address.postal_code
+								.span2
+									br
+									- @address = Address.new
+									= simple_form_for(@address, :url => orders_add_delivery_address_path) do |f|
+	
+										= f.input :address_1, :as => :hidden, :required => true, :input_html => {:value => address.address_1}
+										= f.input :address_2, :as => :hidden, :required => false, :input_html => {:value => address.address_2}
+										= f.input :city, :as => :hidden, :required => true, :input_html => {:value => address.city}
+										= f.input :postal_code, :as => :hidden, :required => true, :input_html => {:value => address.postal_code}
+										= f.input :address_id, :as => :hidden, :input_html => {:value => address.id}
+									
+										= f.button :submit, "Deliver Here", :class => "btn btn-primary"
+									
+									br
+									br
+									
+			- else
+				br
+							
+		.span1
+			div align="center"
+		
+		
+		.span5
+		
+			h3 Or, Enter New Address
+
+			- @address = Address.new
+			= simple_form_for(@address, :url => orders_add_delivery_address_path) do |f|
+	
+				= f.input :address_1, :required => true
+				= f.input :address_2, :required => false
+				= f.input :city, :required => true
+				= f.input :postal_code, :required => true
+				= f.input :save_new, :as => :hidden, :input_html => {:value => "1"}
+				
+				= f.button :submit, "Save & Deliver Here", :class => "btn btn-primary"
+	
+			
+	

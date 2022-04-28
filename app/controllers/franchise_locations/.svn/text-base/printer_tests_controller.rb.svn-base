@@ -1,0 +1,7 @@
+class FranchiseLocations::PrinterTestsController < ApplicationController
+  
+  def index
+    @franchise_locations = FranchiseLocation.order('address ASC')
+  end
+  
+end

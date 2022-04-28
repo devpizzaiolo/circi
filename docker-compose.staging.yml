@@ -1,0 +1,35 @@
+version: '2'
+
+services:
+  rails:
+    tty: true
+    stdin_open: true
+    build:
+      context: .
+    command: bash -c "rm -f /app/tmp/pids/server.pid && bundle install && bundle exec rake db:migrate && bundle exec rails s -p 3006 -b 0.0.0.0"
+    ports:
+      - "3006:3006"
+    depends_on:
+      - redis
+    volumes:
+      - .:/app
+      # - pizzaiolo-sync:/app:nocopy
+    environment:
+      DATABASE_HOST: 10.137.184.125
+      DATABASE_NAME: pizzaiolo_ca_staging
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_USER: root
+      RAILS_ENV: production
+      REDIS_URL: redis://redis:6379/1
+      ROLLBAR_ACCESS_TOKEN: bbd4f9c9ec3a42db9236a1a23f9c1cd5
+      RAILS_ENV: production
+  redis:
+    image: redis
+    command: redis-server
+    ports:
+      - '6380:6379'
+volumes:
+    mysql_data:
+    pizzaiolo-sync:
+      external: true
+  

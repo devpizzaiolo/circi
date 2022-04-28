@@ -1,0 +1,411 @@
+# Place all the behaviors and hooks related to the matching controller here.
+# All this logic will automatically be available in application.js.
+# You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
+
+jQuery ->
+	
+	
+	# $("form").validationEngine({promptPosition : "bottomLeft"});
+	
+	# FOR THE REMOTELY LOADED PARTIALS
+		
+	# 1. choose the size...
+	$(document).on 'click', "input#product_pizza_size", ->
+		# alert($(this).val());
+		if $(this).val().indexOf("gluten-free") >= 0
+			console.log $(this).val().indexOf("gluten-free")
+			$('#product_pizza_size_group').hide();
+			$('#product_pizza_crust_style_group').hide();
+			$("div#deep_dish_option_price").hide();
+			$("div#gluten-free").show();
+		else
+			$("span#deep_dish_option_price").html($(this).attr('data-deep-dish-option-price'));
+			$("div#deep_dish_option_price").show();
+			$('#product_pizza_size_group').show();
+			$('#product_pizza_crust_style_group').show();
+			$("div#gluten-free").hide();
+		
+		$('small.topping_price').text($(this).attr('topping-price'));
+		$('span.topping_price').text($(this).attr('topping-price'));
+		$('option.topping_price_extra').text("Extra + " + $(this).attr('topping-price'));
+		$('option.topping_price_double').text("Double + " + $(this).attr('topping-price-double') );
+		
+		# update the live calculator
+		order_item = $('form#add_product').serializeArray();
+		$.post("order_items/live_calculate", order_item );
+		
+		
+	# 2. then choose the crust...
+	$(document).on 'click', "input#product_pizza_crust", ->
+		$('#product_toppings_group').show();
+		# update the live calculator
+		order_item = $('form#add_product').serializeArray();
+		$.post("order_items/live_calculate", order_item );
+		
+	# #. then choose the crust style...
+	$(document).on 'click', "input#product_pizza_crust_style", ->
+		# update the live calculator
+		order_item = $('form#add_product').serializeArray();
+		$.post("order_items/live_calculate", order_item );
+		
+		
+		
+		
+	
+	# 3. then choose toppings...
+	$(document).on 'click', "input.hideshow_topping", ->
+		
+		order_item = $('form#add_product').serializeArray();
+		$.post("order_items/live_calculate", order_item );
+
+		dt_id = $(this).attr('data-topping-id')
+		
+		
+		$("#product_toppings_topping-" + dt_id ).toggle();
+		
+		$("#product_toppings_topping-" + dt_id + "_preference").toggle();
+		$("#product_toppings_topping-" + dt_id + "_position").toggle();
+		
+		if $(this).is(':checked')
+			$("#product_toppings_topping-" + dt_id + "_preference").removeAttr('disabled');
+			$("#product_toppings_topping-" + dt_id + "_position").removeAttr('disabled');
+		else
+			$("#product_toppings_topping-" + dt_id + "_preference").attr('disabled', 'disabled');
+			$("#product_toppings_topping-" + dt_id + "_position").attr('disabled', 'disabled');
+			
+	
+	$(document).on 'change', "select.topping_position", ->
+		order_item = $('form#add_product').serializeArray();
+		$.post("order_items/live_calculate", order_item );
+	
+	
+	$(document).on 'change', "select.topping_preference", ->
+		order_item = $('form#add_product').serializeArray();
+		$.post("order_items/live_calculate", order_item );
+		
+	$(document).on 'change', "select.topping_position", ->
+		order_item = $('form#add_product').serializeArray();
+		$.post("order_items/live_calculate", order_item );
+		
+	
+	$(document).on 'change', 'select.additional_items_form', ->
+		additional_items = $('form#add_additional_to_order').serializeArray();
+		$.post("orders/live_calculate_additional_items", additional_items );
+
+	$(document).on 'keyup', 'input.additional_items_form', ->
+		additional_items = $('form#add_additional_to_order').serializeArray();
+		$.post("orders/live_calculate_additional_items", additional_items );
+		
+	# $(document).on 'change', 'input.additional_items_form', ->
+	# 	additional_items = $('form#add_additional_to_order').serializeArray();
+	# 	$.post("orders/live_calculate_additional_items", additional_items );
+		
+		
+	
+	$(document).on 'change', "select#catering_order", ->
+		
+		if $(this).val() == "1"
+			$("div.show_catering_items").show();
+			$("select#catering_order_group_number").children("option[value='1-5']").prop('selected',true)
+		else
+			$("div.show_catering_items").hide();
+			$('input.input_salad').each ->
+				id = $(@).attr("id")
+				$("#" + id + '_price').text($(@).attr('data-price'))
+			
+
+	# $(document).on 'click', "a.get_data", (e) ->
+	# 	additional_items = $('form#add_additional_to_order').serializeArray();
+	# 	$.post("orders/live_calculate_additional_items", additional_items );
+	# 	return false;
+
+			
+	$(document).on 'change', "select#catering_order_group_number", ->
+		# alert("hello")
+		group_size = $(@).val()
+		switch
+			when group_size == "1-5"
+				$('input.input_salad').each ->
+					id = $(@).attr("id")
+					$("#" + id + '_price').text($(@).attr('data-price-one-to-five'))
+			when group_size == "6-19"
+				$('input.input_salad').each ->
+					id = $(@).attr("id")
+					$("#" + id + '_price').text($(@).attr('data-price-six-to-nineteen'))
+			when group_size == "20+"
+				$('input.input_salad').each ->
+					id = $(@).attr("id")
+					$("#" + id + '_price').text($(@).attr('data-price-twenty-plus'))
+			else
+				# alert("nothing")
+	
+	$(document).on 'click', "button.add_additional_to_order", (e) ->
+		e.preventDefault()
+		order_item = $('form#add_additional_to_order').serializeArray();
+		$.post("orders/add_additional_to_order", order_item );
+		return false;
+				
+				
+	$(document).on 'click', "a.edit_additional_items", (e) ->
+		e.preventDefault()
+		$('#select_products').show();
+		$('#order_item_form').hide();
+		$('.add_product_to_order').hide();
+		$('.cancel_add_product_to_order').hide();
+		$('#product_tabs a[href="#select_additional"]').tab('show');
+		
+		# $.scrollTo( 0 );
+		$.scrollTo( '#edit_or_update_order_items', 0, {} );
+		
+		
+		
+		
+	$(document).on 'click', "button.cancel_add_additional_to_order", (e) ->
+		e.preventDefault()
+		$('#product_tabs a[href="#select_pizza"]').tab('show');
+		$("#select_products").show();
+		$("#order_item_form").hide();
+		$.post("orders/cancel_add_additional_to_order");
+		return false;
+		$("button.add_product_to_order").hide();
+		$("button.cancel_add_product_to_order").hide();
+		
+	$(document).on 'click', "#order_for_delivery", (e) ->
+		unless $("#total_price_calc").attr('data-total-price') > 15
+			e.preventDefault()
+			alert("A minumum order of $15.00 applies to Deliveries.")
+			
+	
+	$(document).on 'change', "#create_an_account", (e) ->
+		if $(this).is(':checked')
+			$("#create_account_password").show()
+		else
+			$("#create_account_password").hide()
+			
+	# do the check on the time entered and show result.
+	$(document).on 'change', "form#order_time_and_date select", (e) ->
+		e.preventDefault()
+		$.post '/orders/get_delivery_times', order_time: year: $("#order_time_date_1i").val(), month: $("#order_time_date_2i").val(), day: $("#order_time_date_3i").val(), time: $("#order_time_time_5i").val()
+		return false;
+		
+	# check the time with the backend, if it is good, then submit the form...
+	$(document).on 'click', "#order_with_chosen_time", (e) ->
+		e.preventDefault()
+		$.post '/orders/check_delivery_times_and_goto_summary', order_time: year: $("#order_time_date_1i").val(), month: $("#order_time_date_2i").val(), day: $("#order_time_date_3i").val(), time: $("#order_time_time_5i").val()
+		return false;
+		
+	#subcategories
+	$(document).on 'click', "div.sub-category", (e) ->
+		e.preventDefault()
+		subcat = $(this).attr('data-subcategory')
+		$("div.pizza_preset").each ->
+			$(@).hide();
+			if $(@).attr('data-subcategories').indexOf(subcat) >= 0
+				$(@).fadeIn();
+				
+		if $(window).width() < 768
+			$.scrollTo( '#pizza_list', 0, {} );
+		
+	
+	# FOR ALL DOM ELEMENTS LOADED AT STARTUP
+	
+	$(document).ready ->
+		
+		# scroll to the correct section if jumping to catering, pizza or calzone edit -->
+		
+		url = $.url();
+		
+		
+		# timer on the page to prevent orders in the past
+		if url.attr('path') == '/orders/define_delivery_time'
+			
+			url_to_redirect_to =  "/orders/define_delivery_time?overtime=1"
+				
+			timer = $.timer( => window.location.href = url_to_redirect_to );
+
+			timer.once(100000);
+		
+		
+		# timer on the page to prevent orders in the past
+		if url.attr('path') == '/orders/summary'
+			
+			url_to_redirect_to =  "/orders/define_delivery_time?overtime=1"
+				
+			timer = $.timer( => window.location.href = url_to_redirect_to );
+
+			timer.once(100000);
+		
+		
+		
+		if url.param('set_catering_order')
+			$.scrollTo( 0 );
+			$.scrollTo( '#edit_or_update_order_items', 0, {} );
+			
+		if url.param('side_order')
+			$.scrollTo( 0 );
+			$.scrollTo( '#edit_or_update_order_items', 0, {} );
+			
+		if url.param('calzone_preset_id')
+			$.scrollTo( 0 );
+			$.scrollTo( '#edit_or_update_order_items', 0, {} );
+		
+		if url.param('pizza_preset_id')
+			$.scrollTo( 0 );
+			$.scrollTo( '#edit_or_update_order_items', 0, {} );
+		
+		
+		$("form").validationEngine({promptPosition : "bottomLeft"});
+		
+		$("#submit_pickup_order_for_processing").click (e) ->
+			e.preventDefault()
+			$("form#payment_method").submit()
+			
+		$("#submit_pickup_order_for_processing_phone").click (e) ->
+			e.preventDefault()
+			$("form#payment_method").submit()
+			
+		$("#submit_delivery_order_for_processing").click (e) ->
+			e.preventDefault()
+			if !$("form#payment_method option:selected").val()
+				alert("Please select a method of payment")
+			else
+				$("form#payment_method").submit()
+				
+		$("#submit_delivery_order_for_processing_phone").click (e) ->
+			e.preventDefault()
+			if !$("form#payment_method option:selected").val()
+				alert("Please select a method of payment")
+			else
+				$("form#payment_method").submit()
+			
+		$('button.add_product_to_order').click (e) ->
+			e.preventDefault()
+			order_item = $('form#add_product').serializeArray();
+			$.post("order_items/add_or_update", order_item );
+			return false;
+
+		# filter pizzas by category
+		$(".pizza_category").click (e) ->
+			pizza_category_id = $(this).attr('data-pizza-category-id')
+			if pizza_category_id
+				$("div.pizza_preset").each ->
+					$(@).hide();
+					if $(@).attr('data-pizza-category-id') == pizza_category_id
+						$(@).fadeIn();
+				if $(window).width() < 768
+					$.scrollTo( '#pizza_list', 0, {} );
+			
+		
+		$("button.cancel_add_product_to_order").click (e) ->
+			e.preventDefault()
+			# $('#product_tabs a[href="#select_pizza"]').tab('show');
+			$("#select_products").show();
+			$("#order_item_form").hide();
+			$("button.add_product_to_order").hide();
+			$("button.cancel_add_product_to_order").hide();
+			
+			$.scrollTo( 0 );
+			$.scrollTo( '#order_table', 0, {} );
+			
+
+			
+			
+		
+		$('#datetimepicker1').datetimepicker({pickSeconds: false, startDate: new Date(), pick12HourFormat: true});
+		
+		
+		$("#modalLinkAddPizza").click (e) ->
+			e.preventDefault()
+			# $('.modal').modal('hide');
+			# $('body').removeClass('modal-open');
+			$('#modalAddProduct').on 'hidden', ->
+				$('#product_tabs a[href="#select_pizza"]').tab('show');
+				$.scrollTo( 0 );
+				$.scrollTo( '#edit_or_update_order_items', 0, {} );
+			
+			
+		$("#modalLinkAddCalzone").click (e) ->
+			e.preventDefault()
+			# $('.modal').modal('hide');
+			# $('body').removeClass('modal-open');
+			$('#modalAddProduct').on 'hidden', ->
+				$('#product_tabs a[href="#select_calzone"]').tab('show');
+				$.scrollTo( 0 );
+				$.scrollTo( '#edit_or_update_order_items', 0, {} );
+		
+		$("#modalLinkAddSalad").click (e) ->
+			e.preventDefault()
+			# $('.modal').modal('hide');
+			# $('body').removeClass('modal-open');
+			$('#modalAddProduct').on 'hidden', ->
+				$('#product_tabs a[href="#select_additional"]').tab('show');
+				$.scrollTo( 0 );
+				$.scrollTo( '#edit_or_update_order_items', 0, {} );
+		
+		$("#modalLinkAddBeverage").click (e) ->
+			e.preventDefault()
+			# $('.modal').modal('hide');
+			# $('body').removeClass('modal-open');
+			$('#modalAddProduct').on 'hidden', ->
+				$('#product_tabs a[href="#select_additional"]').tab('show');
+				$.scrollTo( 0 );
+				$.scrollTo( '#edit_or_update_order_items', 0, {} );
+			
+		$("#modalLinkAddDippingSauce").click (e) ->
+			e.preventDefault()
+			# $('.modal').modal('hide');
+			# $('body').removeClass('modal-open');
+			$('#modalAddProduct').on 'hidden', ->
+				$('#product_tabs a[href="#select_additional"]').tab('show');
+				$.scrollTo( 0 );
+				$.scrollTo( '#edit_or_update_order_items', 0, {} );
+				
+		
+		$("#modalLinkAddPizza_phone").click (e) ->
+			e.preventDefault()
+			# $('.modal').modal('hide');
+			# $('body').removeClass('modal-open');
+			$('#modalAddProduct').on 'hidden', ->
+				$('#product_tabs a[href="#select_pizza"]').tab('show');
+				$.scrollTo( 0 );
+				$.scrollTo( '#edit_or_update_order_items', 0, {} );
+			
+			
+		$("#modalLinkAddCalzone_phone").click (e) ->
+			e.preventDefault()
+			# $('.modal').modal('hide');
+			# $('body').removeClass('modal-open');
+			$('#modalAddProduct').on 'hidden', ->
+				$('#product_tabs a[href="#select_calzone"]').tab('show');
+				$.scrollTo( 0 );
+				$.scrollTo( '#edit_or_update_order_items', 0, {} );
+			
+		$("#modalLinkAddBeverage_phone").click (e) ->
+			e.preventDefault()
+			# $('.modal').modal('hide');
+			# $('body').removeClass('modal-open');
+			$('#modalAddProduct').on 'hidden', ->
+				$('#product_tabs a[href="#select_additional"]').tab('show');
+				$.scrollTo( 0 );
+				$.scrollTo( '#edit_or_update_order_items', 0, {} );
+				
+		$("#modalLinkAddSalad_phone").click (e) ->
+			e.preventDefault()
+			# $('.modal').modal('hide');
+			# $('body').removeClass('modal-open');
+			$('#modalAddProduct').on 'hidden', ->
+				$('#product_tabs a[href="#select_additional"]').tab('show');
+				$.scrollTo( 0 );
+				$.scrollTo( '#edit_or_update_order_items', 0, {} );
+			
+		$("#modalLinkAddDippingSauce_phone").click (e) ->
+			e.preventDefault()
+			# $('.modal').modal('hide');
+			# $('body').removeClass('modal-open');
+			$('#modalAddProduct').on 'hidden', ->
+				$('#product_tabs a[href="#select_additional"]').tab('show');
+				$.scrollTo( 0 );
+				$.scrollTo( '#edit_or_update_order_items', 0, {} );
+			
+		
+		

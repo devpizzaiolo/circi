@@ -1,0 +1,83 @@
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/pizzaioloca/!svn/ver/232/trunk/pizzaiolo.ca/config/initializers
+END
+image_manipulation.rb
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/pizzaioloca/!svn/ver/106/trunk/pizzaiolo.ca/config/initializers/image_manipulation.rb
+END
+secret_token.rb
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/config/initializers/secret_token.rb
+END
+backtrace_silencers.rb
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/config/initializers/backtrace_silencers.rb
+END
+simple_form_bootstrap.rb
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/config/initializers/simple_form_bootstrap.rb
+END
+mime_types.rb
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/config/initializers/mime_types.rb
+END
+constants.rb
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/config/initializers/constants.rb
+END
+simple_form.rb
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/config/initializers/simple_form.rb
+END
+wrap_parameters.rb
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/config/initializers/wrap_parameters.rb
+END
+inflections.rb
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/config/initializers/inflections.rb
+END
+devise.rb
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/pizzaioloca/!svn/ver/232/trunk/pizzaiolo.ca/config/initializers/devise.rb
+END
+session_store.rb
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/pizzaioloca/!svn/ver/232/trunk/pizzaiolo.ca/config/initializers/session_store.rb
+END
+airbrake.rb
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/pizzaioloca/!svn/ver/143/trunk/pizzaiolo.ca/config/initializers/airbrake.rb
+END
+timecop.rb
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/config/initializers/timecop.rb
+END

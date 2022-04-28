@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.2">
+<Document>
+  <name>550 Yonge Street</name>
+  <description><![CDATA[]]></description>
+  <Style id="style1">
+    <LineStyle>
+      <color>40000000</color>
+      <width>3</width>
+    </LineStyle>
+    <PolyStyle>
+      <color>73FF0000</color>
+      <fill>1</fill>
+      <outline>1</outline>
+    </PolyStyle>
+  </Style>
+  <Placemark>
+    <name>550 Yonge Street</name>
+    <description><![CDATA[]]></description>
+    <styleUrl>#style1</styleUrl>
+    <Polygon>
+      <outerBoundaryIs>
+        <LinearRing>
+          <tessellate>1</tessellate>
+          <coordinates>
+            -79.387978,43.665623,0.000000
+            -79.385918,43.660793,0.000000
+            -79.384544,43.661041,0.000000
+            -79.382317,43.656044,0.000000
+            -79.380341,43.656494,0.000000
+            -79.379478,43.656292,0.000000
+            -79.383492,43.665249,0.000000
+            -79.386070,43.664738,0.000000
+            -79.386780,43.665871,0.000000
+            -79.387978,43.665623,0.000000
+          </coordinates>
+        </LinearRing>
+      </outerBoundaryIs>
+    </Polygon>
+  </Placemark>
+</Document>
+</kml>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.2">
+<Document>
+  <name>270 Adelaide</name>
+  <description><![CDATA[270 Adelaide Street West
+Toronto, ON M5H 1X6, Canada
+(416) 599-0999]]></description>
+  <Style id="style1">
+    <LineStyle>
+      <color>40000000</color>
+      <width>3</width>
+    </LineStyle>
+    <PolyStyle>
+      <color>73FF0000</color>
+      <fill>1</fill>
+      <outline>1</outline>
+    </PolyStyle>
+  </Style>
+  <Placemark>
+    <name>270 Adelaide - Delivery area</name>
+    <description><![CDATA[<div dir="ltr">270 Adelaide Street West<br>Toronto, ON M5H 1X6, Canada<br>(416) 599-0999</div>]]></description>
+    <styleUrl>#style1</styleUrl>
+    <Polygon>
+      <outerBoundaryIs>
+        <LinearRing>
+          <tessellate>1</tessellate>
+          <coordinates>
+            -79.396278,43.648689,0.000000
+            -79.380600,43.652130,0.000000
+            -79.378082,43.646061,0.000000
+            -79.377220,43.644112,0.000000
+            -79.383461,43.640739,0.000000
+            -79.383324,43.640499,0.000000
+            -79.387688,43.639462,0.000000
+            -79.392258,43.638645,0.000000
+            -79.396278,43.648689,0.000000
+          </coordinates>
+        </LinearRing>
+      </outerBoundaryIs>
+    </Polygon>
+  </Placemark>
+</Document>
+</kml>

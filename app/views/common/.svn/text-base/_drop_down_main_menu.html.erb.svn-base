@@ -1,0 +1,47 @@
+<div class="visible-phone top-bit">
+	
+	<div class="new-menubar">
+		
+		<!-- <div class="span12"> -->
+			<div class="mobile-logo-holder">
+			<a href="/"><img src="/assets/ui/pizzaiolo-logo-sml.png" width="237" height="80" alt="" style="width:237px;min-width:237px;"></a>
+			</div>
+
+			<a class="btn btn-primary pull-right open-menu">
+				<span style="background-color:#fff;height:2px;width:14px;display:block;margin-bottom:4px;margin-top:4px;"></span>
+				<span style="background-color:#fff;height:2px;width:14px;display:block;margin-bottom:4px;"></span>
+				<span style="background-color:#fff;height:2px;width:14px;display:block;margin-bottom:4px;"></span>
+			</a>
+			
+		<!-- </div> -->
+		
+		<div class="open-menu" style="display:none;">
+				
+				<img src="/assets/ui/dropdown_divider.gif" class="dropdown-divider">
+				<%= link_to "Order Online", orders_path, :class => "standout" %>
+				<img src="/assets/ui/dropdown_divider.gif" class="dropdown-divider">
+				<%= link_to "Menu", page_path('menu'), :class => "standout" %>
+				<img src="/assets/ui/dropdown_divider.gif" class="dropdown-divider">
+				<%= link_to "Catering", page_path('catering'), :class => "standout" %>
+				<img src="/assets/ui/dropdown_divider.gif" class="dropdown-divider">
+				<%= link_to "Locations", locations_path, :class => "standout" %>
+				<img src="/assets/ui/dropdown_divider.gif" class="dropdown-divider">
+				<a href="/pages/mailing_list">Mailing List</a>
+				<img src="/assets/ui/dropdown_divider.gif" class="dropdown-divider">
+				<% if current_customer %>
+					<%= link_to "My Account", customers_path %>
+					<img src="/assets/ui/dropdown_divider.gif" class="dropdown-divider">
+					<% unless Rails.env.development? %>
+						<%= link_to "Log Out", destroy_customer_session_url(:protocol => "https"), :method => :delete %>
+					<% else %>
+						<%= link_to "Log Out", destroy_customer_session_path, :method => :delete %>
+					<% end %>
+				<% else %>
+					<%= link_to "Login", customers_path %>
+				<% end %>
+				
+		</div>
+		
+	</div>
+	
+</div>

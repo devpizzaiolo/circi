@@ -1,0 +1,3746 @@
+@media only screen and (min-width: 1366px) {
+  #tsm-slider .item .free-pizza h1 {
+    font-size: 12.5rem;
+    line-height: 12.5rem;
+  }
+}
+
+@media only screen and (min-width: 1088px) and (max-width: 1366px) {
+  .scroll-fixed-top {
+    max-width: 350px;
+    min-width: 350px;
+  }
+
+  .summary-container {
+    max-width: 350px;
+    min-width: 350px;
+  }
+}
+
+@media only screen and (min-width: 1088px) and (max-width: 1280px) {
+  .hide-me {
+    display: none !important;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1087px) {
+  .valentine-banner-bg{
+    display: none;
+  }
+  .showOnIpad{
+    display: block !important;
+    height: calc(100vh - 112px);
+  }
+  .innerCardWidth{
+    margin-bottom: 25px;
+  }
+  .gp-logo-vegan {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: -10px;
+    right: -30px;
+  }
+  .fr-logo-plant-based {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: -10px;
+    right: -100px;
+  }
+  .pp-page-title {
+    padding-bottom: 25px !important;
+    margin-top: -1rem;
+  }
+
+  .pp-page-title .pp-ipad-styling {
+    // margin-left: 15% !important;
+    max-width: 90% !important;
+    flex: 0 0 90% !important;
+  }
+
+  .pepperoni-pizza-bg {
+    height: calc(100vh - 124px);
+  }
+
+  .box-border {
+    padding: 12px 0px;
+  }
+
+  .new-custom-button {
+    padding: 7px 7px !important;
+  }
+
+  .quantity-card-wrapper {
+    flex-direction: column;
+  }
+
+  .quantity-card-title .category-subtitle {
+    margin-bottom: 10px;
+  }
+
+  .quantity-card {
+    width: 45%;
+    margin-bottom: 10px;
+  }
+
+  .navbar-light .navbar-nav .nav-link {
+    font-size: 13px !important;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .franchise-banner h2 {
+    font-size: 2rem;
+  }
+
+  .story-title {
+    padding: 15px;
+    font-size: 1.5rem;
+    right: auto;
+  }
+
+  .f-info-tab {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+@media (orientation: portrait) {
+  .pepperoni-pizza-bg {
+    background-image: url("/assets/new_design/pepperoni-pizza-mobile.jpg");
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1368px) and (orientation: portrait) {
+  .pepperoni-pizza-bg {
+    background-image: url(/assets/new_design/pepperoni-pizza-mobile.jpg);
+    background-size: contain;
+    background-position: center;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1087px) {
+  .slider-container{
+    padding: 0px !important;
+  }
+  .homeCategorySlider.order-pizza-card .pizza-select .pizza-card {
+    min-width: auto;
+  }
+  .home-category-card-list .media-list {
+    margin: 0px;
+   }
+  .pepperoni-pizza-bg {
+    height: calc(100vh - 138px);
+    background-position: center;
+    background-size: cover;
+  }
+  .garden-eatin-bg {
+    background-image: url(/assets/new_design/garden-of-eatin-ipad.jpg);
+    height: calc(100vh - 138px);
+    background-position: center;
+    background-size: cover;
+  }
+
+  .pp-bg-special-page {
+    display: none;
+  }
+
+  .pp-bg-special-mobile-page {
+    display: block;
+  }
+
+  .pp-bg-special-mobile-page {
+    display: block;
+  }
+
+  .dual-deal-page-bg {
+    display: none;
+  }
+
+  .pp-main-page-mobile-only {
+    display: block;
+  }
+
+  .deal-order-complete-meal-btn {
+    display: flex !important;
+  }
+
+  .deal-pepperoni-close-btn .button.default {
+    width: auto;
+  }
+
+  .deal-order-modal-header {
+    padding: 15px 15px 15px 15px;
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    z-index: 9999;
+  }
+
+  .deal-order-modal-body {
+    padding: 0px 0px 30px 0px;
+    overflow-y: auto;
+  }
+
+  .multiple-pizza-card {
+    flex-wrap: wrap;
+    align-items: unset;
+    justify-content: unset;
+  }
+
+  .multiple-pizza-card .multiple-pizza-details {
+    width: 100%;
+  }
+
+  .multiple-pizza-card .multiple-pizza-image {
+    width: 35%;
+    margin-right: 10px;
+  }
+
+  .multiple-pizza-card .multiple-pizza-customize {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .deals_page .order_actions_bottom .button.default {
+    height: 40px !important;
+    font-size: 20px;
+    margin-top: 10px;
+    width: 90%;
+  }
+
+  .deal-pepperoni-close-btn {
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 15px;
+    right: 0;
+    background-color: #F9F9FA;
+    border-top: 1px solid #E7E8EC;
+    z-index: 1;
+  }
+
+  .deal-pepperoni-close-btn .button.default {
+    margin-top: 0px;
+    height: auto;
+    padding: 12px 17px;
+    font-size: 16px;
+    text-align: center;
+    width: auto !important;
+    min-height: 50px !important;
+    max-height: 50px !important;
+    margin-right: 0px !important;
+  }
+
+  .deal-pepperoni-body-content {
+    padding: 0px 15px 120px 15px;
+    margin-top: 40px;
+  }
+
+  .deal-order-summary-container {
+    top: 40px;
+  }
+
+  .deal-summary-container {
+    max-width: 100% !important;
+    min-width: 100% !important;
+  }
+
+  .new-custom-button {
+    font-size: 14px !important;
+    padding: 7px 12px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .off-offset {
+    margin-left: 0%;
+  }
+
+  .off-offset .summary-container {
+    margin-top: 0px;
+  }
+
+  .off-offset .button.default {
+    width: 100% !important;
+    display: block;
+    text-align: center;
+  }
+
+  .off-offset .order-actions-btns {
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .confirm-edit-order {
+    min-width: 150px;
+    text-align: center;
+  }
+
+  .go-back-btn {
+    min-width: 150px;
+  }
+
+  .only-mobile {
+    display: none !important;
+  }
+
+  .banner-content {
+    margin-right: 5%;
+    padding-top: 10px;
+  }
+
+  .cart-item-counter {
+    right: 6px;
+    top: 18px;
+  }
+
+  .scroll-fixed-top {
+    max-width: 265px;
+    min-width: 265px;
+  }
+
+  .summary-container {
+    max-width: 265px;
+    min-width: 265px;
+  }
+
+  .left-container-dsk {
+    -ms-flex: 0 0 60.666667%;
+    flex: 0 0 60.666667%;
+    max-width: 60.666667%;
+  }
+
+  .page-background {
+    height: 55vh;
+    background-position: center;
+  }
+
+  .hero-panel #tsm-slider .owl-nav {
+    top: 40vh;
+  }
+
+  .page-sub-title>.sub-title {
+    font-size: 35px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+
+  .page-points>.main-title {
+    font-size: 28px;
+  }
+
+  .re-order-btn .button {
+    padding: 8px 10px !important;
+    width: 220px;
+  }
+
+  .re-order-btn {
+    width: auto;
+    margin-top: 0px;
+  }
+
+  .col-12.col-md-6.past-order-location-details {
+    max-width: 100%;
+    flex: 100%;
+  }
+
+  .ipad-col {
+    max-width: 100%;
+    text-align: center !important;
+  }
+
+  .re-order-btn .button.muted {
+    border-radius: 5px;
+    width: 150px !important;
+  }
+
+  .past-order {
+    flex-direction: column;
+  }
+
+  .past-order .button {
+    height: auto !important;
+    padding: 8px 15px !important;
+  }
+
+  .past-order .actions a:first-child {
+    padding: 0px 15px !important;
+    height: 40px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .summary-page-layout .super-header-top {
+    font-size: 50px;
+    line-height: 45px;
+  }
+
+  .summary-table-data .summary-table-checkout tbody tr td .item_title {
+    font-size: 18px;
+  }
+
+  .summary-table-data .summary-table-checkout tbody tr td p {
+    font-size: 14px;
+  }
+
+  .place-order-box .bottom-actions .order-edit-btn {
+    height: 42px;
+    padding: 12px 15px;
+    font-size: 14px;
+  }
+
+  .place-order-box .bottom-actions .order-actions-btns {
+    align-items: baseline;
+    // height: 42px;
+    font-size: 16px;
+    padding: 14px 35px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 36px;
+    margin-top: 10px;
+  }
+
+  .place-order-box .bottom-actions .order-actions-btns {
+    align-items: center;
+    width: 100%;
+  }
+
+  .right-rail-action-btn .button.default {
+    padding: 7px 10px !important;
+  }
+
+  .customers-header .button {
+    height: auto !important;
+  }
+
+  .customer-accout-info .button {
+    height: auto !important;
+  }
+
+  .col-12.col-md-10.delivery-time-page {
+    max-width: 100%;
+    flex: 100%;
+  }
+
+  .mob-center-left-desk .button.default {
+    height: auto !important;
+    padding: 7px 15px !important;
+  }
+
+  .ipad-btn {
+    font-size: 16px !important;
+  }
+
+  .location-row {
+    flex-direction: column;
+  }
+
+  .search-locations-forms .search-location-form {
+    margin-right: 0px;
+  }
+
+  .location-row .regular-txt {
+    margin: 7px 30px;
+  }
+
+  .search-locations-forms .button.default {
+    width: 60%;
+  }
+
+  .location-search-result .area .location-card .card-button .button {
+    padding: 10px 8px !important;
+    font-size: 14px;
+    height: 38px !important;
+  }
+
+  h3.large-green {
+    font-size: 20px;
+  }
+
+  .menu-btn-location .button.default {
+    height: auto !important;
+  }
+
+  .location-search-result .area .location-card {
+    min-height: 275px;
+  }
+
+  .location-content-panel {
+    padding: 2rem 0;
+  }
+
+  .location-content-panel h2 {
+    font-size: 3rem;
+    line-height: 44px;
+  }
+
+  .order-pickup .static-header {
+    margin-bottom: 64px;
+  }
+
+  .span6.col-12.col-md-5.signin-layout {
+    max-width: 50%;
+  }
+
+  .span6.col-12.col-md-5.offset-md-2 {
+    margin-left: 0%;
+    max-width: 50%;
+  }
+
+  .catering_page .row .summary-container .bottom-actions>.button.default {
+    padding: 0px 39px !important;
+    height: 38px !important;
+    width: 100%;
+  }
+
+  .default-table>tbody>tr>td.first,
+  div {
+    font-size: 14px;
+  }
+
+  .upsize-btn .button.default {
+    padding: 10px !important;
+    font-size: 14px;
+    height: auto !important;
+  }
+
+  .details-upsize-btn .button.default {
+    font-family: 'Lance-Sans-Regular';
+    font-size: 12px;
+    line-height: 16px;
+    color: #fff;
+    width: 100%;
+    height: auto !important;
+    margin-top: 13px;
+    padding: 15px 11px 11px 11px !important;
+    letter-spacing: -0.5px;
+    text-align: center;
+  }
+
+  .container.error {
+    margin-top: 0rem;
+  }
+
+  .order-pickup {
+    margin-top: 0rem;
+  }
+
+  .button.default {
+    font-size: 16px;
+  }
+
+  .span6.next-div.col-12.col-md-5.offset-md-2 {
+    margin-left: 4%;
+    width: 50%;
+    max-width: 52%;
+  }
+
+  .order-pickup .user-contact-info input.button.default.full {
+    width: 100%;
+    padding: 7px 19px !important;
+  }
+
+  .pizza-card .card-data .bottom-button .button.default {
+    padding: 11px 10px !important;
+    height: 42px !important;
+    font-size: 20px;
+  }
+
+  .left-side-order-data .order-details-table tbody tr td p {
+    font-size: 14px;
+  }
+
+  .left-side-order-data .order-details-table tbody tr td .item-details .toppings-list>ul {
+    font-size: 14px;
+  }
+
+  .left-side-order-data .order-details-table tbody tr td .item_title {
+    font-size: 16px;
+  }
+
+  .summary-container .order-action .button.default {
+    font-size: 14px;
+    margin-top: 16px;
+    width: 90%;
+    height: 42px !important;
+  }
+
+  .summary-container .order-action p {
+    font-size: 12px;
+  }
+
+  .summary-container .order-action .button.black {
+    border-radius: 5px;
+    width: 90%;
+    display: inline-block;
+    font-size: 14px;
+  }
+
+  th.first {
+    font-size: 14px !important;
+    padding-right: 0px;
+    padding-left: 9px;
+  }
+
+  .order-item-row .item_image {
+    min-height: 177px;
+  }
+
+  .dipping-item-row .card-details .left-cell {
+    font-size: 14px;
+    line-height: 16px;
+    padding-top: 15px;
+    min-height: 90px;
+  }
+
+  .show_catering_items .select-input {
+    width: 109px;
+  }
+
+  .dipping-item-row .card-details .left-cell .align-price {
+    font-size: 14px !important;
+    padding-top: 8px;
+  }
+
+  .dipping-item-row .card-details .right-cell {
+    padding-top: 0px;
+  }
+
+  .bottom-order-btn {
+    justify-content: center;
+  }
+
+  .dipping-item-row {
+    min-height: 390px;
+  }
+
+  .additional-item-row .order-item-row {
+    margin-top: 25px;
+  }
+
+  .bottom-order-btn .button.default {
+    font-size: 20px;
+    padding: 0px 20px !important;
+    height: 38px !important;
+  }
+
+  .btn-green {
+    font-size: 20px;
+  }
+
+  .single-pizza form .row h1,
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  .body-container-order h3.semi-header {
+    padding-top: 25px;
+    font-size: 20px;
+  }
+
+  .summary-container .bottom-actions {
+    flex-direction: column-reverse;
+  }
+
+  .bottom-actions>.button.muted {
+    border-radius: 5px;
+    padding: 7px 35px;
+    margin-top: 10px;
+    height: 38px;
+    margin-right: 0;
+    width: 100%;
+  }
+
+  #step2,
+  #step3 {
+    font-size: 20px;
+    padding: 5px 14px;
+  }
+
+  .summary-container>div>.table>thead>tr>th {
+    font-size: 14px;
+  }
+
+  .order_actions_bottom .button.default {
+    font-size: 16px;
+    margin-top: 10px;
+    padding: 6px 15px;
+    height: auto;
+    width: 100%;
+    text-align: center;
+  }
+
+  .order_actions_bottom .button.default.full {
+    width: auto;
+    margin-top: 0px;
+    padding: 10px 15px;
+  }
+
+  .order-pizza-card .pizza-select .pizza-card {
+    min-height: 480px;
+  }
+
+  .order-pizza-card .pizza-select .product-image {
+    height: auto;
+  }
+
+  .order-pizza-card .pizza-select .product-image img {
+    height: auto;
+  }
+
+  .order-pizza-card .pizza-select .pizza-card .card-data .card-title {
+    font-size: 19px;
+  }
+
+  .hero-panel {
+    height: auto !important;
+  }
+
+  #tsm-slider .item .free-pizza {
+    left: 2.5rem;
+  }
+
+  #tsm-slider .item .free-pizza h1 {
+    font-size: 3.5rem;
+    line-height: 3.5rem;
+  }
+
+  .hero-panel .hero-content .title {
+    font-size: 2rem;
+    line-height: 35px;
+  }
+
+  .home-content-panel h2 {
+    font-size: 2rem;
+    line-height: 27px;
+  }
+
+  .owl-dots {
+    display: block;
+  }
+
+  .hc-block h2 {
+    font-size: 1rem;
+  }
+
+  .home-content-panel p {
+    font-size: 16px;
+  } 
+  .gulten_free_title h2{
+    font-size: 14px;
+    text-align: center;
+  }
+  .forgot-password {
+    margin-top: 0px;
+  }
+
+  .reset-page-style .new_customer .form-inputs .control-group .controls input {
+    width: 100%;
+  }
+
+  .reset-page-style .new_customer .form-actions .button {
+    padding: 7px 23px !important;
+    font-size: 22px;
+  }
+
+  .topping-cards {
+    min-height: 473px;
+  }
+
+  .topping-cards img {
+    height: auto;
+    height: auto;
+    min-height: 202px;
+  }
+
+  .collapse {
+    display: flex !important;
+    height: auto !important;
+    visibility: visible;
+  }
+
+  .navbar-nav {
+    flex-direction: row !important;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .navbar-light .navbar-nav .nav-link {
+    font-size: 16px;
+  }
+
+  .navbar-toggler {
+    display: none;
+  }
+
+  .navbar-collapse {
+    -ms-flex-preferred-size: 100%;
+    flex-basis: 100% !important;
+    -ms-flex-positive: 1;
+    flex-grow: 0;
+    -ms-flex-align: center;
+    align-items: center;
+  }
+
+  header .navbar .navbar-brand img {
+    width: 120px;
+  }
+
+  .only-mobile {
+    display: none !important;
+  }
+
+  .signin-row .signin-layout .static-header {
+    font-size: 24px !important;
+    margin-bottom: 15px !important;
+  }
+
+  .signin-row .signin-layout form .control-group .controls input {
+    width: 100%;
+  }
+
+  .signin-row {
+    margin-top: 0rem;
+  }
+
+  .signin-row .signin-layout {
+    margin-bottom: 69px;
+  }
+
+  .signin-row .signin-layout .mobile {
+    margin-bottom: 23px;
+  }
+
+  .customers-signin {
+    margin-top: 3rem;
+  }
+
+  .order-page-bottom-btn {
+    // padding: 0px !important;
+    // width: 120px !important;
+  }
+
+  #tsm-slider .free-pizza {
+    top: 6rem;
+    right: 3rem;
+    width: 310px;
+  }
+
+  .hero-panel #tsm-slider .owl-nav {
+    top: 38vh;
+  }
+
+  .cart-border-box {
+    max-width: 435px;
+  }
+
+  .payment_type .payment_method {
+    font-size: 16px;
+    height: 100px;
+    padding: 14px 14px 16px 16px;
+  }
+
+  .pay_type {
+    font-size: 15px;
+  }
+
+  .page-header-title {
+    width: 50%;
+  }
+
+  .page-header-title h2 {
+    font-size: 2rem !important;
+    line-height: 27px !important;
+  }
+
+  .order_history_page .customers-signin {
+    margin: 0px 0px 20px 0px !important;
+  }
+
+  .my_account_page .customers-signin {
+    margin-top: 0px !important;
+  }
+
+  .my_account_page .customers-signin .customers-header {
+    margin-bottom: 20px;
+  }
+
+  .page-background-catering {
+    height: auto;
+  }
+
+  .catering_home_page .body-container-order {
+    margin-top: 50px;
+  }
+
+  .pickup_address_page .order-pickup .static-header {
+    margin-bottom: 15px;
+  }
+
+  .body-container-order {
+    margin-top: 50px;
+  }
+
+  .confirm_your_order_page .summary-page-layout {
+    margin-top: 0px;
+  }
+
+  .confirm_your_order_page .summary-page-layout .margin-top-bottom {
+    margin-top: 0px;
+    margin-bottom: 20px;
+    padding: 0px 15px;
+  }
+
+  .order-summary-details .select-payment-method form .payment-type {
+    padding-top: 0px;
+    padding-bottom: 15px;
+  }
+
+  .box-border {
+    padding: 12px 0px !important;
+  }
+
+  .deal-pepperoni-close-btn .button.default {
+    width: auto !important;
+  }
+
+  .deal-pepperoni-close-btn .button.default {
+    margin-top: 15px !important;
+  }
+
+  .single-contests .card-data p {
+    min-height: 180px;
+  }
+}
+
+@media only screen and (min-width: 240px) and (max-width: 380px) {
+  .page-background {
+    height: 27vh;
+  }
+}
+
+@media only screen and (min-width: 381px) and (max-width: 499px) {
+  .page-background {
+    height: 30vh;
+  }
+}
+
+@media only screen and (min-width: 500px) and (max-width: 600px) {
+  .page-background {
+    height: 43vh;
+  }
+}
+
+@media only screen and (min-width: 601px) and (max-width: 767px) {
+  .page-background {
+    height: 50vh;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 767px) {
+  .page-background {
+    height: 55vh;
+  }
+}
+
+@media only screen and (min-width: 240px) and (max-width: 767px) {
+  .home-category-thumb .gridCard .food-category{
+    margin-bottom: 15px;
+  }
+  .gridOnMobile{
+    padding: 0px;
+  }
+  .titleOnSmallDevice{
+    padding-left: 10px;
+  }
+
+  .innerCardWidth .order-additional-new .food-category {
+    width: 46% !important;
+  }
+  .CTA-bottom-fixed .product-quantity{
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    z-index: 99999;
+    padding: 20px;
+  }
+  .CTA-bottom-fixed.summary-container .bottom-actions{
+    position: fixed;
+    bottom: 0;
+    background: #edeeef;
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+    right: 0;
+    padding: 10px;
+    z-index: 9999;
+  }
+  .CTA-bottom-fixed .bottom-actions > .button.muted{
+    visibility: hidden;
+  }
+  .home-category-card-list h4 br{
+    display: block !important;
+  }
+  .gp-logo-vegan{
+    top: 0;
+    right: 0;
+    flex-direction: column;
+  }
+  .fr-logo-plant-based{
+    top: -26px;
+    right: 0px;
+    flex-direction: column;
+  }
+  .vegan-tagline {
+    font-size: 8px;
+    height: auto !important;
+    margin-top: 15px !important;
+  }
+  .gp-logo-image{
+    margin-left: 0px;
+  }
+  .fr-logo-image{
+    margin-left: 0px;
+  }
+  .gp-logo {
+    width: 40px;
+  }
+  .fr-logo {
+    width: 73px;
+  }
+  .careers-content .send-resume .btn-green{
+    padding: 10px;
+  }
+  .sidenav {
+    max-width: 100%;
+  }
+  .sidenav .closebtn {
+    position: relative;
+    right: 12px;
+    font-size: 36px;
+    top: 0px;
+  }
+  .franchise-banner{
+    background-size: contain !important;
+    min-height: 280px;
+  }
+  .franchise-banner {
+    h2{
+      font-size: 1rem;
+    }    
+  }
+  .pink-strip{
+    .col-lg-2{
+      border-bottom: 2px solid #bf5465;
+      &:nth-child(even){
+        border-right: 0px;
+      }
+      &:nth-child(5){
+        border-bottom-width: 0px;
+      }
+      p{
+        font-size:13px;
+      }
+    }
+  }
+  
+  .img-top-title {
+    font-size: 0.9rem;
+    bottom: 0px;
+    background-color: rgba(0, 0, 0, 1);
+  }
+  .fr-sec-title{
+    font-size: 1.3rem;
+  }
+  .story-title{
+    font-size: 2rem;
+    padding: 20px;
+  }
+  .f-info-tab{
+    padding-left: 10px;
+    padding-right: 10px;
+    p {
+      font-size: 15px;
+      span{
+        margin-right: 0px;
+        font-size: 20px;
+      }
+    }
+  }
+  .careers-content .send-resume .btn-green {
+    padding: 10px;
+  }
+  // .delivery_page .checkmark > label {
+  //   font-size: 14px;
+  //   display: flex;
+  //   align-items: center;
+  //   }
+  // .delivery_page .checkmark label:before{
+  //   margin-top: -10px;
+  // }
+  // .delivery_page .checkmark input:checked + label:after{
+  //   top: 5px;
+  // }
+  // .signup_page .checkmark > label {
+  //   font-size: 14px;
+  //   display: flex;
+  //   align-items: center;
+  //   }
+  // .signup_page .checkmark label:before{
+  //   margin-top: -10px;
+  // }
+  // .signup_page .checkmark input:checked + label:after{
+  //   top: 5px;
+  // }
+  .select-location-btn {
+    margin-left: 0px;
+  }
+
+  .pizza-tab-bar {
+    top: 55px;
+    margin-right: -15px;
+    margin-left: -15px;
+  }
+
+  .pizza-tab-bar .nav-tabs .tab-pizza-name:first-child {
+    margin-left: 15px;
+  }
+
+  .deal-title-header td h2 {
+    font-size: 22px;
+  }
+
+  .pp-page-title .homepage-headings .malbeck {
+    margin-top: -27px !important;
+    margin-bottom: 25px;
+  }
+
+  .pp-bg-special-page {
+    display: none;
+  }
+
+  .pp-bg-special-mobile-page {
+    display: block;
+  }
+
+  .pepperoni-pizza-mobile-bg {
+    background-size: 110% 100%;
+  }
+
+  .dual-deal-page-bg {
+    display: none;
+  }
+
+  .pp-main-page-mobile-only {
+    display: block;
+  }
+
+  .deal-order-complete-meal-btn {
+    display: flex !important;
+  }
+
+  .pp-offer-banner .pp-full-image {
+    display: none;
+  }
+
+  .pp-offer-banner .pp-mobile-image {
+    display: block;
+  }
+
+  .catering-modal-no-btn {
+    height: auto !important;
+  }
+
+  .catering-yes-btn {
+    height: auto !important;
+  }
+
+  .special-deal-section {
+    margin-top: 0px;
+    display: block;
+  }
+
+  .utensils-select-box-cart {
+    margin-left: -15px;
+  }
+
+  .deal-pepperoni-close-btn {
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 15px;
+    right: 0;
+    background-color: #F9F9FA;
+    border-top: 1px solid #E7E8EC;
+    z-index: 1;
+  }
+
+  .deal-order-btn-pepperoni {
+    margin-top: 0px;
+  }
+
+  .deal-order-modal-header {
+    padding: 15px 15px 15px 15px;
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    z-index: 9999;
+  }
+
+  .deal-order-modal-body {
+    padding: 0px 0px 110px 0px;
+    overflow-y: auto;
+  }
+
+  .deal-order-modal-header h2 {
+    color: #fff;
+    font-size: 20px;
+  }
+
+  .summary-table-overflow {
+    max-height: calc(100vh) !important;
+    height: auto !important;
+    overflow: auto;
+  }
+
+  .multiple-pizza-card {
+    flex-direction: column;
+  }
+
+  .multiple-pizza-card .multiple-pizza-details .multiple-pizza-image {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .multiple-pizza-card .multiple-pizza-details {
+    width: 100%;
+    margin-bottom: 10px;
+    flex-direction: column;
+  }
+
+  .multiple-pizza-card .multiple-pizza-details .multiple-pizza-content {
+    width: 100%;
+  }
+
+  .multiple-pizza-card .multiple-pizza-customize {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .multiple-pizza-card .multiple-pizza-customize .multiple-customize-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .forgot-password .semi-header {
+    margin-top: 56px !important;
+  }
+
+  .order-pickup .user-contact-info {
+    margin-top: 40px;
+    margin-bottom: 0px;
+  }
+
+  .signin-row .default-form {
+    margin-top: 25px;
+  }
+
+  .box-border>input {
+    margin-left: 8px;
+    margin-right: 8px;
+    min-width: 25px;
+  }
+
+  .homepage .only-mobile .mobile-logo {
+    margin-top: 0px !important;
+  }
+
+  .only-mobile .mobile-logo {
+    margin-top: 48px;
+  }
+
+  .padding-zero {
+    padding: 0px;
+  }
+
+  .padding-zero .main-menu .food-category {
+    margin-bottom: 15px;
+  }
+
+  .home-category-thumb .mobile-container {
+    padding: 0;
+  }
+
+  .home-category-thumb .mobile-container .food-category {
+    margin-bottom: 15px;
+  }
+
+  .mobile-menu .nav-mobile-item {
+    position: fixed;
+    z-index: 9999;
+    width: 100%;
+    top: 0;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+  }
+
+  .button.default.btn-mobile {
+    height: auto !important;
+  }
+
+  .payment-container,
+  #checkout-form {
+    width: 100% !important;
+    padding: 0px 8px 0px 0px !important;
+  }
+
+  .buttons-layout-box {
+    flex-direction: column;
+  }
+
+  .combo-item-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: unset;
+    margin-bottom: 25px;
+  }
+
+  .hero-banner-bg {
+    height: 490px;
+  }
+
+  .pickup-special-banner-bg {
+    height: 490px;
+  }
+
+  .banner-content {
+    margin-right: 5%;
+    padding-top: 40px;
+  }
+
+  .offer-details {
+    text-align: center;
+  }
+
+  .offer-details div:nth-child(3) .pop-size {
+    font-size: 12px;
+  }
+
+  .offer-details .pizza-price {
+    font-size: 30px !important;
+    padding-bottom: 15px !important;
+    font-family: Lance-Sans-Regular !important;
+  }
+
+  .offer-details .pizza-price sup {
+    top: -10px;
+    font-size: 18px !important;
+  }
+
+  .offer-details .offer-details-btn a {
+    font-size: 14px !important;
+  }
+
+  .hero-title br {
+    display: block;
+  }
+
+  .btn-green {
+    max-height: 35px !important;
+    min-height: 35px !important;
+  }
+
+  .main-menu {
+    flex-direction: column;
+  }
+
+  .main-menu .food-category {
+    width: 100%;
+  }
+
+  .gridCard{
+    padding-top: 15px;
+    justify-content: space-evenly;
+    flex-direction: row !important;
+  }
+
+  .gridCard .food-category{
+    width: 45% !important;
+  }
+
+  // .gridOrder .food-category:last-child{
+  //   order: -1;
+  //   width: 94% !important;
+  // }
+
+  .gridCard .food-category a img{
+    border-radius: 10px !important;
+    min-height: 165px !important;
+    max-height: 165px !important;
+    object-fit: cover !important;
+  }
+
+  .gridCard .food-category a h2.card-title{
+    font-size: 1.2rem !important;
+  }
+
+  .home-category-card-list h4{
+    margin-top: 50px;
+    margin-bottom: 15px;
+    font-size: 18px;
+    margin-left: 15px;
+  }
+
+  .homeCategorySlider .owl-nav {
+    top: -44px;
+  }
+
+  .homeCategorySlider .owl-nav .owl-prev{
+    left: -30px;
+  }
+
+  .homeCategorySlider.order-pizza-card .pizza-select .pizza-card {
+    min-width: auto;
+  }
+
+  .homeCategorySlider .box-border.border-black {
+    left: unset;
+  }
+
+  .homeCategorySlider .box-border.border-black img{
+    display: inline-block;
+  }
+
+  .slider-container{
+    padding: 0px !important;
+    margin: 0px !important;
+  }
+  
+  .order-online-btn {
+    font-size: 16px !important;
+  }
+
+  .hero-title {
+    font-size: 30px;
+    line-height: 30px;
+    padding-top: 0px;
+    padding-bottom: 5px;
+  }
+
+  .offer-details div:nth-child(1) {
+    font-size: 22px;
+    padding-bottom: 8px;
+  }
+
+  .offer-details div:nth-child(2) {
+    font-size: 20px;
+    padding-bottom: 5px;
+  }
+
+  .offer-details div:nth-child(3) {
+    font-size: 16px;
+    padding-bottom: 15px;
+  }
+
+  .offer-details div:nth-child(4) {
+    font-size: 80px;
+    padding-bottom: 10px;
+  }
+
+  .offer-details div:nth-child(4) sup {
+    top: -32px;
+    font-size: 30px;
+  }
+
+  .offer-details div:nth-child(5) a {
+    font-size: 14px !important;
+    border-radius: 12px;
+    padding: 5px 10px;
+  }
+
+  .cart-item-counter {
+    top: 0px;
+    right: 0px;
+    width: 28px;
+    height: 28px;
+    padding: 0px 0px 0px;
+  }
+ 
+
+  body {
+    overflow-x: hidden;
+  }
+
+  .hidden-mobile {
+    display: none !important;
+  }
+
+  .only-mobile {
+    display: block !important;
+  }
+
+  .topping-cards {
+    min-height: 439px;
+  }
+
+  .store-close {
+    margin-top: 15vh;
+  }
+
+  .store-close .modal-content {
+    width: 85%;
+    margin: 0 auto;
+  }
+
+  .store-close .modal-content .modal-footer {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .store-close .modal-content .modal-footer .cancel-for-next-btn {
+    margin-top: 25px;
+  }
+
+  .store-close .modal-content .modal-footer .order-for-next-btn {
+    font-size: 20px;
+  }
+
+  .order-update-btn {
+    margin-top: 0px;
+  }
+
+  .order-table-right .summery-table {
+    max-height: 400px !important;
+  }
+
+  .hero-panel #tsm-slider-mobile .owl-nav {
+    position: absolute;
+    width: 100%;
+    top: 30vh;
+  }
+
+  .down-size {
+    margin-top: 10px;
+  }
+
+  .hero-panel #tsm-slider-mobile .owl-nav .owl-prev {
+    position: absolute;
+    left: 3vw;
+    font-size: 25px;
+    font-weight: 100;
+    border: 1px solid #000;
+    border-radius: 50px;
+    width: 40px;
+    height: 40px;
+    font-family: 'Gotham Pro';
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+
+  .hero-panel #tsm-slider-mobile .owl-nav .owl-next {
+    position: absolute;
+    right: 3vw;
+    font-size: 25px;
+    font-weight: 100;
+    border: 1px solid #000;
+    border-radius: 50px;
+    width: 40px;
+    height: 40px;
+    font-family: 'Gotham Pro';
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+
+  #tsm-slider-mobile .free-pizza-mobile {
+    right: 3rem;
+  }
+
+  #tsm-slider-mobile .free-pizza-mobile h1 {
+    color: #000;
+  }
+
+  #tsm-slider-mobile .free-pizza-mobile p {
+    font-size: 13px;
+  }
+
+  #tsm-slider-mobile .free-pizza-mobile.hero-content .btn-green {
+    right: 0px;
+    position: absolute;
+    bottom: 20px;
+  }
+
+  #tsm-slider-mobile .free-pizza-mobile p.instruction {
+    margin-top: 10px;
+    font-size: 11px;
+    font-style: italic;
+  }
+
+  #tsm-slider-mobile .free-pizza-mobile .title {
+    margin-bottom: 0;
+  }
+
+  .catering-content {
+    margin-top: 0px;
+  }
+
+  .catering-content-1 {
+    margin-top: 0px;
+  }
+
+  .complete-roder-fix-button {
+    max-height: 50px !important;
+    min-height: 50px !important;
+    z-index: 1;
+    width: 90% !important;
+  }
+
+  .order-create-btn {
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 15px;
+    right: 0;
+    background-color: #F9F9FA;
+    border-top: 1px solid #E7E8EC;
+    z-index: 99;
+  }
+
+  .add_additional_to_order {
+    margin-right: 0px !important;
+  }
+
+  .member-feddback {
+    margin-top: 15vh;
+    margin-bottom: 10vh;
+  }
+
+  .row.no-padding {
+    margin-right: 0;
+    margin-left: 0;
+  }
+
+  .row.no-padding>[class^="col-"],
+  .row.no-padding>[class*=" col-"] {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .row.no-padding .radio-btn>label {
+    margin-left: -15px;
+  }
+
+  .row.newStyle .radio-btn > label{
+    margin-left: 0px !important;
+  }
+
+  .newStyle .newStyleCrust {
+    padding-right: 0px;
+  }
+
+  .pizza-card .card-data .ingredients {
+    padding-top: 0 !important;
+  }
+
+  .order-pizza-card .pizza-select .pizza-card .right-icons {
+    position: absolute;
+    right: 32px;
+  }
+
+  .order-pizza-card .pizza-select .pizza-card .card-data .card-title {
+    width: 90%;
+    font-size: 17px;
+  }
+
+  .dipping-item-row .card-details {
+    padding: 0px 0px 0px 6px;
+  }
+
+  #garlic .page-sub-title {
+    margin: unset;
+    padding-left: 0px !important;
+  }
+
+  #garlic .page-sub-title .additional-item-page-title {
+    width: 100%;
+    padding-bottom: 0px;
+  }
+
+  footer {
+    padding: 4rem 0 0;
+  }
+
+  .alert-success {
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+
+  .additional-mobile {
+    margin-top: 35px !important;
+  }
+
+  #Dipping .home-content-panel p {
+    margin-bottom: 1rem;
+    padding-top: 35px;
+  }
+
+  .home-content-panel .homepage-headings p,
+  .ingredients {
+    max-width: 100%;
+  }
+
+  .body-container-order {
+    margin-top: 40px;
+    padding: 15px;
+  }
+
+  #location-filter .top-bar h1 {
+    font-size: 22px;
+  }
+
+  .order-additional {
+    flex-direction: column;
+    margin-top: 0px;
+  }
+
+  .order-additional .food-category {
+    width: 100%;
+  }
+
+  .order-additional-new {
+    flex-direction: row;
+    margin-top: 0px;
+    padding-left: 10px;
+    padding-right: 10px;
+    justify-content: space-between;
+  }
+
+  .order-additional-new .food-category {
+    width: 46%;
+    margin: 0px 2%;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .order-additional-mobile-style {
+    margin-top: 0px;
+  }
+
+  .hc-block h2 {
+    font-size: 2rem;
+    text-align: center
+  }
+
+  .order_online .order-pickup .default-form .sub-next-btn {
+    flex-direction: column;
+  }
+
+  .order_online .order-pickup .default-form .button.gray.m-r {
+    margin-right: 0px;
+    text-align: center;
+    margin-bottom: 25px;
+  }
+
+  #product_calzone_size_group {
+    margin-bottom: 15px;
+  }
+
+  #product_calzone_size_group .semi-header {
+    font-size: 18px;
+  }
+
+  #product_toppings_group .border-top {
+    border-top: none !important;
+    padding-top: 15px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .toppings .semi-header {
+    font-size: 18px;
+    font-family: 'Gotham Pro Bold';
+    padding-top: 45px;
+  }
+
+  .location-left-side-info .address a {
+    width: auto;
+  }
+
+  .body-container-order h3.semi-header {
+    font-size: 18px;
+  }
+
+  .scroll-fixed-top {
+    position: unset !important;
+    max-width: 100% !important;
+    min-width: 100% !important;
+  }
+
+  .thankyou-page .homepage-headings h2 {
+    font-size: 40px;
+    line-height: 30px;
+    padding-top: 20px;
+  }
+
+  .bottom-imgs {
+    flex-wrap: wrap;
+  }
+
+  .block-style div {
+    padding: 0px;
+  }
+
+  .admin-form-body {
+    margin-top: 45px;
+  }
+
+  .topping-cards img {
+    height: auto;
+  }
+
+  .reset-page-style .new_customer .form-inputs .control-group .controls input {
+    width: 100%;
+  }
+
+  .reset-page-style .new_customer .form-actions .button {
+    padding: 7px 18px !important;
+  }
+
+  .customers-signin .customers-header .super-header {
+    font-size: 22px;
+    width: 50%;
+  }
+
+  .customers-signin .customers-header a {
+    font-size: 20px;
+    width: 50%;
+  }
+
+  .customers-signin .customers-header {
+    margin-top: 0px;
+  }
+
+  .customers-signin.dashboard .super-header {
+    font-size: 22px;
+    width: 50%;
+  }
+
+  .customers-signin.dashboard a {
+    width: 50%;
+  }
+
+  .customers-signin.dashboard {
+    margin-top: 0px;
+  }
+
+  .past-order .actions {
+    width: 100%;
+  }
+
+  .past-order .actions a:first-child {
+    width: 50%;
+    text-align: center;
+    padding: 13px 15px;
+  }
+
+  .past-order .actions a {
+    width: 50%;
+  }
+
+  .past-order .details {
+    min-width: 100%;
+  }
+
+  #pizza-welcome-message {
+    width: 80%;
+    position: absolute;
+  }
+
+  .old-new-logo-header {
+    padding: 25px 25px;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .old-new-logo-header img {
+    margin-bottom: 15px;
+    width: 65%;
+  }
+
+  .old-new-logo-header .old-to-new {
+    -ms-transform: rotate(90deg);
+    /* IE 9 */
+    -webkit-transform: rotate(90deg);
+    /* Safari 3-8 */
+    transform: rotate(90deg);
+  }
+
+  .mobile-point {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .welcome-note {
+    font-size: 18px;
+    line-height: 25px;
+    margin-bottom: 20px;
+    padding: 0px 0px;
+    text-align: center;
+    margin-left: 0px;
+  }
+
+  .welcome-exit-btn {
+    padding: 0px 0px;
+    text-align: center;
+    margin-bottom: 25px;
+  }
+
+  .re-order-btn {
+    flex-direction: column;
+  }
+
+  .past-order-body .super-header {
+    font-size: 22px;
+  }
+
+  .past-order-body {
+    margin-top: 0px;
+    margin-bottom: 30px;
+  }
+
+  .re-order-btn .button.muted {
+    border-radius: 5px;
+    margin-left: 0px;
+    margin-top: 15px;
+    margin-right: 0px;
+  }
+
+  .past-order-location-details {
+    margin-bottom: 15px;
+  }
+
+  .body-container-order .radio-btn-box .checkbox-container.body-container-order .radio-btn-box .checkbox-container {
+    margin-bottom: 20px;
+  }
+
+  .catering_page .order-item-row {
+    padding-bottom: 27px !important;
+    flex-wrap: unset;
+  }
+
+  .left-container-dsk .bottom-actions {
+    display: none;
+  }
+
+  .bottom-actions>.button.muted {
+    border-radius: 5px;
+    margin-left: 5px;
+    margin-right: 15px;
+    width: 40%;
+  }
+
+  .bottom-actions>.button.default {
+    margin-right: 6px;
+    width: 55%;
+  }
+
+  .location-left-side-info h2,
+  h3 {
+    font-size: 22px;
+  }
+
+  .location-left-side-info .shop-hours {
+    margin-bottom: 25px;
+  }
+
+  .inner-page-wrap {
+    margin-top: 0rem;
+  }
+
+  .page-sub-title>.sub-title {
+    font-size: 22px;
+    line-height: 20px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+
+  .page-points>.main-title {
+    font-size: 24px;
+    line-height: 20px;
+  }
+
+  .sub-points>.sub-point-title {
+    font-size: 18px;
+  }
+
+  .form-control-decor>.form-inner-title {
+    Font-Size: 24px;
+    padding-top: 35px;
+  }
+
+  .order-summary-details .store-tag-line {
+    font-size: 20px;
+    padding-bottom: 10px;
+    width: 74%;
+    // padding-top: 55px;
+  }
+
+  .order-summary-details .select-payment-method form .control-group .controls textarea {
+    width: 96%;
+  }
+
+  .place-order-box .bottom-actions .order-actions-btns {
+    flex-direction: column;
+  }
+
+  .place-order-box .bottom-actions .order-edit-btn {
+    width: 68%;
+    margin-left: 0px;
+    margin-top: 30px;
+  }
+
+  .summary-page-layout .super-header-top {
+    font-size: 22px;
+    line-height: 20px;
+    margin-left: 108px;
+    margin-top: 0px;
+  }
+
+  .summary-table-data .summary-table-checkout tbody tr td .item_title {
+    font-size: 20px;
+  }
+
+  .summary-page-layout .red-text {
+    color: #E4636F;
+    margin-top: 46px;
+    margin-bottom: 34px;
+  }
+
+  .location-card .card-button .button {
+    width: 84% !important;
+  }
+
+  .location-content-panel h2 {
+    font-size: 22px;
+    line-height: 20px;
+    margin-top: 19px;
+    margin-left: -13px;
+  }
+
+  .location-content-panel p {
+    font-size: 16px;
+  }
+
+  .location-content-panel {
+    padding: 4rem 0 1rem;
+    // width: 92%;
+    width: 65%;
+    margin-top: -40px;
+    margin-left: 123px;
+  }
+
+  .secondary-btn {
+    border-radius: 5px;
+    margin-left: 0px;
+  }
+
+  #location-filter .top-bar {
+    width: 90%;
+    margin: 0 auto;
+    padding-top: 0px;
+  }
+
+  #location-filter .top-bar h2 {
+    font-size: 22px;
+  }
+
+  .search-loation-block {
+    margin-bottom: 50px;
+  }
+
+  .search-locations-forms .button {
+    margin-top: 25px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .location-row .regular-txt {
+    margin: 7px 30px;
+  }
+
+  .delivery-time-page .super-header {
+    font-size: 22px;
+    // margin-top: 110px;
+  }
+
+  .delivery-time-page .static-header {
+    font-size: 16px;
+    margin-top: 16px;
+    margin-bottom: 0px;
+  }
+
+  .delivery-time-page .time-table {
+    margin-top: 48px;
+  }
+
+  .delivery-time-page .or-text {
+    padding-top: 25px;
+    padding-bottom: 25px;
+  }
+
+  .mob-center-left-desk #order_with_chosen_time {
+    text-align: center;
+    padding: 12px 0 !important;
+  }
+
+  .button.default {
+    width: 100%;
+    padding: 12px 17px;
+    font-size: 16px;
+    text-align: center;
+  }
+
+  .mob-center-left-desk #order_with_chosen_time {
+    text-align: center;
+    padding: 12px 0 !important;
+  }
+
+  .delivery-time-page .right-btn-top {
+    margin-top: 10px;
+    text-align: center;
+    padding: 12px 0px !important;
+  }
+
+  .order-in span {
+    font-size: 16px;
+  }
+
+  .delivery-time-page .hours {
+    font-size: 12px;
+  }
+
+  .mobile-card-btn {
+    width: auto !important;
+  }
+
+  .order-pickup .static-header {
+    font-size: 30px;
+    margin-bottom: 24px;
+  }
+
+  .order-pickup {
+    margin-top: 110px;
+  }
+
+  .signin-row .signin-layout .static-header {
+    font-size: 22px;
+    margin-top: 0px !important;
+    margin-bottom: 30px !important;
+  }
+
+  .signin-row {
+    margin-top: 0px;
+  }
+
+  .home-content-panel .p2 {
+    margin-top: 27px;
+    font-size: 16px;
+  }
+
+  .left-side-order-data .order-details-table .order-actions {
+    margin-bottom: 36px;
+    margin-left: -15px;
+    margin-top: 23px;
+  }
+
+  .left-side-order-data .order-details-table tbody tr td .order-actions .edit-remove {
+    padding: 0px;
+  }
+
+  .left-side-order-data .order-details-table tbody tr td .item-details .toppings-list>ul>li:before {
+    left: 13px;
+    margin-top: -5px;
+  }
+
+  .left-side-order-data .order-details-table tbody tr td .item-details .toppings-list>ul {
+    margin-left: -15px;
+  }
+
+  .left-side-order-data .order-details-table tbody tr td p {
+    margin-left: -15px;
+  }
+
+  .order-detail-mobile {
+    padding-bottom: 0px !important;
+  }
+
+  .mobile-tr-only {
+    height: 66px;
+  }
+
+  .summary-container .order-action .button.default {
+    width: 90%;
+  }
+
+  .summary-container .order-action .button.black {
+    border-radius: 5px;
+    width: 90%;
+  }
+
+  .additional-item-row .order-item-row .card-details .bottom-actions {
+    display: none;
+  }
+
+  .additional-item-row .order-item-row .card-details {
+    display: flex;
+    // align-items: center;
+  }
+
+  .additional-item-row .order-item-row {
+    margin-left: 0px;
+    margin-right: 0px;
+    box-shadow: none;
+    width: 97%;
+    padding-left: 15px;
+  }
+
+  .additional-item-row .order-item-row .item_image {
+    display: none;
+  }
+
+  .additional-item-row {
+    /* justify-content: unset; */
+    flex-direction: column;
+  }
+
+  .additional-item-row .order-item-row .card-details .left-cell {
+    font-size: 18px;
+    width: 50%;
+    font-family: 'Gotham Pro';
+    min-height: 0px;
+  }
+
+  .additional-item-row .order-item-row .card-details .right-cell {
+    padding-top: 0px;
+    width: 50%;
+  }
+
+  .page-sub-title {
+    padding: 0px 0 20px !important;
+    margin-left: 6px !important;
+    margin-top: 15px !important;
+  }
+
+  .dipping-item-row {
+    margin-left: 0px;
+    margin-right: 0px;
+    box-shadow: none;
+    min-height: auto;
+    margin-bottom: 0px;
+  }
+
+  .dipping-item-row .item_image {
+    display: none;
+  }
+
+  .dipping-item-row .card-details .bottom-actions {
+    display: none;
+  }
+
+  .dipping-item-row .card-details {
+    display: flex;
+  }
+
+  .dipping-item-row .card-details .right-cell {
+    padding-top: 0px;
+    width: 40%;
+  }
+
+  .dipping-item-row .card-details .left-cell {
+    font-size: 16px;
+    width: 60%;
+    font-family: 'Gotham Pro';
+    padding-top: 0px;
+    min-height: 0px;
+    margin-bottom: 29px;
+  }
+
+  .dipping-item-row .card-details .left-cell .item-price {
+    font-size: 14px !important;
+    font-family: 'Gotham Pro';
+    padding-top: 0px;
+  }
+
+  .body-container-order .order-item-row {
+    padding-bottom: 0px;
+  }
+
+  .additional-item-row .order-item-row .card-details .left-cell .align-price {
+    font-size: 14px;
+    padding-top: 0px;
+  }
+
+  .single-pizza {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+
+  .single-pizza h1 {
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .body-container-order .semi-header {
+    padding-top: 34px;
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .page-background-catering div {
+    height: 37vh;
+  }
+
+  .page-background-catering {
+    // height: 30vh;
+    margin-bottom: 10px;
+  }
+
+  .inner-page-wrap .home-content-panel {
+    margin: 0 auto;
+    padding-bottom: 9px !important;
+    margin-left: 0px !important;
+  }
+
+  .inner-page-wrap .home-content-panel h2 {
+    margin-left: 60px;
+    // margin-top: -24px;
+    font-size: 22px;
+    width: 100%;
+    margin-top: 2px;
+  }
+
+  .additional-items .home-content-panel h2 {
+    margin-left: 0px;
+    margin-top: 75px;
+    font-size: 30px;
+    width: 100%;
+  }
+
+  .order-pizza-card {
+    margin-top: 25px;
+  }
+  .home-category-card-list .media-list{
+    margin: 0px !important;
+  }
+  .left-side-order-data {
+    margin-left: 7px;
+  }
+
+  .home-content-panel p {
+    font-size: 16px;
+    padding-top: 10px;
+  }
+
+  .inner-page-wrap .page-sub-title h2 {
+    margin-left: 0px;
+    margin-top: 0px;
+    font-size: 30px;
+  }
+
+  .inner-page-wrap .mobile-card-row {
+    // margin-left: 15px;
+    // margin-right: 15px;
+  }
+
+  .order-pizza-card .pizza-select .product-image {
+    // display: none;
+  }
+
+  .order-pizza-card .pizza-select .pizza-card {
+    min-height: auto;
+  }
+
+  .order-pizza-card .pizza-select .pizza-card .card-data .bottom-button {
+    position: unset;
+    margin-top: 15px;
+  }
+
+  .container.error {
+    margin-bottom: 0rem;
+    margin-top: 0rem;
+  }
+
+  .container.error .top-alerts .alert-error {
+    margin-top: 0px;
+  }
+
+  #order_additional_form .body-container-order {
+    margin-top: 0px;
+    padding: 0px;
+  }
+
+  .catering_page {
+    padding: 15px !important;
+  }
+
+  .scroll-fixed-bottom {
+    position: unset !important;
+    bottom: unset !important;
+  }
+
+  .page-sub-title {
+    margin: 0 auto;
+    margin-left: 12px !important;
+    margin-top: 35px !important;
+    padding-bottom: 0px !important;
+  }
+
+  .additional-item-row .order-item-row .card-details {
+    padding: 0px 0px 0px 6px;
+  }
+
+  .mobile-home-content {
+    max-width: 97%;
+    margin: 0 auto;
+    padding-bottom: 25px;
+  }
+
+  .mobile-home-content .homepage-headings p,
+  .ingredients {
+    max-width: 100%;
+    padding-top: 15px !important;
+  }
+
+  .mobile-home-content .homepage-headings .malbeck {
+    margin-left: 100px;
+    margin-top: -38px !important;
+  }
+
+  .mobile-home-content .additional-item-page-title {
+    margin-left: 70px !important;
+    margin-top: -125px !important;
+  }
+
+  .mobile-home-content .additional-item-content {
+    margin-top: 25px;
+  }
+
+  .mobile-row {
+    display: flex;
+    align-items: center;
+  }
+
+  .footer-menu .bottom-nav {
+    display: none;
+  }
+
+  .mobile-row .text {
+    text-align: center;
+    margin-bottom: 0rem;
+  }
+
+  .mobile-row .text img {
+    padding-bottom: 8px;
+  }
+
+  .mobile-generation-block {
+    margin-top: 42px;
+  }
+
+  .mobile-generation-block .generation-list {
+    margin-top: 24px;
+  }
+
+  .mobile-generation-block .generation-list .gen-item .title {
+    font-size: 18px;
+    margin-top: 25px;
+  }
+
+  .mobile-align .text-right {
+    text-align: left !important;
+  }
+
+  .home-content-panel-new {
+    margin-top: 40px !important;
+    margin-bottom: 15px !important;
+    padding-bottom: 0px !important;
+    max-width: 100%;
+  }
+
+  .home-content-layout {
+    max-width: 75%;
+    padding: 40px 0px 60px;
+  }
+
+  .row.no-gutters .food-category a .card img {
+    width: 100%;
+  }
+
+  .sidenav a {
+    font-size: 22px;
+    font-family: 'Gotham Pro';
+  }
+
+  .hero-panel {
+    margin-top: 55px;
+    height: auto !important;
+  }
+
+  .home-content-panel h2 {
+    font-size: 30px;
+    line-height: 26px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+  }
+
+  .hero-panel .hero-content .title {
+    font-size: 30px;
+    line-height: 26px;
+  }
+
+  .text-white {
+    text-shadow: 4px 3px 6px rgba(0, 0, 0, 0.5);
+  }
+
+  .hero-panel .hero-content {
+    top: unset;
+    right: unset;
+    bottom: 2rem;
+    left: 3rem;
+  }
+
+  .owl-dots {
+    display: block;
+  }
+
+  .parallax-scroll {
+    min-height: 250px;
+    background: transparent;
+  }
+
+  .signin-row .signin-layout {
+    margin-bottom: 30px;
+  }
+
+  .signin-row .signin-layout .mobile {
+    margin-bottom: 23px;
+  }
+
+  .signin-row .signin-layout form .control-group .controls input {
+    width: 100%;
+  }
+
+  .location-row {
+    align-items: center;
+    justify-content: center;
+  }
+
+  .search-locations-forms .search-location-form {
+    margin-right: 0px;
+    flex-direction: column;
+  }
+
+  .location-search-btn {
+    margin-top: 25px;
+  }
+
+  .customers-signin {
+    margin-top: 0px;
+  }
+
+  .additional-item-row .order-item-row .card-details .left-cell {
+    padding-top: 0px;
+  }
+
+  .place-order-btn {
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    // padding-right: 15px;
+    flex-direction: row !important;
+  }
+
+  .place-order-btn a {
+    margin-top: 0px !important;
+    width: 48% !important;
+    padding: 12px 10px !important;
+    text-align: center !important;
+  }
+
+  .place-order-btn .place-a-btn {
+    padding: 12px 10px !important;
+  }
+
+  select {
+    -webkit-appearance: menulist !important;
+    -moz-appearance: menulist !important;
+    appearance: menulist !important;
+  }
+
+  .select.optional {
+    -webkit-appearance: menulist;
+    -moz-appearance: menulist;
+    appearance: menulist;
+  }
+
+  .go-back-btn {
+    width: 100%;
+  }
+
+  .page-btn {
+    min-height: 40px !important;
+    max-height: 40px !important;
+    font-size: 18px;
+    margin-top: 0px !important;
+    line-height: normal;
+    padding: 10px !important;
+  }
+
+  .feed-ontario .home-content-panel h2 {
+    margin-top: -46px !important;
+    margin-bottom: 25px;
+  }
+
+  .hidden-phone.static-header.semi-header {
+    margin-top: 40px;
+  }
+
+  .zero-contact-message {
+    margin-top: 50px;
+    width: 90% !important;
+  }
+
+  .zero-contact-exit-btn .btn-green {
+    width: 100%;
+    max-height: 45px !important;
+    min-height: 45px !important;
+  }
+
+  .zero-contact-content {
+    font-size: 35px;
+  }
+
+  .homepage .navbar-brand {
+    padding-top: 0px !important;
+    top: 68px;
+  }
+
+  .customize-button {
+    padding: 0px !important;
+  }
+
+  .box-border.border-black {
+    position: relative;
+    left: -15px;
+  }
+
+  .quantity-card-wrapper {
+    margin-top: 30px;
+  }
+
+  .main-menu-complete {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+
+  .main-menu-complete .food-category-new {
+    width: 48%;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .main-menu-complete .food-category-new h2 {
+    font-size: 1.5rem;
+  }
+
+  .order-additional h2 {
+    font-size: 1.5rem;
+  }
+
+  .main-menu-complete .food-category-new:last-child {
+    // width: 100%;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .row.no-gutters .food-category-new a .card img {
+    width: 100%;
+    height: 70px;
+    object-fit: cover;
+  }
+
+  .main-menu-complete .food-category-new img {
+    max-height: 70px;
+    object-fit: cover;
+  }
+
+  .title-margin-zero {
+    margin-top: 0px !important;
+  }
+
+  .inner-page-wrap .home-content-panel-new h2 {
+    margin-left: 0px;
+  }
+
+  .food-category-new h2 {
+    font-size: 18px !important;
+    line-height: 20px !important;
+    text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.9) !important;
+  }
+
+  .important_message {
+    font-family: Gotham Pro;
+    margin: 20px 30px 0px 30px;
+    font-size: 14px;
+    line-height: 18px;
+  }
+
+  .cart-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  .cart-wrapper .details-cart-quantity {
+    margin-right: 0px;
+    justify-content: flex-start;
+  }
+
+  .cart-wrapper .details-upsize-btn {
+    justify-content: flex-start;
+    margin-left: -15px;
+  }
+
+  .complete-meal-card {
+    margin-top: 0px !important;
+  }
+
+  .complete-meal-title {
+    margin-top: 28px !important;
+  }
+
+  .add-more-pizza-title {
+    margin-top: 25px !important;
+  }
+
+  /* For mobile menu Start */
+  .sidenav .menu-top .mobile-logo {
+    position: relative;
+    top: 20px;
+  }
+
+  .sidenav .menu-link {
+    margin-top: 50px;
+  }
+
+  .sidenav .menu-link a {
+    font-family: Lance-Sans-Regular;
+    color: #FFFFFF;
+    font-size: 18px;
+    // background-image: url(/assets/new_design/menu-bg.png);
+    background-color: #1c1a1a;
+    background-size: cover;
+    background-repeat: no-repeat;
+    box-shadow: 0 0 10px #ddd;
+    height: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    margin: 0 25px;
+    border-radius: 6px;
+    text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.9);
+  }
+
+  .sidenav .location-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 15px 25px;
+  }
+
+  .sidenav .location-wrapper .location-link a {
+    font-family: Lance-Sans-Regular;
+    color: #FFFFFF;
+    font-size: 18px;
+    // background-image: url(/assets/new_design/location.png);
+    background-color: #1c1a1a;
+    background-size: cover;
+    background-repeat: no-repeat;
+    box-shadow: 0 0 10px #ddd;
+    height: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px !important;
+    border-radius: 6px;
+    text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.9);
+  }
+
+  .sidenav .location-wrapper .catering-link,
+  .sidenav .location-wrapper .location-link {
+    width: 47%;
+  }
+
+  .sidenav .location-wrapper .catering-link a {
+    font-family: Lance-Sans-Regular;
+    color: #FFFFFF;
+    font-size: 18px;
+    // background-image: url(/assets/new_design/catering.png);
+    background-color: #1c1a1a;
+    background-size: cover;
+    background-repeat: no-repeat;
+    box-shadow: 0 0 10px #ddd;
+    height: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px !important;
+    border-radius: 6px;
+    text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.9);
+  }
+
+  .sidenav .menu-top {
+    display: flex;
+    position: absolute;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    text-align: right;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .sidenav .mid-menu-wrapper a {
+    font-family: 'Gotham Pro Bold';
+    font-size: 18px;
+    padding: 15px 0px;
+    margin: 0px 25px;
+    border-bottom: 1px dashed #D7DFE9;
+    position: relative;
+  }
+
+  .sidenav .mid-menu-wrapper a::after {
+    top: 20px;
+    // font-size: 26px;
+    // content: "\f105";
+    content: " ";
+    background-image: url(/assets/new_design/right-chevron-icon.png);
+    background-repeat: no-repeat;
+    position: absolute;
+    right: 0;
+    // font-family: FontAwesome;
+    // color: #96A7BB;
+    width: 10px;
+    height: 18px;
+  }
+
+  .sidenav .user-menu-wrapper {
+    margin: 20px 25px 0px 25px;
+  }
+
+  .sidenav .user-menu-wrapper .menu-user-details {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 65px;
+    border-bottom: 1px dashed #D7DFE9;
+  }
+
+  .sidenav .user-menu-wrapper a {
+    font-family: 'Gotham Pro Bold';
+    font-size: 18px;
+  }
+
+  .sidenav .user-menu-wrapper .menu-user-details .menu-user-name {
+    font-family: 'Gotham Pro Bold';
+    font-size: 18px;
+  }
+
+  .sidenav .user-menu-wrapper .user-account-wrapper .user-menu-account a {
+    font-family: 'Gotham Pro Bold';
+    font-size: 18px;
+    padding: 15px 0px;
+    border-bottom: 1px dashed #D7DFE9;
+    position: relative;
+  }
+
+  .sidenav .user-menu-wrapper .user-account-wrapper .user-menu-account a::after {
+    top: 20px;
+    // font-size: 26px;
+    // content: "\f105";
+    content: " ";
+    background-image: url(/assets/new_design/right-chevron-icon.png);
+    background-repeat: no-repeat;
+    position: absolute;
+    right: 0;
+    // font-family: FontAwesome;
+    // color: #96A7BB;
+    width: 10px;
+    height: 18px;
+  }
+
+  .sidenav .user-menu-wrapper .signin-menu a {
+    font-family: 'Gotham Pro Bold';
+    font-size: 18px;
+    padding: 15px 0px;
+    border-bottom: 1px dashed #D7DFE9;
+    position: relative;
+  }
+
+  .sidenav .user-menu-wrapper .signin-menu a::after {
+    top: 20px;
+    // font-size: 26px;
+    // content: "\f105";
+    content: " ";
+    background-image: url(/assets/new_design/right-chevron-icon.png);
+    background-repeat: no-repeat;
+    position: absolute;
+    right: 0;
+    // font-family: FontAwesome;
+    // color: #96A7BB;
+    width: 10px;
+    height: 18px;
+  }
+
+  /* For mobile menu End */
+  .payment_type {
+    width: 100% !important;
+    flex-wrap: wrap;
+  }
+
+  .pay_type {
+    width: 48% !important;
+    font-size: 16px;
+    padding: 5px;
+  }
+
+  .cart-border-box {
+    margin: 15px;
+    flex: unset;
+  }
+
+  .payment_type .payment_method {
+    width: 48%;
+    padding: 12px;
+    font-size: 13px;
+    height: 70px;
+    max-width: 99px;
+  }
+
+  .place-order-box .bottom-actions .order-actions-btns {
+    margin: 15px;
+  }
+
+  .page-header-title {
+    width: 100%;
+    margin: 0 auto;
+    padding-bottom: 0px;
+    padding-left: 15px;
+    padding-right: 15px;
+    min-height: 20px;
+  }
+
+  .page-header-title h2 {
+    margin-bottom: 0px !important;
+    // margin-top: 48px !important;
+    font-size: 22px !important;
+    line-height: 22px !important;
+    margin-left: 110px;
+    // min-height: 66px;
+  }
+
+  .page-header-title div:first-child {
+    display: flex;
+    align-items: center;
+    height: 92px;
+    margin-top: 22px;
+    flex-direction: row;
+  }
+
+  .page-header-title p {
+    margin: 15px 0px;
+  }
+
+  .complete_your_meal_page .complete-meal-title {
+    padding: 75px 0px 15px 0px !important;
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+  }
+
+  .delivery_address_page .order-pickup {
+    margin-top: 0px;
+  }
+
+  .delivery_address_page .signin-row .signin-layout .static-header {
+    min-height: 0px !important;
+    margin-bottom: 0px !important;
+  }
+
+  .delivery_address_page .order-pickup .static-header {
+    font-size: 22px;
+    margin-bottom: 24px;
+  }
+
+  .confirm_your_order_page .summary-page-layout {
+    margin-top: 0px !important;
+  }
+
+  .confirm_your_order_page .summary-page-layout .margin-top-bottom {
+    margin: 0px !important;
+    padding: 0px 15px;
+  }
+
+  .confirm_your_order_page .summary-page-layout .margin-top-bottom .red-text {
+    margin: 0px !important;
+  }
+
+  .thank_you_page .homepage-headings {
+    margin-top: 0px !important;
+    margin-bottom: 30px !important;
+  }
+
+  .thank_you_page .homepage-headings h2 {
+    padding-top: 0px !important;
+  }
+
+  .thankyou-page .thankyou-summary .fresh-at {
+    padding-top: 25px;
+    padding-bottom: 10px;
+  }
+
+  .subtitle-padding {
+    padding-left: 15px;
+  }
+
+  .additional_items_page .page-header-title {
+    display: none;
+  }
+
+  .additional_items_page #Dipping .home-content-panel h2 {
+    margin-top: 175px;
+  }
+
+  .additional_items_page #Dipping .home-content-panel p {
+    padding-top: 15px;
+  }
+
+  .additional_items_page .home-content-panel {
+    padding: 0px 0px !important;
+  }
+
+  .pickup_address_page .order-pickup {
+    margin-top: 0px;
+  }
+
+  .pickup_address_page .order-pickup .static-header {
+    font-size: 22px;
+    min-height: 0px;
+    text-align: left !important;
+  }
+
+  .pickup_address_page .order-pickup p {
+    text-align: left !important;
+  }
+
+  .choose_time_pages .default-form {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .calzone_page .body-container-order {
+    margin-top: 0px !important;
+    padding: 15px;
+  }
+
+  .catering_home_page .body-container-order .static-header {
+    padding-bottom: 10px;
+    padding-top: 10px;
+  }
+
+  .catering_home_page .body-container-order .radio-btn-box .checkbox-container label {
+    margin-bottom: 0rem;
+    margin-left: 0px;
+    margin-top: 2px;
+  }
+
+  .body-container-order .radio-btn-box .checkbox-container {
+    margin-right: 30px;
+  }
+
+  #order_time_date_3i {
+    padding: 0px 4px 0px 5px !important;
+  }
+
+  #order_time_date_2i {
+    padding: 0px 5px 0px 5px !important;
+  }
+
+  #order_time_time_5i {
+    padding: 0px 4px 0px 0px !important;
+  }
+
+  #order_time_date_1i {
+    padding: 0px 5px 0px 5px !important;
+  }
+
+  .sidenav a:hover {
+    color: #000000;
+  }
+
+  .payment_type .payment_method:hover {
+    background-color: #E5E8EE;
+    color: #959FB1;
+  }
+
+  .payment_type .payment_method.selected {
+    background-color: #009949 !important;
+    color: #FFFFFF !important;
+  }
+
+  .pp-ipad-styling .homepage-headings p .ingredients {
+    padding-top: 0px !important;
+  }
+
+  #contestsModal {
+    height: 59vh !important;
+  }
+
+  input.button.default.submit-contests {
+    min-width: 40px;
+    padding: 5px 20px !important;
+    height: auto;
+    width: auto;
+  }
+
+  .single-contests .button.default {
+    height: auto;
+  }
+
+  .deal-pepperoni-special-details .pizza-price {
+    margin-top: 10px;
+    padding-bottom: 10px !important;
+  }
+
+  .deal-pepperoni-close-btn .button.default {
+    margin-top: 0px;
+    height: auto;
+    padding: 12px 17px;
+    font-size: 16px;
+    text-align: center;
+    width: 90% !important;
+    min-height: 50px !important;
+    max-height: 50px !important;
+    margin-right: 0px !important;
+  }
+
+  .deal-pepperoni-body-content {
+    padding: 0px 15px 0px 15px;
+    margin-top: 40px;
+  }
+
+  .deal-order-complete-meal-btn .btn-green {
+    padding: 12px 17px;
+    font-size: 16px;
+    text-align: center;
+    width: 90% !important;
+    min-height: 50px !important;
+    max-height: 50px !important;
+  }
+
+  body {
+    height: 100vh;
+  }
+
+  .cart_page .deals-title-no-padding td h2 {
+    font-size: 22px !important;
+  }
+
+  .left-side-order-data .order-details-table tbody .inner-item-alignment .item-details .toppings-list>ul>li:before {
+    left: 25px !important;
+  }
+
+  .personal-pizza-size {
+    display: flex;
+    flex-wrap: wrap !important;
+  }
+
+  .personal-pizza-size .left-cell {
+    width: 49% !important;
+  }
+
+  .personal-pizza-size .right-cell {
+    width: 49% !important;
+  }
+
+  .personal-pizza-size .price_difference_list {
+    margin-bottom: 0px;
+  }
+
+  .pizza-category-selection .pizza-category-description {
+    margin-bottom: 0px;
+  }
+
+  .catering-size-select .category_pizza_sizes li label {
+    margin-right: 5px !important;
+  }
+
+  .catering_home_page .catering-pizza-quantity .box-border {
+    position: absolute;
+    right: 0;
+    padding: 12px 5px 0px 15px;
+  }
+
+  .catering_home_page .qty-item-style .box-border {
+    position: absolute;
+    right: 4px;
+    padding: 12px 10px 0px 10px;
+  }
+
+  .utensils-select-box .select-input {
+    position: absolute;
+    right: 15px;
+    width: 120px !important;
+  }
+
+  .special-deal-section .food-category-new a .card img {
+    width: 100vw !important;
+  }
+
+  .deal-order-modal-body {
+    padding-top: 22px !important;
+  }
+
+  .customize-pizza-bg a .card img {
+    height: 90px !important;
+    max-height: 90px;
+  }
+
+  .special-deal-section a .card img {
+    height: 90px !important;
+    max-height: 90px;
+  }
+
+  .location-left-side-info .phone a,
+  .location-left-side-info .address a {
+    justify-content: space-between;
+  }
+
+  .additional_items_page .box-border {
+    padding-right: 0px;
+  }
+
+  .additional_items_page .right-cell {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .additional_items_page .qty-box {
+    margin-right: 5px;
+  }
+  .pizza_category_page .box-border.border-black {
+    left: unset;
+  }
+
+  @-moz-document url-prefix() {
+    .homepage .only-mobile .mobile-logo {
+      top: 48px !important;
+    }
+
+    .homepage .only-mobile .mobile-logo {
+      margin-top: 0px !important;
+    }
+
+    .only-mobile .mobile-logo {
+      position: relative;
+      z-index: 999;
+    }
+
+    .page-header-title {
+      padding-top: 24px;
+    }
+
+    .page-header-title div:first-child {
+      margin-top: 0px;
+    }
+  }
+}
+
+@media only screen and (min-width: 414px) and (max-width: 736px) {
+  .fr-logo {
+    width: 95px;
+  }
+
+  .fr-logo-plant-based{
+    right: 20px !important;
+  }
+
+}
+
+@media only screen and (min-width: 180px) and (max-width: 320px) {
+  .hero-banner-bg {
+    // height: 418px !important;
+  }
+  .gridOnMobile{
+    padding: 0px;
+  }
+  .titleOnSmallDevice{
+    padding-left: 10px;
+  }
+  .gridCard .food-category a h2.card-title {
+    font-size: 1rem !important;
+  }
+  .innerCardWidth .order-additional-new .food-category {
+    width: 46% !important;
+  }
+  .home-category-card-list h4 br{
+    display: block !important;
+  }
+  .slider-container{
+    padding: 0px !important;
+    margin: 0px !important;
+  }
+  .select-location-btn {
+    margin-left: 0px;
+  }
+
+  .pp-bg-special-page {
+    display: none;
+  }
+
+  .pp-bg-special-mobile-page {
+    display: block;
+  }
+
+  .pepperoni-pizza-mobile-bg {
+    background-size: 100% 100% !important;
+  }
+
+  .deal-order-complete-meal-btn {
+    display: block;
+  }
+
+  .zero-contact-content {
+    font-size: 30px;
+    line-height: 30px;
+  }
+
+  .zero-content {
+    font-size: 15px;
+  }
+
+  .zero-contact-message {
+    margin-top: 15px;
+  }
+
+  .catering-size-select .category_pizza_sizes li label {
+    height: 44px;
+    width: 44px;
+    font-size: 10px;
+    margin-right: 4px !important;
+  }
+
+  .quantity-card-title h2 {
+    width: 100% !important;
+    margin-right: 0px !important;
+  }
+
+  .category_pizza_sizes li label {
+    margin-right: 4px;
+  }
+
+  .category_pizza_sizes li:last-child label {
+    margin-right: 0px;
+  }
+
+  .sidenav .menu-link a:hover {
+    color: #fff !important;
+  }
+
+  .deal-pepperoni-special-details .pizza-price {
+    margin-top: 10px;
+    padding-bottom: 10px !important;
+  }
+
+  .deal-pepperoni-close-btn .button.default {
+    margin-top: 0px;
+    height: auto;
+    padding: 12px 17px;
+    font-size: 16px;
+    text-align: center;
+    width: 90% !important;
+    min-height: 50px !important;
+    max-height: 50px !important;
+    margin-right: 0px !important;
+  }
+
+  .deal-pepperoni-body-content {
+    padding: 0px 15px 0px 15px;
+    // margin-top: 100px;
+  }
+
+  .deal-order-complete-meal-btn .btn-green {
+    padding: 12px 17px;
+    font-size: 16px;
+    text-align: center;
+    width: 90% !important;
+    min-height: 50px !important;
+    max-height: 50px !important;
+  }
+
+  .personal-pizza-size {
+    display: flex;
+    flex-wrap: wrap !important;
+  }
+
+  .personal-pizza-size .left-cell {
+    width: 49% !important;
+  }
+
+  .personal-pizza-size .right-cell {
+    width: 49% !important;
+  }
+
+  .personal-pizza-size .price_difference_list {
+    width: 100% !important;
+  }
+
+  .catering_home_page .catering-pizza-quantity .box-border {
+    position: absolute;
+    right: 0;
+    padding: 12px 5px 0px 15px;
+  }
+
+  .catering_home_page .qty-item-style .box-border {
+    position: absolute;
+    right: 4px;
+    padding: 12px 10px 0px 10px;
+  }
+
+  .catering-size-select .category_pizza_sizes li label {
+    margin-right: 5px !important;
+  }
+
+  body {
+    height: 100vh;
+  }
+
+  .utensils-select-box .select-input {
+    position: absolute;
+    right: 15px;
+    width: 120px !important;
+  }
+
+  .deal-cart-quantity .box-border {
+    margin-bottom: 0px !important;
+    padding-top: 0px;
+  }
+
+  .cart_page .deals-title-no-padding td h2 {
+    font-size: 22px !important;
+  }
+
+  .left-side-order-data .order-details-table tbody .inner-item-alignment .item-details .toppings-list>ul>li:before {
+    left: 25px !important;
+  }
+
+  .new-custom-button {
+    font-size: 14px !important;
+    padding: 7px 12px !important;
+  }
+
+  .quantity-card-wrapper {
+    margin-top: 30px;
+  }
+
+  .row.no-gutters .food-category-new a .card img {
+    width: 100%;
+    height: 70px;
+    object-fit: cover;
+  }
+
+  .main-menu-complete .food-category-new img {
+    max-height: 70px;
+    object-fit: cover;
+  }
+
+  .details-upsize-btn .button.default {
+    font-size: 10px;
+    padding: 11px 6px 11px 6px !important;
+  }
+
+  .place-order-box .bottom-actions .order-actions-btns {
+    flex-direction: column !important;
+    width: 100% !important;
+    padding-right: 0px !important;
+  }
+
+  .place-order-box .bottom-actions .order-actions-btns a {
+    width: 100% !important;
+  }
+
+  .place-order-box .bottom-actions .order-actions-btns a:first-child {
+    margin-bottom: 15px;
+  }
+
+  .order-pizza-card .pizza-select .pizza-card .card-data .card-title {
+    font-size: 15px;
+  }
+
+  .order-pizza-card .pizza-select .pizza-card .card-data {
+    padding: 12px 15px 21px 15px;
+  }
+
+  .offer-details .pizza-price sup {
+    top: -10px;
+    font-size: 18px !important;
+  }
+}
+
+@media (min-width: 1200px) {
+  .inner-page-wrap .container {
+    max-width: 1140px;
+  }
+
+  .container {
+    max-width: 1140px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .pepperoni-pizza-bg{
+    background-position: center;
+    background-size: cover;
+    // height: calc(100vh - 15px);
+  }
+  .garden-eatin-bg {
+    background-position: center bottom 20px;
+    background-size: cover;
+    // height: calc(100vh - 15px);
+  }
+}
+
+@media (min-width: 1800px) {
+  .pepperoni-pizza-bg{
+    background-position: center;
+    background-size: cover;
+    height: calc(100vh - 20px);
+  }
+  .garden-eatin-bg {
+    background-position: center bottom 0px;
+    background-size: cover;
+    height: calc(100vh - 20px);
+  }
+  
+  .hero-panel #tsm-slider .owl-nav {
+    top: 40vh;
+  }
+}
+
+@media (min-width: 3500px) {
+  .pepperoni-pizza-bg{
+    background-position: center;
+    background-size: cover;
+    height: calc(100vh - 0px);
+  }
+  .garden-eatin-bg {
+    background-position: center bottom 45px;
+    background-size: cover;
+    height: calc(100vh - 0px);
+  }
+
+  .hero-panel #tsm-slider .owl-nav {
+    top: 45vh;
+  }
+}
+
+@media only screen and (min-width: 1088px) and (max-width: 1200px) {
+
+  .new-custom-button {
+    font-size: 14px !important;
+    padding: 7px 12px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .pizza-card .card-data .bottom-button .button.default {
+    padding: 11px 10px !important;
+    height: 42px !important;
+    font-size: 20px;
+  }
+}
+@media only screen and (max-width: 1087px) and (min-width: 768px){
+  .holiday-message-box {
+    width: 100%;
+    margin-top: -30px;
+  }
+  .holiday-message-box .holiday-message {
+    width: 62%;
+    margin: auto;
+  }
+  .holiday-message-box h3{
+    font-size: 14px;
+  }
+  .holiday-message-box p{
+    font-size: 13px;
+  }
+  .holiday-message-box .holiday-wishes-style{
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  .holiday-message-box .holiday-wishes-style p{
+    padding: 0px 5px;
+    margin-bottom: 0px;
+  }
+  .holiday-message-box .holiday-wishes-style img{
+    width: 40px;
+  }
+  .complete_your_meal_page .holiday-message-box, .additional_items_page .holiday-message-box{
+    padding-top: 50px;
+  }
+}
+
+@media only screen and (max-width: 767px) and (min-width: 240px){
+  .holiday-message-box {
+    width: 100%;
+    // margin-top: 56px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .holiday-message-box .holiday-message {
+    width: 98%;
+    margin: auto;
+  }
+  .holiday-message-box h3{
+    font-size: 12px;
+  }
+  .holiday-message-box p{
+    font-size: 11px;
+  }
+  // .holiday-message-box img{
+  //   width: 25px;
+  // }
+  .holiday-message-box .holiday-wishes-style{
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  .holiday-message-box .holiday-wishes-style p{
+    padding: 0px 5px;
+    margin-bottom: 0px;
+  }
+  .holiday-message-box .holiday-wishes-style img{
+    width: 25px;
+  }
+  .page-header-title {
+   // padding-top: 0;
+  }
+  .catering-size-select .catering_pizza.category_pizza_sizes{
+    flex-wrap: wrap;
+  }
+  .catering_pizza.category_pizza_sizes li {
+    margin-bottom: 10px;
+  }
+  .custom-plant-based-header-title h2{
+    max-width: 188px !important;
+  }
+  .complete_your_meal_page .holiday-message-box {
+    padding-top: 100px;
+  }
+
+  .additional_items_page .holiday-message-box{
+    display: none;
+  }
+}
+@media only screen and (max-width: 320px) and (min-width: 240px){
+  .gp-logo-vegan{
+    top: 70%;
+    right: 0;
+    flex-direction: row;
+    left: 38%;
+  }
+  .fr-logo-plant-based{
+    top: 20%;
+    right: 0;
+    flex-direction: row;
+    left: 63%;
+  }
+  .vegan-tagline {
+    font-size: 8px;
+    height: auto !important;
+    margin-top: 0px !important;
+  }
+  .gp-logo-image{
+    margin-left: 10px;
+  }
+  .fr-logo-image{
+    margin-left: 10px;
+  }
+  .gp-logo {
+    width: 40px !important;
+  }
+  .fr-logo {
+    width: 65px !important;
+  }
+  .holiday-message-box h3{
+    font-size: 10px;
+  }
+  .holiday-message-box img{
+    width: 24px;
+  }
+  .holiday-message-box p{
+    font-size: 10px;
+  }
+   
+}
+
+@media only screen and (min-width: 240px) and (max-width: 568px) {
+  .custom-plant-based-header-title h2 {
+    max-width: 267px !important;
+  }
+}
+
+@media only screen and (min-width: 240px) and (max-width: 414px) {
+  .custom-plant-based-header-title h2 {
+    max-width: 188px !important;
+  }
+}
+
+@media only screen and (min-width: 240px) and (max-width: 360px) {
+  .custom-plant-based-header-title h2 {
+    max-width: 160px !important;
+  }
+  .fr-logo {
+    width: 65px;
+  }
+}
+
+@media only screen and (min-width: 240px) and (max-width: 375px) {
+  .custom-plant-based-header-title h2 {
+    max-width: 188px !important;
+  }
+}
+
+@media only screen and (min-width: 415px) and (max-width: 736px) {
+  .custom-plant-based-header-title h2 {
+    max-width: 267px !important;
+  }
+}

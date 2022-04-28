@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.2">
+<Document>
+  <name>4920 Yonge St</name>
+  <description><![CDATA[Delivery area for;
+4920 Yonge St
+Toronto, Ontario
+M2N 5N5
+416-590-0002]]></description>
+  <Style id="style1">
+    <LineStyle>
+      <color>40000000</color>
+      <width>3</width>
+    </LineStyle>
+    <PolyStyle>
+      <color>73FF0000</color>
+      <fill>1</fill>
+      <outline>1</outline>
+    </PolyStyle>
+  </Style>
+  <Placemark>
+    <name>4920 Yonge St. Delivery Area</name>
+    <description><![CDATA[]]></description>
+    <styleUrl>#style1</styleUrl>
+    <Polygon>
+      <outerBoundaryIs>
+        <LinearRing>
+          <tessellate>1</tessellate>
+          <coordinates>
+            -79.443161,43.773659,0.000000
+            -79.441948,43.773979,0.000000
+            -79.435951,43.775261,0.000000
+            -79.417412,43.779400,0.000000
+            -79.394562,43.784389,0.000000
+            -79.392151,43.785011,0.000000
+            -79.391457,43.781681,0.000000
+            -79.388649,43.769291,0.000000
+            -79.388451,43.768162,0.000000
+            -79.387192,43.763241,0.000000
+            -79.394569,43.761398,0.000000
+            -79.397331,43.760300,0.000000
+            -79.399719,43.758919,0.000000
+            -79.408546,43.753601,0.000000
+            -79.410683,43.752235,0.000000
+            -79.414589,43.749722,0.000000
+            -79.417099,43.746807,0.000000
+            -79.424095,43.741863,0.000000
+            -79.433815,43.735973,0.000000
+            -79.435387,43.742222,0.000000
+            -79.436829,43.748234,0.000000
+            -79.438972,43.757156,0.000000
+            -79.440079,43.761253,0.000000
+            -79.441109,43.765377,0.000000
+            -79.443161,43.773659,0.000000
+          </coordinates>
+        </LinearRing>
+      </outerBoundaryIs>
+    </Polygon>
+  </Placemark>
+</Document>
+</kml>

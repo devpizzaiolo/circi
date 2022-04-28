@@ -1,0 +1,68 @@
+- meta title: "Pizzaiolo | Toronto and GTA's Gourmet Pizza | Pick Up for Takeout",
+	description: "Create your own pizza at Pizzaiolo or select one of our favourites!  Order today for pick up and takeout!",
+	keywords: "Pizzaiolo, Create your Own, Pizza Specials, Offers and Deals, Online Ordering, Takeout"
+- content_for(:heading) {"Sign In or <br> order as a guest".html_safe}
+//- content_for(:description) {""}
+- content_for(:body_class) {"pickup_page"}		
+div.top-bar
+	h1 
+		= link_to raw('&#8592;'), request.referer.present? ? request.referer : root_path
+		| Place order for Pickup
+
+div.body-container
+	.container
+		.row.signin-row
+			.span6.com-12.col-md-6
+				.row
+					.col-12.col-md-10.signin-layout
+						h2.static-header.m-t-0.static-mobile-header
+							| SIGN INTO<br>YOUR ACCOUNT
+						- @customer = Customer.new
+						
+						= simple_form_for(@customer, :url => customer_session_path, :html => {:class => 'default-form'}) do |f|
+
+							= f.input :email, :required => false, :autofocus => true, :label => false, :placeholder => "E-mail"
+							= f.input :password, :required => false, :label => false, :placeholder => "Password"
+							
+
+							= f.input :goto_pickup, :as => :hidden, :input_html => {:value => 1}
+
+							= f.button :submit, "LOGIN", :class => "default signin-btn full m-b-30"
+				
+			
+			.span6.com-12.col-md-6
+				.row
+					.col-12.col-md-10.signin-layout
+						h2.static-header.m-t-0.mobile
+							| ORDER AS<br class="hidden-mobile"> A GUEST
+						= simple_form_for(@order, :url => orders_generate_customer_path, :html => {:class => 'default-form'}) do |f|
+							
+							/ = f.input :goto_pickup, :as => :hidden, :input_html => {:value => 1}
+
+							= f.input :first_name, :required => true, :label => false, :placeholder => "First Name"
+							= f.input :last_name, :required => true, :label => false, :placeholder => "Last Name"
+							= f.input :email, :required => true, :label => false, :placeholder => "E-mail"
+							= f.input :phone_number, :required => true, :label => false, :placeholder => "Phone Number"
+							
+							= f.input :address_1, :required => false, :label => false, :placeholder => "Address line 1", :input_html => {:class => "validate[required] google-autocomplete", :data_id => "order-form"}
+							= f.input :address_2, :required => false, :label => false, :placeholder => "Address line 2"
+							= f.input :city, :required => false, :label => false, :placeholder => "City"
+							#order_postal_code_wrapper
+								= f.input :postal_code, :required => false, :label => false, :placeholder => "Postal Code"
+							
+							
+							div.checkbox-field.clearfix.checkmark
+								input type="checkbox" name="customer[create_account]" id="create_an_account" value="1" class="controls" 
+								label.control-label for="create_an_account"  Create an account and save time on your next order.
+								
+							
+							#create_account_password style="display:none;"
+								div.checkbox-field.clearfix.checkmark
+									input type="checkbox" name="customer[mailing_list]" id="mailing_list" value="1" class="controls"
+									label.control-label for="mailing_list" Send me news and promotions from Pizzaiolo
+									
+									
+								= f.input :password, :required => true
+								= f.input :password_confirmation, :required => true
+							
+							= f.button :submit, "SUBMIT/NEXT", :class => "default signin-btn full"

@@ -1,0 +1,37 @@
+.container
+	.body-container
+		.page-header
+			h1 Toppings
+			
+		table.table
+			thead
+				tr
+					th Name
+					th Free Topping
+					th Show in Menu
+					th Options
+			tbody
+				- @toppings.each do |topping|
+					
+					tr
+						td= topping.name
+						td 
+							-	if topping.free_topping? 
+								| Free
+							- else
+								- if topping.half_price_topping?
+									| Paid (Half Price)
+								- else 
+									| Paid
+						td
+							- if topping.active?
+								| Yes
+							- else
+								| No
+						td 
+							= link_to "Edit", edit_admins_topping_path(topping.id), :class => "btn btn-mini"
+							= link_to "Delete", admins_topping_path(topping.id), :class => "btn btn-mini", :method => :delete
+		hr	
+
+		.text-center
+			= link_to "New Topping", new_admins_topping_path, :class => "btn btn-large btn-primary"

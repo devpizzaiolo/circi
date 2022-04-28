@@ -1,0 +1,46 @@
+- cache ['catering_beverages'] do
+
+	table.table.pricing-table.default-table.black
+		thead.thead-dark
+			tr
+				th.first Pop & Juice
+				th
+				th
+				th Price
+		tbody 
+			- Beverage.where(:active => true, :pop_and_juice => true).order("sort_order ASC").each do |beverage|
+				tr
+					td.first = beverage.name
+					td
+					td
+					td = "#{number_to_currency(beverage.price)} each"
+
+	table.table.pricing-table.default-table.black
+		thead.thead-dark
+			tr
+				th.first Water
+				th
+				th
+				th Price
+		tbody
+			- Beverage.where(:active => true, :water => true).order("sort_order ASC").each do |beverage|
+				tr
+					td.first = beverage.name
+					td
+					td
+					td = "#{number_to_currency(beverage.price)} each"
+			
+	table.table.pricing-table.default-table.black
+		thead.thead-dark
+			tr
+				th.first Premium Drinks
+				th
+				th
+				th Price
+		tbody
+			- Beverage.where(:active => true, :premium_drinks => true).order("sort_order ASC").each do |beverage|
+				tr
+					td.first = beverage.name
+					td
+					td
+					td = "#{number_to_currency(beverage.price)} each"				

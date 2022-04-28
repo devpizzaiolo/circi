@@ -1,0 +1,68 @@
+div.top-bar
+	h1 
+		= link_to raw('&#8592;'), customers_path
+		| My Account Info
+- content_for(:heading) {("My Account").html_safe}
+//- content_for(:description) {""}
+- content_for(:body_class) {"my_account_page"}
+
+.body-container
+	.container
+		.row.signin-row.customers-signin
+			.col-md-12.m-b-40.customers-header
+				h2.super-header.light.green.pull-left.inner-page-sub-title Account Details
+				= link_to "My Orders", customers_path, class: 'button default pull-right'
+
+			.col-md-6.customer-accout-info
+				p.regular-p.m-b-0 First Name
+				p.regular-p
+					strong = current_customer.first_name
+
+				p.regular-p.m-b-0 Last Name
+				p.regular-p
+					strong = current_customer.last_name
+
+				p.regular-p.m-b-0 E-mail
+				p.regular-p
+					strong = current_customer.email
+
+				p.regular-p.m-b-0 Phone Number
+				p.regular-p
+					strong = current_customer.phone_number
+				
+				
+			
+			.col-md-6.customer-accout-info
+
+				p.regular-p.m-b-0 Address
+				p.regular-p
+					strong = current_customer.address_1
+				- unless current_customer.address_2.blank?
+					p.regular-p 
+						strong= current_customer.address_2
+
+				p.regular-p.m-b-0 City
+				p.regular-p
+						strong = current_customer.city.capitalize
+
+				p.regular-p.m-b-0 Postal Code
+				p.regular-p
+					strong = current_customer.postal_code.upcase
+
+			.col-12.customer-accout-info
+				.m-t-40
+					= link_to "Update my account info", edit_customers_customer_path(current_customer.id), :class => "button default"
+		.visible-phone
+			p.regular-p
+				strong = current_customer.first_name + " " + current_customer.last_name
+			
+			p.regular-p.light = current_customer.email
+			
+			.address
+				p = current_customer.address_1
+				- unless current_customer.address_2.blank?
+					p = current_customer.address_2
+				p = current_customer.city + ", " + current_customer.postal_code
+				p = current_customer.phone_number
+			
+			= link_to "Update my account info", edit_customers_customer_path(current_customer.id), :class => "button default full"

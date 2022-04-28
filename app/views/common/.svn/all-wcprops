@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/pizzaioloca/!svn/ver/273/trunk/pizzaiolo.ca/app/views/common
+END
+_admin_and_location_mailer.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/pizzaioloca/!svn/ver/201/trunk/pizzaiolo.ca/app/views/common/_admin_and_location_mailer.html.erb
+END
+_email_order_summary.html.slim
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/pizzaioloca/!svn/ver/241/trunk/pizzaiolo.ca/app/views/common/_email_order_summary.html.slim
+END
+_admins_menu.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/pizzaioloca/!svn/ver/273/trunk/pizzaiolo.ca/app/views/common/_admins_menu.html.erb
+END
+_beverages.html.slim
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/pizzaioloca/!svn/ver/66/trunk/pizzaiolo.ca/app/views/common/_beverages.html.slim
+END
+_drop_down_main_menu.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/pizzaioloca/!svn/ver/133/trunk/pizzaiolo.ca/app/views/common/_drop_down_main_menu.html.erb
+END
+_salads.html.slim
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/pizzaioloca/!svn/ver/69/trunk/pizzaiolo.ca/app/views/common/_salads.html.slim
+END
+_bottom_links.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/pizzaioloca/!svn/ver/115/trunk/pizzaiolo.ca/app/views/common/_bottom_links.html.erb
+END
+_search_bar.html.slim
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/pizzaioloca/!svn/ver/57/trunk/pizzaiolo.ca/app/views/common/_search_bar.html.slim
+END
+_analytics.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/pizzaioloca/!svn/ver/152/trunk/pizzaiolo.ca/app/views/common/_analytics.html.erb
+END

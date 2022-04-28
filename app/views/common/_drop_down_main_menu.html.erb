@@ -1,0 +1,36 @@
+<div class="visible-phone top-bit mainentance">
+	<div class="new-menubar">
+		<div class="top-nav clearfix">
+			<%= link_to "Menu", orders_path, :title => "Menu" %>
+			<%= link_to "Locations", locations_path, :class => "standout text-center" %>
+			<a href="#" class="menu-toggle"></a>
+		</div>
+		
+		<div class="dropdown-menu">
+			<a href="#" class="close-menu">&#215;</a>
+			<%= link_to "Order Online", orders_path, :class => "standout" %>
+			<%= link_to "Menu", orders_path, :class => "standout" %>
+			<%= link_to "Catering Menu", page_path('catering'), :class => "standout" %>
+			<%= link_to "Locations", locations_path, :class => "standout" %>
+			<%= link_to "About Pizzaiolo", page_path('about_pizzaiolo'), :class => "standout" %>
+			<%= link_to "Franchising", page_path('franchise_opportunities'), :class => "standout" %>
+			<%= link_to "Careers", page_path('careers'), :class => "standout" %>
+			<%= link_to "Customer Service", new_customer_service_path, :class => "standout" %>
+			<%= link_to "Community", page_path('community_involvement'), :class => "standout" %>
+			<%= link_to "Nutritional Info", page_path('nutritional_information'), :class => "standout" %>
+			<%= link_to "Privacy Policy", page_path('privacy-policy'), :class => "standout" %>
+			<!-- <a href="/pages/mailing_list">Mailing List</a> -->
+			<% if current_customer %>
+				<%= link_to "My Account", customers_path %>
+				<img src="/assets/ui/dropdown_divider.gif" class="dropdown-divider">
+				<% unless Rails.env.development? %>
+					<% link_to "Log Out", destroy_customer_session_url(:protocol => "https"), :method => :delete %>
+				<% else %>
+					<% link_to "Log Out", destroy_customer_session_path, :method => :delete %>
+				<% end %>
+			<% else %>
+				<%= link_to "Login", customers_path %>
+			<% end %>	
+		</div>
+	</div>
+</div>

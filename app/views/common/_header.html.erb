@@ -1,0 +1,145 @@
+<header>
+  <div class="hidden-mobile navbar-wrap fixed-top bg-white">
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <div class="container-fluid"> 
+        <a class="navbar-brand" href="/">
+          <img src="/assets/new_design/brand.svg" alt="">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
+        <div class="navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto">
+           <!-- <li class="nav-item"><%= link_to "Menu", "/orders/menu", { :class=>"nav-link" } %></li>
+            <li class="nav-item"><%= link_to "Franchising", "/pages/franchise_opportunities", { :class=>"nav-link" } %></li>
+            <li class="nav-item"><%= link_to "Specials", "/orders/specials", { :class=>"nav-link" } %></li>
+            <li class="nav-item"><%= link_to "Catering", "/orders/delicious_events", { :class=>"nav-link" } %></li>
+            <li class="nav-item"><%= link_to "Locations", locations_path, { :class=>"nav-link" } %></li> -->
+            <li class="nav-item order-online-li">
+              <%= link_to "Order Online", "/orders/menu", { :class=>"nav-link btn-green order-online-btn" } %>
+            </li>
+            <li class="nav-item">
+              <% if current_customer %>
+              <%= link_to "Account", customers_path, { :class=>"nav-link" } %>
+              <% else %>
+                <%= link_to "Login", customers_path, { :class=>"nav-link" } %>
+              <% end %>
+            </li>
+            <li class="nav-item position-relative">
+              <a href="/orders/details" class="nav-link cart-desktop">
+                <img src="/assets/new_design/cart-icon.svg" alt="">
+                <div class="cart-item-counter"><%= (@order && @order.cart_item_counter) || "0" %></div>
+              </a>
+            </li>
+            <li class="nav-item ml-3" onclick="openNav()">
+            <span class="hamburger-box">
+              <img src="/assets/new_design/Hamburger-Menu.png" width="29">
+            </span>
+          </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+  <div class="mobile-menu">
+    <div class="nav-mobile-item">
+      <ul>
+        <li>
+          <%= link_to "Order Online", "/orders/menu", { :class=>"btn-green order-online-btn"} %>
+        </li>
+        <li class="text-center only-mobile" style="margin-right: 10px;">
+          <a href="/orders/details" class="nav-link cart-mobile">
+            <img src="/assets/new_design/cart-icon.svg" alt="">
+            <div class="cart-item-counter"><%= (@order && @order.cart_item_counter) || "0" %></div>
+          </a>
+        </li>
+        <li class="only-mobile" onclick="openNav()">
+          <span style="font-size:30px;cursor:pointer" >
+            <img src="/assets/new_design/Hamburger-Menu.png" width="29">
+          </span>
+        </li>
+      </ul>
+    </div>
+    <div class="mobile-logo on-page only-mobile">
+      <%- unless params[:controller] == "high_voltage/pages" && params["id"] == "franchise_opportunities" && params["action"] == "show" %>
+        <a class="navbar-brand" href="/">
+          <img src="/assets/new_design/brand.svg" alt="">
+        </a>
+      <% end %>
+    </div>
+  </div>
+</header>
+
+
+<div id="mySidenavWrap" class="sidenavCurtain" onclick="closeNav()">
+<div id="mySidenav" class="sidenav">
+  <div class="menu-top">
+    <div class="mobile-logo only-mobile">
+      <a href="/">
+        <img src="/assets/new_design/brand.svg" width="60px" alt="">
+      </a>
+    </div>
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">
+      <img src="/assets/new_design/close_menu_black.png" width="22">
+    </a>
+  </div>
+  <!--div class="menu-link">
+    <%= link_to "Menu", '/orders/menu' %>
+  </div-->
+   <div class="location-wrapper mt-5 mt-md-0">
+    <div class="catering-link">
+      <%= link_to "Menu", '/orders/menu' %>
+    </div>
+    <div class="location-link">
+      <%= link_to "Specials", '/orders/specials' %>
+    </div>
+  </div>
+  <div class="location-wrapper">
+    <div class="catering-link">
+      <%= link_to "Catering", "/orders/delicious_events" %>
+    </div>
+    <div class="location-link">
+      <%= link_to "Locations", '/locations' %>
+    </div>
+  </div>
+  <div class="mid-menu-wrapper">
+    <%= link_to "Franchise Opportunities", page_path('franchise_opportunities') %>
+    <%= link_to "Customer Service", customer_new_review_path %>
+    <%= link_to "Careers", page_path('careers') %>
+    <%= link_to "Nutritional Info", page_path('nutritional_information') %>
+    <!--%= link_to "Catering", "/orders/delicious_events" %-->
+    <%= link_to "Community Programs", page_path('community_programs') %>
+    <%= link_to "Privacy Policy", page_path('privacy-policy') %>
+  </div>
+  <div class="user-menu-wrapper">
+    <div class="user-menu-avatar">
+      <img src="/assets/new_design/user-default-avatar.png" width="40">
+    </div>
+    <% if current_customer %>
+      <div class="user-account-wrapper">
+        <div class="menu-user-details">
+          <div class="menu-user-name">
+            <%= [current_customer.try(:first_name),current_customer.try(:last_name)].join(' ') %>
+          </div>
+          <div>
+            <% unless Rails.env.development? %>
+              <%= link_to "Sign out", destroy_customer_session_url(:protocol => "https"), :method => :delete %>
+            <% else %>
+              <%= link_to "Sign out", destroy_customer_session_path, :method => :delete %>
+            <% end %>
+          </div>
+        </div>
+        <div class="mid-menu-wrapper zero-margin">
+          <%= link_to "My Account", customers_path %>
+        </div>
+      </div>
+    <% else %>
+      <div class="signin-menu">
+        <%= link_to "Sign In", customers_path %>
+      </div>
+      <div class="signin-menu">
+        <%= link_to "Create an account", new_customer_registration_path %>
+      </div>
+    <% end %>
+  </div>
+  <!--<%= link_to "My Order", details_path %>-->
+</div>
+</div>

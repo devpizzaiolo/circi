@@ -1,0 +1,24 @@
+
+table.table.table-condensed.table-striped.table-bordered
+	thead
+		th Product Summary
+		th
+			div align="right" Item Price
+	tbody
+
+		tr
+			td
+				strong= @order_item.item_title
+				br
+				small
+					- if @order_item.product_info['product_type'] != "calzone"
+						- if @order_item.toppings.count > 0
+							= raw "#{pluralize(@order_item.num_paid_toppings, 'topping')}<span class='hidden-phone'> : #{@order_item.toppings.to_sentence(:last_word_connector => ' and ')}</span>"
+						- else
+							= raw "#{pluralize(0, 'topping')}"
+					- else
+						- if @order_item.toppings.count > 0
+							= raw "#{pluralize(@order_item.num_paid_toppings, 'topping')}<span class='hidden-phone'> : #{@order_item.toppings.to_sentence(:last_word_connector => ' and ')}</span>"
+			td
+				div align="right"
+					= number_to_currency( @order_item.price )

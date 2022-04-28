@@ -1,0 +1,578 @@
+class OrderItem < ActiveRecord::Base
+  
+  belongs_to :order
+  attr_accessible :product_info, :product_name, :product_type, :order_id
+  
+  serialize :product_info, JSON
+  
+  include ActionView::Helpers
+  
+  
+  # define and return the name of the product as it should appear when selected.
+  def item_title
+    
+    # puts self.product_info['product_type']
+    if self.product_info['product_type'] == "pizza"
+      
+      pizza_size = self.product_info['pizza_size'].titleize
+      @pizza_size = PizzaSize.where("name" => pizza_size).first
+      puts @pizza_size.external_name
+      
+      unless self.product_info['pizza_size'].include? "gluten-free"
+        return raw "Pizza: #{self.product_info['product_name'].titleize} <small>(#{@pizza_size.external_name}, Crust: #{self.product_info['pizza_crust'].titlecase}, Crust Style: #{self.product_info['pizza_crust_style'].titlecase})</small>"
+      else
+        return raw "Pizza: #{self.product_info['product_name'].titleize} <small>(#{@pizza_size.external_name})</small>"
+      end
+      
+    end
+    
+    if self.product_info['product_type'] == "calzone"
+      return "#{self.product_info['product_name']}"
+    end
+    
+  end
+  
+  
+  
+  # define and return the name of the product as it should appear when selected.
+  def item_title_email
+    
+    # puts self.product_info['product_type']
+    if self.product_info['product_type'] == "pizza"
+      
+      if self.custom == true
+        name = "Custom Pizza"
+      else
+        pizza_size = self.product_info['pizza_size'].titleize
+        @pizza_size = PizzaSize.where("name" => pizza_size).first
+        name = @pizza_size.external_name
+      end
+      
+      unless self.product_info['pizza_size'].include? "gluten-free"
+        return raw "#{name} <small>(#{@pizza_size.external_name}, Crust: #{self.product_info['pizza_crust'].titlecase}, Crust Style: #{self.product_info['pizza_crust_style'].titlecase})</small>"
+      else
+        return raw "#{name} <small>(#{@pizza_size.external_name})</small>"
+      end
+      
+    end
+    
+    if self.product_info['product_type'] == "calzone"
+      return "#{self.product_info['product_name']}"
+    end
+    
+  end
+  
+  
+  
+  
+  def paid_toppings
+    
+    toppings = []
+    
+    if self.product_info['product_type'] == "pizza"
+      if self.product_info['toppings']
+        @toppings = self.product_info['toppings']
+        @toppings.each do |t|
+          if t[1]["selected"]
+            @topping = Topping.where(:id => t[1]["id"], :free_topping => false).first
+            if @topping
+              position = ""
+              preference = ""
+              unless t[1]["position"] == 'Whole Pizza'
+                position = t[1]["position"]
+              end
+              unless t[1]["preference"] == 'Normal'
+                preference = t[1]["preference"]
+              end
+              toppings << "#{@topping.name}<span class='tiny'>#{unless position == "" && preference == "" then " : " end}#{unless position == "" then position end}#{unless position == "" || preference == "" then " / " end}#{unless preference == "" then preference end}</span>"
+            end
+          end
+        end
+      end
+    end
+    
+    if self.product_info['product_type'] == "calzone"
+      if self.product_info['toppings']
+        @toppings = self.product_info['toppings']
+        @toppings.each do |t|
+          if t[1]["selected"]
+            @topping = Topping.where(:id => t[1]["id"], :free_topping => false).first
+            if @topping
+              preference = ""
+              unless t[1]["preference"] == 'Normal'
+                preference = t[1]["preference"]
+              end
+              toppings << "#{@topping.name}<span class='tiny'>#{unless preference == "" then " : " end}#{unless preference == "" then preference end}</span>"
+            end
+          end
+        end
+      end
+    end
+    
+    return toppings
+    
+  end
+  
+  
+  def toppings
+    
+    toppings = []
+    
+    if self.product_info['product_type'] == "pizza"
+      if self.product_info['toppings']
+        @toppings = self.product_info['toppings']
+        @toppings.each do |t|
+          if t[1]["selected"]
+            @topping = Topping.find(t[1]["id"])
+            if @topping
+              position = ""
+              preference = ""
+              unless t[1]["position"] == 'Whole Pizza'
+                position = t[1]["position"]
+              end
+              unless t[1]["preference"] == 'Normal'
+                preference = t[1]["preference"]
+              end
+              toppings << "#{@topping.name}<span class='tiny'>#{unless position == "" && preference == "" then " : " end}#{unless position == "" then position end}#{unless position == "" || preference == "" then " / " end}#{unless preference == "" then preference end}</span>"
+            end
+          end
+        end
+      end
+    end
+    
+    if self.product_info['product_type'] == "calzone"
+      if self.product_info['toppings']
+        @toppings = self.product_info['toppings']
+        @toppings.each do |t|
+          if t[1]["selected"]
+            @topping = Topping.find(t[1]["id"])
+            if @topping
+              preference = ""
+              unless t[1]["preference"] == 'Normal'
+                preference = t[1]["preference"]
+              end
+              toppings << "#{@topping.name}<span class='tiny'>#{unless preference == "" then " : " end}#{unless preference == "" then preference end}</span>"
+            end
+          end
+        end
+      end
+    end
+    
+    return toppings
+    
+  end
+  
+  def toppings_franchise_email
+    
+    toppings = []
+    
+    if self.product_info['product_type'] == "pizza"
+      if self.product_info['toppings']
+        @toppings = self.product_info['toppings']
+        @toppings.each do |t|
+          if t[1]["selected"]
+            @topping = Topping.find(t[1]["id"])
+            if @topping
+
+              position = t[1]["position"]
+              preference = t[1]["preference"]
+
+              toppings << "#{@topping.name} (Side: #{position} Amount: #{preference})"
+            end
+          end
+        end
+      end
+    end
+    
+    if self.product_info['product_type'] == "calzone"
+      if self.product_info['toppings']
+        @toppings = self.product_info['toppings']
+        @toppings.each do |t|
+          if t[1]["selected"]
+            @topping = Topping.find(t[1]["id"])
+            if @topping
+              preference = ""
+              preference = t[1]["preference"]
+              toppings << "#{@topping.name} (Amount: #{preference})"
+            end
+          end
+        end
+      end
+    end
+    
+    return toppings
+    
+  end
+  
+  
+  
+  # this is new, to calculate out the rounded number of paid toppings per calzone or pizza
+  def num_paid_toppings
+    
+    if self.product_info['product_type'] == "pizza"
+      
+      # get pricing info from the DB based on the pizza size
+      @pizza_size = PizzaSize.where(:name => self.product_info['pizza_size'].titlecase).first
+      
+      # basic price of the pizza based on size
+      base_price = @pizza_size.price
+      
+      # topping price (based on the size fo the pizza)
+      topping_price = @pizza_size.topping_price
+      
+      topping_price_running_total = 0
+      
+      topping_running_total = 0
+      
+      toppings_selected = 0
+      
+      topping_multiple = 0
+    
+      @toppings = self.product_info['toppings']
+      
+      @toppings.each do |t|
+        
+        if t[1]["selected"]
+          
+          @topping = Topping.find(t[1]["id"])
+          
+          topping_count = 0
+          
+          unless @topping.free_topping?
+            topping_count += 1 
+          end
+          
+          # figure out the preference multiple
+          case t[1]["preference"]
+          when "Extra"
+            unless @topping.extra_free?
+              topping_count += 1
+            end
+          when "Double"
+            unless @topping.double_free?
+              topping_count += 2
+            end
+          end
+          
+          
+          # figure out the position multiple
+          case t[1]["position"]
+          when "Whole Pizza"
+            position_multiple = 1
+          else
+            position_multiple = 0.5
+          end
+            
+          topping_multiple = topping_count * position_multiple
+          
+          topping_running_total += topping_multiple
+          
+        end
+
+      end
+      
+      puts "This pizza has the equivelent of #{topping_running_total} topping(s) selected, with a rounded up figure of #{topping_running_total.ceil} topping(s) "
+      
+      return topping_running_total.ceil
+      
+    end
+    
+    if self.product_info['product_type'] == "calzone"
+      
+      @calzone_preset = CalzonePreset.find(self.product_info['calzone_preset_id'])
+      base_price = @calzone_preset.price
+      topping_price = @calzone_preset.topping_price
+      
+      topping_price_running_total = 0
+      
+      topping_running_total = 0
+      
+      toppings_selected = 0
+      
+      @toppings = self.product_info['toppings']
+      @toppings.each do |t|
+        
+        if t[1]["selected"]
+          
+          @topping = Topping.find(t[1]["id"])
+          
+          topping_count = 0
+          
+          unless @topping.free_topping?
+            topping_count += 1 
+          end
+          
+          # figure out the preference multiple
+          case t[1]["preference"]
+          when "Extra"
+            unless @topping.extra_free?
+              topping_count += 1
+            end
+          when "Double"
+            unless @topping.double_free?
+              topping_count += 2
+            end
+          end
+          
+          topping_running_total += topping_count
+          
+        end
+        
+      end
+      
+      # output the total number of toppings based on the rounding math...
+      puts "This calzone has the equivelent of #{topping_running_total} topping(s) selected, with a rounded up figure of #{topping_running_total.ceil} topping(s) "
+      
+      # calculate the total of the charagble toppings:
+      return topping_running_total.ceil
+      
+      
+    end
+    
+  end
+  
+  
+  
+  
+  
+  def price
+    
+    if self.product_info['product_type'] == "pizza"
+      
+      # get pricing info from the DB based on the pizza size
+      @pizza_size = PizzaSize.where(:name => self.product_info['pizza_size'].titlecase).first
+      
+      # basic price of the pizza based on size
+      base_price = @pizza_size.price
+      
+      # topping price (based on the size fo the pizza)
+      topping_price = @pizza_size.topping_price
+      
+      topping_price_running_total = 0
+      
+      topping_running_total = 0
+      
+      toppings_selected = 0
+      
+      topping_multiple = 0
+    
+      # calculate the total of the charagble toppings:
+      topping_price_running_total = self.num_paid_toppings * topping_price 
+      
+      
+      puts "---------------------------------------"
+      puts self.id
+      puts "There are #{self.num_paid_toppings} chargable toppings selected."
+      
+      
+      # check for deep dish
+      if self.product_info['pizza_crust_style']
+        
+        @pizza_crust_style = PizzaCrustStyle.where(:name => self.product_info['pizza_crust_style'].titlecase).first
+        
+        if @pizza_crust_style && @pizza_crust_style.deep_dish_pricing?
+          puts "It's deep dish!"
+          base_price += @pizza_size.deep_dish_option_price
+        end
+      end
+      
+      puts "---------------------------------------"
+      
+      # get the price of the order itme as a line item...
+      
+      puts "Total price of line item = #{number_to_currency(base_price + topping_price_running_total)}"
+      return base_price + topping_price_running_total
+      
+    end
+    
+    if self.product_info['product_type'] == "calzone"
+      
+      @calzone_preset = CalzonePreset.find(self.product_info['calzone_preset_id'])
+      base_price = @calzone_preset.price
+      topping_price = @calzone_preset.topping_price
+      
+      topping_price_running_total = 0
+      
+      topping_running_total = 0
+      
+      toppings_selected = 0
+      
+      
+      # output the total number of toppings based on the rounding math...
+      puts "There are the equivelent of #{topping_running_total} topping(s) selected, with a rounded up figure of #{topping_running_total.ceil} topping(s) "
+      
+      # calculate the total of the charagble toppings:
+      topping_price_running_total = self.num_paid_toppings * topping_price
+      
+      # get the price of the order itme as a line item...
+      puts "Total price of line item = #{number_to_currency(base_price + topping_price_running_total)}"
+      return base_price + topping_price_running_total
+      
+    end
+    
+  end
+  
+  def price_formatted
+    number_to_currency(self.price)
+  end
+  
+  def toppings_arr
+    toppings_arr = []
+    @toppings = self.product_info['toppings']
+    @toppings.each do |t|
+      if t[1]["selected"]
+        topping_arr = []
+        topping_arr << t[1]['name'] + ": "
+        topping_arr << t[1]['preference'] + " / "
+        topping_arr << t[1]['position']
+        toppings_arr << topping_arr
+      end
+    end
+    
+    return toppings_arr
+    
+  end
+  
+  # ---------------------------------------------------
+  # ---------------- FOR THE PRINTER ------------------
+  
+  
+  
+  def toppings_print_arr(position)
+    
+    case position
+    when "left"
+      ref_position = "Left Side"
+    when "right"
+      ref_position = "Right Side"
+    else
+      ref_position = "Whole Pizza"
+    end
+    
+    toppings_arr = []
+    @toppings = self.product_info['toppings']
+    @toppings.each do |t|
+      if t[1]["selected"] && t[1]["position"] == ref_position
+        topping_arr = []
+        topping_arr << t[1]['name']
+        unless t[1]['preference'] == "Normal"
+          
+          divider = ".........................................."
+          total_width_chars = 39
+          
+          name_length = t[1]['name'].length
+          pref_length = t[1]['preference'].length
+          
+          divider_length = total_width_chars - name_length - pref_length
+          
+          divider_concat = " #{divider.to(divider_length)} "
+          
+          topping_arr << divider_concat
+          topping_arr << t[1]['preference']
+          
+        else
+          topping_arr << ""
+          topping_arr << ""
+        end
+        toppings_arr << topping_arr
+      end
+    end
+    
+    return toppings_arr
+    
+  end
+  
+  def toppings_calzone_print_arr
+    
+    toppings_arr = []
+    @toppings = self.product_info['toppings']
+    @toppings.each do |t|
+      if t[1]["selected"]
+        topping_arr = []
+        topping_arr << t[1]['name']
+        unless t[1]['preference'] == "Normal"
+          
+          divider = ".........................................."
+          total_width_chars = 39
+          
+          name_length = t[1]['name'].length
+          pref_length = t[1]['preference'].length
+          
+          divider_length = total_width_chars - name_length - pref_length
+          
+          divider_concat = " #{divider.to(divider_length)} "
+          
+          topping_arr << divider_concat
+          topping_arr << t[1]['preference']
+          
+        else
+          topping_arr << ""
+          topping_arr << ""
+        end
+        toppings_arr << topping_arr
+      end
+    end
+    
+    return toppings_arr
+    
+  end
+  
+    
+  # ---------------- END FOR THE PRINTER -----------------
+  # ------------------------------------------------------
+  
+  
+  def pizza_size_long_form
+    @pizza_size = PizzaSize.where(:name => self.product_info['pizza_size'].titleize).first
+    return @pizza_size.external_name
+  end
+  
+  def pizza_size_short_form
+    @pizza_size = PizzaSize.where(:name => self.product_info['pizza_size'].titleize).first
+    return @pizza_size.abbr_name
+  end
+  
+  
+  
+  
+  def custom
+    
+    custom = false
+    
+    if self.product_info['product_type'] == "pizza"
+      
+      @preset = PizzaPreset.find(self.product_info['pizza_preset_id'].to_i)
+      
+      # if the pizza has been made Gluten Free from a normal base...
+      if @preset.product_info['pizza_size'].include?("gluten-free") != self.product_info['pizza_size'].include?("gluten-free")
+        puts "the main pizza is not the same base..."
+        custom = true
+      end
+      
+      # if the toppings are different differently to the original...
+      if self.product_info['toppings'].sort.to_s != @preset.product_info['toppings'].sort.to_s
+        puts "toppings are different..."
+        custom = true
+      end
+      
+      # if the crust and or style are different...
+      if self.product_info['pizza_crust'] != @preset.product_info['pizza_crust'] || self.product_info['pizza_crust_style'] != @preset.product_info['pizza_crust_style']
+        puts "crust or style are different..."
+        custom = true
+      end
+      
+    end
+    
+    if self.product_info['product_type'] == "calzone"
+      @preset = CalzonePreset.find(self.product_info['calzone_preset_id'].to_i)
+      if self.product_info['toppings'].diff(@preset.product_info['toppings'])
+        custom = true
+      end
+    end
+    
+    return custom
+    
+  end
+
+  
+end

@@ -1,0 +1,893 @@
+class OrdersController < ApplicationController
+  
+  before_filter :load_stuffs
+  before_filter :associate_customer_with_order, :only => [:index, :pickup, :delivery]
+  before_filter :set_page_title
+  
+  before_filter :check_for_order_validity, :only => [:summary, :define_delivery_time, :submit_order]
+  
+  before_filter :test_printer_before_ordering, :only => [:submit_order]
+
+  helper :orders
+  
+  
+  def index
+
+
+    @beverages.each do |beverage|
+      puts beverage.name
+    end
+    
+    if params[:pizza_preset_id] || params[:calzone_preset_id]
+      
+      # create new pizza from the preset
+      @order = Order.find(session[:order_id])
+      @order_item = OrderItem.new
+
+      if params[:pizza_preset_id]
+        puts "It's a pizza..."
+        @pizza_preset = PizzaPreset.find(params[:pizza_preset_id])
+        puts @pizza_preset.to_xml
+        @order_item.product_info = @pizza_preset.product_info
+        @pizza_size = PizzaSize.where(:name => @pizza_preset.product_info['pizza_size'].titleize).first
+      end
+    
+      if params[:calzone_preset_id]
+        puts "It's a calzone..."
+        @calzone_preset = CalzonePreset.find(params[:calzone_preset_id])
+        @order_item.product_info = @calzone_preset.product_info
+      end
+      
+    end
+    
+    
+  end
+  
+  
+  
+  def edit
+    
+    @order_item = OrderItem.find(params[:id])
+    
+  end
+  
+  
+  def live_calculate_additional_items
+    
+    @order = Order.new
+    @order.order_additional = params[:order][:order_additional]
+    
+    respond_to do |format|
+      format.js
+    end
+    # puts @order.beverages_total
+    
+  end
+  
+  
+  
+  
+  def add_product
+    puts session[:order_id]
+    @order = Order.find(session[:order_id])
+    
+    # if the product exists, then update it, else add to the order
+    
+    if params[:product][:id]
+      
+      # update existing order item
+      @oi = @order.order_items.find(params[:product][:id])
+      @oi.update_attributes(:product_info => params[:product])
+      
+    else
+      
+      # create new order item
+      @product = @order.order_items.create(:product_info => params[:product])
+      
+    end
+    
+    respond_to do |format|
+      format.js
+    end
+    
+  end
+  
+  def show
+    @order = Order.find(session[:order_id])
+    @order_item = OrderItem.where(:id => params[:id], :order_id => session[:order_id]).first
+  end
+  
+  def destroy
+    @order = Order.find(session[:order_id])
+    @order_item = OrderItem.where(:id => params[:id], :order_id => session[:order_id]).first
+    @order_item.destroy
+    
+    # redirect_to orders_path, :notice => "Product Deleted."    
+    respond_to do |format|
+      format.js
+    end  
+    
+  end
+  
+  
+  def add_additional_to_order
+    @order = Order.find(session[:order_id])
+    @order.update_attributes(params[:order])
+  end
+  
+  
+  # to remove salads, utensils, beverages, etc...
+  def remove_additional
+    @order = Order.find(session[:order_id])
+    @order_additional = @order.order_additional
+    @order_additional[params[:item_type]][params[:item]] = "0"
+    @order.update_attributes(:order_additional => @order_additional)
+    # @order.order_additional = @order_additional
+  end
+  
+  def cancel_add_additional_to_order
+    respond_to do |format|
+      format.js
+    end  
+  end
+  
+  
+  
+  
+  
+  # delivery actions
+  
+  def delivery
+    
+    unless @order.total_price > 15
+      redirect_to orders_path
+      return false
+    end
+    
+    if current_customer
+      @customer = current_customer
+      if @order.order_additional.blank? || @order.order_additional == 'null'
+        puts "FFS"
+        @order.update_attributes(:for_pickup => false, :order_additional => nil, :email => @customer.email, :first_name => @customer.first_name, :last_name => @customer.last_name, :address_1 => @customer.address_1, :address_2 => @customer.address_2, :city => @customer.city, :postal_code => @customer.postal_code, :phone_number => @customer.phone_number, :franchise_location_id => session[:franchise_location_id].to_i)
+      else
+        @order.update_attributes(:for_pickup => false, :email => @customer.email, :first_name => @customer.first_name, :last_name => @customer.last_name, :address_1 => @customer.address_1, :address_2 => @customer.address_2, :city => @customer.city, :postal_code => @customer.postal_code, :phone_number => @customer.phone_number, :franchise_location_id => session[:franchise_location_id].to_i)
+      end
+      redirect_to orders_delivery_address_path
+    end
+    
+  end
+  
+  def pickup
+    
+    unless @order.total_price > 0
+      redirect_to orders_path
+      return false
+    end
+    
+    if current_customer
+      @customer = current_customer
+      @order.update_attributes(:for_pickup => true, :email => @customer.email, :first_name => @customer.first_name, :last_name => @customer.last_name, :address_1 => @customer.address_1, :address_2 => @customer.address_2, :city => @customer.city, :postal_code => @customer.postal_code, :phone_number => @customer.phone_number, :franchise_location_id => session[:franchise_location_id].to_i)
+      redirect_to orders_pickup_address_path
+    end
+
+  end
+  
+  
+  
+  
+  
+  
+  def generate_customer
+
+    puts params[:order]
+    
+    if params[:order][:goto_delivery] == "1"
+      for_delivery = true
+    else
+      for_delivery = false
+    end
+    
+    if params[:customer] && params[:customer][:create_account] == "1"
+      create_account = true
+    else
+      create_account = false
+    end
+    
+    puts "Delivery: #{for_delivery}"
+    puts "Create Account: #{create_account}"
+  
+    
+    if create_account == true
+      
+      # UPDATE THE ORDER AND GENERATE A NEW CUSTOMER ACCOUNT
+      
+      @customer = Customer.new(params[:order])
+      
+      @check = Customer.where(:email => params[:order][:email]).first
+      if @check
+        account_exists = true
+      else
+        account_exists = false
+      end
+      
+      if @customer.save
+        
+        sign_in(:customer, @customer)
+        
+        if for_delivery
+          # define the contact info
+          params['order']['for_pickup'] = false
+          @order.update_attributes(params[:order])
+          redirect_to orders_delivery_path, :notice => "Your account has been created, you are now signed in."
+        else
+          # define the contact info
+          params['order']['for_pickup'] = true
+          @order.update_attributes(params[:order])
+          redirect_to orders_pickup_path, :notice => "Your account has been created, you are now signed in."
+        end
+        
+      else
+        
+        if for_delivery
+          if account_exists == true
+            flash[:error] = "An account already exists with that email address."
+          else
+            flash[:error] = "There was a problem creating your account, please verify your details."
+          end
+          redirect_to orders_delivery_path
+        else
+          if account_exists == true
+            flash[:error] = "An account already exists with that email address."
+          else
+            flash[:error] = "There was a problem creating your account, please verify your details."
+          end
+          redirect_to orders_pickup_path
+        end
+        
+      end
+      
+    else
+      
+      # UPDATE THE ORDER
+      
+      if for_delivery
+        params['order']['for_pickup'] = false
+        @order.update_attributes(params[:order])
+        redirect_to orders_delivery_address_path, :notice => "Your information has been saved."
+      else
+        params['order']['for_pickup'] = true
+        @order.update_attributes(params[:order])
+        redirect_to orders_pickup_address_path, :notice => "Your information has been saved."
+      end
+      
+      
+    end
+    
+    
+  end
+  
+  
+  def update_order_with_delivery_address
+    
+    # test the delivery address and make sure it is deliverable
+    
+    # check the address is deliverable...
+    # myloc = Geocoder.coordinates(params[:order][:delivery_postal_code].downcase)
+    myloc = ApplicationController.helpers.geo_code(params[:order][:delivery_postal_code])
+    
+    if myloc
+      
+      @fl = FranchiseLocation.where(:active => true, :order_online => true)
+      
+      @fl.each do |l|
+        if l.location_in_area(myloc[1],myloc[0])
+          @locations = FranchiseLocation.where(:active => true, :order_online => true, :id => l.id)
+          puts "This is the delivery ID: #{l.id}"
+          # session[:franchise_location_id] = l.id
+        end
+      end
+      
+      if @locations
+        
+        puts "THERE IS A LOCATION..."
+        
+        session[:franchise_location_id] = @locations.first.id
+        params['order']['franchise_location_id'] = session[:franchise_location_id]
+        # params['order']['delivery_address_1'] = params['order']['address_1']
+        # params['order']['delivery_address_2'] = params['order']['address_2']
+        # params['order']['delivery_city'] = params['order']['city']
+        # params['order']['delivery_postal_code'] = params['order']['postal_code']
+        
+        if @order.update_attributes(params[:order])
+          redirect_to orders_define_delivery_time_path, :notice => "The delivery address has been added to your order info."
+        else
+          flash[:error] = "There was an error updating the address."
+          redirect_to orders_update_order_with_delivery_address_path
+        end
+        
+      else
+        flash[:error] = "The delivery address you entered is not within a Pizzaiolo Delivery area."
+        # redirect_to orders_update_order_with_pickup_address_path
+        render :delivery_address
+      end
+      
+    else
+      
+      flash[:error] = "There was an error updating your contact info."
+      # redirect_to orders_update_order_with_pickup_address_path
+      render :delivery_address
+      
+    end
+    
+        # 
+    # 
+    # 
+    # 
+    # 
+    # params['order']['franchise_location_id'] = session[:franchise_location_id]
+    # if @order.update_attributes(params[:order])
+    #   redirect_to orders_define_delivery_time_path, :notice => "Address info saved."
+    # else
+    #   flash[:notice] = "There was an error updating the address."
+    #   redirect_to orders_update_order_with_delivery_address_path
+    # end
+    
+  end
+  
+  def update_order_with_pickup_address
+    params['order']['franchise_location_id'] = session[:franchise_location_id]
+    if @order.update_attributes(params[:order])
+      redirect_to orders_choose_pickup_location_path, :notice => "Address info saved."
+    else
+      flash[:notice] = "There was an error updating your contact info."
+      redirect_to orders_update_order_with_pickup_address_path
+    end
+  end
+  
+  
+  
+  
+  def delivery_address
+    
+    if current_customer
+      
+      # use the customer profile info to choose delivery address from...
+      
+      
+      
+    else
+      
+      if @order.delivery_address_1.blank?
+        
+        # NOT filled in yet, prep form with the data from the order contact info...
+        
+        @order.delivery_address_1 = @order.address_1
+        
+      else
+        
+        # HAS been filled in, allow the customer to edit the delivery details if required.
+        
+        
+        
+      end
+        
+      
+    end
+    
+  end
+  
+  def pickup_address
+    
+    
+    
+  end
+  
+  
+  
+  def add_delivery_address
+    
+    puts params[:address]
+    
+    address_id = false
+    
+    # save new address, if applicable.
+    if params['address']['save_new'] && params['address']['save_new'] == "1"
+      @address = current_customer.addresses.new(params[:address])
+      address_id = @address.id
+    end
+    
+    if params['address']['address_id']
+      address_id = params['address']['address_id'].to_i
+    end
+    
+    
+    # check the address is deliverable...
+    # myloc = Geocoder.coordinates(params[:address][:postal_code].downcase)
+    myloc = ApplicationController.helpers.geo_code(params[:address][:postal_code])
+    
+    puts myloc
+    
+    if myloc
+      
+      puts "postal code recognized, find the order location..."
+      
+      @fl = FranchiseLocation.where(:active => true, :order_online => true)
+      
+      if myloc
+        @fl.each do |l|
+          if l.location_in_area(myloc[1],myloc[0])
+            @locations = FranchiseLocation.where(:active => true, :order_online => true, :id => l.id)
+            puts "This is the delivery ID: #{l.id}"
+            # session[:franchise_location_id] = l.id
+          end
+        end
+      end
+      
+      if @locations
+        
+        puts "this is a deliverable location, make sure that the session variable is set correctly..."
+        
+        puts session[:franchise_location_id]
+        puts @locations.first.id
+        
+        if @locations.first.id != session[:franchise_location_id]
+          puts "the pizzaiolo location is different, alert user on next screen"
+          # notice = "Your delivery information has been saved and the nearest pizzaiolo location for this location has changed."
+        else
+          puts "the pizzaiolo location is the same, advance to the next screen..."
+        end
+        
+        session[:franchise_location_id] = @locations.first.id
+        
+        if address_id == false
+          # save without an associated address
+          @order.update_attributes(:delivery_address_1 => params[:address][:address_1], :delivery_address_2 => params[:address][:address_2], :delivery_city => params[:address][:city], :delivery_postal_code => params[:address][:postal_code], :address_id => nil, :franchise_location_id => session[:franchise_location_id])
+        else
+          # save with am associated address
+          @order.update_attributes(:delivery_address_1 => params[:address][:address_1], :delivery_address_2 => params[:address][:address_2], :delivery_city => params[:address][:city], :delivery_postal_code => params[:address][:postal_code], :address_id => address_id, :franchise_location_id => session[:franchise_location_id])
+        end
+        
+        if @address
+          @address.save
+        end
+
+        redirect_to orders_define_delivery_time_path, :notice => "Your delivery information has been saved."
+        
+      else
+        puts "the location is not deliverable, show the form again... "
+        flash[:error] = "<strong>The postal code entered is outside of the Pizzaiolo delivery area</strong>.<br />Please enter a different postal code and try again."
+        render :delivery_address
+        flash[:error] = nil
+      end
+      
+    else
+      
+      puts "postal code not recognized, bounce back to conifrm"
+      flash[:error] = "The postal code entered was not found, please verify and try again."
+      render :delivery_address
+      flash[:error] = nil
+      
+    end
+    
+    
+    
+    
+  end
+  
+  
+  
+  
+  
+  def add_pickup_address
+    
+    # save new address, if applicable...
+    if params['address']['phone_number'] && params['address']['save_new'] == "1"
+      @contact_phone_number = current_customer.contact_phone_numbers.new(params[:address])
+      @contact_phone_number.save
+    end
+    
+    @order.update_attributes(:contact_phone_number => params[:address][:phone_number])
+    
+    # redirect_to orders_define_delivery_time_path, :notice => "Your pickup information has been saved."
+    
+    redirect_to orders_choose_pickup_location_path, :notice => "Your ordering details were saved."
+    
+  end
+  
+  
+  
+  
+  def define_delivery_time
+    
+    if params[:overtime] == '1'
+      flash[:error] = "<strong>Your order has timed out.</strong><br />To make sure your order is deliverable, please select or update the order time below."
+    end
+    
+  end
+  
+  
+  
+  def get_delivery_times
+    
+    @year = params[:order_time][:year]
+    @month = params[:order_time][:month]
+    @day = params[:order_time][:day]
+    @time = params[:order_time][:time]
+    
+    # can the delivery time be met?
+    
+    time = Time.parse("#{@year}-#{@month}-#{@day} #{@time}")
+    puts "this is the time: #{time}"
+    
+    puts "This is a #{time.strftime("%A")}"
+    
+    if @order.for_pickup?
+      for_pickup = true
+    else
+      for_pickup = false
+    end
+    
+    # puts @order.order_additional['catering_order']
+    
+    if time > Time.now + 30.days
+      @message = "<p class='text-error'>Orders can only be placed up to 30 days from now.</p>"
+    else
+      
+      
+      
+      
+      if !@order.order_additional.blank? && @order.order_additional != "" && @order.order_additional != "null" && @order.order_additional['catering_order'].present? && @order.order_additional['catering_order'] == "1" && time < (Time.now + 25.hours)
+        @message = "<p class='text-error'>Catering Orders require 25 hours before being ready for pickup or delivery. Please select another date/time.</p>"
+        puts "This is a catering order"
+      else
+        if @order.franchise_location.can_be_ready_at_this_datetime(time,for_pickup) == true
+          puts "Can be ordered"
+          @message = "<p class='text-success'>This order can be delivered or picked up at this time and date.</p>"
+        else
+          @message = "<p class='text-error'>Please select another order time.</p>"
+          puts "The time you selected cannot be delivered. Please select a different time/day"
+        end
+      end
+    end
+    
+  end
+  
+  def check_delivery_times_and_goto_summary
+    
+    @year = params[:order_time][:year]
+    @month = params[:order_time][:month]
+    @day = params[:order_time][:day]
+    @time = params[:order_time][:time]
+    
+    @goto_summary = false
+    
+    # can the delivery time be met?
+    
+    time = Time.parse("#{@year}-#{@month}-#{@day} #{@time}")
+    puts "this is the time: #{time}"
+    
+    puts "This is a #{time.strftime("%A")}"
+    
+    if @order.for_pickup?
+      for_pickup = true
+    else
+      for_pickup = false
+    end
+    
+    if time > Time.now + 30.days
+      @message = "<p class='text-error'>Orders can only be placed up to 30 days from now.</p>"
+    else
+      if !@order.order_additional.blank? && @order.order_additional != "" && @order.order_additional != "null" && @order.order_additional['catering_order'].present? && @order.order_additional['catering_order'] == "1" && time < (Time.now + 25.hours)
+        @message = "<p class='text-error'>Catering Orders require 25 hours before being ready for pickup or delivery. Please select another date/time.</p>"
+        puts "This is a catering order"
+      else
+        if @order.franchise_location.can_be_ready_at_this_datetime(time,for_pickup) == true
+          puts "Can be ordered"
+          @message = "<p class='text-success'>This order can be delivered or picked up at this time and date.</p>"
+          @goto_summary = true
+        else
+          @message = "<p class='text-error'>Please select another order time.</p>"
+          puts "The time you selected cannot be delivered. Please select a different time/day"
+        end
+      end
+    end
+    
+  end
+  
+  
+  def set_delivery_time
+    
+    day = params["order_time"]['date(3i)'].to_s
+    month = params["order_time"]['date(2i)'].to_s
+    year = params["order_time"]['date(1i)'].to_s
+    time = params["order_time"]['time(5i)'].to_s
+    
+    time = Time.parse("#{year}-#{month}-#{day} #{time}")
+    
+    puts "Time for delivery requested: #{time}"
+    
+    if @order.for_pickup?
+      for_pickup = true
+    else
+      for_pickup = false
+    end
+    
+    if time > Time.now + 30.days
+      
+      flash[:error] = "This order cannot be placed more than 30 days in the future."
+      redirect_to orders_define_delivery_time_path
+      
+    else
+      
+      if @order.franchise_location.can_be_ready_at_this_datetime(time,for_pickup) == true
+        
+        # save the datetime in the order...
+        @order.update_attributes(:to_be_ready_at => time)
+        redirect_to orders_summary_path
+        
+      else
+        flash[:error] = "This order cannot be placed at the time requested, please select another time."
+        redirect_to orders_define_delivery_time_path
+      end  
+    end
+    
+  end
+  
+  def order_asap
+    if @order.for_pickup?
+      time_asap = @order.franchise_location.pickup_asap_eta
+    else
+      time_asap = @order.franchise_location.deliver_asap_eta
+    end
+    @order.update_attributes(:to_be_ready_at => time_asap)
+    redirect_to orders_summary_path    
+  end
+  
+  
+  def define_pickup_time
+    
+    
+    
+  end
+  
+  
+  
+  
+  
+  
+  def choose_pickup_location
+    # find order to get info 
+    @order = Order.find(session[:order_id])
+    @locations = FranchiseLocation.where(:active => true, :order_online => true)
+    
+    
+    if params[:find_location_near_me].blank? || params[:find_location_near_me] == ""
+      
+      @locations = FranchiseLocation.where(:active => true, :order_online => true)
+      
+    else
+      
+      # myloc = Geocoder.coordinates(params[:find_location_near_me].downcase)
+      myloc = ApplicationController.helpers.geo_code(params[:find_location_near_me])
+      
+      
+      # based on distance, not on the delivery area...
+      
+      @locations = FranchiseLocation.where(:active => true, :order_online => true).near(myloc, 10)
+      
+      session[:postal_code] = params[:find_location_near_me].upcase
+      puts session[:postal_code]
+      
+      
+    end
+    
+    
+  end
+  
+  
+  def set_pickup_location
+    
+    @order = Order.find(session[:order_id])
+    @franchise_location = FranchiseLocation.find(params[:id])
+    
+    if @order.update_attributes(:franchise_location_id => @franchise_location.id)
+      redirect_to orders_define_delivery_time_path, :notice => "Your pickup location has been saved."
+    else
+      flash[:notice] = "The pickup location could not be saved."
+      redirect_to orders_update_order_with_delivery_address_path
+    end
+    
+  end
+  
+  
+  
+  def submit_order
+    
+    
+    if @order.for_pickup == false
+      unless params[:order].present? && params[:order][:method_of_payment_id].present?
+        redirect_to orders_summary_path, :notice => "Please select a method of payment."
+        return false
+      end
+    end
+    
+    unless @order.ordered?
+      
+      if @order.for_pickup == false
+        @order.update_attributes(:ordered => true, :method_of_payment_id => params[:order][:method_of_payment_id], :special_instructions => params[:order][:special_instructions], :ordered_at => Time.now)
+      else
+        @order.update_attributes(:ordered => true, :special_instructions => params[:order][:special_instructions], :ordered_at => Time.now)
+      end
+      
+      # # detect if the application is running on stage or not
+      # unless request.host == "stage.pizzaiolo.ca"
+      #   @order.print_and_confirm_order
+      # else
+      #   # send email to customer only to test result
+      #   @order.email_confirmation_to_customer
+      #   puts "Only testing customer email."
+      # end
+      
+      @order.print_and_confirm_order
+      
+    end
+    
+    
+    session[:ordered_id] = @order.id
+    
+    # create new order for this session and/or customer
+    if current_customer
+      @new_order = current_customer.orders.new()
+      @new_order.save
+      session[:order_id] = @new_order.id
+    else
+      @new_order = Order.new
+      @new_order.save
+      session[:order_id] = @new_order.id
+    end
+          
+    redirect_to orders_thankyou_path
+    
+  end
+  
+  
+  def thankyou
+    @order = Order.find(session[:ordered_id])
+    # puts @order.to_xml
+  end
+
+  def summary
+    
+    can_be_ready_in_time = true
+    
+    if @order.for_pickup?
+      if Time.now + 20.minutes > @order.to_be_ready_at
+        can_be_ready_in_time = false
+      end
+    else
+      if Time.now + 55.minutes > @order.to_be_ready_at
+        can_be_ready_in_time = false
+      end
+    end
+      
+    if params[:overtime] == "1"
+      can_be_ready_in_time = false
+    end
+    
+    unless can_be_ready_in_time == true
+      flash[:error] = "<strong>Your order has timed out.</strong><br />To make sure your order is deliverable, please select or update the order time below."
+      redirect_to orders_define_delivery_time_path
+    end
+    
+  end
+
+  
+  def add_item_from_menu
+    
+    if params[:product_type] == "pizza"
+      @pizza_preset = PizzaPreset.find(params[:id])
+      if @pizza_preset
+        OrderItem.create(:product_info => @pizza_preset.product_info, :order_id => @order.id)
+      end
+      redirect_to orders_path, :notice => "The pizza has been added to your order."
+    end
+    
+    if params[:product_type] == "calzone"
+      @calzone_preset = CalzonePreset.find(params[:id])
+      if @calzone_preset
+        OrderItem.create(:product_info => @calzone_preset.product_info, :order_id => @order.id)
+      end
+      redirect_to orders_path, :notice => "The calzone has been added to your order."
+    end
+    
+  end
+  
+  def print_order
+
+    printer = Rescpos::Printer.open("192.168.0.38", 9100)
+    report = PrintTestReport.new
+    printer.print_report(report, :encoding => "UTF-8//IGNORE")
+    printer.close
+
+  end
+  
+  
+  def test_printer_before_ordering
+    
+    begin
+      timeout(1) do
+        
+        if Rails.env.production?
+          printer = Rescpos::Printer.open(@order.franchise_location.printer_ip.to_s, @order.franchise_location.printer_port.to_i)
+          printer.close
+        end
+      
+        if Rails.env.development?
+          printer = Rescpos::Printer.open("192.168.0.38", 9100)
+          printer.close
+        end
+        
+      end
+      
+    rescue
+      flash[:error] = "<strong>We're sorry, there was a problem contacting your selected Pizzaiolo Location</strong><br />Please update your #{ if @order.for_pickup? then "pickup time" else "delivery time" end } to try again.<br />Or you can call: <strong>#{@order.franchise_location.phone}</strong> to order over the phone."
+      redirect_to orders_define_delivery_time_path
+      return
+    end
+    
+  end
+    
+  def check_for_order_validity
+    if @order.franchise_location_id.blank? || @order.first_name.blank?
+      redirect_to orders_path
+      return false
+    end
+  end
+  
+  
+  private
+  
+    def load_stuffs
+      
+      # orders
+      if session[:order_id].blank?
+        @order = Order.new
+        @order.save
+        session[:order_id] = @order.id
+      else
+        @order = Order.find(session[:order_id])
+      end
+      
+      @pizza_categories = PizzaCategory.where(:active => true)
+      @calzones = CalzonePreset.where(:active => true).order("product_name ASC")
+      @pizza_presets = PizzaPreset.where(:active => true).order("product_name ASC")
+      @salads = Salad.where(:active => true).order("name ASC")
+      @dipping_sauces = DippingSauce.where(:active => true).order("name ASC")
+      @desserts = Dessert.where(:active => true)
+      @utensils = Utensil.where(:active => true)
+      @beverages = Beverage.where(:active => true).order("name ASC")
+      
+    end
+    
+    
+    
+    def associate_customer_with_order
+      if current_customer
+        if @order.customer_id != current_customer.id
+          @order.update_attributes(:customer_id => current_customer.id)
+        end
+      else
+        if @order.customer_id != nil
+          @order.update_attributes(:customer_id => nil)
+        end
+      end
+    end
+    
+    def set_page_title
+      content_for :title, "Order Online"
+      @heading = "order_online"
+      @header = "order_online"
+    end
+      
+  
+end

@@ -1,0 +1,70 @@
+- meta title: "Pizzaiolo | Toronto and GTA's Gourmet Pizza | Delivery",
+	description: "Pizzaiolo prides themselves on making fresh pizza with fresh ingredients daily. Pizza delivery Toronto, best pizza delivery Toronto. Gluten-free pizza, wheat free pizza dough, thin crust pizza. Pizzaiolo is a pizza catering company, pizza delivery company, order pizza online, popular pizza.",
+	keywords: "Pizzaiolo, Create your Own, Pizza Specials, Offers and Deals, Online Ordering, Delivery"
+- content_for(:heading) {"Sign In or <br> order as a guest".html_safe}
+//- content_for(:description) {""}
+- content_for(:body_class) {"delivery_page"}	
+div.top-bar
+	h1 
+		= link_to raw('&#8592;'), request.referer.present? ? request.referer : root_path
+		| Place order for Delivery
+
+div.body-container
+	.container
+		.row.signin-row
+			.span6.m-t-30.com-12.col-md-6
+				.row
+					.col-12.col-md-10.signin-layout
+						h2.static-header.m-t-0.static-mobile-header
+							| SIGN INTO<br>YOUR ACCOUNT
+
+						- @customer = Customer.new
+						
+						= simple_form_for(@customer, :url => customer_session_path, :html => {:class => 'default-form'}) do |f|
+
+							= f.input :email, :required => false, :autofocus => true, :label => false, :placeholder => "E-mail"
+							= f.input :password, :required => false, :label => false, :placeholder => "Password"
+							
+
+							= f.input :goto_delivery, :as => :hidden, :input_html => {:value => 1}
+
+							= f.button :submit, "Login", :class => "default signin-btn full"
+					
+			.span6.m-t-30.com-12.col-md-6
+				.row
+					.col-12.col-md-10.signin-layout
+						h2.static-header.m-t-0.mobile
+							| ORDER AS<br class="hidden-mobile"> A GUEST
+
+						= simple_form_for(@order, :url => orders_generate_customer_path,  :html => {:class => 'default-form', :autocomplete => "no-fill"}) do |f|
+							
+							= f.input :goto_delivery, :as => :hidden, :input_html => {:value => 1}
+
+							= f.input :first_name, :required => true, :input_html => {:autocomplete => SecureRandom.hex(12), :class => "validate[required]"}, :label => false, :placeholder => 'First Name'
+							= f.input :last_name, :required => true, :input_html => {:autocomplete => SecureRandom.hex(12), :class => "validate[required]"}, :label => false, :placeholder => 'Last Name'
+							= f.input :email, :required => true, :input_html => {:autocomplete => SecureRandom.hex(12), :class => "validate[required,email]"},  :label => false, :placeholder => 'E-mail'
+							= f.input :phone_number, :required => true, :input_html => {:autocomplete => SecureRandom.hex(12), :class => "validate[required,custom[phone]]"}, :label => false, :placeholder => 'Phone Number'
+							= f.input :address_1, :required => true, :input_html => {:autocomplete => SecureRandom.hex(12), :class => "validate[required] google-autocomplete", :data_id => "order-form"}, :label => false, :placeholder => 'Address 1', :autocomplete => SecureRandom.hex(12)
+							= f.input :address_2, :required => false, :label => false, :placeholder => 'Address 2(e.g. unit #574, buzzer code: 12)', :input_html => { :autocomplete => SecureRandom.hex(12) }
+							= f.input :city, :required => true, :input_html => {:autocomplete => SecureRandom.hex(12), :class => "validate[required]"}, :label => false, :placeholder => 'City'
+							#order_postal_code_wrapper
+								= f.input :postal_code, :required => true, :input_html => {:autocomplete => SecureRandom.hex(12), :class => "validate[required]"}, :label => false, :placeholder => 'Postal Code'
+
+							
+							
+							div.checkbox-field.clearfix.checkmark
+								input type="checkbox" name="customer[create_account]" id="create_an_account" value="1" class="controls"
+								label.control-label for="create_an_account" Create an account and save time on your next order.
+								
+							
+							#create_account_password style="display:none;"
+								div.checkbox-field.clearfix.m-b-20.checkmark
+									input type="checkbox" name="customer[mailing_list]" id="news-promotion"  value="1" class="controls"
+									label.control-label for="news-promotion" Send me news and promotions from Pizzaiolo
+									
+
+								= f.input :password, :required => true, :input_html => {:class => "validate[required]"}, :label => false, :placeholder => "Password"
+								= f.input :password_confirmation, :required => true, :input_html => {:class => "validate[required,equals[order_password]]"}, :label => false, :placeholder => "Password Confirmation"
+							
+							= f.button :submit, "Submit/Next", :class => "default signin-btn full"
+			#map 

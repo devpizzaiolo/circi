@@ -1,0 +1,4 @@
+class Customers::CustomerServices < ActiveRecord::Base
+  belongs_to :location
+  attr_accessible :comment, :email, :first_name, :last_name, :pickup, :telephone
+end

@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/pizzaioloca/!svn/ver/214/trunk/pizzaiolo.ca/app/views/admins/pizza_presets
+END
+index.html.slim
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/pizzaioloca/!svn/ver/101/trunk/pizzaiolo.ca/app/views/admins/pizza_presets/index.html.slim
+END
+new.html.slim
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/app/views/admins/pizza_presets/new.html.slim
+END
+_form.html.slim
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/pizzaioloca/!svn/ver/214/trunk/pizzaiolo.ca/app/views/admins/pizza_presets/_form.html.slim
+END
+edit.html.slim
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/app/views/admins/pizza_presets/edit.html.slim
+END

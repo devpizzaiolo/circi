@@ -1,0 +1,94 @@
+- content_for(:title) {"Welcome"}
+
+- meta title: "Pizzaiolo | Gourmet Pizza | Pizza Delivery Toronto | Take Out Pizza",
+	description: "Pizzaiolo prides themselves on making fresh pizza with fresh ingredients daily. Pizza delivery Toronto, best pizza delivery Toronto. Gluten-free pizza, wheat free pizza dough, thin crust pizza. Pizzaiolo is a pizza catering company, pizza delivery company, order pizza online, popular pizza.",
+	keywords: "Pizzaiolo"
+
+h1 style="display:none;" Welcome to Pizzaiolo	
+
+.hidden-phone
+	.row.homepage-headings
+		.container
+			h2.malbeck Our Famous Pizzaiolo Tomato Sauce and Artisan Dough are Made Fresh Daily! 
+			h2.light.m-t-20 Gluten-free and wheat-free dough available	
+
+	.row.home-pizza-presets
+		.container
+			div class="pizza-carousel" id="pizza-carousel"
+				div class="carousel-inner"
+					div class="item active"
+						div class="row"
+							- @pizzas[0,3].each do |pizza|
+								.span4
+									div.pizza-card.fixed-height
+										= image_tag pizza.pizza_image_angled.size_300.url
+										.details
+											p.item_title = raw("#{pizza.product_name} ")
+											p.calories = pizza.calories
+											p = pizza.toppings.to_sentence(:last_word_connector => ' and ')
+										.bottom-button
+											= link_to "ORDER NOW", orders_path(:pizza_preset_id => pizza.id), :class => "button default"
+								
+					div class="item"
+						div class="row"
+							- @pizzas[3,3].each do |pizza|
+								.span4
+									div.pizza-card.fixed-height
+										= image_tag pizza.pizza_image_angled.size_300.url
+										.details	
+											p.item_title = raw("#{pizza.product_name} ")
+											p.calories = pizza.calories
+											p = pizza.toppings.to_sentence(:last_word_connector => ' and ')
+										
+										.bottom-button
+											= link_to "ORDER NOW", orders_path(:pizza_preset_id => pizza.id), :class => "button default"
+
+					div class="item"
+						div class="row"
+							- @pizzas[6,3].each do |pizza|
+								.span4
+									div.pizza-card.fixed-height
+										= image_tag pizza.pizza_image_angled.size_300.url
+										.details
+											p.item_title = raw("#{pizza.product_name} ")
+											p.calories = pizza.calories
+											p = pizza.toppings.to_sentence(:last_word_connector => ' and ')
+										.bottom-button
+											= link_to "ORDER NOW", orders_path(:pizza_preset_id => pizza.id), :class => "button default"
+
+
+					div class="item"
+						div class="row"
+							- @pizzas[9,3].each do |pizza|
+								.span4
+									div.pizza-card.fixed-height
+										= image_tag pizza.pizza_image_angled.size_300.url
+										.details
+											p.item_title = raw("#{pizza.product_name} ")
+											p.calories = pizza.calories
+											p = pizza.toppings.to_sentence(:last_word_connector => ' and ')
+										.bottom-button
+											= link_to "ORDER NOW", orders_path(:pizza_preset_id => pizza.id), :class => "button default"
+				<a class="pizza-carousel-control left" href="#pizza-carousel" data-slide="prev">&lsaquo;</a>
+				<a class="pizza-carousel-control right" href="#pizza-carousel" data-slide="next">&rsaquo;</a>
+
+				.row.text-center	
+					= link_to "SEE OUR FULL MENU", orders_path, class: 'block green-link'
+
+	.ad-box
+		.container
+			.row
+				- cache('ad_pods_homepage') do
+					- AdBox.where(:active => true).order(:position).each do |ad_box|
+						.span4
+							- unless ad_box.url_link.blank?
+								a href="#{ad_box.url_link}"
+									img src="#{ad_box.pod.url}?#{ad_box.updated_at.to_i}" class="homepage-pods" alt="Ad Box Image"
+							- else
+								img src="#{ad_box.pod.url}?#{ad_box.updated_at.to_i}" class="homepage-pods" alt="Ad Box Image"
+
+	div.late-night
+		.container
+			= link_to late_night_locations_path do 
+				= image_tag 'home_page/openslate-wide.png'
+

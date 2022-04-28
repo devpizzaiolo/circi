@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.2">
+<Document>
+  <name>66 Kingston Rd.</name>
+  <description><![CDATA[66 Kingston Road
+Toronto, ON M4L 1S4, Canada
+(416) 698-0700]]></description>
+  <Style id="style1">
+    <LineStyle>
+      <color>40000000</color>
+      <width>3</width>
+    </LineStyle>
+    <PolyStyle>
+      <color>73FF99FF</color>
+      <fill>1</fill>
+      <outline>1</outline>
+    </PolyStyle>
+  </Style>
+  <Placemark>
+    <name>66 Kingston Rd. Delivery Area</name>
+    <description><![CDATA[<div dir="ltr">66 Kingston Road<br>Toronto, ON M4L 1S4, Canada<br>(416) 698-0700</div>]]></description>
+    <styleUrl>#style1</styleUrl>
+    <Polygon>
+      <outerBoundaryIs>
+        <LinearRing>
+          <tessellate>1</tessellate>
+          <coordinates>
+            -79.319611,43.650391,0.000000
+            -79.330605,43.677509,0.000000
+            -79.330276,43.677666,0.000000
+            -79.329529,43.677494,0.000000
+            -79.324379,43.678471,0.000000
+            -79.321465,43.678379,0.000000
+            -79.319855,43.679062,0.000000
+            -79.317749,43.679916,0.000000
+            -79.311249,43.682537,0.000000
+            -79.312386,43.685127,0.000000
+            -79.312660,43.686184,0.000000
+            -79.288200,43.691021,0.000000
+            -79.279907,43.671959,0.000000
+            -79.319611,43.650391,0.000000
+          </coordinates>
+        </LinearRing>
+      </outerBoundaryIs>
+    </Polygon>
+  </Placemark>
+</Document>
+</kml>

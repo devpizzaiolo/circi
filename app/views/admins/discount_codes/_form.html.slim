@@ -1,0 +1,29 @@
+.container
+	.body-container
+		= simple_form_for([:admins, @discount_code], multipart: true) do |f|
+			
+			fieldset
+				legend Discount Code Details
+				
+				=f.input :promotion_name, :label => "Promotion Name (Optional)"
+				=f.input :code, :label => "Coupon Code", input_html: { maxlength: 10 }
+				=f.input :discount_type, :prompt => "Select Discount Type", collection: [['Percent', 'percent'], ['Dollar', 'dollar']], :required => true
+				=f.input :value, as: :numeric, :label => "Coupon Value", :required => true, input_html: { class: 'string' }
+				=f.input :one_time_use, :label => "One time use"
+				=f.input :exclude_deals, :label => "Exclude Deals (When no filter applied)"
+				=f.input :active
+				
+			fieldset
+				legend Discount Code Filters Details
+
+				= link_to_add_association 'Add Discount Code Filter', f, :discount_code_filters, :class => "btn btn-primary btn-add-nested-association", :data => { association_insertion_method: :append }
+
+				=f.simple_fields_for :discount_code_filters do |f|
+					= render 'admins/discount_codes/discount_code_filter_fields', f: f
+
+			div.discount-code-action-btns
+				= f.button :submit, "Save/Update", :class => "btn btn-primary"
+
+				= " "
+				
+				= link_to "Cancel", admins_discount_codes_path, :class => "btn"

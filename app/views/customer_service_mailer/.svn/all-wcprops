@@ -1,0 +1,11 @@
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/pizzaioloca/!svn/ver/187/trunk/pizzaiolo.ca/app/views/customer_service_mailer
+END
+service_request_email.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/pizzaioloca/!svn/ver/187/trunk/pizzaiolo.ca/app/views/customer_service_mailer/service_request_email.html.erb
+END

@@ -1,0 +1,32 @@
+- meta title: "Pizzaiolo | Toronto and GTA's Gourmet Pizzeria | Order Details",
+     description: "Get gourmet pizza made with the freshest ingredients daily. Many options to suit everyones taste. Order your pizza today!",
+     keywords: "Pizzaiolo, Gourmet Pizza, Pizza Order Takeout, Delivery, Online Ordering"
+
+
+- content_for(:heading) {("HERE<span class='lance-font'>'</span>S YOUR <br>ORDER ENJOY!").html_safe	}
+- content_for(:description) {("<span>Your order has not yet been placed. </span> <br>Please review and confirm below to submit your order.").html_safe}
+- content_for(:body_class) {"cart_page"}
+
+section
+
+	div.container
+		/ .home-content-panel.order-detail-mobile
+		/ 	.row
+		/ 		.col-sm-9.offset-sm-3
+		/ 			.homepage-headings style="#{if params[:set_catering_order] == "1" || params[:pizza_preset_id] then "display:none;" end}"
+		/ 				h2.malbeck HERE'S YOUR <br>ORDER ENJOY!
+		/ 				p.text-style-bold.hidden-mobile <span>Your order has not yet been placed. </span> <br>Please review and confirm below to submit your order.
+		/ 		.col-sm-9.offset-sm-3		
+		/ 			p.only-mobile.p2 TO PLACE YOUR ORDER, review and confirm below.		
+	div
+		#order_table
+			/ div.top-bar
+			/ 	h1 
+			/ 		a.back_to_categories href="#" &#8592;
+			/ 		span Order Summary
+			/ .hidden-phone.row
+			/ 	.clearfix.p-t-40
+			/ 		h2.super-header.green.text-center Order Summary
+			div#shopping_cart.body-container.clearfix.container
+				.row#details_cart
+					= render(:partial => 'orders/shopping_cart_table')

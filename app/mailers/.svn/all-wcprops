@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/pizzaioloca/!svn/ver/270/trunk/pizzaiolo.ca/app/mailers
+END
+franchise_enquiry_mailer.rb
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/pizzaioloca/!svn/ver/270/trunk/pizzaiolo.ca/app/mailers/franchise_enquiry_mailer.rb
+END
+customer_service_mailer.rb
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/pizzaioloca/!svn/ver/210/trunk/pizzaiolo.ca/app/mailers/customer_service_mailer.rb
+END
+.gitkeep
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/app/mailers/.gitkeep
+END
+order_mailer.rb
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/pizzaioloca/!svn/ver/261/trunk/pizzaiolo.ca/app/mailers/order_mailer.rb
+END

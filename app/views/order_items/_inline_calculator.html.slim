@@ -1,0 +1,85 @@
+div.summery-header
+	div.left Order Summary
+	div.right class="#{if @order_item.deal_id.present? then 'hide' end}" = number_to_currency(@order_item.price.to_f * @order_item.quantity.to_i)
+div.summery-table id="summery-table" data-show_popup="#{@order_item.show_popup}" data-popup_message="#{@order_item.popup_message}"
+	table.table.table-condensed.default-table.green.gray-body
+		//thead
+		//	th.first Order Summary
+		//	th = number_to_currency(@order_item.price.to_f * @order_item.quantity.to_i)
+		tbody
+			tr
+				td.first
+					p.bold = @order_item.item_title
+					- if @order_item.product_info['product_type'] != "calzone"
+						- selected_toppings = @order_item.toppings_1
+						- if selected_toppings.count > 0
+							p.regular-p.hide
+								= raw "#{pluralize(@order_item.num_paid_toppings, 'paid topping')}"
+							
+							- if selected_toppings.any? { |s| s.include?('Whole Pizza') }
+								p.regular-p 
+									| Whole Pizza
+								- selected_toppings.each do |t|
+									- if t.include?('Whole Pizza') then
+										p.regular-p = raw "- #{t[11..-1]}"
+
+							- if selected_toppings.any? { |s| s.include?('Left Side') }
+								p.regular-p
+									strong Left Side
+								- selected_toppings.each do |t|
+									- if t.include?('Left Side') then
+										p.regular-p = raw "- #{t[9..-1]}"
+
+							- if selected_toppings.any? { |s| s.include?('Right Side') }
+								p.regular-p 
+									strong Right Side
+								- selected_toppings.each do |t|
+									- if t.include?('Right Side') then
+										p.regular-p = raw "- #{t[10..-1]}"
+						- else
+							p.regular-p = raw "#{pluralize(0, 'topping')}"
+					- if @order_item.product_info['product_type'] == 'pizza' &&  @order_item.product_info["order_additional"] && @order_item.product_info["order_additional"].count > 0
+						- if @order_item.product_info["order_additional"]['dipping_sauces'] && @order_item.product_info["order_additional"]['dipping_sauces'].count > 0															
+							- @order_item.product_info["order_additional"]['dipping_sauces'].each do |dipping_sauce|
+								- if dipping_sauce[1].to_i > 0
+									tr
+										td.first
+											strong = "#{get_dipping_sauce_name(dipping_sauce[0])} Dipping Sauce"
+											= " "
+											small
+												= "x #{dipping_sauce[1]}"
+						- if @order_item.product_info["order_additional"]['beverages'] && @order_item.product_info["order_additional"]['beverages'].count > 0															
+							- @order_item.product_info["order_additional"]['beverages'].each do |beverage|
+								- if beverage[1].to_i > 0
+									tr
+										td.first
+											strong = get_beverage_name(beverage[0])
+											= " "
+											small
+												= "x #{beverage[1]}"
+						- if @order_item.product_info["order_additional"]['salads'] && @order_item.product_info["order_additional"]['salads'].count > 0										
+							- @order_item.product_info["order_additional"]['salads'].each do |salad|
+								- if salad[1].to_i > 0
+									tr
+										td.first
+											strong= get_salad_name(salad[0])
+											= " "
+											small
+												= "x #{salad[1]}"
+
+						- if @order_item.product_info["order_additional"]['garlic_breads'] && @order_item.product_info["order_additional"]['garlic_breads'].count > 0					
+							- @order_item.product_info["order_additional"]['garlic_breads'].each do |garlic_bread|
+								- if garlic_bread[1].to_i > 0
+									tr
+										td.first
+											strong= get_garlic_bread_name(garlic_bread[0])
+											= " "
+											small
+												= "x #{garlic_bread[1]}"			
+
+					- if @order_item.product_info['product_type'] == 'calzone' &&  @order_item.toppings.count > 0
+						p.regular-p.hide = raw "#{pluralize(@order_item.num_paid_toppings, 'paid topping')}:"
+						- @order_item.toppings.each do |t|
+							p.regular-p = raw "- #{t}"
+
+								

@@ -1,0 +1,53 @@
+.page-header
+	h1 Admins
+	
+table.table.table-striped
+
+	thead
+		tr
+			th First Name
+			th Last Name
+			th Email
+			th View Stats
+			th View Customers
+			th View Admins
+			th Order Confirmations
+			th
+			
+	tbody
+		- @admins.each do |admin|
+			tr
+				td= admin.first_name
+				td= admin.last_name
+				td= admin.email
+				td
+					-if admin.view_stats?
+						| yes
+					- else
+						| no
+				td
+					-if admin.view_customers?
+						| yes
+					- else
+						| no
+				td
+					-if admin.edit_admins?
+						| yes
+					- else
+						| no
+				td
+					- if admin.receive_order_confirmation_emails?
+						| yes
+					- else
+						| no
+				td
+					= link_to "edit", edit_admins_admin_path(admin)
+					= "  "
+					= link_to "delete", admins_admin_path(admin), :method => :delete, :confirm => "Are you sure?"
+				
+hr
+
+= link_to "Create Admin", new_admins_admin_path, :class => "btn btn-large btn-primary"
+
+
+

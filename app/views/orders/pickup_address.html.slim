@@ -1,0 +1,83 @@
+div.top-bar
+	h1 
+		= link_to raw('&#8592;'), request.referer.present? ? request.referer : root_path
+		| Pickup Address
+- content_for(:heading) {("Select pickup Address").html_safe}
+//- content_for(:description) {""}
+- content_for(:body_class) {"pickup_address_page"}
+div.body-container.min-height.order-pickup
+	.container
+		- unless current_customer
+			.row
+				.span6.col-12.col-md-6
+					h2.static-header.m-t-0.text-center.inner-page-sub-title Contact Information
+
+					p.regular-p.text-center Confirm Contact Information
+
+					= simple_form_for(@order, :url => orders_update_order_with_pickup_address_path, :html => {:class => 'default-form'}) do |f|
+						
+						- if @order.contact_phone_number.blank?
+							= f.input :contact_phone_number, :required => true, :input_html => {:value => @order.phone_number}, :label => false, :placeholder => "Phone Number"
+						- else
+							= f.input :contact_phone_number, :required => true, :label => false, :placeholder => "Phone Number"
+						
+						div.text-center.buttons-layout-box
+							= link_to "Go back", orders_delivery_path, :class => "button gray m-r go-back-btn"
+							= f.button :submit, "Submit/Next", :class => "default"
+		- else
+			
+			.row.signin-row.desktop-layout
+				.span6.col-12.col-md-5.signin-layout
+				
+					h2.static-header.m-t-0.m-b-30.static-mobile-header.inner-page-sub-title.inner-page-sub-title Select preferred contact
+					
+					.m-b-30.clearfix.user-contact-info
+						div.pull-left.address
+								p = "#{@order.first_name} #{@order.last_name}"
+								p = current_customer.phone_number
+						div.pull-right
+							- @address = Address.new
+							= simple_form_for(@address, :url => orders_add_pickup_address_path, :html => {:class => 'default-form'}) do |f|
+
+								= f.input :phone_number, :as => :hidden, :required => true, :input_html => {:value => current_customer.phone_number}, :label => false, :placeholder => "Phone Number"
+								/ = f.input :contact_phone_number_id, :as => :hidden, :input_html => {:value => contact_phone_number.id}
+							
+								= f.button :submit, "Use this contact info", :class => "ipad-btn default action-form-btn smaller"
+											
+						
+						
+					- current_customer.contact_phone_numbers.order("created_at DESC").limit(3).each do |contact_phone_number|
+						.m-b-30.clearfix.user-contact-info
+							div.pull-left 						
+								.address
+									p = "#{@order.first_name} #{@order.last_name}"
+									p = contact_phone_number.phone_number
+									
+							div.pull-right
+								- @address = Address.new
+								= simple_form_for(@address, :url => orders_add_pickup_address_path, :html => {:class => 'default-form'}) do |f|
+
+									= f.input :phone_number, :as => :hidden, :required => true, :input_html => {:value => contact_phone_number.phone_number}, :label => false, :placeholder => "Phone Number"
+									= f.input :contact_phone_number_id, :as => :hidden, :input_html => {:value => contact_phone_number.id}
+							
+									= f.button :submit, "Use this contact info", :class => "ipad-btn default action-form-btn smaller"				
+				.span6.col-12.col-md-5.offset-md-2
+
+					h2.static-header.m-t-0.m-b-30.inner-page-sub-title  Or, enter a new phone number
+
+					- @customer_contact_number = Address.new
+					= simple_form_for(@customer_contact_number, :url => orders_add_pickup_address_path, :html => {:class => 'default-form user-contact-info'}) do |f|
+
+						= f.input :phone_number, :required => true, :input_html => {:class => "contact-info validate[required,custom[phone]]"}, :label => false, :placeholder => "Phone Number"
+						/ div.checkbox-field.clearfix
+							/ = f.input :save_new, :inline_label=> :Yes, :as => :boolean, :label => false
+							/ label.checkbox.small for="address_save_new"
+							/ 	| Add this phone number to my account
+							
+							
+						.checkmark
+							input type="checkbox" name="address[save_new]" id="address_save_new" value="1" class="controls"
+							label.control-label for="address_save_new" Add this phone number to my account
+
+						= f.button :submit, "Save & Use Contact Info", :class => "ipad-btn default action-form-btn full"
+

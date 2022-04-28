@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  type_of_topping: 
+  active: false
+  regular_price: 9.99
+  gluten_free_price: 9.99
+  free_topping: false
+
+two:
+  type_of_topping: 
+  active: false
+  regular_price: 9.99
+  gluten_free_price: 9.99
+  free_topping: false

@@ -1,0 +1,18 @@
+- cache ['catering_dipping_sauces'] do
+
+	table.table.pricing-table.default-table.black
+		thead.thead-dark
+			tr
+				th.first Dipping Sauces
+				th
+				th
+				th Price
+		tbody 
+			- DippingSauce.where(:active => true).order("name ASC").each do |beverage|
+				tr
+					td.first = beverage.name
+					td
+					td
+					td = "#{number_to_currency(beverage.price)} each"
+
+	

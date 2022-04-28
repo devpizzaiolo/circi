@@ -1,0 +1,47 @@
+<!-- line 56 -->
+<div class="header_holder hidden-phone <%= if @header then @header end %>">
+	<div class="header">
+		<div class="container">
+			<div align="right">		
+				<div id="top_menu">
+					<a href="/pages/mailing_list">MAILING LIST</a> | <% if current_customer %><%= link_to "MY ACCOUNT", customers_path %> | <% unless Rails.env.development? %><%= link_to "LOG OUT", destroy_customer_session_url(:protocol => "https"), :method => :delete %><% else %><%= link_to "LOG OUT", destroy_customer_session_path, :method => :delete %><% end %><% else %><%= link_to "LOGIN", customers_path %><% end %>
+				</div>
+			</div>
+		</div>
+	
+		<div class="visible-tablet navigation">
+		
+			<div class="container">
+				<a href="/">
+					<img src="/assets/ui/pizzaiolo_logo_trans.png"  class="main_logo">
+				</a>
+				<%= link_to "Order Online", orders_path %> 
+				<%= link_to "Menu", page_path('menu') %>
+				<%= link_to "Catering", page_path('catering') %>
+				<%= link_to "Locations", locations_path %>
+			</div>
+		
+		</div>
+		
+		<div class="hidden-tablet navigation">
+			<div class="container">
+				<a href="/">
+					<img src="/assets/ui/pizzaiolo_logo_trans.png"  class="main_logo">
+				</a>
+				<%= link_to "Order Online", orders_path %>
+				<%= link_to "Menu", page_path('menu') %>
+				<%= link_to "Catering", page_path('catering') %>
+				<%= link_to "Locations", locations_path %>
+			</div>
+		</div>
+	</div>
+	
+	<div class="heading text-center hidden-phone">
+		<% if @heading %>
+			<img src="/assets/ui/hdr_<%= @heading %>.png" class="heading_graphic hidden-phone" class="">
+			<img src="/assets/ui/hdr_<%= @heading %>.png" class="heading_graphic visible-phone" style="height:12px;">
+		<% elsif request.fullpath.include? "customer"  %>
+			<img src="/assets/ui/hdr_account.png" class="heading_graphic">
+		<% end %>
+	</div>
+</div>

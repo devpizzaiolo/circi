@@ -1,0 +1,45 @@
+$(document).on('click', '#search-locations', function(){
+	filter_by_area = $("select#filter_by_area").val();
+	filter_by_postal_code = $('#find_location_near_me').val();
+	late_night = $('#late_night').val();
+
+	console.log(filter_by_area);
+	console.log(filter_by_postal_code);
+	if (filter_by_area != null && filter_by_postal_code != "") {
+		$('#search_locations').submit();
+		error = "Please select a postal code OR area";
+		$('#error').text(error);
+	} else if (filter_by_area != null && filter_by_postal_code == "") {
+		
+		if (filter_by_area != "all") {
+			$("div.area").hide();
+			$("div."+filter_by_area).show();
+		} else {
+			$("div.area").show();
+		}
+		$('.location-content-panel h2').html("Pizzaiolo <br>locations in <br>your area.")
+
+		$('#location-filter').addClass('visible');
+		$('#location-search').removeClass('visible');
+
+		$("select#filter_by_area").prop('selectedIndex',0);
+
+	} else if (filter_by_area == null && filter_by_postal_code != "") {
+		$('#search_locations').submit();
+	} else if (filter_by_area == null || filter_by_postal_code == "") {
+		error = "Please select a postal code OR area";
+		$('#error').text(error);
+	}
+
+});
+$(document).on('click', '#back_to_location_search', function(e) {
+	e.preventDefault();
+	$('#find_location_near_me').val('');
+	$('#location-search').addClass('visible');
+	$('#location-filter').removeClass('visible');
+});
+
+$(document).on('click', '#clear-locations', function(e) {
+	 $('#find_location_near_me').val("");
+	 $('#filter_by_area').val("all");
+});

@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/pizzaioloca/!svn/ver/204/trunk/pizzaiolo.ca/db/seeds/admins
+END
+pizzaiolo_staff.seeds.rb
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/pizzaioloca/!svn/ver/204/trunk/pizzaiolo.ca/db/seeds/admins/pizzaiolo_staff.seeds.rb
+END
+base_admins.seeds.rb
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/seeds/admins/base_admins.seeds.rb
+END

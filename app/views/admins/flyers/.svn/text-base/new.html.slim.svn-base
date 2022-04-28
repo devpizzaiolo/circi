@@ -1,0 +1,4 @@
+.page-header
+	h1 Add First Flyer
+	
+= render(:partial => 'admins/flyers/form')

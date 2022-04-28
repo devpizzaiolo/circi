@@ -1,0 +1,147 @@
+- meta title: "Pizzaiolo | Toronto and GTA's Gourmet Pizzeria | Complete your Meal",
+     description: "Tonight let's do takeout! Order Pizzaiolo's Gourmet Pizzas, and add your favourite dipping sauce, salads and drinks to make it the perfect night in!",
+     keywords: "Pizzaiolo, Dinner Takeout, Order Online, Delivery, Date night, Dinner in"
+style
+  |  .mobile-logo { display: none !important; } 
+	|  .additional-mobile { margin-top: 5px !important; }
+- content_for(:body_class) {"complete_your_meal_page"}
+section
+	div.container
+		div class="orders-index #{if @order.total_price > 0 then 'extra-p' end}"
+			.home-content-panel-new.home-content-panel.complete-meal-title
+				.row
+				  .col-sm-9.offset-sm-3
+						.homepage-headings 
+							h2.malbeck COMPLETE <br> YOUR MEAL.
+
+	div.container.padding-zero	
+		div.home-category-thumb 
+			div.mobile-container.innerCardWidth
+				div.row.no-gutters.order-additional.order-additional-new.additional-mobile.complete-meal-card
+
+					div.food-category.food-category-new.calzones
+						/a.pizza_category data-pizza-category-id="4" href="#select_calzone" data-toggle="tab"
+						a href="/orders/calzone/baked-calzone"
+							div.card.border-0.rounded-0.hc-block
+								= image_tag '/assets/new_design/calzones.jpg'
+								div.card-img-overlay.d-flex.align-items-center.justify-content-center
+									h2.card-title CALZONES.	
+
+					div.food-category.food-category-new.beverages
+						a href="/orders/additional_items#garlic"
+							div.card.border-0.rounded-0.hc-block
+								= image_tag '/assets/new_design/garlic_break.jpg'
+								div.card-img-overlay.d-flex.align-items-center.justify-content-center
+									h2.card-title GARLIC<br>BREAD.
+
+					div.food-category.food-category-new.salads
+						a href="/orders/additional_items#salads"
+							div.card.border-0.rounded-0.hc-block
+								= image_tag '/assets/new_design/salad.jpg'
+								div.card-img-overlay.d-flex.align-items-center.justify-content-center
+									h2.card-title SALADS
+
+					div.food-category.food-category-new.calzones
+						/a.pizza_category data-pizza-category-id="4" href="#select_calzone" data-toggle="tab"
+						a href="/orders/additional_items#Bottles"
+							div.card.border-0.rounded-0.hc-block
+								= image_tag '/assets/new_design/drink_dips.jpg'
+								div.card-img-overlay.d-flex.align-items-center.justify-content-center
+									h2.card-title DRINKS.
+
+					div.food-category.food-category-new.beverages
+						a href="/orders/additional_items#Dipping"
+							div.card.border-0.rounded-0.hc-block
+								= image_tag '/assets/new_design/dips-cat.jpg'
+								div.card-img-overlay.d-flex.align-items-center.justify-content-center
+									h2.card-title DIPS.
+			
+					/ div.food-category.beverages
+					/ 	a href="/orders/additional_items#calzone"
+					/ 		div.card.border-0.rounded-0.hc-block
+					/ 			= image_tag '/assets/new_design/calzones.jpg'
+					/ 			div.card-img-overlay.d-flex.align-items-center.justify-content-center
+					/ 				h2.card-title CALZONES.
+							
+	div.container.padding-zero
+		.home-content-panel-new.home-content-panel.add-more-pizza-title
+			.row
+				.col-sm-9.offset-sm-3
+					.homepage-headings 
+						h2.malbeck.mt-lg-5.pt-lg-2.subtitle-padding ADD MORE PIZZAS <br> To Your Order.	
+		
+	div.container.padding-zero	
+		#edit_or_update_order_items
+
+			#select_products.home-category-thumb
+				div.food-categories-all#all-categories
+					div
+						.row.no-gutters.main-menu.main-menu-complete
+							div.food-category.food-category-new.meat-pizza.customize-pizza-bg
+								= link_to orders_slug_path(:slug => PizzaCategory.find(4).pizza_presets.first.try(:slug)), :class => "show-menu" do
+									div.card.border-0.rounded-0.hc-block
+										= image_tag '/assets/new_design/thumb_customize.jpg'
+										div.card-img-overlay.d-flex.align-items-center.justify-content-center
+											h2.card-title	CUSTOMIZE
+											
+							div.food-category.food-category-new.meat-pizza
+								a.pizza_category  href="/orders/#{@pizza_category[0].slug}/categories" 
+									div.card.border-0.rounded-0.hc-block
+										= image_tag '/assets/new_design/thumb_meat.jpg'
+										div.card-img-overlay.d-flex.align-items-center.justify-content-center
+											h2.card-title	 MEAT
+
+							div.food-category.food-category-new.meat-pizza
+								a.pizza_category  href="/orders/#{@pizza_category[1].slug}/categories" 
+									div.card.border-0.rounded-0.hc-block
+										= image_tag '/assets/new_design/thumb_veggie.jpg'
+										div.card-img-overlay.d-flex.align-items-center.justify-content-center
+											h2.card-title	VEGGIE
+
+							div.food-category.food-category-new.meat-pizza
+								a.pizza_category  href="/orders/#{@pizza_category[2].slug}/categories" 
+									div.card.border-0.rounded-0.hc-block
+										= image_tag '/assets/new_design/thumb_vegan.jpg'
+										div.card-img-overlay.d-flex.align-items-center.justify-content-center
+											h2.card-title	VEGAN
+
+							div.food-category.food-category-new.meat-pizza
+								a.pizza_category  href="/orders/#{@pizza_category[4].slug}/categories" 
+									div.card.border-0.rounded-0.hc-block
+										= image_tag '/assets/new_design/new_gluten_Free.png'
+										div.card-img-overlay.d-flex.align-items-center.justify-content-center.gulten_free_title
+											h2.card-title	Gluten Free & Cauliflower
+
+							div.food-category.food-category-new.meat-pizza
+								a.pizza_category  href="/orders/#{@pizza_category[5].slug}/categories" 
+									div.card.border-0.rounded-0.hc-block
+										= image_tag '/assets/new_design/plant_based_thumb.jpg'
+										div.card-img-overlay.d-flex.align-items-center.justify-content-center
+											h2.card-title Plant Based	
+							/ div.food-category.food-category-new.beverages
+							/ 	a href="/orders?calzone_preset_id=2"
+							/ 		div.card.border-0.rounded-0.hc-block
+							/ 			= image_tag '/assets/new_design/calzones.jpg'
+							/ 			div.card-img-overlay.d-flex.align-items-center.justify-content-center
+							/ 				h2.card-title CALZONES
+
+						
+							div.special-deal-section.food-category.food-category-new.meat-pizza
+								a.pizza_category  href="/orders/specials"
+									div.card.border-0.rounded-0.hc-block
+										= image_tag '/assets/new_design/thumb_pepperoni.jpg'
+										div.card-img-overlay.d-flex.align-items-center.justify-content-center
+											h2.card-title	Specials			
+
+				
+				div.container.padding-zero
+					div.row
+						p.important_message 
+							span.bold Important: 
+							span Adults and youth (ages 13 and older) need an average of 2,000 calories a day, and children (ages 4 to 12) need an average of 1,500 calories a day. However, individual needs vary.
+
+				div.row
+				 	div.col-12.col-md-12.order-create-btn.text-center
+						= link_to "GO TO CHECKOUT", '/orders/details', :class => "btn-green complete-roder-fix-button"
+			
+		

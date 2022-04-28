@@ -1,0 +1,32 @@
+table.table.table-striped
+	thead
+		tr
+			th Location
+			th URL
+			th Port
+			th Status
+			- if current_admin
+				th Test Print
+			
+	tbody
+		- @franchise_locations.each do |fl|
+			tr
+				td
+					- if current_admin
+						= link_to fl.address, franchise_locations_kml_view_path(fl.id), :class => ""
+					- else
+						strong=fl.address
+				td =fl.printer_ip
+				td =fl.printer_port
+				- unless fl.printer_ip.blank? || fl.printer_port.blank? || fl.printer_online == false
+					td
+						span.label.label-success Online
+					- if current_admin
+						td
+							= link_to "Test", admins_order_printer_status_send_test_to_printer_path(fl.id), :class => "btn btn-mini btn-primary"
+				- else 
+					td
+						span.label.label-important Offline
+					- if current_admin
+						td
+							= link_to "Test", admins_order_printer_status_send_test_to_printer_path(fl.id), :class => "btn btn-mini btn-danger"

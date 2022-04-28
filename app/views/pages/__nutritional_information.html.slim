@@ -1,0 +1,62 @@
+- @header = "nutritional_information"
+- @heading = "nutritional_information"
+- @menu = true
+
+- meta title: "Pizzaiolo | Non GMO Pizza | Vegan Pizza | Gourmet Pizza Toronto",
+     description: "Best Gluten-Free Pizza in Canada, lactose free pizza, gourmet pizza, wheat free pizza. Pizza delivery Toronto, best pizza delivery Toronto. Vegan pizza, nut free pizza Toronto, gourmet pizza place, take out pizza Toronto, pizza catering company, pizza delivery toronto, Toronto's best pizza.",
+     keywords: "Best Pizza Toronto"
+
+div.top-bar
+	h1
+		= link_to raw('&#8592;'), request.referer.present? ? request.referer : root_path
+		| Nutritional Information
+		
+div.page-header.nutritional
+
+div.body-container.nunito
+	.container
+		h2.regular-p.text-center.hidden-phone.smaller A note for all pizza lovers with allergies, gluten or lactose intolerance, or health concerns: Pizzaiolo is pleased to provide you with a number of flexible options to make sure your pizza meets your health needs. We want you to be able to enjoy our pizza as much as we do!
+
+		- @file = Flyer.where(:name => "nutritional guide").first
+		- if @file
+			= link_to "View Our Flyer", @file.filename.url, :target => "_blank", class: 'button default full m-b-20'
+		a class="button default full m-b-20" href="/assets/Pizzaiolo_HealthCheck_Nutrition_Guide.pdf" target="_blank" View Nutritional Information
+		
+		ul.checkmark-list.centered
+			li Made fresh daily
+			li Non-GMO ingredients
+			li No sugars added
+		
+		h2.static-header.visible-phone A note for all pizza lovers with allergies, gluten or lactose intolerance, or health concerns: Pizzaiolo is pleased to provide you with a number of flexible options to make sure your pizza meets your health needs. We want you to be able to enjoy our pizza as much as we do!
+		
+		.row.m-t-30.m-b-20
+			.left-img
+				= image_tag 'ui/gluten-free.png'
+			.right-txt
+				p.regular-p.m-b-0
+					| Our gluten-free pizza dough is made fresh daily, and has been called the Best Gluten-Free Pizza in Canada. Add your own gluten-free toppings to ensure you and your loved ones don’t miss out on the mouthwatering flavour of traditional Italian pizza. Your pizza can be made with Daiya cheese, a lactose and gluten-free vegetarian-based cheese, which is also free of caseine and soya.
+		.row.m-t-20.m-b-20
+			.left-img
+				= image_tag 'ui/nut-free.png'
+			.right-txt
+				p.regular-p.m-b-0.m-t-10
+					| All of our Pizzaiolo locations are 100% nut free, and we do not add sugar to any of our products - we don’t even have any on the premises!
+
+		p.regular-p.extra-m
+			strong From all of us at Pizzaiolo, enjoy your meal!
+
+
+		h4.semi-header.green.m-t-0 Our Gluten-Free/Wheat-Free Dough
+
+		p.regular-p Ingredients: water, sweet rice flour, potato starch, tapioca starch, eggs, potato flour, unsweetened apple juice, organic evaporated cane juice, sea salt, active dry yeast, xanthan gum. Contains: eggs
+
+		p.regular-p Gluten-free, wheat-free, dairy-free. Non-GMO (no corn, no soy, no canola).
+
+		p.regular-p During preparation we have implemented necessary procedures to reduce the chances of cross-contamination.
+
+		.bottom-imgs
+			= image_tag 'ui/canadian.png' 
+			= image_tag 'ui/gmo-stamp.gif'
+			= image_tag 'ui/nut-free.png'
+			= image_tag 'ui/we-recycle.png'
+

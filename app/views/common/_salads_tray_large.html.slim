@@ -1,0 +1,62 @@
+- if params[:id] == "catering"
+	- cache('catering_salads_large') do
+		div.table-responsive
+			table.table.pricing-table.default-table.black
+				thead.thead-dark
+					tr
+						th.first Salads
+						th Large Tray<br>(serves 20)
+				tbody
+					- Salad.where(:active => true, :is_catering_product => true, :salad_type => "LARGE" ).order("name ASC").each do |salad|
+						tr
+							td.first = salad.name
+							td= "#{number_to_currency(salad.price_one_to_five)} each"
+									
+- else
+
+	.row
+		.span12
+			
+			h3 Salads
+	
+	
+			- cache('salads_modal') do
+	
+				- unless @salads_large
+					- @salads_large = Salad.where(:active => true, :is_catering_product => true,  :salad_type => "LARGE" )
+
+				- @salads_large.each do |salad|
+
+					div id="lightbox_salad_#{salad.id.to_s}" class="lightbox hide fade"  tabindex="-1" role="dialog" aria-hidden="true"
+						.lightbox-content
+							img src="#{salad.product_image.size_800.url}"
+							div.lightbox-caption
+								p= salad.name
+
+
+	.row
+	
+		.span12
+
+			.media-list
+			
+				- cache('salads_menu') do
+			
+					- @salads_large.each do |salad|
+
+						.media.product_display.salad
+
+							a.pull-left href="#lightbox_salad_#{salad.id.to_s}" data-toggle="lightbox"
+								= image_tag salad.product_image.size_300.url, :class => "img-polaroid"
+								
+							.media-body
+
+								h4
+									= "#{salad.name} "
+								p= salad.description
+								p
+									span.item_price= "#{number_to_currency(salad.price)}"
+
+
+								span=link_to "Order", orders_path(:side_order => 1), :class => "btn btn-primary pull-right"
+

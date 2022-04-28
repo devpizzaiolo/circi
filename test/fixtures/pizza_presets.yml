@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  product_info: MyText
+  product_name: MyString
+  active: false
+  product_image: MyString
+
+two:
+  product_info: MyText
+  product_name: MyString
+  active: false
+  product_image: MyString

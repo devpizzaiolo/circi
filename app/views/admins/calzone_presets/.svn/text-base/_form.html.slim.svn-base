@@ -1,0 +1,119 @@
+= simple_form_for([:admins, @calzone_preset], multipart: true) do |f|
+
+	input name="product[product_type]" type="hidden" value="calzone"
+	
+	fieldset
+		legend Product Details
+	
+		=f.input :product_name, :required => true
+		
+		=f.input :active, :label => "Show Calzone in the Order Menu"
+		=f.input :nut_free
+		
+		hr
+	
+	fieldset
+	
+		legend Product Images
+	
+		
+		=f.input :calzone_image_flat, :as => :file, :required => true, :label => "Upload/Replace Product Image (flat)"
+		- unless @calzone_preset.calzone_image_flat.blank?
+			= image_tag @calzone_preset.calzone_image_flat.size_800.url
+		hr
+
+		
+		=f.input :calzone_image_angled, :as => :file, :required => true, :label => "Upload/Replace Product Image (angled)"
+		- unless @calzone_preset.calzone_image_angled.blank?
+			= image_tag @calzone_preset.calzone_image_angled.size_800.url
+	
+		br
+		
+		br
+	
+	
+	legend Calzone Setup
+	
+	.span12#product_calzone_size_group class="#{unless @calzone_preset then "hideit" end}"
+		h3 Select Crust
+		fieldset
+			- PizzaCrust.where(:active => true).order("name ASC").each do |calzone_crust|
+				label.radio
+					- if !@calzone_preset.product_info.blank? && @calzone_preset.product_info['calzone_crust'].present? && @calzone_preset.product_info['calzone_crust'] == calzone_crust.name.parameterize
+						input type="radio" name="product[calzone_crust]" value="#{calzone_crust.name.parameterize}" id="product_calzone_crust" checked=""
+					- else
+						input type="radio" name="product[calzone_crust]" value="#{calzone_crust.name.parameterize}" id="product_calzone_crust"
+					= calzone_crust.name
+
+	.row#product_toppings_group class="#{unless @calzone_preset then 'hideit' end}"
+
+		.span12
+			<br />
+			h3
+				| Select Toppings
+				- unless @calzone_preset
+					small Step 3 of 5
+
+		.clear
+
+		- TypeOfTopping.where(:active => true).order("name ASC").each do |type_of_topping|
+			.span2.toppings
+				legend= type_of_topping.name
+				- type_of_topping.toppings.where(:active => true).order("name ASC").each do |topping|
+			
+					div id=topping.name.parameterize
+					
+						input name="product[toppings][topping-#{topping.id}][id]" type="hidden" value="#{topping.id}"
+						input name="product[toppings][topping-#{topping.id}][name]" type="hidden" value="#{topping.name}"
+			
+						label.checkbox.small
+							- if !@calzone_preset.product_info.blank? && @calzone_preset.product_info['toppings']["topping-#{topping.id}"].present? && @calzone_preset.product_info['toppings']["topping-#{topping.id}"]['selected'].present? && @calzone_preset.product_info['toppings']["topping-#{topping.id}"]['selected'] == "1"
+								- selected = true
+								input.hideshow_topping type="checkbox" id="product_toppings_topping-#{topping.id}_selected" name="product[toppings][topping-#{topping.id}][selected]" value="1" checked="" data-topping-id="#{topping.id}"
+							- else
+								- selected = false
+								input.hideshow_topping type="checkbox" id="product_toppings_topping-#{topping.id}_selected" name="product[toppings][topping-#{topping.id}][selected]" value="1" data-topping-id="#{topping.id}"
+							= topping.name
+							| <br />
+							- if topping.free_topping?
+								small	free
+							- else
+								small.topping_price= "$0.00"
+					
+						- pref = topping.name.parameterize + "-preference"
+						select.span2.small id="product_toppings_topping-#{topping.id}_preference" name="product[toppings][topping-#{topping.id}][preference]" class="#{unless selected == true then 'hideit' end}" data-topping-preference-id="#{topping.id}"
+							
+							- if topping.type_of_topping.preference_normal?
+								- if !@calzone_preset.product_info.blank? && @calzone_preset.product_info['toppings']["topping-#{topping.id}"].present? && @calzone_preset.product_info['toppings']["topping-#{topping.id}"]['preference'] == "Normal"
+									option selected="selected"
+										| Normal
+								- else
+									option Normal
+							- if topping.type_of_topping.preference_light?
+								- if !@calzone_preset.product_info.blank? && @calzone_preset.product_info['toppings']["topping-#{topping.id}"].present? && @calzone_preset.product_info['toppings']["topping-#{topping.id}"]['preference'] == "Light"
+									option selected="selected"
+										| Light
+								- else
+									option Light
+							- if topping.type_of_topping.preference_extra?
+								- if !@calzone_preset.product_info.blank? && @calzone_preset.product_info['toppings']["topping-#{topping.id}"].present? && @calzone_preset.product_info['toppings']["topping-#{topping.id}"]['preference'] == "Extra"
+									option selected="selected"
+										| Extra
+								- else
+									option Extra
+							- if topping.type_of_topping.preference_double?
+								- if !@calzone_preset.product_info.blank? && @calzone_preset.product_info['toppings']["topping-#{topping.id}"].present? && @calzone_preset.product_info['toppings']["topping-#{topping.id}"]['preference'] == "Double"
+									option selected="selected"
+										| Double
+								- else
+									option Double
+
+
+	hr
+		= f.button :submit, "Save/Update This Calzone", :class => "btn btn-primary"
+		
+		= " "
+		
+		= link_to "Cancel", admins_calzone_presets_path, :class => "btn"
+		
+		

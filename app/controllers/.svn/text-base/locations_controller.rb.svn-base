@@ -1,0 +1,55 @@
+class LocationsController < ApplicationController
+  
+  before_filter :set_heading
+  
+  def index
+    
+    if params[:find_location_near_me].blank? || params[:find_location_near_me] == ""
+      @locations = FranchiseLocation.where(:active => true)
+    else
+      
+      myloc = ApplicationController.helpers.geo_code(params[:find_location_near_me])
+      
+      puts myloc
+#      myloc = Geocoder.coordinates(params[:find_location_near_me].downcase)
+      
+      # @locations = FranchiseLocation.where(:active => true).limit(0)
+      
+      @locations = FranchiseLocation.where(:active => true).near(myloc, 10)
+      
+    end
+    
+  end
+  
+  
+  def set_location
+    
+    unless params[:id] == "choose"
+      @location = FranchiseLocation.find(params[:id])
+    else
+      @location = nil
+    end
+    
+    if @location
+      session[:franchise_location_id] = @location.id
+      redirect_to orders_path, :notice => "Location has been set."
+    else
+      session.delete(:franchise_location_id)
+      redirect_to :back, :notice => "Please select a location."
+    end
+    
+  end
+  
+  def clear_location
+    session.delete(:franchise_location_id)
+    redirect_to orders_path, :notice => "Please select a location."
+  end
+  
+  private
+    def set_heading
+      # content_for :title, "Locations"
+      @heading = "locations"
+      @header = "locations"
+    end
+  
+end

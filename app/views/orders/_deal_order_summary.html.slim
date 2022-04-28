@@ -1,0 +1,43 @@
+div.summary-container.deal-summary-container
+  div.summery-header
+    div.left Order Summary
+    div.right = number_to_currency(@order.deal_price(@deal_id))
+  div.summary-table-overflow
+    table.table.table-condensed.default-table.green.gray-body
+      tbody
+        - @order.order_items.where(deal_id: @deal_id).each do |order_item|
+          tr
+            td.first
+              p.bold = order_item.item_title
+              - if order_item.product_info['product_type'] != "calzone"
+                - selected_toppings = order_item.toppings_1
+                - if selected_toppings.count > 0
+                  p.regular-p.hide
+                    = raw "#{pluralize(order_item.num_paid_toppings, 'paid topping')}"
+                  
+                  - if selected_toppings.any? { |s| s.include?('Whole Pizza') }
+                    p.regular-p 
+                      | Whole Pizza
+                    - selected_toppings.each do |t|
+                      - if t.include?('Whole Pizza') then
+                        p.regular-p = raw "- #{t[11..-1]}"
+
+                  - if selected_toppings.any? { |s| s.include?('Left Side') }
+                    p.regular-p
+                      strong Left Side
+                    - selected_toppings.each do |t|
+                      - if t.include?('Left Side') then
+                        p.regular-p = raw "- #{t[9..-1]}"
+
+                  - if selected_toppings.any? { |s| s.include?('Right Side') }
+                    p.regular-p 
+                      strong Right Side
+                    - selected_toppings.each do |t|
+                      - if t.include?('Right Side') then
+                        p.regular-p = raw "- #{t[10..-1]}"
+                - else
+                  p.regular-p = raw "#{pluralize(0, 'topping')}"	
+
+  .bottom-actions.text-center.order_actions_bottom.deal-pepperoni-close-btn
+    a.button.default.smaller.hover-style.pepproni_add_to_order  href="/orders/complete_meal" 
+      | Add TO ORDER

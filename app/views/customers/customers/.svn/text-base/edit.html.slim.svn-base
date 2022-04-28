@@ -1,0 +1,35 @@
+.page-header
+	h1 Edit My Account Profile
+	
+.row
+	.span12
+		ul.nav.nav-pills
+			li= link_to "Orders", customers_path
+			li.active= link_to "My Account Profile", customers_customers_path
+	
+= simple_form_for([:customers,@customer], :html => {:class => 'form-horizontal' }) do |f|
+
+	.control-group
+		=f.input :first_name, :required => true, :input_html => {:class => "span6 validate[required]"}
+		=f.input :last_name, :required => true, :input_html => {:class => "span6 validate[required]"}
+		=f.input :email, :required => true, :input_html => {:class => "span6 validate[required,custom[email]]"}
+	
+		.controls
+			span.help-bloc
+				p.muted Leave password blank if you do not wish to change it.
+		=f.input :password, :required => false, :input_html => {:class => "span6"}
+		=f.input :password_confirmation, :required => false, :input_html => {:class => "span6"}
+		
+		br
+		=f.input :address_1, :required => true, :input_html => {:class => "span6 validate[required]"}
+		=f.input :address_2, :required => true, :input_html => {:class => "span6"}
+		=f.input :city, :required => true, :input_html => {:class => "span6 validate[required]"}
+		=f.input :postal_code, :required => true, :input_html => {:class => "span6 validate[required,custom[postalCode]]"}
+		=f.input :phone_number, :required => true, :input_html => {:class => "span6 validate[required,custom[phone]]"}
+	
+	.control-group
+		.controls
+			= f.button :submit, "Update My Profile", :class => "btn btn-primary", :input_html => {:class => "span6"}
+			= " "
+			= link_to "Cancel", customers_customers_path, :class => "btn"
+	

@@ -1,0 +1,53 @@
+.span6.mob-center-left-desk.col-md-5 class="#{ if !@order.order_additional.blank? && @order.order_additional['catering_order'] && @order.order_additional['catering_order'] == "1" then 'catering-order' end }"
+  //-binding.pry
+  - unless @order.for_catering == true
+    - if @order.for_pickup == true
+        h2.title Future Order
+    - else
+      h2.title Future Order
+    div.block-border-style
+      div.static-header.green.m-t-30.right-first-title
+        | Select a date and time for 
+        - if @order.for_pickup == true
+          | pickup
+        - else
+          | delivery
+      
+  
+  - if !@order.order_additional.blank? && @order.order_additional['catering_order'] && @order.order_additional['catering_order'] == "1"
+    p.regular-p Catering orders require a minimum of 3 hours lead time.
+  
+  #define_delivery_time.select-time
+    = render(:partial => 'orders/delivery_time')
+
+  - if @order.for_pickup?
+    = link_to "Schedule Pickup", "#", :class => "button default full", :id => "order_with_chosen_time"
+  - else
+    = link_to "Schedule Delivery", "#", :class => "button default full", :id => "order_with_chosen_time"
+
+  - if @order.for_pickup?
+    p.regular-p.order-in
+      span= "Orders must be placed for at least #{@order.baked_items_count >=3 ? "30" : "25"} minutes from now."
+
+  - else
+  
+    p.regular-p.order-in
+      - if !@order.order_additional.blank? && @order.order_additional['catering_order'] && @order.order_additional['catering_order'] == "1"
+        span Catering orders must be placed for at least 3 hours from now to allow for preparation time.
+      - else 
+        span= "Orders must be placed at least #{@order.baked_items_count >=3 ? "45-55" : "40"} minutes from now to allow for preparation time."
+
+  - location = @order.franchise_location
+  .week-heading This store’s opening hours:
+  table.hours
+    - times = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
+    - times.each do |time|
+      - open = "#{time}_open"
+      - closed = "#{time}_closed"
+      tr
+        td.day = "#{time.capitalize}: "
+        - if l(location.send(closed), :format => :time_only) === "11:59 pm"
+          td.time = location.send("#{time}_full_day_close") ? "CLOSED" : "#{l(location.send(open), :format => :time_only)} - 12:00 am" 
+        - else
+          td.time = location.send("#{time}_full_day_close") ? "CLOSED" : "#{l(location.send(open), :format => :time_only)} - #{l(location.send(closed), :format => :time_only)}" 
+            

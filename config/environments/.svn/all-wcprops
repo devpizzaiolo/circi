@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/pizzaioloca/!svn/ver/270/trunk/pizzaiolo.ca/config/environments
+END
+test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/config/environments/test.rb
+END
+development.rb
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/pizzaioloca/!svn/ver/270/trunk/pizzaiolo.ca/config/environments/development.rb
+END
+production.rb
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/pizzaioloca/!svn/ver/257/trunk/pizzaiolo.ca/config/environments/production.rb
+END

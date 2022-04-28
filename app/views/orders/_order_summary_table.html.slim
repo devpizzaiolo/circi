@@ -1,0 +1,69 @@
+- if @order.total_price > 0
+	#order-summary-table.col-12.offset-md-1.col-md-4.off-offset
+		.summary-container.summary
+			table.table.table-condensed.default-table.green.gray-body
+				thead
+					th.first Order Summary
+					th
+				tbody
+					tr
+						td.text-left 
+							p Subtotal
+						td.text-right
+							p = "#{number_to_currency(@order.total_price)}"
+					- if params[:action] == 'summary'
+						tr.discount-summary.hide
+							td.text-left
+								p Discount
+							td.text-right
+								p.discount_dollar_value = "-#{number_to_currency(@order.try(:discount_dollar_value))}"
+					- if params[:action] == 'summary' && !@order.for_pickup?
+						tr.delivery
+							td.text-left
+								p Delivery
+							td.text-right
+								= "#{number_to_currency(@order.delivery)}"
+					- if params[:action] == 'summary'
+						tr.tip-summary.tip-hide
+							td.text-left
+								p Tip
+							td.text-right.tip_dollar_value
+								= "#{number_to_currency(@order.tip)}"
+					tr.hst
+						td.text-left
+							p HST (13%)
+						td.text-right
+							- if params[:action] != 'summary' && params[:action] != 'thankyou' && params[:controller] != "customers/orders"
+								= "#{number_to_currency(@order.sales_tax)}"
+							- else
+								= "#{number_to_currency(@order.sales_tax_inc_delivery)}"
+					tr.total
+						td.text-left Total
+						td.text-right.order_total_amount
+							- if params[:action] != 'summary' && params[:action] != 'thankyou' && params[:controller] != "customers/orders"
+								p.total_amount_afer_discount = number_to_currency(@order.total_price_including_sales_tax)
+							- else
+								p.total_amount_afer_discount = number_to_currency(@order.total_price_including_sales_tax_inc_delivery)
+			
+			div.discount_code_box
+				div.discount_input_box
+					p.discount_code_title Have a Discount Code?
+					div.discount_box
+						.discount-col
+							input name="discount_code" id="discount_code" class="form-control" type="text" placeholder="Discount code" value="#{@order.discount_promo_code}"
+						.discount-col
+							= link_to "Apply", "javascript:void(0)", :class => "button default", :id => "submit_discount_code", "data-order_id" => "#{@order.id}"
+							= link_to "Remove", "javascript:void(0)", :class => "button default hide", :id => "remove_discount_code", "data-order_id" => "#{@order.id}"
+					div.discount_code_error 
+
+			
+			div.right-rail-action-btn
+				div.place-order-box
+					.bottom-actions.order_actions_bottom
+						.hidden-phone.order-actions-btns
+							- if @order.for_pickup?
+								= link_to "PLACE ORDER", orders_submit_order_path, :class => "button default full", :id => "submit_pickup_order_for_processing1"
+							- else
+								= link_to "PLACE ORDER", orders_submit_order_path, :class => "button default full", :id => "submit_delivery_order_for_processing1"
+
+							/ = link_to "Edit order", orders_path, :class => "button order-edit-btn gray border full"

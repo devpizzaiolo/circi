@@ -1,0 +1,45 @@
+
+- unless @calzones
+	- @calzones = CalzonePreset.where(:active => true)
+	
+style
+	- if @menu && @menu == true
+		| .show-ordering { display:none; }
+	- else
+		| .show-menu { display:none; }
+
+- cache ['calzone_preset_selection'] do
+
+	- @calzones.each do |calzone_preset|
+
+		div id="lightbox_calzone_#{calzone_preset.id.to_s}" class="lightbox hide fade"  tabindex="-1" role="dialog" aria-hidden="true"
+			.lightbox-content
+				img src="#{calzone_preset.calzone_image_angled.size_800.url}"
+				div.lightbox-caption
+					p= calzone_preset.product_name
+
+	.row
+				
+		.span12
+		
+			.media-list
+		
+				- @calzones.each do |calzone_preset|
+		
+					.media.product_display.calzone_preset
+
+						a.pull-left href="#lightbox_calzone_#{calzone_preset.id.to_s}" data-toggle="lightbox" data-resize-to-fit="true"
+							= image_tag calzone_preset.calzone_image_flat.size_300.url, :class => "img-polaroid"
+
+						.media-body
+							h4
+								= "#{calzone_preset.product_name} "
+							p= calzone_preset.description
+							
+							br
+							br
+							
+							span.show-menu=link_to "Order", orders_path(:calzone_preset_id => calzone_preset.id), :class => "btn btn-primary show-menu pull-right"
+							span.show-ordering=link_to "Order", new_order_item_path(:calzone_preset_id => calzone_preset.id), :remote => true, :class => "btn btn-primary show-ordering pull-right"
+				
+	

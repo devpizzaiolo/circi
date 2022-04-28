@@ -1,0 +1,38 @@
+
+.row
+	.span12
+	
+		p.lead Pizzaiolo is proud to be Toronto’s best gourmet pizza. We are committed to quality, from the ingredients we purchase and prepare, right through to your very last bite. This includes every aspect of your experience, and we take customer service seriously. 
+
+		p We appreciate your feedback. Please fill in the form below so we can ensure your future experiences with Pizzaiolo are the best they can be.
+		
+.row
+	.span12
+	
+		br
+
+		= simple_form_for(@customer_service, :html => {:class => 'form-horizontal' }) do |f|
+
+			/ legend Contact Details
+			= f.input :first_name, :required => true, :input_html => {:class => "span6 validate[required]"}
+			= f.input :last_name, :required => true, :input_html => {:class => "span6 validate[required]"}
+			= f.input :email, :required => true, :input_html => {:class => "span6 validate[required,custom[email]]"}
+			= f.input :telephone, :required => true, :input_html => {:class => "span6 validate[required,custom[phone]]"}
+
+			/ legend About your Order
+			= f.input :pickup, as: :select, :required => true, :label => "Was this order for pickup?", include_blank: false, :input_html => {:class => "span6"}
+			= f.association :franchise_location, :required => true, collection: FranchiseLocation.where(:active => true).all(order: 'address'), label_method: "#{:address_long_form}", value_method: :id, include_blank: false, prompt: "Choose a Location", :label_html => {}, :input_html => {:class => "span6 validate[required]"}
+			= f.input :comment, :input_html => {:class => "span6 validate[required]"}, :required => true
+			
+			.control-group.text
+				label.text.control-label
+					| * Verify Yourself
+				.controls
+					= show_simple_captcha(:object=>"customer_service")
+					
+			hr
+			
+			= f.button :submit, "Send Comment", :class => "btn btn-primary", :input_html => {:class => "span6"}
+			= " "
+			= link_to "Cancel", "/", :class => "btn"
+	

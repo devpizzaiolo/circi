@@ -1,0 +1,21 @@
+
+	$('.modal').modal('hide');
+	$('body').removeClass('modal-open');
+	$('.modal-backdrop').remove();
+	$("#order_item_form").hide();
+	$('div#order_item_form').html("<%= escape_javascript(render(:partial => 'order_items/order_item_form')) %>");
+	$("#select_products").hide();
+	$("#order_item_form").show();
+	$(".homepage-headings").hide();
+	// $("button.add_product_to_order").show();
+	// $("button.cancel_add_product_to_order").show();
+	$(".order_actions_bottom").show();
+	$('div#order_item_form').show();
+	$('.top-bar h1 span').text($('.single-pizza h1').text());
+
+
+	$('html, body').animate({
+        scrollTop: $('div#order_item_form').offset().top
+    }, 500);
+
+	

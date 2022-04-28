@@ -1,0 +1,41 @@
+.container
+	.body-container
+		= simple_form_for([:admins, @salad], multipart: true) do |f|
+			
+			fieldset
+				legend Product Details
+			
+				=f.input :name, :required => true
+				=f.input :active, :label => "Show Salad"
+				=f.input :is_catering_product, :label => "Show Salad in Catering Only"
+				
+				=f.input :description, :required => true
+				
+				=f.input :product_image, :as => :file, :label => "Show Salad"
+				
+			fieldset
+				legend Pricing (Cublic)
+				
+				=f.input :price, :as => :string, :label => "Price $"
+
+			fieldset
+				legend Select Salad Type
+				
+				=f.input :salad_type, label: false, collection:Salad::SALAD_TYPE.map{ |k,v| [v,k]}
+				
+			fieldset
+				legend Pricing (Catering)
+				
+				=f.input :price_one_to_five, :as => :string, :label => "Price (1-5) $"
+				=f.input :price_six_to_nineteen, :as => :string, :label => "Price (6-19) $"
+				=f.input :price_twenty_plus, :as => :string, :label => "Price (20+) $"
+				
+
+			hr
+				= f.button :submit, "Save/Update Salad", :class => "btn btn-primary"
+				
+				= " "
+				
+				= link_to "Cancel", admins_salads_path, :class => "btn"
+				
+				

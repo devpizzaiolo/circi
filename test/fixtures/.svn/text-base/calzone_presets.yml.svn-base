@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  product_info: MyText
+  product_name: MyString
+  active: false
+  calzone_image_flat: MyString
+  calzone_image_angled: MyString
+
+two:
+  product_info: MyText
+  product_name: MyString
+  active: false
+  calzone_image_flat: MyString
+  calzone_image_angled: MyString

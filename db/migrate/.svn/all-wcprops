@@ -1,0 +1,617 @@
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/pizzaioloca/!svn/ver/270/trunk/pizzaiolo.ca/db/migrate
+END
+20131212205731_create_ad_boxes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/pizzaioloca/!svn/ver/199/trunk/pizzaiolo.ca/db/migrate/20131212205731_create_ad_boxes.rb
+END
+20130925154500_add_description_to_salad.rb
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/pizzaioloca/!svn/ver/56/trunk/pizzaiolo.ca/db/migrate/20130925154500_add_description_to_salad.rb
+END
+20131213180358_add_receive_order_confirmation_emails_to_franchise_location.rb
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/pizzaioloca/!svn/ver/201/trunk/pizzaiolo.ca/db/migrate/20131213180358_add_receive_order_confirmation_emails_to_franchise_location.rb
+END
+20130704143914_add_pizza_category_to_pizza_preset.rb
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130704143914_add_pizza_category_to_pizza_preset.rb
+END
+20130726034408_add_image_ref_to_pizza_category.rb
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130726034408_add_image_ref_to_pizza_category.rb
+END
+20130905155602_add_move_to_top_to_topping.rb
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/pizzaioloca/!svn/ver/45/trunk/pizzaiolo.ca/db/migrate/20130905155602_add_move_to_top_to_topping.rb
+END
+20130717133951_drop_type_of_beverage_table.rb
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130717133951_drop_type_of_beverage_table.rb
+END
+20130412182817_create_customers.rb
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130412182817_create_customers.rb
+END
+20131023193500_add_method_of_payment_id_to_order.rb
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/pizzaioloca/!svn/ver/73/trunk/pizzaiolo.ca/db/migrate/20131023193500_add_method_of_payment_id_to_order.rb
+END
+20140117174039_add_topping_settings_to_topping.rb
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/pizzaioloca/!svn/ver/229/trunk/pizzaiolo.ca/db/migrate/20140117174039_add_topping_settings_to_topping.rb
+END
+20130722152715_add_city_to_order.rb
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130722152715_add_city_to_order.rb
+END
+20130415190234_create_dipping_sauces.rb
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130415190234_create_dipping_sauces.rb
+END
+20130423163523_create_orders.rb
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130423163523_create_orders.rb
+END
+20131212210013_add_active_to_ad_box.rb
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/pizzaioloca/!svn/ver/199/trunk/pizzaiolo.ca/db/migrate/20131212210013_add_active_to_ad_box.rb
+END
+20131219172816_add_gluten_free_only_to_pizza_preset.rb
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/pizzaioloca/!svn/ver/213/trunk/pizzaiolo.ca/db/migrate/20131219172816_add_gluten_free_only_to_pizza_preset.rb
+END
+20130415153845_create_type_of_toppings.rb
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130415153845_create_type_of_toppings.rb
+END
+20131023195659_add_disclaimer_to_method_of_payment.rb
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/pizzaioloca/!svn/ver/73/trunk/pizzaiolo.ca/db/migrate/20131023195659_add_disclaimer_to_method_of_payment.rb
+END
+20130719012839_add_multiple_of_twelve_to_dessert.rb
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130719012839_add_multiple_of_twelve_to_dessert.rb
+END
+20131030180859_add_show_images_to_pizza_preset.rb
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/pizzaioloca/!svn/ver/81/trunk/pizzaiolo.ca/db/migrate/20131030180859_add_show_images_to_pizza_preset.rb
+END
+20131202152748_add_sent_to_printer_to_order.rb
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/pizzaioloca/!svn/ver/138/trunk/pizzaiolo.ca/db/migrate/20131202152748_add_sent_to_printer_to_order.rb
+END
+20130719011146_create_utensils.rb
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130719011146_create_utensils.rb
+END
+20130704141737_create_pizza_categories.rb
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130704141737_create_pizza_categories.rb
+END
+20130415181746_create_pizza_crusts.rb
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130415181746_create_pizza_crusts.rb
+END
+20130712155910_add_description_to_pizza_preset.rb
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130712155910_add_description_to_pizza_preset.rb
+END
+20130722130615_create_addresses.rb
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130722130615_create_addresses.rb
+END
+20130722142027_create_contact_phone_numbers.rb
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130722142027_create_contact_phone_numbers.rb
+END
+20150105181018_add_external_name_to_pizza_size.rb
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/pizzaioloca/!svn/ver/257/trunk/pizzaiolo.ca/db/migrate/20150105181018_add_external_name_to_pizza_size.rb
+END
+20130726020127_add_description_to_desert.rb
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130726020127_add_description_to_desert.rb
+END
+20130628174053_create_admins.rb
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130628174053_create_admins.rb
+END
+20130727204515_add_google_maps_url_to_franchise_location.rb
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/pizzaioloca/!svn/ver/12/trunk/pizzaiolo.ca/db/migrate/20130727204515_add_google_maps_url_to_franchise_location.rb
+END
+20130415175448_create_pizza_sizes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130415175448_create_pizza_sizes.rb
+END
+20130909194809_add_kml_file_to_location.rb
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/pizzaioloca/!svn/ver/49/trunk/pizzaiolo.ca/db/migrate/20130909194809_add_kml_file_to_location.rb
+END
+20130905192125_add_direct_edit_to_pizza_category.rb
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/pizzaioloca/!svn/ver/45/trunk/pizzaiolo.ca/db/migrate/20130905192125_add_direct_edit_to_pizza_category.rb
+END
+20130711183642_add_product_image_angled_to_pizza_preset.rb
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130711183642_add_product_image_angled_to_pizza_preset.rb
+END
+20131105170753_add_kmlfilename_b_to_franchise_location.rb
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/pizzaioloca/!svn/ver/87/trunk/pizzaiolo.ca/db/migrate/20131105170753_add_kmlfilename_b_to_franchise_location.rb
+END
+20130725020751_add_contact_phone_number_id_to_order.rb
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130725020751_add_contact_phone_number_id_to_order.rb
+END
+20141223190142_create_post_codes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/pizzaioloca/!svn/ver/251/trunk/pizzaiolo.ca/db/migrate/20141223190142_create_post_codes.rb
+END
+20130716190359_add_price_to_calzone_preset.rb
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130716190359_add_price_to_calzone_preset.rb
+END
+20130712155019_create_calzone_presets.rb
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130712155019_create_calzone_presets.rb
+END
+20130422155247_add_price_to_pizza_size.rb
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130422155247_add_price_to_pizza_size.rb
+END
+20131119204227_add_description_to_dipping_sauce.rb
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/pizzaioloca/!svn/ver/101/trunk/pizzaiolo.ca/db/migrate/20131119204227_add_description_to_dipping_sauce.rb
+END
+20130727025234_add_sessions_table.rb
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/pizzaioloca/!svn/ver/8/trunk/pizzaiolo.ca/db/migrate/20130727025234_add_sessions_table.rb
+END
+20130729162711_add_num_slices_to_pizza_size.rb
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/pizzaioloca/!svn/ver/32/trunk/pizzaiolo.ca/db/migrate/20130729162711_add_num_slices_to_pizza_size.rb
+END
+20130724191445_add_payment_method_to_order.rb
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130724191445_add_payment_method_to_order.rb
+END
+20130628174304_add_devise_to_admins.rb
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130628174304_add_devise_to_admins.rb
+END
+20131120171739_create_flyers.rb
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/pizzaioloca/!svn/ver/102/trunk/pizzaiolo.ca/db/migrate/20131120171739_create_flyers.rb
+END
+20130415154449_create_toppings.rb
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130415154449_create_toppings.rb
+END
+20130412184552_add_devise_to_customers.rb
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130412184552_add_devise_to_customers.rb
+END
+20130704150204_add_product_image_to_pizza_category.rb
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130704150204_add_product_image_to_pizza_category.rb
+END
+20130628182657_create_pizza_presets.rb
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130628182657_create_pizza_presets.rb
+END
+20131029192701_add_order_online_to_franchise_location.rb
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/pizzaioloca/!svn/ver/80/trunk/pizzaiolo.ca/db/migrate/20131029192701_add_order_online_to_franchise_location.rb
+END
+20131213180711_add_email_to_franchise_location.rb
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/pizzaioloca/!svn/ver/201/trunk/pizzaiolo.ca/db/migrate/20131213180711_add_email_to_franchise_location.rb
+END
+20130925145334_add_product_image_to_salad.rb
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/pizzaioloca/!svn/ver/56/trunk/pizzaiolo.ca/db/migrate/20130925145334_add_product_image_to_salad.rb
+END
+20130717004614_add_order_additional_to_order.rb
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130717004614_add_order_additional_to_order.rb
+END
+20131203195226_add_kml_to_franchise_location.rb
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/pizzaioloca/!svn/ver/150/trunk/pizzaiolo.ca/db/migrate/20131203195226_add_kml_to_franchise_location.rb
+END
+20130415185948_create_salads.rb
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130415185948_create_salads.rb
+END
+20130415191530_create_type_of_beverages.rb
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130415191530_create_type_of_beverages.rb
+END
+20130721210058_add_customer_info_to_order.rb
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130721210058_add_customer_info_to_order.rb
+END
+20130415195814_create_catering_group_sizes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130415195814_create_catering_group_sizes.rb
+END
+20130719010951_create_desserts.rb
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130719010951_create_desserts.rb
+END
+20131210125538_create_simple_captcha_data.rb
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/pizzaioloca/!svn/ver/187/trunk/pizzaiolo.ca/db/migrate/20131210125538_create_simple_captcha_data.rb
+END
+20130718185422_add_price_to_salad.rb
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130718185422_add_price_to_salad.rb
+END
+20131212213416_rename_ad_box_column.rb
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/pizzaioloca/!svn/ver/199/trunk/pizzaiolo.ca/db/migrate/20131212213416_rename_ad_box_column.rb
+END
+20131119193456_add_nut_free_to_pizza_preset.rb
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/pizzaioloca/!svn/ver/101/trunk/pizzaiolo.ca/db/migrate/20131119193456_add_nut_free_to_pizza_preset.rb
+END
+20130711205534_add_attachment_image_flat_to_pizza_presets.rb
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130711205534_add_attachment_image_flat_to_pizza_presets.rb
+END
+20130721145643_create_customer_services.rb
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130721145643_create_customer_services.rb
+END
+20130722194849_add_franchise_location_id_to_order.rb
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130722194849_add_franchise_location_id_to_order.rb
+END
+20130712155920_add_description_to_calzone_preset.rb
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130712155920_add_description_to_calzone_preset.rb
+END
+20130415191558_create_beverages.rb
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130415191558_create_beverages.rb
+END
+20130711162239_create_constants.rb
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130711162239_create_constants.rb
+END
+20131003143539_create_pizza_crust_styles.rb
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/pizzaioloca/!svn/ver/59/trunk/pizzaiolo.ca/db/migrate/20131003143539_create_pizza_crust_styles.rb
+END
+20130423163716_create_order_items.rb
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130423163716_create_order_items.rb
+END
+20131202161148_add_printer_to_franchise_location.rb
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/pizzaioloca/!svn/ver/138/trunk/pizzaiolo.ca/db/migrate/20131202161148_add_printer_to_franchise_location.rb
+END
+20131125144652_add_top_of_the_list_to_pizza_size.rb
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/pizzaioloca/!svn/ver/115/trunk/pizzaiolo.ca/db/migrate/20131125144652_add_top_of_the_list_to_pizza_size.rb
+END
+20131024172544_add_show_each_to_dessert.rb
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/pizzaioloca/!svn/ver/73/trunk/pizzaiolo.ca/db/migrate/20131024172544_add_show_each_to_dessert.rb
+END
+20131023192252_create_method_of_payments.rb
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/pizzaioloca/!svn/ver/73/trunk/pizzaiolo.ca/db/migrate/20131023192252_create_method_of_payments.rb
+END
+20131007181251_add_delivery_times_to_franchise_location.rb
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/pizzaioloca/!svn/ver/59/trunk/pizzaiolo.ca/db/migrate/20131007181251_add_delivery_times_to_franchise_location.rb
+END
+20150302183241_create_franchise_enquiries.rb
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/pizzaioloca/!svn/ver/270/trunk/pizzaiolo.ca/db/migrate/20150302183241_create_franchise_enquiries.rb
+END
+20130722191929_add_address_to_order.rb
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130722191929_add_address_to_order.rb
+END
+20130717133118_remove_type_of_beverage_from_beverage.rb
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130717133118_remove_type_of_beverage_from_beverage.rb
+END
+20130416194507_create_franchise_locations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130416194507_create_franchise_locations.rb
+END
+20131206030408_add_original_customer_to_customer.rb
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/pizzaioloca/!svn/ver/154/trunk/pizzaiolo.ca/db/migrate/20131206030408_add_original_customer_to_customer.rb
+END
+20130711200159_add_pizza_image_flat_to_pizza_preset.rb
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130711200159_add_pizza_image_flat_to_pizza_preset.rb
+END
+20130724175522_add_to_be_ready_at_to_order.rb
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130724175522_add_to_be_ready_at_to_order.rb
+END
+20130906174901_add_position_to_type_of_topping.rb
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/pizzaioloca/!svn/ver/48/trunk/pizzaiolo.ca/db/migrate/20130906174901_add_position_to_type_of_topping.rb
+END
+20130723152102_create_delivery_pickup_times.rb
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130723152102_create_delivery_pickup_times.rb
+END
+20130718172511_add_pricing_to_salad.rb
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130718172511_add_pricing_to_salad.rb
+END
+20150107133115_add_position_to_pizza_size.rb
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/pizzaioloca/!svn/ver/257/trunk/pizzaiolo.ca/db/migrate/20150107133115_add_position_to_pizza_size.rb
+END
+20130717144416_add_price_to_beverage.rb
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130717144416_add_price_to_beverage.rb
+END
+20130423140703_add_normal_to_type_of_topping.rb
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130423140703_add_normal_to_type_of_topping.rb
+END
+20130712023650_add_more_cats_to_pizza_preset.rb
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130712023650_add_more_cats_to_pizza_preset.rb
+END
+20130716234853_add_special_instructions_to_order.rb
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130716234853_add_special_instructions_to_order.rb
+END
+20130422161505_add_abbr_name_to_pizza_size.rb
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130422161505_add_abbr_name_to_pizza_size.rb
+END
+20130716164349_add_topping_price_to_calzone_preset.rb
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130716164349_add_topping_price_to_calzone_preset.rb
+END
+20140401182738_add_gluten_free_to_pizza_size.rb
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/pizzaioloca/!svn/ver/241/trunk/pizzaiolo.ca/db/migrate/20140401182738_add_gluten_free_to_pizza_size.rb
+END
+20130717135239_add_beverage_types_to_beverage.rb
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130717135239_add_beverage_types_to_beverage.rb
+END
+20130721142812_add_ordered_to_order.rb
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130721142812_add_ordered_to_order.rb
+END
+20130722142154_add_customer_contact_info_to_order.rb
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/migrate/20130722142154_add_customer_contact_info_to_order.rb
+END
+20131119211135_add_move_to_end_of_product_description_to_topping.rb
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/pizzaioloca/!svn/ver/101/trunk/pizzaiolo.ca/db/migrate/20131119211135_add_move_to_end_of_product_description_to_topping.rb
+END
+20131213152737_add_position_to_ad_box.rb
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/pizzaioloca/!svn/ver/198/trunk/pizzaiolo.ca/db/migrate/20131213152737_add_position_to_ad_box.rb
+END
+20131126173551_add_name_to_flyer.rb
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/pizzaioloca/!svn/ver/121/trunk/pizzaiolo.ca/db/migrate/20131126173551_add_name_to_flyer.rb
+END
+20131213180336_add_receive_order_confirmation_emails_to_admin.rb
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/pizzaioloca/!svn/ver/201/trunk/pizzaiolo.ca/db/migrate/20131213180336_add_receive_order_confirmation_emails_to_admin.rb
+END

@@ -1,0 +1,16 @@
+form#add_additional_to_order
+	
+	#order_additional_form
+		- cache [@order.updated_at.to_i, 'additional_form'] do
+			= render(:partial => 'orders/order_additional_form')
+			
+	.row
+		.span12
+		
+			button class="add_additional_to_order btn btn-primary"
+				| Update Order
+				
+			= " "
+			
+			button class="cancel_add_additional_to_order btn"
+				| Cancel

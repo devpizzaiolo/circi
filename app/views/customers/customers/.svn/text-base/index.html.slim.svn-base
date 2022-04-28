@@ -1,0 +1,65 @@
+.page-header
+	h1 My Account Profile
+	
+.row
+	.span12
+		ul.nav.nav-pills
+			li= link_to "Orders", customers_path
+			li.active= link_to "My Account Profile", customers_customers_path
+			
+	
+.row
+
+	.span12
+	
+		.row
+		
+			.span5
+				p
+					| First Name
+					br
+					strong= current_customer.first_name
+				p
+					| Last Name
+					br
+					strong= current_customer.last_name
+				p
+					| Email
+					br
+					strong= current_customer.email
+				p
+					| Password
+					br
+					strong= "**************"
+			
+			.span6
+		
+				.row
+					p
+						| Address
+						br
+						strong= current_customer.address_1
+					p
+						- unless current_customer.address_2.blank?
+							p
+								| Address
+								br
+								strong= current_customer.address_2
+					p
+						| City
+						br
+						strong= current_customer.city
+					p
+						| Postal Code
+						br
+						strong= current_customer.postal_code
+					p
+						| Phone Number
+						br
+						strong= current_customer.phone_number
+						
+						
+		
+		br
+		
+		=link_to "Edit My Account Profile", edit_customers_customer_path(current_customer.id), :class => "btn"

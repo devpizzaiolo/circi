@@ -1,0 +1,17 @@
+div.top-bar
+	h1 
+		a href="/orders" &#8592;
+		| Additional Items
+form#add_additional_to_order.additional-item
+	
+	#order_additional_form
+		- cache [@order.updated_at.to_i, 'additional_form'] do
+			= render(:partial => 'orders/order_additional_form')
+			
+		
+			/ .text-center.m-t-30.visible-phone
+			/ 	button class="add_additional_to_order button default m-r"
+			/ 		| Update Order
+				
+			/ 	button class="cancel_add_additional_to_order button gray"
+			/ 		| Cancel

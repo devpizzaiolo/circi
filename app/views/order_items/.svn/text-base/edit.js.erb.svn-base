@@ -1,0 +1,23 @@
+$("#select_products").hide();
+$("#order_item_form").hide();
+$('div#order_item_form').html("<%= escape_javascript(render(:partial => 'order_items/order_item_form')) %>");
+$("#order_item_form").show();
+$("button.add_product_to_order").show();
+$("button.cancel_add_product_to_order").show();
+  
+// TweenLite.from($('div#order_item_form'), 0.5, { opacity:0 });
+$('div#order_item_form').show();
+
+// $.scrollTo( 0 );
+$.scrollTo( '#edit_or_update_order_items', 0, {} );
+
+// $("#elementID").offset().top
+// 
+
+// $.scrollTo('#edit_or_update_order_items');
+// 
+// $("html, body").animate({ scrollTop: $('#edit_or_update_order_items').offset().top },600);
+// 
+// 
+// // 
+

@@ -1,0 +1,89 @@
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/pizzaioloca/!svn/ver/270/trunk/pizzaiolo.ca/app/helpers
+END
+orders_for_pickup_helper.rb
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/app/helpers/orders_for_pickup_helper.rb
+END
+pages_helper.rb
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/app/helpers/pages_helper.rb
+END
+application_helper.rb
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/pizzaioloca/!svn/ver/254/trunk/pizzaiolo.ca/app/helpers/application_helper.rb
+END
+customer_services_helper.rb
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/app/helpers/customer_services_helper.rb
+END
+static_map_helper.rb
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/app/helpers/static_map_helper.rb
+END
+customers_helper.rb
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/app/helpers/customers_helper.rb
+END
+franchise_enquiries_helper.rb
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/pizzaioloca/!svn/ver/270/trunk/pizzaiolo.ca/app/helpers/franchise_enquiries_helper.rb
+END
+orders_for_delivery_helper.rb
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/app/helpers/orders_for_delivery_helper.rb
+END
+home_helper.rb
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/app/helpers/home_helper.rb
+END
+bootstrap_flash_helper.rb
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/pizzaioloca/!svn/ver/10/trunk/pizzaiolo.ca/app/helpers/bootstrap_flash_helper.rb
+END
+admins_helper.rb
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/app/helpers/admins_helper.rb
+END
+locations_helper.rb
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/app/helpers/locations_helper.rb
+END
+order_items_helper.rb
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/app/helpers/order_items_helper.rb
+END
+orders_helper.rb
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/app/helpers/orders_helper.rb
+END

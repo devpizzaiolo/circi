@@ -1,0 +1,49 @@
+/ .page-header
+/ 	h1 Order Summary
+/ 	h3= "Order No: #{@order.order_number}"
+	
+/ br
+- content_for(:heading) {("Order Details").html_safe}
+//- content_for(:description) {""}
+- content_for(:body_class) {"order_details_page"}
+div.top-bar
+	h1 
+		= link_to raw('&#8592;'), customers_path
+		| Order Details
+
+.hidden-phone.body-container.past-order-body
+	.container
+		.row
+			div.col-5.col-md-6
+				h2.super-header.light.green.pull-left.inner-page-sub-title Order Number : ##{@order.order_number}
+			div.col-7.col-md-6.text-right
+				= link_to "My Account", customers_customers_path, class: 'button default pull-right'
+.container
+	.order-summary
+		= render(:partial => 'customers/orders/order_summary')
+
+.body-container.box-shadow-top.order-summary-extra
+	/ - if !@order.order_additional.blank? && @order.order_additional['catering_order'] == "1"
+	/ 	p.regular-p.text-center = "Note: this is a catering order for #{} people."
+	.container
+		.row
+			div.col-12.col-md-6.past-order-location-details
+				h5.large-green.light.m-t-0 Ordered from location
+				p.static-header.m-b-0 = @order.franchise_location.address
+				- unless @order.franchise_location.address_details.blank?
+					p.regular-p
+						<em>#{@order.franchise_location.address_details}</em>
+				p.large-green.m-b-20 = raw "#{link_to @order.franchise_location.phone, "tel:#{@order.franchise_location.phone.delete('-')}"}"
+
+				- unless @order.special_instructions.blank?
+					h2.semi-header.m-t-0 Special Instructions:
+					p.regular-p
+						em = @order.special_instructions
+			
+			div.col-12.col-md-6.text-right.ipad-col
+				- unless @order.items_unavailable > 0
+					.m-t-30.visible-phone	
+						= link_to "Re-Order", customers_orders_new_order_from_old_path(@order.id), :class => 'button default full'
+				.m-t-30.hidden-phone.re-order-btn
+					= link_to "Re-Order This.", customers_orders_new_order_from_old_path(@order.id), :class => 'button default m-r' unless @order.items_unavailable > 0
+					= link_to "Go Back", customers_path, :class => 'button muted default'

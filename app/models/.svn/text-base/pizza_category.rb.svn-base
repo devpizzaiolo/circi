@@ -1,0 +1,8 @@
+class PizzaCategory < ActiveRecord::Base
+  
+  attr_accessible :name
+  has_many :pizza_presets
+  
+  
+  
+end

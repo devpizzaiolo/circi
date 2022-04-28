@@ -1,0 +1,24 @@
+<div class="row">
+  <div class="col-sm-12 text-center footer-menu">
+    <ul class="list-inline bottom-nav">
+      <!--<li class="list-inline-item"><%= link_to "About Pizzaiolo", page_path('about_pizzaiolo') %></li>-->
+      <li class="list-inline-item"><%= link_to "Franchise Opportunities", page_path('franchise_opportunities') %></li>
+      <li class="list-inline-item"><%= link_to "Customer Service", customer_new_review_path %></li>
+      <li class="list-inline-item"><%= link_to "Careers", page_path('careers') %></li>
+      <li class="list-inline-item"><%= link_to "Nutritional Info", page_path('nutritional_information') %></li>
+      <li class="list-inline-item"><%= link_to "Community Programs", page_path('community_programs') %></li>
+      <li class="list-inline-item"><%= link_to "Privacy Policy", page_path('privacy-policy') %></li>
+      <li class="list-inline-item">
+        <% if current_customer %>
+          <% unless Rails.env.development? %>
+            <%= link_to "Log out", destroy_customer_session_url(:protocol => "https"), :method => :delete %>
+          <% else %>
+            <%= link_to "Log out", destroy_customer_session_path, :method => :delete %>
+          <% end %>
+        <% end %>
+      </li>
+    </ul>
+    <a href="https://www.instagram.com/pizzaiologourmetpizza/"  target="_blank" class="home-social-link"><i class="fa fa-instagram" aria-hidden="true"></i></a> 
+    <a href="https://www.facebook.com/PizzaioloGourmetPizza/" target="_blank" class="home-social-link"><i class="fa fa-facebook-official" aria-hidden="true"></i></a> 
+  </div>
+</div>

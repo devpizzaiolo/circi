@@ -1,0 +1,109 @@
+.page-header
+	h1 Place Order For Pickup
+	
+	/ Show the locations and enable the user to find based on location and/or preference.
+	
+/ h2 Which Pizzaiolo location would you like to pickup from?
+	
+	
+
+- unless current_customer
+
+	h2 Contact Information
+
+	p Confirm Contact Information
+
+	= simple_form_for(@order, :url => orders_update_order_with_pickup_address_path) do |f|
+		
+		- if @order.contact_phone_number.blank?
+			= f.input :contact_phone_number, :required => true, :input_html => {:value => @order.phone_number}
+		- else
+			= f.input :contact_phone_number, :required => true
+			
+		
+		br
+		
+		= link_to "Go back", orders_delivery_path, :class => "btn"
+		= " "
+		= f.button :submit, "Submit/Next", :class => "btn btn-primary"
+		
+- else
+	
+	.row
+		.span5
+		
+			h3 Confirm Contact Information
+	
+			p Select from below how you would like to be contacted regarding this order.
+	
+			br
+		
+			.row
+			
+				.span5 style="background-color:#f4f4ee;margin-bottom:10px;"
+					.row
+						.span2
+							
+							div style="padding-left:12px;padding-right:12px;padding-top:12px;"							
+								.address
+									p
+										strong= "#{@order.first_name} #{@order.last_name}"
+									p= current_customer.phone_number
+									
+						.span3
+							div style="padding-left:12px;padding-right:12px;padding-top:12px;"
+								- @address = Address.new
+								= simple_form_for(@address, :url => orders_add_pickup_address_path) do |f|
+
+									= f.input :phone_number, :as => :hidden, :required => true, :input_html => {:value => current_customer.phone_number}
+									/ = f.input :contact_phone_number_id, :as => :hidden, :input_html => {:value => contact_phone_number.id}
+								
+									= f.button :submit, "Use Contact Info", :class => "btn btn-block btn-primary"
+									
+				
+				
+				- current_customer.contact_phone_numbers.order("created_at DESC").limit(3).each do |contact_phone_number|
+					.span5 style="background-color:#f4f4ee;margin-bottom:10px;"
+						.row
+							.span2
+							
+								div style="padding-left:12px;padding-right:12px;padding-top:12px;"							
+									.address
+										p
+											strong= "#{@order.first_name} #{@order.last_name}"
+										p= contact_phone_number.phone_number
+									
+							.span3
+								div style="padding-left:12px;padding-right:12px;padding-top:12px;"
+									- @address = Address.new
+									= simple_form_for(@address, :url => orders_add_pickup_address_path) do |f|
+
+										= f.input :phone_number, :as => :hidden, :required => true, :input_html => {:value => contact_phone_number.phone_number}
+										= f.input :contact_phone_number_id, :as => :hidden, :input_html => {:value => contact_phone_number.id}
+								
+										= f.button :submit, "Use Contact Info", :class => "btn btn-block btn-primary"
+									
+							
+							
+
+		
+		.span1
+			
+		.span6
+
+			hr.visible-phone
+
+			h3 Or, Enter New Phone Number
+
+			p Alternatively, enter a new phone number to use for your order.
+			br
+			- @customer_contact_number = Address.new
+			= simple_form_for(@customer_contact_number, :url => orders_add_pickup_address_path) do |f|
+
+				= f.input :phone_number, :required => true, :input_html => {:class => "validate[required,custom[phone]]"}
+				= f.input :save_new, :as => :boolean, :label => "Add this phone number to my account"
+		
+				= f.button :submit, "Save & Use Contact Info", :class => "btn btn-primary"
+	
+			br
+	

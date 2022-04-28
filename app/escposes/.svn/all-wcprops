@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/pizzaioloca/!svn/ver/257/trunk/pizzaiolo.ca/app/escposes
+END
+print_order.escpos.erb
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/pizzaioloca/!svn/ver/257/trunk/pizzaiolo.ca/app/escposes/print_order.escpos.erb
+END
+print_test.escpos.erb
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/pizzaioloca/!svn/ver/238/trunk/pizzaiolo.ca/app/escposes/print_test.escpos.erb
+END

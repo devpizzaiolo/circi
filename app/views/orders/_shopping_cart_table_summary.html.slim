@@ -1,0 +1,330 @@
+- if @order.total_price <= 0
+	.text-center
+		p.regular-p Please add items to your order
+		= link_to "Continue Shopping", orders_path, :class => "button black full hidden-phone continue_shopping"
+.left-container-dsk.col-12.col-md-7.cart-border-box
+	table.table.table-condensed.checkout-table.summary-table-checkout
+		tbody
+			- @order.order_items.where("deal_id IS NOT NULL").group_by(&:deal_id).each do |deal_id, order_items|
+				tr.deal-title-header
+					td
+						h2 = order_items.first.deal_title.html_safe
+					td
+						div.text-right
+							p.item_title.deals-title-right-padding = raw "#{number_to_currency( @order.deal_price(deal_id) * order_items.first.quantity.to_i )}"
+
+				- order_items.each_with_index do |order_item, index|
+					tr.none-border
+						- cache [@order, order_item, 'shopping_cart_order_item'] do 
+							td.hidden-phone
+								= image_tag order_item.item_image
+							td.deal-summary-item-details
+								p.item_title = order_item.item_title
+								- if order_item.product_info['product_type'] != "calzone"
+									- selected_toppings = order_item.toppings_1
+									- if selected_toppings.count > 0
+										a.show-details.more-details.visible-phone
+											= image_tag "ui/gray-triangle.png"
+										p.topping-style.hide = raw "#{pluralize(order_item.num_paid_toppings, 'topping')}"
+										div.item-details
+											ul.toppings-list
+												- if selected_toppings.any? { |s| s.include?('Whole Pizza') }
+													p.strong.m-t-10 Whole Pizza
+													ul
+														- selected_toppings.each do |t|
+															- if t.include?('Whole Pizza') then
+																li
+																	= raw "#{t[11..-1]}"
+												- if selected_toppings.any? { |s| s.include?('Left Side') }
+													p.strong.m-t-10 Left Side
+													ul
+														- selected_toppings.each do |t|
+															- if t.include?('Left Side') then
+																li
+																	= raw "#{t[9..-1]}"
+												- if selected_toppings.any? { |s| s.include?('Right Side') }
+													p.strong.m-t-10 Right Side
+													ul
+														- selected_toppings.each do |t|
+															- if t.include?('Right Side') then
+																li
+																	= raw "#{t[10..-1]}"
+											
+											= image_tag order_item.item_image, class: 'visible-phone'
+									- else
+										p.hide = raw "#{pluralize(0, 'topping')}"
+
+									- @pizza_preset = PizzaPreset.find_by_id(order_item[:product_info]['pizza_preset_id'])
+									- if @pizza_preset.present? && @pizza_preset.is_product_combo
+										div.mb-3
+											- @product_combo = ProductCombo.find_by_id(@pizza_preset.product_combo_id)
+											- @additional_items_names = @product_combo.categories_of_additional_items ? @product_combo.categories_of_additional_items.split(',') : []
+											- @beverages_additional_items = @product_combo.beverages_additional_items ? @product_combo.beverages_additional_items.split(',') : []
+											- if order_item.product_info["order_additional"] && order_item.product_info["order_additional"].count > 0
+												p.strong.m-t-10 
+													| Additional
+
+												- if order_item.product_info["order_additional"]['dipping_sauces'] && order_item.product_info["order_additional"]['dipping_sauces'].count > 0															
+													- order_item.product_info["order_additional"]['dipping_sauces'].each do |dipping_sauce|
+														- if dipping_sauce[1].to_i > 0
+															p
+																strong = "- #{get_dipping_sauce_name(dipping_sauce[0])} Dipping Sauce"
+																= " "
+																small
+																	= "x #{dipping_sauce[1]}"
+
+												- if order_item.product_info["order_additional"]['beverages'] && order_item.product_info["order_additional"]['beverages'].count > 0															
+													- order_item.product_info["order_additional"]['beverages'].each do |beverage|
+														- if beverage[1].to_i > 0
+															p
+																strong = "- #{get_beverage_name(beverage[0])}"
+																= " "
+																small
+																	= "x #{beverage[1]}"
+
+									/ p = raw "Quantity: #{order_item.quantity}"
+
+								- else
+									- if order_item.toppings.count > 0
+										a.show-details.more-details.visible-phone
+											= image_tag "ui/gray-triangle.png"
+						
+										div.item-details
+											p.hide = raw "#{pluralize(order_item.num_paid_toppings, 'paid topping')}"
+											- order_item.toppings.each do |t|
+												p = raw "#{t}"
+							td
+								div.text-right.hide
+									p.item_title = number_to_currency( order_item.price * order_item.quantity.to_i)
+
+				tr.none-border
+					td
+						p = raw "Quantity: #{order_items.first.quantity}"
+					td
+
+			- @order.order_items.where(deal_id: nil).each do |order_item|
+				tr
+					- cache [@order, order_item, 'shopping_cart_order_item'] do 
+						td.hidden-phone
+		 					= image_tag order_item.item_image
+						td
+							p.item_title = order_item.item_title
+							- if order_item.product_info['product_type'] != "calzone"
+								- selected_toppings = order_item.toppings_1
+								- if selected_toppings.count > 0
+									a.show-details.more-details.visible-phone
+										= image_tag "ui/gray-triangle.png"
+									p.topping-style.hide = raw "#{pluralize(order_item.num_paid_toppings, 'topping')}"
+									div.item-details
+										ul.toppings-list
+											- if selected_toppings.any? { |s| s.include?('Whole Pizza') }
+												p.strong.m-t-10 Whole Pizza
+												ul
+													- selected_toppings.each do |t|
+														- if t.include?('Whole Pizza') then
+															li
+																= raw "#{t[11..-1]}"
+											- if selected_toppings.any? { |s| s.include?('Left Side') }
+												p.strong.m-t-10 Left Side
+												ul
+													- selected_toppings.each do |t|
+														- if t.include?('Left Side') then
+															li
+																= raw "#{t[9..-1]}"
+											- if selected_toppings.any? { |s| s.include?('Right Side') }
+												p.strong.m-t-10 Right Side
+												ul
+													- selected_toppings.each do |t|
+														- if t.include?('Right Side') then
+															li
+																= raw "#{t[10..-1]}"
+										
+						 				= image_tag order_item.item_image, class: 'visible-phone'
+								- else
+									p.hide = raw "#{pluralize(0, 'topping')}"
+
+								- @pizza_preset = PizzaPreset.find_by_id(order_item[:product_info]['pizza_preset_id'])
+								- if @pizza_preset.present? && @pizza_preset.is_product_combo
+									div.mb-3
+										- @product_combo = ProductCombo.find_by_id(@pizza_preset.product_combo_id)
+										- @additional_items_names = @product_combo.categories_of_additional_items ? @product_combo.categories_of_additional_items.split(',') : []
+										- @beverages_additional_items = @product_combo.beverages_additional_items ? @product_combo.beverages_additional_items.split(',') : []
+										- if order_item.product_info["order_additional"] && order_item.product_info["order_additional"].count > 0
+											p.strong.m-t-10 
+												| Additional
+
+											- if order_item.product_info["order_additional"]['dipping_sauces'] && order_item.product_info["order_additional"]['dipping_sauces'].count > 0															
+												- order_item.product_info["order_additional"]['dipping_sauces'].each do |dipping_sauce|
+													- if dipping_sauce[1].to_i > 0
+														p
+															strong = "- #{get_dipping_sauce_name(dipping_sauce[0])} Dipping Sauce"
+															= " "
+															small
+																= "x #{dipping_sauce[1]}"
+
+											- if order_item.product_info["order_additional"]['beverages'] && order_item.product_info["order_additional"]['beverages'].count > 0															
+												- order_item.product_info["order_additional"]['beverages'].each do |beverage|
+													- if beverage[1].to_i > 0
+														p
+															strong = "- #{get_beverage_name(beverage[0])}"
+															= " "
+															small
+																= "x #{beverage[1]}"
+
+								p = raw "Quantity: #{order_item.quantity}"
+
+							- else
+								- if order_item.toppings.count > 0
+									a.show-details.more-details.visible-phone
+										= image_tag "ui/gray-triangle.png"
+					
+									div.item-details
+										p.hide = raw "#{pluralize(order_item.num_paid_toppings, 'paid topping')}"
+										- order_item.toppings.each do |t|
+											p = raw "#{t}"
+						td
+							div.text-right
+								p.item_title = number_to_currency( order_item.price * order_item.quantity.to_i)
+								/ - if order_item.pickup_special?
+								/ 	p.item_title = number_to_currency( order_item.calculate_pickup_special_pricing_without_quantity * order_item.quantity.to_i)
+								/ - else	
+								/ 	p.item_title = number_to_currency( order_item.price * order_item.quantity.to_i)
+								
+							
+			- unless @order.order_additional.blank?
+				
+				// dipping sauces
+					
+				- @order.order_additional['dipping_sauces'] && @order.order_additional['dipping_sauces'].each do |dipping_sauce|
+					tr
+					- if dipping_sauce[1].to_i > 0
+						td.hidden-phone
+						- cache [@order, dipping_sauce, 'shopping_cart_dipping_sauces_info'] do	
+							td
+								p.item_title = "#{get_dipping_sauce_name(dipping_sauce[0])} Dipping Sauce"
+								p = "Quantity: #{dipping_sauce[1]}"
+							td
+								div.text-right
+									p.item_title = number_to_currency( get_dipping_sauce_price_total(dipping_sauce[0],dipping_sauce[1]) )
+							
+									
+				
+				
+				
+				// beverages
+			
+				- @order.order_additional['beverages'] && @order.order_additional['beverages'].each do |beverage|
+					- if beverage[1].to_i > 0
+						tr
+							td.hidden-phone
+							- cache [@order, beverage, 'shopping_cart_beverages_info'] do
+								td
+									p.item_title = "#{get_beverage_name(beverage[0])}"
+									p = "Quantity: #{beverage[1]}"
+								td
+									div.text-right
+										p.item_title = number_to_currency( get_beverage_price_total(beverage[0],beverage[1]) )
+								
+				
+				
+				// salads
+				- @order.order_additional['salads'] && @order.order_additional['salads'].each do |salad|
+					- if salad[1].to_i > 0
+						tr
+							td.hidden-phone
+							- cache [@order, salad, 'shopping_cart_salads_info'] do
+								td
+									p.item_title = get_salad_name(salad[0])
+									p = "Quantity: #{salad[1]}"
+
+								td
+									div.text-right
+										p.item_title = number_to_currency(get_salad_price_total(@order, salad[0], salad[1]) )
+										
+				// garlic_breads
+				- @order.order_additional['garlic_breads'] && @order.order_additional['garlic_breads'].each do |garlic_bread|
+					- if garlic_bread[1].to_i > 0
+						tr
+							td.hidden-phone
+							- cache [@order, garlic_bread, 'shopping_cart_garlic_breads_info'] do
+								td
+									p.item_title = get_garlic_bread_name(garlic_bread[0])
+									p = "Quantity: #{garlic_bread[1]}"
+
+								td
+									div.text-right
+										p.item_title = number_to_currency(get_garlic_bread_price_total(@order, garlic_bread[0], garlic_bread[1]) )		
+
+				// cannolis
+				- @order.order_additional['cannolis'] && @order.order_additional['cannolis'].each_with_index do |cannoli, index|
+					- if cannoli[1].to_i > 0
+						tr
+							td.hidden-phone
+							- cache [@order, cannoli, 'edit_shopping_cart_cannolis_info'] do
+								td
+									p.item_title = "#{get_cannoli_name(cannoli[0])} x #{cannoli[1]}"
+								td
+									div.text-right
+										p.item_title = "Free"				
+						
+				// desserts
+				- if @order.order_additional['catering_order'] == "1"
+					- @order.order_additional['desserts'] && @order.order_additional['desserts'].each do |dessert|
+						- if dessert[1].to_i > 0
+							tr
+								td.hidden-phone
+								- cache [@order, dessert, 'shopping_cart_desserts_info'] do
+									td
+										p.item_title = "#{get_dessert_name(dessert[0])}"
+										p = "Quantity: #{dessert[1]}"
+									
+									td
+										div.text-right
+											p.item_title = number_to_currency( get_dessert_price_total(dessert[0], dessert[1]))
+											
+											
+											
+				// utensils
+				- if @order.order_additional['catering_order'] == "1"
+					- @order.order_additional['utensils'] && @order.order_additional['utensils'].each do |utensil|
+						- if utensil[1].to_i > 0
+							tr
+								td.hidden-phone
+								- cache [@order, utensil, 'shopping_cart_utensils_info'] do
+									td								
+										p.item_title = "#{get_utensil_name(utensil[0])}"
+										p = "Quantity: #{utensil[1]}"
+									td
+										div.text-right
+											p.item_title = "free"
+																	
+				
+			- unless @order.total_price_including_sales_tax == 0
+				tr.subtotal.hidden-dsk
+					td 
+						p Subtotal
+					td.text-right
+						= "#{number_to_currency(@order.total_price)}"
+
+				- if params[:action] == 'summary' && !@order.for_pickup?
+					tr.delivery.hidden-dsk
+						td
+							p Delivery
+						td.text-right
+							= "#{number_to_currency(@order.delivery)}"
+						
+				tr.hst.hidden-dsk
+					td
+						p HST (13%)
+					td.text-right
+						= "#{number_to_currency(@order.sales_tax_inc_delivery)}"
+							
+				tr.total.hidden-dsk
+					td Total
+					td.text-right
+						= number_to_currency(@order.total_price_including_sales_tax_inc_delivery)		
+							
+= render partial: "order_summary_table"
+/ = render partial: "order_summary_table", locals: { show_on_mobile: false }			
+
+#total_price_calc data-total-price="#{@order.total_price}"

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.2">
+<Document>
+  <name>1 Toronto Street</name>
+  <description><![CDATA[]]></description>
+  <Style id="style1">
+    <LineStyle>
+      <color>40000000</color>
+      <width>3</width>
+    </LineStyle>
+    <PolyStyle>
+      <color>73006600</color>
+      <fill>1</fill>
+      <outline>1</outline>
+    </PolyStyle>
+  </Style>
+  <Placemark>
+    <name>1 Toronto St.</name>
+    <description><![CDATA[]]></description>
+    <styleUrl>#style1</styleUrl>
+    <Polygon>
+      <outerBoundaryIs>
+        <LinearRing>
+          <tessellate>1</tessellate>
+          <coordinates>
+            -79.367119,43.646381,0.000000
+            -79.361977,43.647598,0.000000
+            -79.357468,43.649055,0.000000
+            -79.354996,43.649040,0.000000
+            -79.352615,43.648964,0.000000
+            -79.347160,43.650879,0.000000
+            -79.353432,43.657990,0.000000
+            -79.355057,43.661629,0.000000
+            -79.373528,43.657330,0.000000
+            -79.379028,43.656151,0.000000
+            -79.380211,43.656460,0.000000
+            -79.380440,43.656441,0.000000
+            -79.375237,43.644463,0.000000
+            -79.374222,43.644817,0.000000
+            -79.367119,43.646381,0.000000
+          </coordinates>
+        </LinearRing>
+      </outerBoundaryIs>
+    </Polygon>
+  </Placemark>
+</Document>
+</kml>

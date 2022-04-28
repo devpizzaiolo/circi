@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/pizzaioloca/!svn/ver/82/trunk/pizzaiolo.ca/lib/tasks
+END
+.gitkeep
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/lib/tasks/.gitkeep
+END
+remove_stale.rake
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/pizzaioloca/!svn/ver/82/trunk/pizzaiolo.ca/lib/tasks/remove_stale.rake
+END
+carrierwave.rake
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/pizzaioloca/!svn/ver/32/trunk/pizzaiolo.ca/lib/tasks/carrierwave.rake
+END

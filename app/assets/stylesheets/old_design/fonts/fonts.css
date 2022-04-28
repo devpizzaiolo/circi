@@ -1,0 +1,67 @@
+@font-face {
+  font-family: 'Lance-Sans-Regular';
+  src: url('Lance-Sans-Regular.eot?#iefix') format('embedded-opentype'),  url('Lance-Sans-Regular.woff') format('woff'), url('Lance-Sans-Regular.ttf')  format('truetype'), url('Lance-Sans-Regular.svg#Lance-Sans-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+font-family: 'Gotham Pro';
+font-style: normal;
+font-weight: normal;
+src: local('Gotham Pro'), url('GothaProReg.woff') format('woff');
+font-display: auto;
+}
+
+
+@font-face {
+font-family: 'Gotham Pro Black';
+font-style: normal;
+font-weight: normal;
+src: local('Gotham Pro Black'), url('GothaProBla.woff') format('woff');
+}
+
+@font-face {
+font-family: 'Gotham Pro Bold';
+font-style: normal;
+font-weight: normal;
+src: local('Gotham Pro Black'), url('GothaProBol.woff') format('woff');
+}
+
+@font-face {
+font-family: 'Gotham Pro Light';
+font-style: normal;
+font-weight: normal;
+src: local('Gotham Pro Light'), url('GothaProLig.woff') format('woff');
+}
+
+
+@font-face {
+font-family: 'Gotham Pro Medium';
+font-style: normal;
+font-weight: normal;
+src: local('Gotham Pro Medium'), url('GothaProMed.woff') format('woff');
+}
+
+
+@font-face {
+font-family: 'Gotham Pro Light Italic';
+font-style: normal;
+font-weight: normal;
+src: local('Gotham Pro Light Italic'), url('GothaProLigIta.woff') format('woff');
+}
+
+
+@font-face {
+font-family: 'Gotham Pro Bold';
+font-style: normal;
+font-weight: normal;
+src: local('Gotham Pro Bold'), url('GothaProBol.woff') format('woff');
+}
+
+
+@font-face {
+font-family: 'GothamPro-MediumItalic';
+font-style: normal;
+font-weight: normal;
+src: local('GothamPro-MediumItalic'), url('GothamProMediumItalic.woff') format('woff');
+}

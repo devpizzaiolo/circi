@@ -1,0 +1,2 @@
+module Admins::AdBoxesHelper
+end

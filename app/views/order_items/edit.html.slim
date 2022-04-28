@@ -1,0 +1,43 @@
+- meta title: "Pizzaiolo | Pizza Menu | Order Pizza Online | Toronto Pizza Delivery",
+     description: "Check out Pizzaiolo's menu of gourmet pizzas made with fresh, never frozen ingredients. Pizza delivery Toronto, best pizza delivery Toronto. Gluten-free pizza, vegan pizza, nut free pizza Toronto, non gmo pizza, gourmet pizza, take out pizza Toronto, pizza catering company, pizza delivery.",
+     keywords: "Order Pizza Online Delivery, Toronto"
+
+- if @calzone_preset.present?
+	- content_for(:heading) {("BAKED <br >CALZONE").html_safe}
+	- content_for(:body_class) {"calzone_page"}
+	//- content_for(:description) {""}
+- elsif @order_item && @order_item.product_info['product_name']
+		- if @order_item.product_info['product_name']  == "Create Your Own Pizza"
+			- content_for(:heading) {("Create <br>Your Own <br>Masterpiece").html_safe}
+		- else	
+			- content_for(:heading) {(@order_item.product_info['product_name']).html_safe}
+		- if @pizza_preset.present? 
+			- if @pizza_preset.description.present?
+				- content_for(:description) {(@pizza_preset.description).html_safe}
+			- else
+				- content_for(:description) {(@pizza_preset.toppings.to_sentence(:last_word_connector => ' and ')).html_safe}
+- elsif params[:set_catering_order].present?
+	- content_for(:heading) {("DELICIOUS EVENTS").html_safe}
+	- content_for(:body_class) {"catering_home_page"}
+-else
+	- content_for(:heading) {("ARE YOU <br>READY <br> TO PIZZA?").html_safe	}
+	- content_for(:description) {"Pizzaiolo has a wide selection of gourmet meat, veggie, and vegan pizzas. You can even design your own. All of our pizzas are available Gluten-free."}
+
+section
+	div.container
+		div class="orders-index #{if @order.total_price > 0 then 'extra-p' end}" 	
+
+	div.page-background-catering
+		- if @pizza_preset.present?
+			div.bg-img style="background-image: url('#{@pizza_preset.pizza_image_angled.size_800.url}'); background-repeat: no-repeat; background-size: cover;    background-position: bottom;"
+
+#order_item_form.clearfix.container
+	= render(:partial => 'order_items/order_item_form')
+
+.row.order_actions_bottom style="#{unless params[:pizza_preset_id] || params[:calzone_preset_id] then "display:none;" end}"
+	.text-center.visible-phone
+		button.button.default.m-r.add_product_to_order
+			| Add / Update
+		
+		button.button.gray.cancel_add_product_to_order
+			| Cancel

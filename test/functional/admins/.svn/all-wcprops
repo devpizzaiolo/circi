@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/pizzaioloca/!svn/ver/210/trunk/pizzaiolo.ca/test/functional/admins
+END
+order_printer_status_controller_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/pizzaioloca/!svn/ver/210/trunk/pizzaiolo.ca/test/functional/admins/order_printer_status_controller_test.rb
+END
+todays_orders_controller_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/pizzaioloca/!svn/ver/200/trunk/pizzaiolo.ca/test/functional/admins/todays_orders_controller_test.rb
+END
+pizza_presets_controller_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/test/functional/admins/pizza_presets_controller_test.rb
+END
+products_controller_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/test/functional/admins/products_controller_test.rb
+END
+toppings_controller_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/pizzaioloca/!svn/ver/107/trunk/pizzaiolo.ca/test/functional/admins/toppings_controller_test.rb
+END
+ad_boxes_controller_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/pizzaioloca/!svn/ver/199/trunk/pizzaiolo.ca/test/functional/admins/ad_boxes_controller_test.rb
+END
+flyers_controller_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/pizzaioloca/!svn/ver/102/trunk/pizzaiolo.ca/test/functional/admins/flyers_controller_test.rb
+END
+salads_controller_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/pizzaioloca/!svn/ver/56/trunk/pizzaiolo.ca/test/functional/admins/salads_controller_test.rb
+END
+yesterdays_orders_controller_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/pizzaioloca/!svn/ver/183/trunk/pizzaiolo.ca/test/functional/admins/yesterdays_orders_controller_test.rb
+END
+admins_controller_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/pizzaioloca/!svn/ver/146/trunk/pizzaiolo.ca/test/functional/admins/admins_controller_test.rb
+END
+franchise_locations_controller_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/pizzaioloca/!svn/ver/49/trunk/pizzaiolo.ca/test/functional/admins/franchise_locations_controller_test.rb
+END
+calzone_presets_controller_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/test/functional/admins/calzone_presets_controller_test.rb
+END

@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/app/views/admins/mailer
+END
+reset_password_instructions.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/app/views/admins/mailer/reset_password_instructions.html.erb
+END
+confirmation_instructions.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/app/views/admins/mailer/confirmation_instructions.html.erb
+END
+unlock_instructions.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/app/views/admins/mailer/unlock_instructions.html.erb
+END

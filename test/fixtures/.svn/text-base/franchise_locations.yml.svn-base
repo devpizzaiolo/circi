@@ -1,0 +1,45 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  address: MyString
+  address_details: MyString
+  phone: MyString
+  area_name: MyString
+  mon_open: 2013-04-16 15:45:07
+  mon_closed: 2013-04-16 15:45:07
+  tue_open: 2013-04-16 15:45:07
+  tue_closed: 2013-04-16 15:45:07
+  wed_open: 2013-04-16 15:45:07
+  wed_closed: 2013-04-16 15:45:07
+  thu_open: 2013-04-16 15:45:07
+  thu_closed: 2013-04-16 15:45:07
+  fri_open: 2013-04-16 15:45:07
+  fri_closed: 2013-04-16 15:45:07
+  sat_open: 2013-04-16 15:45:07
+  sat_closed: 2013-04-16 15:45:07
+  sun_open: 2013-04-16 15:45:07
+  sun_closed: 2013-04-16 15:45:07
+  latitude: 1.5
+  longitude: 1.5
+
+two:
+  address: MyString
+  address_details: MyString
+  phone: MyString
+  area_name: MyString
+  mon_open: 2013-04-16 15:45:07
+  mon_closed: 2013-04-16 15:45:07
+  tue_open: 2013-04-16 15:45:07
+  tue_closed: 2013-04-16 15:45:07
+  wed_open: 2013-04-16 15:45:07
+  wed_closed: 2013-04-16 15:45:07
+  thu_open: 2013-04-16 15:45:07
+  thu_closed: 2013-04-16 15:45:07
+  fri_open: 2013-04-16 15:45:07
+  fri_closed: 2013-04-16 15:45:07
+  sat_open: 2013-04-16 15:45:07
+  sat_closed: 2013-04-16 15:45:07
+  sun_open: 2013-04-16 15:45:07
+  sun_closed: 2013-04-16 15:45:07
+  latitude: 1.5
+  longitude: 1.5

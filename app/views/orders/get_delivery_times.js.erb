@@ -1,0 +1,10 @@
+$('div#define_delivery_time').html("<%= escape_javascript(render(:partial => 'orders/delivery_time')) %>");
+
+$("#order_time_date_1i").val("<%= @year %>");
+$("#order_time_date_2i").val("<%= @month %>");
+$("#order_time_date_3i").val("<%= @day %>");
+$("#order_time_time_5i").val("<%= @time %>");
+
+$("div#message").hide();
+$("div#message").html("<%= escape_javascript(raw @message) %>");
+$("div#message").fadeIn();

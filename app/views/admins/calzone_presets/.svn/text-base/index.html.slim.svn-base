@@ -1,0 +1,19 @@
+.page-header
+	h1 Calzones
+	
+table.table
+	thead
+		tr
+			th Name Of Product
+			th Options
+	tbody
+		- @calzone_presets.each do |calzone_preset|
+			tr
+				td= calzone_preset.product_name
+				td
+					= link_to "Edit", edit_admins_calzone_preset_path(calzone_preset.id), :class => "btn btn-mini"
+					= link_to "Delete", admins_calzone_preset_path(calzone_preset.id), :class => "btn btn-mini", :method => :delete
+				
+hr
+	
+= link_to "New Calzone", new_admins_calzone_preset_path

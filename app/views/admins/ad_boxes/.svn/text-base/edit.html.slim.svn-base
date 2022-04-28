@@ -1,0 +1,4 @@
+.page-header
+	h1 Edit Ad Box
+	
+= render(:partial => 'admins/ad_boxes/form')

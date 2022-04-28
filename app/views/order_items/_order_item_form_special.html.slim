@@ -1,0 +1,373 @@
+div.top-bar
+	h1 
+		a.back_to_categories href="#" &#8592;
+		span = @order_item.product_info['product_name']
+.hidden-phone.product-head
+	- if @pizza_preset
+		- if @order_item && @order_item.product_info['product_name']
+			h1.super-header.light.green
+				= @order_item.product_info['product_name'] 
+			p.ingredients
+				= @pizza_preset.toppings.to_sentence(:last_word_connector => ' and ')
+				- if @pizza_preset.id == 82
+						|  included
+	- else 
+		- if @order_item && @order_item.product_info['product_name']
+			h1.super-header.light.green
+				= @order_item.product_info['product_name'] 
+.left-container-dsk
+	- if @pizza_preset
+				
+		/ FOR PIZZAS --------------------------------------------------------------------------------------------------------------------------------------------
+
+		- if @order_item && @order_item.product_info['product_name']
+			.image_heading.page-header style="background-image:url(#{@pizza_preset.pizza_image_angled.size_960.url});" class="#{unless @pizza_preset.show_images? then 'middle' end}"
+			div.single-pizza
+				h1.visible-phone
+					= @order_item.product_info['product_name'] 
+				.right-icons.visible-phone
+					- if @pizza_preset.spicy?
+						img.subcat-icn src="/assets/ui/flame-icon.png" align="top" data-toggle="tooltip" rel="tooltip" title="Spicy"
+					- if @pizza_preset.pizzaiolo_favourites?
+						img.subcat-icn src="/assets/ui/hearts-icon.png" align="top" data-toggle="tooltip" rel="tooltip" title="Pizzaiolo Favourite"
+					- if @pizza_preset.customer_favourites?
+						img.subcat-icn src="/assets/ui/icn_cfav.png" align="top" data-toggle="tooltip" rel="tooltip" title="Customer Favourite"
+					- if @pizza_preset.health_check?
+						img.subcat-icn src="/assets/ui/icn_healthcheck_sml.png" align="top" data-toggle="tooltip" rel="tooltip" title="Health Check"
+					- if @pizza_preset.vegan?
+						img.subcat-icn src="/assets/ui/icn_vegan.png" align="top" data-toggle="tooltip" rel="tooltip" title="Vegan"
+					- if @pizza_preset.nut_free?
+						= " "
+						span.label.label-info Nut Free
+				p.ingredients.visible-phone
+					= @pizza_preset.toppings.to_sentence(:last_word_connector => ' and ')
+					- if @pizza_preset.id == 82
+						|  included
+			
+				form#add_product
+
+					- if @order_item
+				
+						| <!-- THere is a pizza!!! -->
+						/ editing or updating the order-item
+						- if @order_item.id
+							input name="product[id]" type="hidden" value="#{@order_item.id}"
+					
+						input name="product[pizza_preset_id]" type="hidden" value="#{@order_item.product_info['pizza_preset_id']}"
+						input name="product[product_type]" type="hidden" value="#{@order_item.product_info['product_type']}"
+						input name="product[product_name]" type="hidden" value="#{@order_item.product_info['product_name']}"
+				
+					- else
+
+						/ new order_item
+						input name="product[product_type]" type="hidden" value="pizza"
+						input name="product[product_name]" type="hidden" value="Maranare"
+					
+					h3.semi-header.green.m-b-5
+						| Select Size
+					
+
+					fieldset.row
+						- if @pizza_preset.gluten_free_only?
+							- @ps = PizzaSize.where(:active => true, :gluten_free => true).order("position ASC")
+						- else
+							- @ps = PizzaSize.where(:active => true).order("position ASC")
+							
+						- @ps.each do |pizza_size|
+							label.radio.span12
+								- if @order_item && @order_item.product_info['pizza_size'] == pizza_size.name.parameterize
+									input type="radio" name="product[pizza_size]" value="#{pizza_size.name.parameterize}" id="product_pizza_size" topping-price="#{number_to_currency(pizza_size.topping_price)}" topping-price-double="#{number_to_currency(pizza_size.topping_price * 2)}" data-deep-dish-option-price="#{number_to_currency(pizza_size.deep_dish_option_price)}" checked=""
+								- else
+									input type="radio" name="product[pizza_size]" value="#{pizza_size.name.parameterize}" id="product_pizza_size" topping-price="#{number_to_currency(pizza_size.topping_price)}" topping-price-double="#{number_to_currency(pizza_size.topping_price * 2)}" data-deep-dish-option-price="#{number_to_currency(pizza_size.deep_dish_option_price)}"
+								= pizza_size.external_name + " " + pizza_size.num_slices
+						
+					#product_pizza_size_group class="#{if @order_item && @order_item.product_info['pizza_size'].present? && (@order_item.product_info['pizza_size'].include?("gluten-free") || @order_item.product_info['pizza_size'].include?("cauliflower")) then 'hide' end}"
+						h3.semi-header.green.m-t-20.m-b-10
+							| Select Crust
+							- unless @order_item 
+								small Step 2 of 5
+						fieldset
+							- PizzaCrust.where(:active => true).order("name ASC").each do |pizza_crust|
+								label.radio
+									- if @order_item && @order_item.product_info['pizza_crust'] && @order_item.product_info['pizza_crust'] == pizza_crust.name.parameterize
+										input type="radio" name="product[pizza_crust]" value="#{pizza_crust.name.parameterize}" id="product_pizza_crust" checked=""
+									- else
+										input type="radio" name="product[pizza_crust]" value="#{pizza_crust.name.parameterize}" id="product_pizza_crust"
+									= pizza_crust.name
+				
+					#product_pizza_crust_style_group class="#{if @order_item && @order_item.product_info['pizza_size'].present? && (@order_item.product_info['pizza_size'].include?("gluten-free") || @order_item.product_info['pizza_size'].include?("cauliflower")) then 'hide' end}"
+						h3.semi-header.green.m-t-20.m-b-10 Select Crust Style
+						fieldset
+							- PizzaCrustStyle.where(:active => true).order("position ASC").each do |pizza_crust_style|
+							
+								label.radio
+									- if @order_item && @order_item.product_info['pizza_crust_style'] && @order_item.product_info['pizza_crust_style'] == pizza_crust_style.name.parameterize
+										input type="radio" name="product[pizza_crust_style]" value="#{pizza_crust_style.name.parameterize}" id="product_pizza_crust_style" checked=""
+									- else
+										input type="radio" name="product[pizza_crust_style]" value="#{pizza_crust_style.name.parameterize}" id="product_pizza_crust_style"
+									= pizza_crust_style.name
+							
+							#deep_dish_option_price class="#{if @order_item && @order_item.product_info['pizza_size'].present? && (@order_item.product_info['pizza_size'] == 'gluten-free' || @order_item.product_info['pizza_size'].include?("cauliflower")) then 'hide' end}"
+								small 
+									p.muted
+										| Deep Dish option adds: 
+										span#deep_dish_option_price
+											- if @order_item && @order_item.product_info['pizza_size'].present?
+												- @pizza_size = PizzaSize.where(:name => @order_item.product_info['pizza_size'].titlecase).first
+												= number_to_currency(@pizza_size.deep_dish_option_price)	
+
+					#product_toppings_group class="#{unless @order_item then 'hideit' end}"
+						
+						h2.hidden-phone.border-top.semi-header.green Select Toppings
+						/ .visible-phone
+						/ 	a.button.full.gray.border.show-next
+						/ 		| Customize Toppings
+						
+
+						- TypeOfTopping.where(:active => true).order("position ASC").each do |type_of_topping|
+							.toppings
+								h3.semi-header.green.m-t-20.m-b-10 = type_of_topping.name
+								- type_of_topping.toppings.where(:active => true).order("move_to_top DESC").order("name ASC").each do |topping|
+						
+									div id=topping.name.parameterize 
+								
+										input name="product[toppings][topping-#{topping.id}][id]" type="hidden" value="#{topping.id}"
+										input name="product[toppings][topping-#{topping.id}][name]" type="hidden" value="#{topping.name}"
+						
+										label.checkbox.small
+											- if @order_item.present? && @order_item.product_info['toppings']["topping-#{topping.id}"].present? && @order_item.product_info['toppings']["topping-#{topping.id}"]['selected']
+												- selected = true
+												input.hideshow_topping type="checkbox" id="product_toppings_topping-#{topping.id}_selected" name="product[toppings][topping-#{topping.id}][selected]" value="1" checked="" data-topping-id="#{topping.id}"
+											- else
+												- selected = false
+												input.hideshow_topping type="checkbox" id="product_toppings_topping-#{topping.id}_selected" name="product[toppings][topping-#{topping.id}][selected]" value="1" data-topping-id="#{topping.id}"
+											= topping.name
+											
+											br.hidden-phone
+											
+											span id="product_toppings_topping-#{topping.id}" class="#{unless selected == true then 'hideit' end} align-price" style="#{unless selected == true then 'display:none;' end}"
+												- if topping.free_topping?
+													small.muted	free
+												- else
+													small.muted.topping_price= number_to_currency(@pizza_size.topping_price)
+								
+										- pref = topping.name.parameterize + "-preference"
+										select.span2.small.topping_preference.select-input id="product_toppings_topping-#{topping.id}_preference" name="product[toppings][topping-#{topping.id}][preference]" style="#{unless selected == true then 'display:none;' end}" class="#{unless selected == true then 'hideit' end}" data-topping-preference-id="#{topping.id}"
+										
+											- if topping.type_of_topping.preference_normal?
+												- if @order_item && @order_item.product_info['toppings']["topping-#{topping.id}"].present? && @order_item.product_info['toppings']["topping-#{topping.id}"]['preference'] == "Normal"
+													option selected="selected" value="Normal"
+														| Normal
+												- else
+													option value="Normal" Normal
+													
+											- if topping.type_of_topping.preference_light?
+												- if @order_item && @order_item.product_info['toppings']["topping-#{topping.id}"].present? && @order_item.product_info['toppings']["topping-#{topping.id}"]['preference'] == "Light"
+													option selected="selected" value="Light"
+														| Light
+												- else
+													option value="Light" Light
+													
+											- if topping.type_of_topping.preference_extra?
+												
+												- unless topping.extra_free?
+													- topping_price = "topping_price_extra"
+												- else
+													- topping_price = ""
+												
+												- if @order_item && @order_item.product_info['toppings']["topping-#{topping.id}"].present? && @order_item.product_info['toppings']["topping-#{topping.id}"]['preference'] == "Extra"
+													option selected="selected" value="Extra" class="#{topping_price}"
+														| Extra
+														- unless topping.extra_free?
+															= " + #{number_to_currency(@pizza_size.topping_price * 1)}"
+												- else
+													option value="Extra" class="#{topping_price}"
+														| Extra 
+														- unless topping.extra_free?
+															= " + #{number_to_currency(@pizza_size.topping_price * 1)}"
+															
+											- if topping.type_of_topping.preference_double?
+											
+												- unless topping.double_free?
+													- topping_price_double = "topping_price_double"
+												- else
+													- topping_price_double = ""
+											
+												- if @order_item && @order_item.product_info['toppings']["topping-#{topping.id}"].present? && @order_item.product_info['toppings']["topping-#{topping.id}"]['preference'] == "Double"
+													option selected="selected" value="Double" class="#{topping_price_double}"
+														| Double
+														- unless topping.double_free?
+															= " + #{number_to_currency(@pizza_size.topping_price * 2)}"
+												- else
+													option value="Double" class="#{topping_price_double}"
+														| Double
+														- unless topping.double_free?
+															= " + #{number_to_currency(@pizza_size.topping_price * 2)}"
+									
+										- position = topping.name.parameterize + "-position"
+										select.span2.small.topping_position.select-input id="product_toppings_topping-#{topping.id}_position" name="product[toppings][topping-#{topping.id}][position]" class="#{unless selected == true then 'hideit' end}" style="#{unless selected == true then 'display:none;' end}" data-topping-position-id="#{topping.id}"
+											- if @order_item && @order_item.product_info['toppings']["topping-#{topping.id}"].present? && @order_item.product_info['toppings']["topping-#{topping.id}"]['position'] == "Whole Pizza"
+												option value="Whole Pizza" selected="selected"
+													| Whole Pizza
+											- else
+												option value="Whole Pizza" Whole Pizza
+												
+											- if @order_item && @order_item.product_info['toppings']["topping-#{topping.id}"].present? && @order_item.product_info['toppings']["topping-#{topping.id}"]['position'] == "Left Side"
+												option value="Left Side" selected="selected"
+													| Left Side
+											- else
+												option value="Left Side"
+													| Left Side
+													
+											- if @order_item && @order_item.product_info['toppings']["topping-#{topping.id}"].present? && @order_item.product_info['toppings']["topping-#{topping.id}"]['position'] == "Right Side"
+												option value="Right Side" selected="selected"
+													| Right Side
+											- else
+												option value="Right Side"
+													| Right Side
+		
+			
+		
+	- else
+
+
+		/ FOR CALZONES --------------------------------------------------------------------------------------------------------------------------------------------
+		
+		- if @order_item && @order_item.product_info['product_name']
+			.image_heading.page-header style="background-image:url(#{@calzone_preset.calzone_image_angled.size_960.url});"
+
+			div.single-pizza
+				h1.visible-phone = @order_item.product_info['product_name']
+
+				form#add_product
+
+					- if @order_item
+				
+						| <!-- THere is a calzone!!! -->
+						/ editing or updating the order-item
+						- if @order_item.id
+							input name="product[id]" type="hidden" value="#{@order_item.id}"
+					
+						input name="product[calzone_preset_id]" type="hidden" value="#{@order_item.product_info['calzone_preset_id']}"
+						input name="product[product_type]" type="hidden" value="#{@order_item.product_info['product_type']}"
+						input name="product[product_name]" type="hidden" value="#{@order_item.product_info['product_name']}"
+				
+					- else
+
+						/ new order_item
+						input name="product[product_type]" type="hidden" value="calzone"
+						input name="product[product_name]" type="hidden" value="Calzone"
+							
+					#product_calzone_size_group class="#{unless @order_item then "hideit" end}"
+						h3.semi-header.green.m-t-20.m-b-10
+							| Select Crust
+							- unless @order_item 
+								small Step 2 of 5
+						fieldset
+							- PizzaCrust.where(:active => true).order("name ASC").each do |calzone_crust|
+								label.radio
+									- if @order_item && @order_item.product_info['calzone_crust'] == calzone_crust.name.parameterize
+										input type="radio" name="product[calzone_crust]" value="#{calzone_crust.name.parameterize}" id="product_calzone_crust" checked=""
+									- else
+										input type="radio" name="product[calzone_crust]" value="#{calzone_crust.name.parameterize}" id="product_calzone_crust"
+									= calzone_crust.name
+					
+
+					#product_toppings_group class="#{unless @order_item then 'hideit' end}"
+						
+						h2.hidden-phone.border-top.semi-header.green Select Toppings
+
+						/ .visible-phone
+						/ 	a.button.full.gray.border.show-next href="#"
+						/ 		| Customize Toppings
+						/ 		- unless @order_item
+						/ 			small Step 3 of 5
+
+						- TypeOfTopping.where(:active => true).order("position ASC").each do |type_of_topping|
+							.toppings
+								h3.semi-header.green.m-t-20.m-b-10 = type_of_topping.name
+								- type_of_topping.toppings.where(:active => true).order("name ASC").each do |topping|
+						
+									div id=topping.name.parameterize
+								
+										input name="product[toppings][topping-#{topping.id}][id]" type="hidden" value="#{topping.id}"
+										input name="product[toppings][topping-#{topping.id}][name]" type="hidden" value="#{topping.name}"
+						
+										label.checkbox.small
+											- if @order_item.present? && @order_item.product_info['toppings']["topping-#{topping.id}"].present? && @order_item.product_info['toppings']["topping-#{topping.id}"]['selected']
+												- selected = true
+												input.hideshow_topping type="checkbox" id="product_toppings_topping-#{topping.id}_selected" name="product[toppings][topping-#{topping.id}][selected]" value="1" checked="" data-topping-id="#{topping.id}"
+											- else
+												- selected = false
+												input.hideshow_topping type="checkbox" id="product_toppings_topping-#{topping.id}_selected" name="product[toppings][topping-#{topping.id}][selected]" value="1" data-topping-id="#{topping.id}"
+											= topping.name
+											- if topping.free_topping?
+												small.muted.topping_price	free
+											- else
+												small.muted.topping_price = number_to_currency(@calzone_preset.topping_price)
+								
+										- pref = topping.name.parameterize + "-preference"
+										select.span2.small.topping_preference.select-input id="product_toppings_topping-#{topping.id}_preference" name="product[toppings][topping-#{topping.id}][preference]" style="#{unless selected == true then 'display:none;' end}" class="#{unless selected == true then 'hideit' end}" data-topping-preference-id="#{topping.id}"
+										
+											- if topping.type_of_topping.preference_normal?
+												- if @order_item && @order_item.product_info['toppings']["topping-#{topping.id}"].present? && @order_item.product_info['toppings']["topping-#{topping.id}"]['preference'] == "Normal"
+													option selected="selected" value="Normal"
+														| Normal
+												- else
+													option value="Normal" Normal
+													
+											- if topping.type_of_topping.preference_light?
+												- if @order_item && @order_item.product_info['toppings']["topping-#{topping.id}"].present? && @order_item.product_info['toppings']["topping-#{topping.id}"]['preference'] == "Light"
+													option selected="selected" value="Light"
+														| Light
+												- else
+													option value="Light" Light
+													
+											- if topping.type_of_topping.preference_extra?
+												
+												- unless topping.extra_free?
+													- topping_price = "topping_price_extra"
+												- else
+													- topping_price = ""
+												
+												- if @order_item && @order_item.product_info['toppings']["topping-#{topping.id}"].present? && @order_item.product_info['toppings']["topping-#{topping.id}"]['preference'] == "Extra"
+													option selected="selected" value="Extra" class="#{topping_price}"
+														| Extra
+														- unless topping.extra_free?
+															= " + #{number_to_currency(@calzone_preset.topping_price * 1)}"
+												- else
+													option value="Extra" class="#{topping_price}"
+														| Extra 
+														- unless topping.extra_free?
+															= " + #{number_to_currency(@calzone_preset.topping_price * 1)}"
+															
+											- if topping.type_of_topping.preference_double?
+											
+												- unless topping.double_free?
+													- topping_price_double = "topping_price_double"
+												- else
+													- topping_price_double = ""
+											
+												- if @order_item && @order_item.product_info['toppings']["topping-#{topping.id}"].present? && @order_item.product_info['toppings']["topping-#{topping.id}"]['preference'] == "Double"
+													option selected="selected" value="Double" class="#{topping_price_double}"
+														| Double
+														- unless topping.double_free?
+															= " + #{number_to_currency(@calzone_preset.topping_price * 2)}"
+												- else
+													option value="Double" class="#{topping_price_double}"
+														| Double
+														- unless topping.double_free?
+															= " + #{number_to_currency(@calzone_preset.topping_price * 2)}"
+
+#order-summary-table
+	.summary-container.active
+		div
+			= image_tag @order_item.item_image
+		#inline_calculator
+			= render(:partial => 'order_items/inline_calculator')	
+		/ style="#{unless params[:pizza_preset_id] || params[:calzone_preset_id] then "display:none;" end}"
+		.bottom-actions.text-center.order_actions_bottom 
+			button.button.muted.smaller.m-r.cancel_add_product_to_order
+				| Cancel
+			button.button.default.smaller.add_product_to_order
+				| Add / Update		

@@ -1,0 +1,107 @@
+
+- @header = "about_us"
+- @heading = "about_pizzaiolo"
+
+- meta title: "About Pizzaiolo | Gourmet Pizza Since 1940 | Pizza Delivery Toronto",
+     description: "Pizzaiolo - 4 generations of gourmet pizza. Fresh never frozen pizza sauce, dough, ingredients. Vegan pizza dough, nut free pizza, non gmo pizza, gluten free pizza, wheat free pizza, preservative free pizza, high quality pizza, gourmet pizza. Pizza delivery Toronto, best pizza delivery Toronto.",
+     keywords: "Gourmet Pizza"
+
+h1 style="display:none;" About Pizzaiolo
+
+div.top-bar
+	h1 
+		= link_to raw('&#8592;'), request.referer.present? ? request.referer : root_path
+		| Learn more about Pizzaiolo
+div.page-header.about
+
+div.body-container.nunito
+	.container
+		.row.m-t-20
+			.span6
+				h2.static-header.m-t-0.green-dsk
+					| 1940s: The First Generation
+				p.regular-p Our story begins back in the 1940s, in a little town in central Italy called Montorio. This is where young Nonno Giuseppe and Nonna Ida opened their very first pizzeria. Renowned for their delicious, traditional Italian pizzas, these “pizzaioli” (&ldquo;pizza makers&rdquo;) spent many long nights passing their skills along to the rest of the family.
+
+			.span6
+				div.centered-img
+					img src="/assets/about_pizzaiolo/gm-sauce.jpg" alt="First generation image"
+		
+		.row.m-t-20
+			.span6
+				h2.static-header.green-dsk
+					| 1960s: The Second Generation
+
+				p.regular-p Looking to take their passion for pizza-making on a journey to a different world, Mama Anna and Papa Antonio made the trip to Canada from their homeland in the 1960s, bringing with them the perfectionist, old-world traditions taught to them by Nonno and Nonna. They opened their first restaurant in 1967: La Gondola at Keele and Wilson. In 1970, they felt their new baby Luigi’s birth should be marked in celebration, and opened another restaurant at Bathurst and Harbord, called Pizza Gigi. Pizza Gigi was sold to Sam the Pizza Maker; having three kids and running a pizzeria proved to be too much. However, approximately 25 years later, the family noticed a need for better pizza in Toronto, and Pizzaiolo was born.
+			.span6
+				div.centered-img
+					img src="/assets/about_pizzaiolo/grandfather.jpg" alt="Grandfather Pizza Dought image"
+		.row.m-t-20
+			.span6
+				h2.static-header.green-dsk
+					| 2000s: The Third Generation
+
+				p.regular-p Although baby Luigi has grown up since the early days of Pizza Gigi, his love and passion for the pizza-making business has been inherited from his parents. Luigi continued to carry on the family tradition and authenticity by opening his first store on November 13, 2000; the Pizzaiolo you know today.
+
+				p.regular-p Just like his Nonno and Nonna before him, Luigi has shared his experience, skills and values with all of us at Pizzaiolo, and because of this, you’re sure to taste the difference that family and tradition can bring to your table, at all of our locations.
+			.span6
+				div.centered-img
+					img src="/assets/about_pizzaiolo/luigi.jpg" alt="Luigi making Pizza"
+		.row.m-t-20
+			.span6
+				h2.static-header.green-dsk
+					| And now: The Fourth Generation
+
+				p.regular-p With pizza sauce coursing through her veins from the day she was born, Sofia whole-heartedly embraced the family pizza-making tradition. Whether it was stirring the sauce with her Nonna Anna, kneading the dough with her Nonno Antonio, or chopping the veggies with Papa Luigi, Sofia knew that making pizza was synonymous with family.
+
+				p.regular-p As new locations continue to open across Toronto and the GTA, Sofia helps to bring those hometown values to Pizzaiolo. With our franchises, employees, and customers growing every day, we’ve become one big famiglia!
+			.span6
+				div.centered-img
+					img src="/assets/about_pizzaiolo/3-generations.jpg" alt="Sofia making pizza"
+		.row
+			.span12 
+				p.static-header Since the days of Nonno and Nonna, we’ve been building our list of what it means to create a high-quality product. We are proud to share these Pizzaiolo family values with you:
+			.span6
+				ul.checkmark-list
+					li We never freeze our tomato sauce or dough
+					li Our famous Pizzaiolo sauce and dough are 100% vegan
+					li Our famous Pizzaiolo sauce is made from scratch using freshly ground Roma tomatoes
+					li Our vegetables and meats are hand cut on the premises
+					li We cut our smoked Italian sausage fresh daily
+					li We use real Canadian bacon
+					li We use the highest quality cheese and unbleached flour
+			.span6
+				ul.checkmark-list
+					li Our mozzarella cheese has no rennet
+					li We use yellow corn meal for our dough
+					li We use extra virgin olive oil for our pizzas
+					li We do not fry anything
+					li We do not use trans fats
+					li We do not use additives or preservatives
+					li We do not add sugar
+		.row.m-t-20.m-b-20
+			.left-img
+				= image_tag 'ui/we-recycle.png'
+			.right-txt
+				p.regular-p.m-b-0
+					| We want a better environment for everyone, and at Pizzaiolo, we're doing our part. All of our packaging is made with 100% post consumer fibre. We use 100% recycled packaging for our pizza boxes, our pizza slice plates, and our napkins. And of course, we recycle all of our in-store paper and plastic on a daily basis. 
+		.row.m-t-20.m-b-20
+			.left-img
+				= image_tag 'ui/nut-free.png'
+			.right-txt
+				p.regular-p.m-b-0.m-t-20
+					| Our products are all nut-free! See more 
+					= link_to "Nutritional information", page_path('nutritional_information')
+					| .
+		.row.m-t-20.m-b-20
+			p.static-header.text-center 
+				= image_tag 'ui/gift-cards.png', class: 'small-icon'
+				span
+					| Pizzaiolo Gift Cards are available at all of our locations, for any amount. 
+				span.block
+					| Share the flavour!
+
+		.bottom-imgs
+			= image_tag 'ui/canadian.png' 
+			= image_tag 'ui/gmo-stamp.gif'
+			= image_tag 'ui/nut-free.png'
+			= image_tag 'ui/we-recycle.png'

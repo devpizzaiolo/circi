@@ -1,0 +1,136 @@
+
+- unless @pizza_categories
+	- @pizza_categories = PizzaCategory.where(:active => true)
+
+
+- unless @pizza_presets
+	- @pizza_presets = PizzaPreset.where(:active => true).order("product_name ASC")
+
+
+- @pizza_presets.each do |pizza_preset|
+
+	div id="lightbox_pizza_preset_#{pizza_preset.id.to_s}" class="lightbox hide fade"  tabindex="-1" role="dialog" aria-hidden="true"
+		.lightbox-content
+			img src="#{pizza_preset.pizza_image_angled.size_800.url}"
+			div.lightbox-caption
+				p= pizza_preset.product_name
+
+
+- unless @dont_show_selection || @dont_show_selection == false
+
+	.row.hidden-phone
+
+		- @pizza_categories.each do |pizza_category|
+
+				- unless pizza_category.direct_edit?
+					.span3
+						.pizza_category data-pizza-category-id="#{pizza_category.id}" = image_tag "/assets/ui/#{pizza_category.image_ref}"
+				- else
+					.span3
+						.pizza_category.show-ordering =link_to image_tag("/assets/ui/#{pizza_category.image_ref}"), new_order_item_path(:pizza_preset_id => pizza_category.pizza_presets.first.id), :remote => true
+						.pizza_category.show-menu =link_to image_tag("/assets/ui/#{pizza_category.image_ref}"), orders_path(:pizza_preset_id => pizza_category.pizza_presets.first.id)
+		
+	.row.visible-phone
+
+		- @pizza_categories.each do |pizza_category|
+			- unless pizza_category.direct_edit?
+				.span3
+					a.pizza_category.btn.btn-primary.btn-block style="margin-top:6px;" data-pizza-category-id="#{pizza_category.id}" = pizza_category.name
+			- else
+				.span3
+					= link_to pizza_category.name, new_order_item_path(:pizza_preset_id => pizza_category.pizza_presets.first.id), :remote => true, :class => "btn btn-primary btn-block show-ordering", :style => "margin-top:6px;"
+					= link_to pizza_category.name, orders_path(:pizza_preset_id => pizza_category.pizza_presets.first.id), :class => "btn btn-primary btn-block show-menu", :style => "margin-top:6px;"
+					
+	.row.text-center
+
+		.span4
+			.sub-category data-subcategory="pizzaiolo-favourites"
+				img src="/assets/ui/icn_subcat_pfavs.jpg"
+		.span4
+			.sub-category data-subcategory="spicy"
+				img src="/assets/ui/icn_subcat_spicy.jpg"
+		.span4
+			.sub-category data-subcategory="customer-favourites"
+				img src="/assets/ui/icn_subcat_cfavs.jpg"
+
+.row
+	.span12#pizza_list
+							
+		.media-list
+
+			- @pizza_presets.each do |pizza_preset|
+			
+				- unless pizza_preset.pizza_category.direct_edit?
+				
+					.media.product_display.pizza_preset data-pizza-category-id="#{ pizza_preset.pizza_category_id }" data-subcategories="#{ if pizza_preset.spicy? then 'spicy ' end }#{ if pizza_preset.pizzaiolo_favourites? then 'pizzaiolo-favourites ' end }#{if pizza_preset.customer_favourites? then 'customer-favourites' end }" style="#{if pizza_preset.pizza_category.name == "Create Your Own Pizza" then 'display:none;' end}"
+	
+						- if pizza_preset.show_images?
+							a.pull-left href="#lightbox_pizza_preset_#{pizza_preset.id.to_s}" data-toggle="lightbox"
+								= image_tag pizza_preset.pizza_image_angled.size_300.url, :class => "img-polaroid media-object"
+						- else
+							= image_tag pizza_preset.pizza_image_angled.size_300.url, :class => "img-polaroid media-object pull-left"
+	
+						.media-body
+							h4
+								- if pizza_preset.health_check?
+									sup &dagger;
+								= raw("#{pizza_preset.product_name} ")
+								small
+									- unless pizza_preset.paid_toppings.count < 1
+										= "(#{if pizza_preset.product_info['pizza_crust_style'] && pizza_preset.product_info['pizza_crust_style'] == 'deep-dish' then "Deep Dish - " end}#{pluralize(pizza_preset.num_paid_toppings, 'topping')})"
+								- if pizza_preset.spicy?
+									img.subcat-icn src="/assets/ui/icn_spicy.png" align="top" data-toggle="tooltip" rel="tooltip" title="Spicy"
+								- if pizza_preset.pizzaiolo_favourites?
+									img.subcat-icn src="/assets/ui/icn_pfav.png" align="top" data-toggle="tooltip" rel="tooltip" title="Pizzaiolo Favourite"
+								- if pizza_preset.customer_favourites?
+									img.subcat-icn src="/assets/ui/icn_cfav.png" align="top" data-toggle="tooltip" rel="tooltip" title="Customer Favourite"
+								- if pizza_preset.health_check?
+									img.subcat-icn src="/assets/ui/icn_healthcheck_sml.png" align="top" data-toggle="tooltip" rel="tooltip" title="Health Check"
+								- if pizza_preset.vegan?
+									img.subcat-icn src="/assets/ui/icn_vegan.png" align="top" data-toggle="tooltip" rel="tooltip" title="Vegan"
+							
+							- if pizza_preset.nut_free?
+								p 
+									span.label.label-info Nut Free
+							
+							- if pizza_preset.toppings.count > 0
+							
+								-if pizza_preset.gluten_free_only?
+									- @pizza_sizes = PizzaSize.where(:active => true, :gluten_free => true)
+								- else
+									- @pizza_sizes = PizzaSize.where(:active => true)
+									
+								p= pizza_preset.toppings.to_sentence(:last_word_connector => ' and ')
+								
+								- @pizza_sizes.each do |size|
+									span.item_price= "#{size.abbr_name}: #{number_to_currency(pizza_preset.get_price_at_size(size))}"
+									
+							- else
+								p= pizza_preset.description
+								- @pizza_sizes.each do |size|
+									span.item_price= "#{size.abbr_name}: #{number_to_currency(pizza_preset.get_price_at_size(size))}"
+					
+							br
+							br
+					
+							span.show-menu =link_to "Order", orders_path(:pizza_preset_id => pizza_preset.id), :class => "btn btn-primary pull-right"
+							span.show-ordering =link_to "Order", new_order_item_path(:pizza_preset_id => pizza_preset.id), :remote => true, :class => "btn btn-primary pull-right"
+				
+
+- if @dont_show_selection && @dont_show_selection == true
+	.row
+		.span1.text-center
+			img src="/assets/ui/icn_healthcheck_lrg.png"
+
+		.span11
+			h4 HEALTH CHECK&trade;
+			p
+				| &dagger; The Heart and Stroke Foundation&#x27;s registered dietitians have reviewed these menu items to ensure they meet the specific nutrient criteria developed by the Health Check&trade; program based on recommendations in Canada&#x27;s Food Guide. A fee is paid by each participating restaurant to help cover the cost of this voluntary, not-for-profit program. See 
+				= link_to "healthcheck.org", "http://healthcheck.org"
+					
+style
+	- if @menu && @menu == true
+		| .show-ordering { display:none; }
+	- else
+		| .show-menu { display:none; }
+		

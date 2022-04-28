@@ -1,0 +1,475 @@
+#additional_items
+
+.body-container.body-container-order.catering_page
+	.row
+		.left-container-dsk.col-12.col-md-8
+			.clearfix
+				.row.top-row-header
+					div.col-12
+						p = raw "Please allow <span class='bold'>3 hours</span> of preparation time for all catering orders. If you would like your order sooner, please call the store directly. <a href='/locations' class='link-color'>Click here</a> to find your closest location."
+						p = raw "If you would like to add a customized pizza to your catering order. <a href='javascript:void(0)' class='confirm_catering_order link-color'>Click here</a> to add one."
+					.half-tablet.radio-btn-box.col-12.col-md-6
+						div.static-header.green.m-t-0 Is this a catering order?
+
+						.checkbox-container.inline
+							
+							div.radio-btn
+								input type="radio" id="order-page-yes-1" class="radio-input radio-style catering_order_boolean" name="order[order_additional][catering_order]" value="1" checked="checked"
+								label for="order-page-yes-1"
+									| Yes
+
+						.checkbox-container.inline
+							
+							div.radio-btn
+								input type="radio" id="order-page-yes-2" class="radio-input radio-style catering_order_boolean" name="order[order_additional][catering_order]" value="0" 
+								label for="order-page-yes-2"
+									| No
+									
+					- if !@order.order_additional.blank? && @order.order_additional['catering_order'] == "1"
+						.half-tablet.show_catering_items.radio-btn-box.col-12.col-md-6
+							div.static-header.green.inline Group size
+							select#catering_order_group_number name="order[order_additional][catering_order_group_number]" class="additional_items_form select-input inline"
+								- if !@order.order_additional.blank? && @order.order_additional['catering_order'] == "1" && @order.order_additional['catering_order_group_number'] == "1-5"
+									option value="1-5" selected="" 1-5
+								- else
+									option value="1-5" 1-5
+								- if !@order.order_additional.blank? && @order.order_additional['catering_order'] == "1" && @order.order_additional['catering_order_group_number'] == "6-19"
+									option value="6-19" selected="" 6-19
+								- else
+									option value="6-19" 6-19
+								- if !@order.order_additional.blank? && @order.order_additional['catering_order'] == "1" && @order.order_additional['catering_order_group_number'] == "20+"
+									option value="20+" selected="" 20+
+								- else
+									option value="20+" 20+
+								
+					- else
+						.half-tablet.show_catering_items.hideit.col-12.col-md-6
+							div.static-header.green.inline Group size
+							select#catering_order_group_number name="order[order_additional][catering_order_group_number]" class="additional_items_form select-input inline"
+								option value="1-5"
+									| 1-5
+								option value="6-19"
+									| 6-19
+								option value="20+"
+									| 20+
+				
+			
+
+				/ div.hidden-phone.border-top.semi-header.green.m-t-20.clear Select Items
+				
+				div.pizza-tab-bar
+					div.nav-tabs.mouse-dragged id="viewContainer"
+						- @pizza_categories.where("name NOT IN (?)", ["Create Your Own Pizza"]).each do |pizza_category|
+							div.tab-pizza-name
+								a.pizza-tab-btn data-href="10-#{pizza_category.try(:slug)}"  = "10” #{pizza_category.try(:name)}"
+						- @pizza_categories.where("name NOT IN (?)", ["Create Your Own Pizza"]).each do |pizza_category|
+							div.tab-pizza-name
+								a.pizza-tab-btn data-href="#{pizza_category.try(:slug)}"  = "#{pizza_category.try(:name)}"		
+							
+						div.tab-pizza-name
+							a.pizza-tab-btn data-href="dipping-sauces"  = "Dipping Sauces"	
+						div.tab-pizza-name
+							a.pizza-tab-btn data-href="pop-juice"  = "Pop & Juice"	
+						div.tab-pizza-name
+							a.pizza-tab-btn data-href="water"  = "Water"	
+						div.tab-pizza-name
+							a.pizza-tab-btn data-href="premium-drinks"  = "Premium Drinks"	
+						div.tab-pizza-name
+							a.pizza-tab-btn data-href="salads"  = "Salads"	
+						div.tab-pizza-name
+							a.pizza-tab-btn data-href="garlic-bread"  = "Garlic Bread"	
+						div.tab-pizza-name
+							a.pizza-tab-btn data-href="utensils"  = "Utensils"	
+					
+						/ div.tab-pizza-name
+						/ 	a.pizza-tab-btn data-href="#watertab" Vegetarian Pizzas
+						/ div.tab-pizza-name
+						/ 	a.pizza-tab-btn data-href="#saladtab" Vegan Pizzas
+				div.personal-pizza-instruction
+					= raw '<h2>10&Prime; personal pizzas $11 <span>each</span></h2>'
+				- @pizza_categories.where("name NOT IN (?)", ["Create Your Own Pizza"]).each do |pizza_category|
+					h2.static-header.green.item-title id="10-#{pizza_category.try(:slug)}" = "#{pizza_category.try(:name)}"
+					- @pizza_presets_10inches.where(category_id: pizza_category.id).each_with_index do |pizza_preset, index|
+							- newIndex = pizza_preset.id
+							.order-item-row.row.personal-pizza-size data-pizza-category-id="#{ pizza_preset.pizza_category_id }" data-subcategories="#{ if pizza_preset.spicy? then 'spicy ' end }#{ if pizza_preset.pizzaiolo_favourites? then 'pizzaiolo-favourites ' end }#{if pizza_preset.customer_favourites? then 'customer-favourites' end }" style="#{if pizza_preset.product_name == "Create Your Own Pizza" then 'display:none;' end}"
+								.left-cell.col-md-6
+									- if pizza_preset.health_check?
+										sup &dagger;
+									h2.catering-pizza-title
+										= raw("#{pizza_preset.product_name} ")
+									- num_ordered = 0
+									- selected_size = "10_inches"
+									- price_of_selected = "#{OrderItem::TEN_INCH_PIZZA_PRICE}"
+									- if @order.order_additional && @order.order_additional["catering_pizza"].count > 0
+										- @order.order_additional["catering_pizza"].each do |oi|
+											- if oi[1]["pizza_preset_id"].to_i === pizza_preset.id
+												- num_ordered = oi[1]["quantity"].to_i		
+												- price_of_selected = oi[1]["price"]	
+												- selected_size = oi[1]["pizza_size"]			
+									- @pizza_size_selected = PizzaSize.where(:name => selected_size.titleize).first
+									/ br.hidden-phone
+									div.pizza-category-selection
+										span class="align-price muted category_pizza title_#{pizza_preset.id}" = @pizza_size_selected.external_name
+										span = " - "
+										span class="align-price muted category_pizza price_#{pizza_preset.id}" = number_to_currency(price_of_selected)
+										- if pizza_preset.description != nil && pizza_preset.description.present?
+											p.pizza-category-description = pizza_preset.description
+										- else
+											p.ingredients = pizza_preset.toppings.to_sentence(:last_word_connector => ' and ')
+									
+								.right-cell.col-md-6
+									div.cart-wrapper
+										div.catering-pizza-quantity data_id="#{newIndex}"
+											.box-border
+												input type="hidden" name="order[order_additional][catering_pizza][pizza_preset_id_#{pizza_preset.id}][price]" value="#{price_of_selected}" 	id='catering_pizza_price_upgrade_#{pizza_preset.id}'  			
+												input type="hidden" name="order[order_additional][catering_pizza][pizza_preset_id_#{pizza_preset.id}][pizza_preset_id]" value="#{pizza_preset.id}" 
+												= image_tag "ui/minus.png", class: 'minus'
+												input name="order[order_additional][catering_pizza][pizza_preset_id_#{pizza_preset.id}][quantity]" value="#{num_ordered}" class="span1 validate[required,custom[integer]] additional_items_form"
+												= image_tag "ui/plus.png", class: 'plus'
+								div.price_difference_list.catering-size-select.hide
+										ul.catering_pizza.category_pizza_sizes	
+											-	pizza_preset.price_difference_list_for_10inches.each do |pizza_size_price|
+												li
+													span.left 
+														div.radios
+															- pizza_size_external_name = PizzaSize.where(:name => pizza_size_price["size_name"].titleize).first
+															- if selected_size === pizza_size_price["size_name"]
+																input type="hidden" class="catering_pizza_size_upgrade_btn" name='order[order_additional][catering_pizza][pizza_preset_id_#{pizza_preset.id}][pizza_size]' value='#{pizza_size_price["size_name"]}' id='catering_pizza_size_upgrade_#{newIndex}_#{pizza_size_price["size_name"]}'  checked="" data-pizza-id="#{pizza_preset.id}" data-pizza-price="#{pizza_size_price["price_difference"]}" data-pizza-size="#{pizza_size_external_name.external_name}" data-pizza-formated-price="#{number_to_currency(pizza_size_price["price_difference"])}"
+													//span.small.align-price.muted.category_pizza.title = pizza_size_price["price_difference"] >= 0 ? "#{number_to_currency(pizza_size_price["price_difference"])}" : number_to_currency(pizza_size_price["price_difference"])
+
+				- exclude_pizza_categories = ['Create Your Own Pizza']
+				- @pizza_categories.each do |pizza_category|
+					- if !exclude_pizza_categories.include? pizza_category.name
+							h2.static-header.green.item-title id="#{pizza_category.try(:slug)}"  = "#{pizza_category.name}"
+							
+							- pizza_category.pizza_presets.sort_by(&:product_name).each_with_index do |pizza_preset, index|
+								- newIndex1 = pizza_preset.id
+								.order-item-row.row.personal-pizza-size data-pizza-category-id="#{ pizza_preset.pizza_category_id }" data-subcategories="#{ if pizza_preset.spicy? then 'spicy ' end }#{ if pizza_preset.pizzaiolo_favourites? then 'pizzaiolo-favourites ' end }#{if pizza_preset.customer_favourites? then 'customer-favourites' end }" style="#{if pizza_preset.pizza_category.name == "Create Your Own Pizza" then 'display:none;' end}"
+									.left-cell.col-md-6
+										- if pizza_preset.health_check?
+											sup &dagger;
+										h2.catering-pizza-title
+											= raw("#{pizza_preset.product_name} ")
+										- num_ordered = 0
+										- selected_size = "large"
+										- price_of_selected = pizza_preset.current_size_price
+										- if @order.order_additional && @order.order_additional["catering_pizza"].count > 0
+											- @order.order_additional["catering_pizza"].each do |oi|
+												- if oi[1]["pizza_preset_id"].to_i === pizza_preset.id
+													- num_ordered = oi[1]["quantity"].to_i		
+													- price_of_selected = oi[1]["price"]	
+													- selected_size = oi[1]["pizza_size"]
+										- @pizza_size_selected = PizzaSize.where(:name => selected_size.titleize).first
+										div.pizza-category-selection
+											span class="align-price muted category_pizza title_#{pizza_preset.id}" = @pizza_size_selected.external_name
+											span = " - "
+											span class="align-price muted category_pizza price_#{pizza_preset.id}" = number_to_currency(price_of_selected)
+											- if pizza_preset.description != nil && pizza_preset.description.present?
+												p.pizza-category-description = pizza_preset.description
+											- else
+												p.pizza-category-description = pizza_preset.toppings.to_sentence(:last_word_connector => ' and ')
+									.right-cell.col-md-6
+										div.cart-wrapper
+											div.catering-pizza-quantity data_id="#{newIndex1}"
+												.box-border
+													input type="hidden" name="order[order_additional][catering_pizza][pizza_preset_id_#{pizza_preset.id}][price]" value="#{pizza_preset.current_size_price}" 	id='catering_pizza_price_upgrade_#{pizza_preset.id}'  			
+													input type="hidden" name="order[order_additional][catering_pizza][pizza_preset_id_#{pizza_preset.id}][pizza_preset_id]" value="#{pizza_preset.id}" 
+													= image_tag "ui/minus.png", class: 'minus'
+													input name="order[order_additional][catering_pizza][pizza_preset_id_#{pizza_preset.id}][quantity]" value="#{num_ordered}" class="span1 validate[required,custom[integer]] additional_items_form"
+													= image_tag "ui/plus.png", class: 'plus'
+									div.price_difference_list.catering-size-select
+											ul.catering_pizza.category_pizza_sizes	
+												-	pizza_preset.price_difference_list_catering.each do |pizza_size_price|
+													li
+														span.left 
+															div.radios
+																- pizza_size_external_name = PizzaSize.where(:name => pizza_size_price["size_name"].titleize).first
+																- if selected_size === pizza_size_price["size_name"]
+																	input type="radio" class="catering_pizza_size_upgrade_btn" name='order[order_additional][catering_pizza][pizza_preset_id_#{pizza_preset.id}][pizza_size]' value='#{pizza_size_price["size_name"]}' id='catering_pizza_size_upgrade_#{newIndex1}_#{pizza_size_price["size_name"]}'  checked="" data-pizza-id="#{pizza_preset.id}" data-pizza-price="#{pizza_size_price["price_difference"]}" data-pizza-size="#{pizza_size_external_name.external_name}" data-pizza-formated-price="#{number_to_currency(pizza_size_price["price_difference"])}"
+																- else
+																	input type="radio" class="catering_pizza_size_upgrade_btn" name='order[order_additional][catering_pizza][pizza_preset_id_#{pizza_preset.id}][pizza_size]' value='#{pizza_size_price["size_name"]}' id='catering_pizza_size_upgrade_#{newIndex1}_#{pizza_size_price["size_name"]}'	data-pizza-id="#{pizza_preset.id}"	data-pizza-price="#{pizza_size_price["price_difference"]}"  data-pizza-size="#{pizza_size_external_name.external_name}" data-pizza-formated-price="#{number_to_currency(pizza_size_price["price_difference"])}"
+																label for='catering_pizza_size_upgrade_#{newIndex1}_#{pizza_size_price["size_name"]}' 
+																	- if pizza_size_price['size_name'] === "gluten_free_small" 
+																		= "GF 10”"
+																	- elsif pizza_size_price['size_name'] === "gluten_free" 
+																		= "GF 12”"
+																	- elsif pizza_size_price['size_name'] === "cauliflower_s" 
+																		= "CF 10”"
+																	- elsif pizza_size_price['size_name'] === "cauliflower_m" 
+																		= "CF 12”"
+																	- elsif pizza_size_price['size_name'] === "medium" 
+																		= "M"
+																	- elsif	pizza_size_price['size_name'] === "large" 
+																		= "L"
+																	- elsif	pizza_size_price['size_name'] === "xlarge" 
+																		= "XL"
+																	- elsif	pizza_size_price['size_name'] === "party"
+																		= "PARTY"
+														//span.small.align-price.muted.category_pizza.title = pizza_size_price["price_difference"] >= 0 ? "#{number_to_currency(pizza_size_price["price_difference"])}" : number_to_currency(pizza_size_price["price_difference"])
+				h2.static-header.green.item-title id="dipping-sauces" Dipping Sauces
+				
+				- @dipping_sauces.each do |dipping_sauce|
+					.order-item-row.row
+						.left-cell.col-md-6
+							= "#{dipping_sauce.name} "
+							br.hidden-phone
+							small.align-price.muted= "#{number_to_currency(dipping_sauce.price)} ea. "
+							- unless dipping_sauce.description.blank?
+								small.align-price.muted= "#{dipping_sauce.description}"
+						.right-cell.col-md-6.qty-item-style
+							- num_ordered = 0
+							- unless @order.order_additional.blank?
+								- num_ordered = @order.order_additional['dipping_sauces']['dipping_sauce_' + dipping_sauce.id.to_s]
+							.box-border
+								= image_tag "ui/minus.png", class: 'minus'
+								input name="order[order_additional][dipping_sauces][dipping_sauce_#{dipping_sauce.id}]" value="#{num_ordered}" class="span1 validate[required,custom[integer]] additional_items_form"
+								= image_tag "ui/plus.png", class: 'plus'
+					
+				h2.static-header.green.item-title id="pop-juice" Pop & Juice
+				
+				- @beverages.where(:active => true, :pop_and_juice => true).order("sort_order asc").each do |beverage|
+					.order-item-row.row
+						.left-cell.col-md-6
+							= "#{beverage.name} "
+							br.hidden-phone
+							small.align-price.muted= "#{number_to_currency(beverage.price)} ea."
+							- if beverage.extra_info && beverage.extra_info
+								small.align-extra = "(#{beverage.extra_info})"
+						.right-cell.col-md-6.qty-item-style
+							- num_ordered = 0
+							- unless @order.order_additional.blank?
+								- num_ordered = @order.order_additional['beverages']['beverage_' + beverage.id.to_s]
+							.box-border
+								= image_tag "ui/minus.png", class: 'minus'
+								input name="order[order_additional][beverages][beverage_#{beverage.id}]" value="#{num_ordered}" class="span1 validate[required,custom[integer]] additional_items_form"
+								= image_tag "ui/plus.png", class: 'plus'
+				
+				h2.static-header.green.item-title id="water" Water
+				
+				- @beverages.where(:active => true, :water => true).order("sort_order asc").each do |beverage|
+					.order-item-row.row
+						.left-cell.col-md-6
+							= "#{beverage.name} "
+							br.hidden-phone
+							small.align-price.muted= "#{number_to_currency(beverage.price)} ea."
+							- if beverage.extra_info && beverage.extra_info
+								small.align-extra = "(#{beverage.extra_info})"
+						.right-cell.col-md-6.qty-item-style
+							- num_ordered = 0
+							- unless @order.order_additional.blank?
+								- num_ordered = @order.order_additional['beverages']['beverage_' + beverage.id.to_s]
+							.box-border
+								= image_tag "ui/minus.png", class: 'minus'
+								input name="order[order_additional][beverages][beverage_#{beverage.id}]" value="#{num_ordered}" class="span1 validate[required,custom[integer]] additional_items_form"
+								= image_tag "ui/plus.png", class: 'plus'
+
+				h2.static-header.green.item-title id="premium-drinks" Premium Drinks
+				
+				- @beverages.where(:active => true, :premium_drinks => true).order("sort_order asc").each do |beverage|
+					.order-item-row.row
+						.left-cell.col-md-6
+							= "#{beverage.name} "
+							br.hidden-phone
+							small.align-price.muted= "#{number_to_currency(beverage.price)} ea."
+							- if beverage.extra_info && beverage.extra_info
+								small.align-extra = "(#{beverage.extra_info})"
+						.right-cell.col-md-6.qty-item-style
+							- num_ordered = 0
+							- unless @order.order_additional.blank?
+								- num_ordered = @order.order_additional['beverages']['beverage_' + beverage.id.to_s]
+							.box-border
+								= image_tag "ui/minus.png", class: 'minus'
+								input name="order[order_additional][beverages][beverage_#{beverage.id}]" value="#{num_ordered}" class="span1 validate[required,custom[integer]] additional_items_form"
+								= image_tag "ui/plus.png", class: 'plus'
+	
+
+				#salads
+				
+					h2.static-header.green.item-title.m-t-10 id="salads" Salads - single serving
+					
+					- @salads.each do |salad|
+						.order-item-row.row
+							.left-cell.col-md-6
+								= "#{salad.name} "
+								br
+								small.muted.align-price id="salad_#{salad.id}_price"
+									= "#{number_to_currency(get_salad_price(@order, 'salad_' + salad.id.to_s))}"
+							.right-cell.col-md-6.qty-item-style
+								- num_ordered = 0
+								- unless @order.order_additional.blank?
+									- num_ordered = @order.order_additional['salads']['salad_' + salad.id.to_s]
+								.box-border
+									= image_tag "ui/minus.png", class: 'minus'
+									input name="order[order_additional][salads][salad_#{salad.id}]" id="salad_#{salad.id}" value="#{num_ordered}" class="span1 input_salad validate[required,custom[integer]] additional_items_form" data-price="#{number_to_currency(salad.price)}" data-price-one-to-five="#{number_to_currency(salad.price_one_to_five)}" data-price-six-to-nineteen="#{number_to_currency(salad.price_six_to_nineteen)}" data-price-twenty-plus="#{number_to_currency(salad.price_twenty_plus)}" data-salad-id="#{salad.id}"
+									= image_tag "ui/plus.png", class: 'plus'
+
+				#salads_medium
+				
+					h2.static-header.green.item-title.m-t-10
+						| Salads - medium tray
+						br/
+						span (serves 10)
+
+					- @salads_medium.each do |salad|
+						.order-item-row.row
+							.left-cell.col-md-6
+								= "#{salad.name} "
+								br
+								small.muted.align-price id="salad_#{salad.id}_price"
+									= "#{number_to_currency(get_salad_price(@order, 'salad_' + salad.id.to_s))}"
+							.right-cell.col-md-6.qty-item-style
+								- num_ordered = 0
+								- unless @order.order_additional.blank?
+									- num_ordered = @order.order_additional['salads']['salad_' + salad.id.to_s]
+								.box-border
+									= image_tag "ui/minus.png", class: 'minus'
+									input name="order[order_additional][salads][salad_#{salad.id}]" id="salad_#{salad.id}" value="#{num_ordered}" class="span1 input_salad validate[required,custom[integer]] additional_items_form" data-price="#{number_to_currency(salad.price)}" data-price-one-to-five="#{number_to_currency(salad.price_one_to_five)}" data-price-six-to-nineteen="#{number_to_currency(salad.price_six_to_nineteen)}" data-price-twenty-plus="#{number_to_currency(salad.price_twenty_plus)}" data-salad-id="#{salad.id}"
+									= image_tag "ui/plus.png", class: 'plus'
+
+				#salads_large
+				
+					h2.static-header.green.item-title.m-t-10
+						| Salads - large tray
+						br/
+						span (serves 20)
+					
+					- @salads_large.each do |salad|
+						.order-item-row.row
+							.left-cell.col-md-6
+								= "#{salad.name} "
+								br
+								small.muted.align-price id="salad_#{salad.id}_price"
+									= "#{number_to_currency(get_salad_price(@order, 'salad_' + salad.id.to_s))}"
+							.right-cell.col-md-6.qty-item-style
+								- num_ordered = 0
+								- unless @order.order_additional.blank?
+									- num_ordered = @order.order_additional['salads']['salad_' + salad.id.to_s]
+								.box-border
+									= image_tag "ui/minus.png", class: 'minus'
+									input name="order[order_additional][salads][salad_#{salad.id}]" id="salad_#{salad.id}" value="#{num_ordered}" class="span1 input_salad validate[required,custom[integer]] additional_items_form" data-price="#{number_to_currency(salad.price)}" data-price-one-to-five="#{number_to_currency(salad.price_one_to_five)}" data-price-six-to-nineteen="#{number_to_currency(salad.price_six_to_nineteen)}" data-price-twenty-plus="#{number_to_currency(salad.price_twenty_plus)}" data-salad-id="#{salad.id}"
+									= image_tag "ui/plus.png", class: 'plus'
+
+				#cannoli
+
+				h2.static-header.green.item-title.m-t-10.cannoli-hide id="cannoli" Cannoli
+
+				- @cannolis.each do |cannoli|
+						.order-item-row.row.cannoli-hide
+							.left-cell.col-md-6
+								= "#{cannoli.name} "
+								br
+								small.muted.align-price id="cannoli_#{cannoli.id}_price"
+									= "#{number_to_currency(get_cannoli_price(@order, 'cannoli_' + cannoli.id.to_s))}"
+							.right-cell.col-md-6.qty-item-style
+								- num_ordered = 0
+								- unless @order.order_additional.blank?
+									- num_ordered = @order.order_additional['cannolis'] ? @order.order_additional['cannolis']['cannoli_' + cannoli.id.to_s] : 0
+								.box-border
+									= image_tag "ui/minus.png", class: 'minus'
+									input name="order[order_additional][cannolis][cannoli_#{cannoli.id}]" id="cannoli_#{cannoli.id}" value="#{num_ordered}" class="span1 input_cannoli validate[required,custom[integer]] additional_items_form" data-price="#{number_to_currency(cannoli.price)}"  data-cannoli-id="#{cannoli.id}"
+									= image_tag "ui/plus.png", class: 'plus'
+
+
+				#garlic
+				
+					h2.static-header.green.item-title.m-t-10 id="garlic-bread" Garlic Bread
+					
+					- @garlic_breads.each do |garlic_bread|
+						.order-item-row.row
+							.left-cell.col-md-6
+								= "#{garlic_bread.name} "
+								br
+								small.muted.align-price id="garlic_bread_#{garlic_bread.id}_price"
+									= "#{number_to_currency(get_garlic_bread_price(@order, 'garlic_bread_' + garlic_bread.id.to_s))}"
+										- if garlic_bread.extra_info
+										small.align-extra = "(#{garlic_bread.extra_info}) "
+							.right-cell.col-md-6.qty-item-style
+								- num_ordered = 0
+								- unless @order.order_additional.blank?
+									- num_ordered = @order.order_additional['garlic_breads'] ? @order.order_additional['garlic_breads']['garlic_bread_' + garlic_bread.id.to_s] : 0
+								.box-border
+									= image_tag "ui/minus.png", class: 'minus'
+									input name="order[order_additional][garlic_breads][garlic_bread_#{garlic_bread.id}]" id="garlic_bread_#{garlic_bread.id}" value="#{num_ordered}" class="span1 input_garlic_bread validate[required,custom[integer]] additional_items_form" data-price="#{number_to_currency(garlic_bread.price)}" data-price-one-to-five="#{number_to_currency(garlic_bread.price_one_to_five)}" data-price-six-to-nineteen="#{number_to_currency(garlic_bread.price_six_to_nineteen)}" data-price-twenty-plus="#{number_to_currency(garlic_bread.price_twenty_plus)}" data-garlic-bread-id="#{garlic_bread.id}"
+									= image_tag "ui/plus.png", class: 'plus'
+
+				- if !@order.order_additional.blank? && @order.order_additional['catering_order'] == "1"
+					- hide = ""
+				- else
+					- hide = "hideit"
+
+					.show_catering_items class="#{hide}"
+					/h2.static-header.green.item-title Fruit & Desserts
+					- @desserts.each do |dessert|
+						.order-item-row.row.hide
+							.left-cell.col-md-6
+								= dessert.name
+								br.hidden-phone
+								small.align-price.muted= "#{number_to_currency(dessert.price)}#{ if dessert.show_each? then ' ea.' end }"
+							- if dessert.multiple_of_12?
+								.right-cell.select.col-md-6
+									select name="order[order_additional][desserts][dessert_#{dessert.id}]" class="span2 additional_items_form select-input"
+										- sel_arr = [0,12,24,36,48,60,72,96]
+										- sel_arr.each do |sel|
+											= sel.to_s
+											- unless @order.order_additional.blank?
+												- if sel.to_s == @order.order_additional['desserts']['dessert_' + dessert.id.to_s]
+													option value="#{sel}" selected=""
+														= sel.to_s
+												- else
+													option value="#{sel}"
+														= sel.to_s
+											- else
+												option value="#{sel}"
+														= sel.to_s				
+							- else
+								.right-cell.col-md-6.qty-item-style
+									.box-border
+										= image_tag "ui/minus.png", class: 'minus'
+										input name="order[order_additional][desserts][dessert_#{dessert.id}]" value="0" class="span1 additional_items_form"
+										= image_tag "ui/plus.png", class: 'plus'
+				
+					h2.static-header.green.item-title id="utensils" Utensils
+					- @utensils.each do |utensil|
+						.order-item-row.row
+							.left-cell.col-md-6
+								= utensil.name
+								br.hidden-phone
+								small.align-price.muted no charge
+							.right-cell.col-md-6.qty-item-style
+								- num_ordered = 0
+								- unless @order.order_additional.blank?
+									- num_ordered = @order.order_additional['utensils']['utensil_' + utensil.id.to_s]
+								
+								div.utensils-select-box
+									select id="utensil_quantity" name="order[order_additional][utensils][utensil_#{utensil.id}]" class="utensil_quantity select-input inline" data-index="#{utensil.id}" data-previous="#{num_ordered}"
+										- numbers = [0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100]
+										- numbers.each do |n|
+											- if n === num_ordered.to_i
+												option value="#{n}" selected="" #{n}
+											- else 
+												option value="#{n}" #{n}
+
+
+					.clear
+
+			.text-center.m-t-30.order-create-btn
+				/ button class="cancel_add_additional_to_order button m-r muted smaller"
+				/ 	| Cancel
+
+				button class="add_additional_to_order button default smaller complete-roder-fix-button "
+					| ADD TO ORDER
+			
+		#order-summary-table.col-12.col-md-4
+			.summary-container.catering-summary-layout
+				div.summery-header
+					div.left Order Summary
+					div.right 
+				#inline_calculator_order_additional.scrolling-table
+					= render(:partial => 'orders/inline_calculator_order_additional')
+				.bottom-actions.text-center
+					button class="cancel_add_additional_to_order button m-r muted smaller"
+						| Cancel
+
+					button class="add_additional_to_order button default smaller catering-btn"
+						| ADD TO ORDER
+			

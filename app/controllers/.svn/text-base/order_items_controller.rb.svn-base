@@ -1,0 +1,116 @@
+class OrderItemsController < ApplicationController
+  
+  def edit
+    
+    if params[:id]
+      
+      @order_item = Order.find(session[:order_id]).order_items.find(params[:id])
+      
+      if @order_item.product_info['product_type'] == 'calzone'
+        @calzone_preset = CalzonePreset.find(@order_item.product_info['calzone_preset_id'])
+      end
+      
+      if @order_item.product_info['product_type'] == 'pizza'
+        @pizza_preset = PizzaPreset.find(@order_item.product_info['pizza_preset_id'])
+        @pizza_size = PizzaSize.where(:name => @order_item.product_info['pizza_size'].titleize).first
+      end
+        
+    end
+    
+    respond_to do |format|
+      format.js
+    end
+    
+  end
+  
+  
+  
+  def add_or_update
+    
+    puts "adding or updating..."
+    
+    @order = Order.find(session[:order_id])
+    
+    # if the product exists, then update it, else add to the order
+    
+    if params[:product][:id]
+      
+      # update existing order item
+      @oi = @order.order_items.find(params[:product][:id])
+      @oi.update_attributes(:product_info => params[:product])
+      
+    else
+      
+      # create new order item
+      @product = @order.order_items.create(:product_info => params[:product])
+      
+    end
+    
+    respond_to do |format|
+      format.js
+    end
+    
+  end
+  
+  
+  def live_calculate
+    
+    @order_item = OrderItem.new
+    @order_item.product_info = params[:product]
+
+    puts "The calculated price for this item is: #{@order_item.price}"
+    
+    respond_to do |format|
+      format.js
+    end
+    
+  end
+  
+  
+
+  
+  def new
+
+    # create new pizza from the preset
+    @order = Order.find(session[:order_id])
+    @order_item = OrderItem.new
+
+    if params[:pizza_preset_id]
+      puts "It's a pizza..."
+      @pizza_preset = PizzaPreset.find(params[:pizza_preset_id])
+      puts @pizza_preset.to_xml
+      @order_item.product_info = @pizza_preset.product_info
+      @pizza_size = PizzaSize.where(:name => @pizza_preset.product_info['pizza_size'].titleize).first
+    end
+    
+    if params[:calzone_preset_id]
+      puts "It's a calzone..."
+      @calzone_preset = CalzonePreset.find(params[:calzone_preset_id])
+      @order_item.product_info = @calzone_preset.product_info
+    end
+    
+    # puts @order_item.to_xml
+    
+    respond_to do |format|
+      format.js
+    end
+    
+  end
+
+  
+  def destroy
+
+    @order = Order.find(session[:order_id])
+    @order_item = OrderItem.where(:id => params[:id], :order_id => session[:order_id]).first
+    @order_item.destroy
+
+    # redirect_to orders_path, :notice => "Product Deleted."    
+    
+    respond_to do |format|
+      format.js
+    end
+    
+  end
+  
+  
+end

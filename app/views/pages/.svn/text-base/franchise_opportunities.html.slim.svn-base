@@ -1,0 +1,80 @@
+- content_for(:title) {"Franchise Opportunities"}
+- @header = "franchise_opportunities"
+- @heading = "franchise_opportunities"
+
+h1 style="display:none;" Franchise Opportunities
+
+p.lead Pizzaiolo Gourmet Pizza was founded in August of 1999, with our first store opening on November 13, 2000. Our business continues to grow as happy customers spread the word and keep coming back for the taste, the service, and the quality. 
+br
+p Pizzaiolo offers an exciting opportunity for individuals to grow professionally and invest in themselves, provided their passion and values are in line with those of the Pizzaiolo family. We are committed to, and passionate about, providing our customers with the highest quality pizza and service, and will not sacrifice either for price. 
+br
+p We are currently expanding our license opportunities within the GTA. Are you are a motivated and friendly individual with a passion for pizza and for people? Do you think you have the skills, commitment level, dedication, work ethic, and character to become a Pizzaiolo franchisee? Please note the following:
+br
+ul
+	li Pizzaiolo franchisees must have at least $80,000 unencumbered working capital
+	li Financial soundness is a requirement, however, it is not the deciding factor when short-listing candidates
+	li New Pizzaiolo franchisees must commit to an intensive seven week training program at Pizzaiolo University
+	li We franchise only to individuals who will be hands-on operators, not to corporations or passive investors
+	li A typical store costs $300,000
+
+hr 
+
+#franchise_enquiry_form
+
+	br 
+
+	p If you think you meet the above prerequisites, please complete and submit the form below. Someone from Head Office will contact you within 24 hours. Thank you for your interest in expanding the Pizzaiolo Family!
+	
+	br
+	
+	- @franchise_enquiry = FranchiseEnquiry.new
+	= simple_form_for @franchise_enquiry, :remote => true do |f|
+		.row
+			.span12
+				h4 About You
+			.span6
+				= f.input :first_name, :required => true, :input_html => {:class => "validate[required] span6"}
+				= f.input :last_name, :required => true, :input_html => {:class => "validate[required] span6"}
+				= f.input :city, :required => true, :input_html => {:class => "validate[required] span6"}
+				= f.input :address_1, :required => true, :input_html => {:class => "validate[required] span6"}, :label => "Address - Street"
+				= f.input :address_2, :required => false, :input_html => {:class => "span6"}, :label => "Address - Additional"
+			.span6
+				= f.input :province, :required => true, :input_html => {:class => "validate[required] span6"}
+				= f.input :postal_code, :required => true, :input_html => {:class => "validate[required] span6"}
+				= f.input :email, :required => true, :input_html => {:class => "validate[required,custom[email]] span6"}
+				= f.input :phone, :required => true, :input_html => {:class => "validate[required,custom[phone]] span6"}
+			.span12	
+				h4 Questions
+			.span6
+				= f.input :preferred_territory, :required => true, :input_html => {:class => "validate[required] span6"}, :label => "Preferred Territory"
+				= f.input :how_soon, :required => true, :input_html => {:class => "validate[required] span6"}, :label => "How soon would you like to be in business?"
+			.span6
+				= f.input :how_did_you_hear_about_us, :required => true, :input_html => {:class => "validate[required] span6"}, :label => "How did you hear about us?"
+			.span12
+				h4 Please enter the verification below
+				= show_simple_captcha(:object => "franchise_enquiry")
+			
+			.span12
+			
+				hr
+				
+				#franchise_enquiry_form_error style="display:none;"
+					p
+						strong There was an error sending your enquiry. Please check your details and try again.
+						br
+						br
+				
+				= f.button :submit, "Send My Enquiry", :class => "btn btn-primary"
+					
+				
+br
+br
+
+#franchise_enquiry_form_message style="display:none;"
+	p.lead
+		strong Thank you for your interest in expanding the Pizzaiolo Family!
+
+	br
+	br
+
+

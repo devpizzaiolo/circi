@@ -1,0 +1,57 @@
+div.top-bar
+	h1 
+		= link_to raw('&#8592;'), customers_customers_path
+		| Update my account info
+
+- content_for(:heading) {("My account").html_safe}
+//- content_for(:description) {""}
+- content_for(:body_class) {"my_account_page"}
+
+.body-container
+	.container
+		.row.signin-row.customers-signin
+			.span12.hidden-phone.m-b-40.col-12.customers-header
+				h2.super-header.light.green.pull-left.inner-page-sub-title Edit Profile
+				= link_to "My Orders", customers_path, class: 'button default pull-right'
+
+			.span12.col-12.col-md-10.edit-customer-info
+				= simple_form_for([:customers,@customer], :html => {:class => 'default-form row labeled inline-fields clearfix' }) do |f|
+					div.col-12.col-md-6
+						= f.input :first_name, :required => true, :input_html => {:class => "span6 validate[required]"}
+					div.col-12.col-md-6
+						= f.input :last_name, :required => true, :input_html => {:class => "span6 validate[required]"}
+					div.col-12.col-md-6
+						= f.input :phone_number, :required => true, :input_html => {:class => "span6 validate[required,custom[phone]]"}
+					div.col-12.col-md-6
+						= f.input :email, :required => true, :input_html => {:class => "span6 validate[required,custom[email]]"}
+					div.col-12.col-md-6
+						= f.input :password, :required => false, :input_html => {:class => "span6"}
+					div.col-12.col-md-6
+						= f.input :password_confirmation, :required => false, :input_html => {:class => "span6"}
+				
+					.controls.full.m-b-15.col-12
+						p.muted Leave password blank if you do not wish to change it.
+					div.col-12.col-md-6
+						= f.input :address_1, :required => true, :input_html => {:class => "span6 validate[required] google-autocomplete", :data_id => "edit-customer-form"}
+					div.col-12.col-md-6
+						= f.input :address_2, :required => true, :input_html => {:class => "span6"}
+					div.col-12.col-md-6
+						= f.input :city, :required => true, :input_html => {:class => "span6 validate[required]"}
+					div.col-12.col-md-6#edit_customer_postal_code_wrapper
+						= f.input :postal_code, :required => true, :input_html => {:class => "span6 validate[required,custom[postalCode]]"}
+
+					/ div.checkbox-field.clearfix.col-12
+					/ 	= f.input :mailing_list, :required => false, :label => "Send me news and promotions from Pizzaiolo"
+					div.checkbox-field.clearfix.checkmark.col-12
+						input type="checkbox" name="customer[mailing_list]" id="mailing_list" value="1" class="controls"
+						label.control-label for="mailing_list" Send me news and promotions from Pizzaiolo
+					/ .text-center.m-t-40.visible-phone
+					/ 	= f.button :submit, "Save", :class => "button default full"
+					/ 	= link_to "Cancel", customers_customers_path, :class => "button green-btn gray full"
+
+					.m-t-40.hidden-phone.col-12.edit-action
+						= f.button :submit, "Save", :class => "button default m-r"
+						= link_to "Cancel", customers_customers_path, :class => "button gray cancel-btn-gray"
+					
+					
+	

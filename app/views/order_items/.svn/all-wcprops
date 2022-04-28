@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/pizzaioloca/!svn/ver/257/trunk/pizzaiolo.ca/app/views/order_items
+END
+edit.html.slim
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/app/views/order_items/edit.html.slim
+END
+new.js.erb
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/pizzaioloca/!svn/ver/73/trunk/pizzaiolo.ca/app/views/order_items/new.js.erb
+END
+_inline_calculator.html.slim
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/pizzaioloca/!svn/ver/189/trunk/pizzaiolo.ca/app/views/order_items/_inline_calculator.html.slim
+END
+add_or_update.js.erb
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/pizzaioloca/!svn/ver/73/trunk/pizzaiolo.ca/app/views/order_items/add_or_update.js.erb
+END
+live_calculate.js.erb
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/pizzaioloca/!svn/ver/65/trunk/pizzaiolo.ca/app/views/order_items/live_calculate.js.erb
+END
+_order_item_form.html.slim
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/pizzaioloca/!svn/ver/257/trunk/pizzaiolo.ca/app/views/order_items/_order_item_form.html.slim
+END
+_pizza_preset_categorization.html.slim
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/pizzaioloca/!svn/ver/65/trunk/pizzaiolo.ca/app/views/order_items/_pizza_preset_categorization.html.slim
+END
+untitled.txt
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/app/views/order_items/untitled.txt
+END
+edit.js.erb
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/pizzaioloca/!svn/ver/73/trunk/pizzaiolo.ca/app/views/order_items/edit.js.erb
+END

@@ -1,0 +1,125 @@
+- meta title: "#{@seo_title if @seo_title}",
+			description: "#{@seo_metadescription if @seo_metadescription}",
+			keywords: "#{@seo_keywords if @seo_keywords}"
+
+- content_for(:heading) {(@pizza_category.page_title).html_safe}
+//- content_for(:description) {""}
+- content_for(:body_class) {"pizza_category_page"}
+section
+  .container
+  	/= render(:partial => 'common/title', locals: { title: "#{@pizza_category.page_title}", content: "" } )
+
+	.mobile-card-row
+		.span12#pizza_list
+			.media-list.order-pizza-card.row
+				- @pizza_presets.each_with_index do |pizza_preset, index|
+					- unless pizza_preset.pizza_category.direct_edit?
+
+						div.pizza-select.col-12.col-md-6.col-lg-4.product_display.pizza_preset data-pizza-category-id="#{ pizza_preset.pizza_category_id }" data-subcategories="#{ if pizza_preset.spicy? then 'spicy ' end }#{ if pizza_preset.pizzaiolo_favourites? then 'pizzaiolo-favourites ' end }#{if pizza_preset.customer_favourites? then 'customer-favourites' end }" style="#{if pizza_preset.pizza_category.name == "Create Your Own Pizza" then 'display:none;' end}"
+							div class="pizza-card pizza_card_#{pizza_preset.pizza_category.slug}"
+								.product-image
+									= image_tag pizza_preset.pizza_image_angled.size_800.url
+								div.card-data
+									//.right-icons
+										/- if pizza_preset.spicy?
+										/	img.subcat-icn src="/assets/ui/icn_spicy.png" align="top" data-toggle="tooltip" rel="tooltip" title="Spicy"
+										/- if pizza_preset.pizzaiolo_favourites?
+										/	img.subcat-icn src="/assets/ui/icn_pfav.png" align="top" data-toggle="tooltip" rel="tooltip" title="Pizzaiolo Favourite"
+										/- if pizza_preset.customer_favourites?
+										/	img.subcat-icn src="/assets/ui/icn_cfav.png" align="top" data-toggle="tooltip" rel="tooltip" title="Customer Favourite"
+										/- if pizza_preset.health_check?
+										/	img.subcat-icn src="/assets/ui/icn_healthcheck_sml.png" align="top" data-toggle="tooltip" rel="tooltip" title="Health Check"
+										/- if pizza_preset.vegan?
+										/	img.subcat-icn src="/assets/ui/icn_vegan.png" align="top" data-toggle="tooltip" rel="tooltip" title="Vegan"
+										
+									/ - if pizza_preset.calories
+									/ 	p.calories = pizza_preset.calories
+
+									div.quantity-card-wrapper
+										div.quantity-card-title
+											- if pizza_preset.is_new_pizza?
+												span.newtag.bold New
+											h2.card-title
+												- if pizza_preset.health_check?
+													sup &dagger;
+												= raw("#{pizza_preset.product_name} ")
+												- if pizza_preset.spicy?
+													img.subcat-icn src="/assets/ui/icn_spicy.png" align="top" data-toggle="tooltip" rel="tooltip" title="Spicy"
+												- if pizza_preset.pizzaiolo_favourites?
+													img.subcat-icn src="/assets/ui/icn_pfav.png" align="top" data-toggle="tooltip" rel="tooltip" title="Pizzaiolo Favourite"
+												- if pizza_preset.customer_favourites?
+													img.subcat-icn src="/assets/ui/icn_cfav.png" align="top" data-toggle="tooltip" rel="tooltip" title="Customer Favourite"
+												- if pizza_preset.health_check?
+													img.subcat-icn src="/assets/ui/icn_healthcheck_sml.png" align="top" data-toggle="tooltip" rel="tooltip" title="Health Check"
+												- if pizza_preset.vegan?
+													img.subcat-icn src="/assets/ui/icn_vegan.png" align="top" data-toggle="tooltip" rel="tooltip" title="Vegan"
+												
+
+											p.category-subtitle 
+												//span.bold = "#{number_to_currency(pizza_preset.current_size_price)} - "
+												span.bold = "#{pizza_preset.calories}"
+												//span.pizza-size-text = "#{pizza_preset.product_info['pizza_size'].try(:titleize)} Size"
+
+										div.quantity-card.cart-wrapper
+											div.categories-cart-quantity data_id="#{index}"
+												.box-border.border-black.qty-border
+													= image_tag "ui/minus.png", class: 'minus_pizza minus' 
+													input type="hidden" name="pizza_preset_id_#{index}" id="pizza_preset_id_#{index}" value="#{pizza_preset.id}"
+													input name="item_qty_#{index}" id="item_qty_#{index}" value="1"
+													= image_tag "ui/plus.png", class: 'plus_pizza plus'
+
+									- if pizza_preset.description != nil && pizza_preset.description.present?
+										div
+											p.ingredients
+												span = pizza_preset.description.try(:html_safe)
+												span.bold.hide = " - #{pizza_preset.calories}"
+										
+											
+									- else
+										div
+										p.ingredients 
+											span = pizza_preset.toppings.to_sentence(:last_word_connector => ' and ').try(:html_safe)
+											span.bold.hide = " - #{pizza_preset.calories}"
+										
+
+									- if pizza_preset.nut_free?
+										div.text-center.m-b-20
+											span.label.blue Nut Free
+									div.price_difference_list
+
+										ul.category_pizza_sizes	
+											//- binding.pry
+											- if pizza_preset.pizza_category && pizza_preset.pizza_category.slug === "gluten-free"
+													-	pizza_preset.price_difference_list_gluten_free.each do |pizza_size_price|
+														li
+															span.left 
+																div.radio
+																	- if pizza_size_price["size_name"] === "gluten_free_small"
+																		input type="radio" class="category_size_upgrade_btn" name='category_pizza_size_upgrade_#{index}' value='#{pizza_size_price["size_name"]}' id='category_pizza_size_upgrade_#{index}_#{pizza_size_price["size_name"]}'  checked="" data-pizza-id="#{index}"
+																	- else
+																		input type="radio" class="category_size_upgrade_btn" name='category_pizza_size_upgrade_#{index}' value='#{pizza_size_price["size_name"]}' id='category_pizza_size_upgrade_#{index}_#{pizza_size_price["size_name"]}'	data-pizza-id="#{index}"	
+																	label for='category_pizza_size_upgrade_#{index}_#{pizza_size_price["size_name"]}'  = pizza_size_price['size_external_name'].html_safe
+															
+															span.right = pizza_size_price["price_difference"] >= 0 ? "#{number_to_currency(pizza_size_price["price_difference"])}" : number_to_currency(pizza_size_price["price_difference"])
+											- else
+													-	pizza_preset.price_difference_list.each do |pizza_size_price|
+														li
+															span.left 
+																div.radio
+																	- if pizza_preset.product_info['pizza_size'] === pizza_size_price["size_name"]
+																		input type="radio" class="category_size_upgrade_btn" name='category_pizza_size_upgrade_#{index}' value='#{pizza_size_price["size_name"]}' id='category_pizza_size_upgrade_#{index}_#{pizza_size_price["size_name"]}'  checked="" data-pizza-id="#{index}"
+																	- else
+																		input type="radio" class="category_size_upgrade_btn" name='category_pizza_size_upgrade_#{index}' value='#{pizza_size_price["size_name"]}' id='category_pizza_size_upgrade_#{index}_#{pizza_size_price["size_name"]}'	data-pizza-id="#{index}"	
+																	label for='category_pizza_size_upgrade_#{index}_#{pizza_size_price["size_name"]}'  = pizza_size_price['size_external_name'].html_safe
+															
+															span.right = pizza_size_price["price_difference"] >= 0 ? "#{number_to_currency(pizza_size_price["price_difference"])}" : number_to_currency(pizza_size_price["price_difference"])
+										
+									div.bottom-button.customize-button
+
+										= link_to "CUSTOMIZE", "javascript:void(0)", :class => "button mobile-card-btn new-custom-button custom-white-button add_to_cart_customize", :data_slug => "#{pizza_preset.slug}", :data_id => "#{index}" , :data_size => "#{pizza_preset.product_info['pizza_size']}" 
+										= link_to "ADD TO ORDER", "javascript:void(0)", :class => "button default mobile-card-btn new-custom-button add_to_cart_point_details", :data_slug => "#{pizza_preset.slug}", :data_id => "#{index}", :data_size => "#{pizza_preset.product_info['pizza_size']}", :data_show_cannoli_popup => "#{@show_cannoli_popup}"
+
+										/ = link_to "CUSTOMIZE", orders_path(:pizza_preset_id => pizza_preset.id), :class => "button mobile-card-btn new-custom-button custom-white-button"
+										/ = link_to "ADD TO ORDER", details_path, :class => "button default mobile-card-btn new-custom-button"
+								
+					

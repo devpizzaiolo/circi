@@ -1,0 +1,75 @@
+.page-header
+	h1 Order Summary
+	h3= "Order No: #{@order.order_number}"
+	
+br
+
+= render(:partial => 'orders/shopping_cart_table')
+
+- if !@order.order_additional.blank? && @order.order_additional['catering_order'] == "1"
+	h4.text-info="Note, This is a Catering Order for #{@order.order_additional['catering_order_group_number']} people."
+	hr
+
+- unless @order.special_instructions.blank?
+	h3 Special Instructions
+	= @order.special_instructions
+	
+	hr
+
+.row
+	.span12
+		
+		.row
+		
+			.span6
+
+				h3 Order Location
+				p You ordered from:
+				p
+					strong=@order.franchise_location.address
+					p					
+						span.hidden-phone= @order.franchise_location.phone
+						span.visible-phone= "#{link_to @order.franchise_location.phone, "tel:#{@order.franchise_location.phone.delete('-')}"}"
+			
+			.span6
+				br
+				.padded_box
+
+					- if @order.for_pickup
+						p
+							| Your order will be ready for pickup at:
+							br
+							strong = l(@order.to_be_ready_at, :format => :long_wam)
+		
+					- else
+	
+						p
+							| Your order will be delivered by:
+							br
+							strong = l(@order.to_be_ready_at, :format => :long_wam)
+							
+						p
+							| Delivering to:
+							br
+							strong
+								= @order.delivery_address_1
+								br
+								-unless @order.delivery_address_2.blank?
+									= @order.delivery_address_2
+									br
+								= @order.delivery_city
+								br
+								= @order.delivery_postal_code
+								br
+							
+							
+				br
+				br
+				
+.row
+	.span12.text-center
+		
+		= link_to "Go Back", customers_path, :class => 'btn'
+		= ' '
+		= link_to "Order This", customers_orders_new_order_from_old_path(@order.id), :class => 'btn btn-primary'
+

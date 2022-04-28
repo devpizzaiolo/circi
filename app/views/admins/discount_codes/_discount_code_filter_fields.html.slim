@@ -1,0 +1,8 @@
+.nested-fields
+	=f.input :id, as: :hidden
+	=f.input :filter_type, :prompt => "Select Filter Type", collection: [['Toppings', 'toppings'], ['Email', 'email'], ['Franchise Location', 'franchise_location']], :required => true
+	=f.input :toppings, :prompt => "Select Toppings", collection: Topping.where(:active => true).map {|top| [top.name, top.id]}, input_html: { multiple: true, style: "height: 120px;" }, include_blank: false, include_hidden: false
+	=f.input :email
+	=f.input :franchise_location_id, :label => "Franchise Location", :prompt => "Select Franchise Location", collection: FranchiseLocation.where(:active => true).map {|fl| [fl.address, fl.id]}
+	=f.input :active
+	= link_to_remove_association "Remove Discount Code Filter", f, :class => "btn"

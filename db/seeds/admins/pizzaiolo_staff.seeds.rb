@@ -1,0 +1,3 @@
+# create admins for pizzaiolo
+Admin.create(first_name: 'Luigi', :last_name => "Petrella", :email => "luigi@pizzaiolo.ca", :password => "LoTLGVpSZwulx6Sx0w", :edit_products => false, :view_stats => false, :view_customers => false, :edit_admins => false)
+Admin.create(first_name: 'Alida', :last_name => "Petrella", :email => "online@pizzaiolo.ca", :password => "9Lh9fDOVBumdqpadqo", :edit_products => false, :view_stats => false, :view_customers => false, :edit_admins => false)

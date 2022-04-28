@@ -1,0 +1,2 @@
+server "23.253.89.111:50000", :app, :web, :db, :primary => true
+set :deploy_to, "/home/administrator/www/www.pizzaiolo.ca"

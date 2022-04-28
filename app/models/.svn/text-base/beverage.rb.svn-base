@@ -1,0 +1,15 @@
+class Beverage < ActiveRecord::Base
+  
+  after_update :expire_fragments
+  after_create :expire_fragments
+  
+  attr_accessible :name, :pop_and_spring_water, :bottles_and_premium_drinks, :price, :active
+  
+  
+  private
+  
+    def expire_fragments
+      expire_fragment('beverages')
+    end
+  
+end

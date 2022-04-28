@@ -1,0 +1,26 @@
+.page-header
+	h1 Salads
+	
+table.table
+	thead
+		tr
+			th Name
+			th 
+			th Show in Menu
+			th Options
+	tbody
+		- @salads.each do |salad|
+			
+			tr
+				td= salad.name
+				td= image_tag salad.product_image.thumbnail.url
+				td
+					- if salad.active?
+						| Yes
+					- else
+						| No
+				td 
+					= link_to "Edit", edit_admins_salad_path(salad.id), :class => "btn btn-mini"
+					= link_to "Delete", admins_salad_path(salad.id), :class => "btn btn-mini", :method => :delete
+	
+= link_to "New Pizza", new_admins_salad_path

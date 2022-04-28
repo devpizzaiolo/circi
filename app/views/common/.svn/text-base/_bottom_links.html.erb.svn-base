@@ -1,0 +1,8 @@
+<div class="bottom_links">
+<%= link_to "About Pizzaiolo", page_path('about_pizzaiolo') %>
+<%= link_to "Franchise Opportunities", page_path('franchise_opportunities') %>
+<%= link_to "Careers", page_path('careers') %>
+<%= link_to "Customer Service", new_customer_service_path %>
+<%= link_to "Community Involvement", page_path('community_involvement') %>
+<%= link_to "Nutritional Information", page_path('nutritional_information') %>
+</div>

@@ -1,0 +1,129 @@
+.clearfix
+	.past-order-summary-wrapper
+		- @order.order_items.each do |order_item|
+			div.past-order-summary.past-order-items-summary
+					- cache [@order, order_item, 'shopping_cart_order_item'] do 
+						div.past-order-items
+							= order_item.item_short_title.html_safe
+						p = raw "Quantity: #{order_item.quantity}"
+						div.item-details
+								- if order_item.product_info['product_type'] != "calzone"
+									- selected_toppings=order_item.toppings_1
+									- if selected_toppings.count > 0
+										- if selected_toppings.any? { |s| s.include?('Whole Pizza') }
+											p
+												strong Whole Pizza:
+											- selected_toppings.each do |t|
+												- if t.include?('Whole Pizza') then
+													span
+														= raw "#{t[11..-1]} </br>"
+										- if selected_toppings.any? { |s| s.include?('Left Side') }
+											p.m-t-20
+												strong Left Side:
+											- selected_toppings.each do |t|
+												- if t.include?('Left Side') then
+													span
+														= raw "#{t[9..-1]} </br>"
+										- if selected_toppings.any? { |s| s.include?('Right Side') }
+											p.m-t-20
+												strong Right Side:
+											- selected_toppings.each do |t|
+												- if t.include?('Right Side') then
+													span
+														= raw "#{t[10..-1]} </br>"
+									- else
+										= raw "#{pluralize(0, 'topping')}"
+									- @pizza_preset = PizzaPreset.find(order_item[:product_info]['pizza_preset_id'])
+									- if @pizza_preset.present? && @pizza_preset.is_product_combo
+											div.mb-3
+												- @product_combo = ProductCombo.find(@pizza_preset.product_combo_id)
+												- @additional_items_names = @product_combo.categories_of_additional_items.split(',')
+												- @beverages_additional_items = @product_combo.beverages_additional_items.split(',')
+												- if order_item.product_info["order_additional"] && order_item.product_info["order_additional"].count > 0
+													p.strong.m-t-10 
+														| Additional
+
+													- if order_item.product_info["order_additional"]['dipping_sauces'] && order_item.product_info["order_additional"]['dipping_sauces'].count > 0															
+														- order_item.product_info["order_additional"]['dipping_sauces'].each do |dipping_sauce|
+															- if dipping_sauce[1].to_i > 0
+																p
+																	strong = "- #{get_dipping_sauce_name(dipping_sauce[0])} Dipping Sauce"
+																	= " "
+																	small
+																		= "x #{dipping_sauce[1]}"
+
+													- if order_item.product_info["order_additional"]['beverages'] && order_item.product_info["order_additional"]['beverages'].count > 0															
+														- order_item.product_info["order_additional"]['beverages'].each do |beverage|
+															- if beverage[1].to_i > 0
+																p
+																	strong = "- #{get_beverage_name(beverage[0])}"
+																	= " "
+																	small
+																		= "x #{beverage[1]}"
+								- else
+									- if order_item.toppings.count > 0
+										= raw "#{pluralize(order_item.num_paid_toppings, 'topping')}: <p>#{order_item.toppings.to_sentence(:last_word_connector => ' ')}</p>"
+
+						
+		- unless @order.order_additional.blank?
+			div.past-order-summary.past-order-items-summary
+				- if @order.order_additional['catering_order'] == "1"
+					p.static-header.green.m-0 Catering Order
+					p.regular-p (#{@order.order_additional['catering_order_group_number']} people)
+
+				- else
+					p.static-header.green Additional Items
+				// dipping sauces
+				- @order.order_additional['dipping_sauces'] && @order.order_additional['dipping_sauces'].each do |dipping_sauce|
+					- if dipping_sauce[1].to_i > 0
+						- cache [@order, dipping_sauce, 'shopping_cart_dipping_sauces_info'] do
+							p.item-title 
+								= "#{get_dipping_sauce_name(dipping_sauce[0])} Dipping Sauce"
+								span = " x #{dipping_sauce[1]}"
+				
+				// beverages
+				- @order.order_additional['beverages'] && @order.order_additional['beverages'].each do |beverage|
+					- if beverage[1].to_i > 0
+							- cache [@order, beverage, 'shopping_cart_beverages_info'] do
+								p.item-title
+									= get_beverage_name(beverage[0])
+									span = " x #{beverage[1]}"
+
+				// salads
+				- @order.order_additional['salads'] && @order.order_additional['salads'].each do |salad|
+					- if salad[1].to_i > 0
+						- cache [@order, salad, 'shopping_cart_salads_info'] do
+							p.item-title
+								= get_salad_name(salad[0])
+								span = " x #{salad[1]}"
+
+				// garlic_breads
+				- if  @order.order_additional['garlic_breads']
+					- @order.order_additional['garlic_breads'] && @order.order_additional['garlic_breads'].each do |garlic_bread|
+						- if garlic_bread[1].to_i > 0
+							- cache [@order, garlic_bread, 'shopping_cart_garlic_breads_info'] do
+								p.item-title
+									= get_garlic_bread_name(garlic_bread[0])
+									span = " x #{garlic_bread[1]}"			
+						
+				// desserts
+				- if @order.order_additional['catering_order'] == "1"
+					- @order.order_additional['desserts'] && @order.order_additional['desserts'].each do |dessert|
+						- if dessert[1].to_i > 0
+							- cache [@order, dessert, 'shopping_cart_desserts_info'] do
+								p.item-title 
+									= "#{get_dessert_name(dessert[0])}"
+									span = " x #{dessert[1]}"
+											
+				// utensils
+				- if @order.order_additional['catering_order'] == "1"
+					- @order.order_additional['utensils'] && @order.order_additional['utensils'].each do |utensil|
+						- if utensil[1].to_i > 0
+							- cache [@order, utensil, 'shopping_cart_utensils_info'] do								
+								p.item-title
+									= "#{get_utensil_name(utensil[0])}"
+									span = " x #{utensil[1]}"
+	
+	- if @order.items_unavailable > 0
+		div.body-container
+			p.regular-p Note: Some items are no longer offered on our menu, so the re-order function may not be available on this order

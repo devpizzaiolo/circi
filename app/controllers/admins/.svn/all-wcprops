@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/pizzaioloca/!svn/ver/272/trunk/pizzaiolo.ca/app/controllers/admins
+END
+ad_boxes_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/pizzaioloca/!svn/ver/199/trunk/pizzaiolo.ca/app/controllers/admins/ad_boxes_controller.rb
+END
+flyers_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/pizzaioloca/!svn/ver/121/trunk/pizzaiolo.ca/app/controllers/admins/flyers_controller.rb
+END
+salads_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/pizzaioloca/!svn/ver/226/trunk/pizzaiolo.ca/app/controllers/admins/salads_controller.rb
+END
+yesterdays_orders_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/pizzaioloca/!svn/ver/221/trunk/pizzaiolo.ca/app/controllers/admins/yesterdays_orders_controller.rb
+END
+admins_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/pizzaioloca/!svn/ver/272/trunk/pizzaiolo.ca/app/controllers/admins/admins_controller.rb
+END
+franchise_locations_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/pizzaioloca/!svn/ver/150/trunk/pizzaiolo.ca/app/controllers/admins/franchise_locations_controller.rb
+END
+calzone_presets_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/pizzaioloca/!svn/ver/108/trunk/pizzaiolo.ca/app/controllers/admins/calzone_presets_controller.rb
+END
+order_printer_status_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/pizzaioloca/!svn/ver/257/trunk/pizzaiolo.ca/app/controllers/admins/order_printer_status_controller.rb
+END
+todays_orders_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/pizzaioloca/!svn/ver/220/trunk/pizzaiolo.ca/app/controllers/admins/todays_orders_controller.rb
+END
+pizza_presets_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/pizzaioloca/!svn/ver/108/trunk/pizzaiolo.ca/app/controllers/admins/pizza_presets_controller.rb
+END
+products_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/app/controllers/admins/products_controller.rb
+END
+toppings_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/pizzaioloca/!svn/ver/108/trunk/pizzaiolo.ca/app/controllers/admins/toppings_controller.rb
+END

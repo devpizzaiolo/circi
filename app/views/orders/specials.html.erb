@@ -1,0 +1,52 @@
+<% meta title: "Pizzaiolo | Gourmet Pizzeria | Specials",
+    description: "Get gourmet pizza made with the freshest ingredients daily. Check out our specials. Order today!",
+    keywords: "Pizzaiolo Gourmet Pizza, Fresh Ingredients, Dinner Specials, Pizza Specials, Delivery, Takeout"
+%>
+<%
+	content_for(:heading) {("Specials").html_safe}
+  content_for(:description) {""}
+  content_for(:body_class) {"specials_page"}
+%>
+
+<div class="">
+  <div class="hero-banner banner-border">
+    <div class="">
+      <a class="pp-offer-banner" href="/orders/deals/pepperoni-special?deal_id=pepperoni-special-<%=rand 2500..9999999=%>">
+        <div class="pepperoni-pizza-bg pp-bg-special-page"></div>
+        <img src="/assets/new_design/pepperoni-pizza-mobile.jpg" class="pp-bg-special-mobile-page">
+      </a>
+    </div>
+  </div>
+  <div class="hero-banner banner-border">
+    <div class="hero-banner-bg">
+      <div class="banner-content">
+        <div class="hero-title">Delivery <br/> Special</div>
+        <div class="offer-details">
+          <div>LARGE GOURMET</div> 
+          <div>2 TOPPING PIZZA</div>
+          <div><span>+</span> 2 <span>FREE</span> POP <span class="pop-size">(355ml)</span> or 2 <span>FREE</span> DIPS</div>
+          <div><sup>$</sup>14<sup>99</sup></div>
+          <div><%= link_to "Order Now", "/orders/deals/delivery-special", { :class=>"btn-green" } %></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-banner ">
+    <div class="pickup-special-banner-bg">
+      <div class="banner-logo">
+        <img src="/assets/new_design/brand.svg" alt="">
+      </div>
+      <div class="banner-content">
+        <div class="hero-title">PICKUP <br/> SPECIAL</div>
+        <div class="offer-details">
+          <div class="pizza-size">MEDIUM GOURMET</div> 
+          <div class="pizza-toopings">2 TOPPING PIZZA</div>
+          <div class="pizza-price"><sup>$</sup>11<sup>99</sup></div>
+          <div class="offer-details-btn"><%= link_to "Order Now", "/orders/deals/pickup-special", { :class=>"btn-green" } %></div>
+          <div class="pizza-toopings pickup-special" style="font-size: 16px;">PICKUP ONLY</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>

@@ -1,0 +1,185 @@
+module ApplicationHelper
+  
+  # GEO-Caching
+  
+  def geo_code(postcode)
+
+    # remove spaces and such from the postal code
+    postcode_to_save_and_check = postcode.downcase.delete(' ')
+    
+    # check to see if it exists in the database
+    @post_code = PostCode.where(:postcode => postcode_to_save_and_check).first
+    
+    if @post_code && @post_code.updated_at > 90.days.ago
+      # use the postal code from the database
+      return [@post_code.latitude.to_f, @post_code.longitude.to_f]
+    else
+      # lookup via Google
+      loc = Geocoder.coordinates(postcode_to_save_and_check)
+      if loc.nil?
+        # could not geocode location
+        return nil
+      else
+        # geocoding location ...
+        # Create new postalcode record
+        @post_code = PostCode.find_by_postcode(postcode_to_save_and_check) || PostCode.new(:postcode => postcode_to_save_and_check)
+        if @post_code.update_attributes(:latitude => loc[0], :longitude => loc[1])
+          # Found location and added to DB
+          return [@post_code.latitude.to_f, @post_code.longitude.to_f]
+        else
+          # Could not geocode location OR problem savin to the database
+          return nil
+        end
+      end
+    end
+    
+  end
+  
+  # PRINTING
+  
+  def print_format_keypair(item1,item2)
+    divider = "                                          "
+    total_width_chars = 39
+    divider_length = total_width_chars - item1.length - item2.length
+    divider_concat = " #{divider.to(divider_length)} "
+    return "#{item1}#{divider_concat}#{item2}"
+  end
+  
+  def email_format_keypair(item1,item2)
+    return "#{item1} #{item2}"
+  end
+  
+  # BEVERAGES
+  def get_beverage_name(id_name)
+    id = id_name.gsub(/[^0-9]/i, '')
+    Beverage.find(id.to_i).name
+  end
+  
+  def get_beverage_price(id_name)
+    id = id_name.gsub(/[^0-9]/i, '')
+    Beverage.find(id.to_i).price
+  end
+  
+  def get_beverage_price_total(id_name,num)
+    id = id_name.gsub(/[^0-9]/i, '')
+    Beverage.find(id.to_i).price * num.to_i
+  end
+  
+  
+  
+  
+  # DESSERTS
+  def get_dessert_name(id_name)
+    id = id_name.gsub(/[^0-9]/i, '')
+    Dessert.find(id.to_i).name
+  end
+  
+  def get_dessert_price(id_name)
+    id = id_name.gsub(/[^0-9]/i, '')
+    Dessert.find(id.to_i).price
+  end
+  
+  def get_dessert_price_total(id_name,num)
+    id = id_name.gsub(/[^0-9]/i, '')
+    Dessert.find(id.to_i).price * num.to_i
+  end
+  
+  
+  # UTENSILS
+  def get_utensil_name(id_name)
+    id = id_name.gsub(/[^0-9]/i, '')
+    Utensil.find(id.to_i).name
+  end
+  
+  
+  
+  # DIPPING SAUCES
+  def get_dipping_sauce_name(id_name)
+    id = id_name.gsub(/[^0-9]/i, '')
+    DippingSauce.find(id.to_i).name
+  end
+  
+  def get_dipping_sauce_price(id_name)
+    id = id_name.gsub(/[^0-9]/i, '')
+    DippingSauce.find(id.to_i).price
+  end
+  
+  def get_dipping_sauce_price_total(id_name,num)
+    id = id_name.gsub(/[^0-9]/i, '')
+    DippingSauce.find(id.to_i).price * num.to_i
+  end
+  
+  
+  
+  
+  
+  
+  # SALADS
+  def get_salad_name(id_name)
+    id = id_name.gsub(/[^0-9]/i, '')
+    Salad.find(id.to_i).name
+  end
+  
+  
+  def get_salad_price(order,id_name)
+    
+    @order = order
+    
+    id = id_name.gsub(/[^0-9]/i, '')
+
+    
+    if @order.order_additional.blank? || @order.order_additional['catering_order'] == "0"
+      
+      # get prices based on normal order
+      Salad.find(id.to_i).price
+      
+    else
+        
+      case @order.order_additional['catering_order_group_number']
+      when "1-5"
+        Salad.find(id.to_i).price_one_to_five
+      when "6-19"
+        Salad.find(id.to_i).price_six_to_nineteen
+      when "20+"
+        Salad.find(id.to_i).price_twenty_plus
+      else
+        Salad.find(id.to_i).price
+      end
+      
+    end
+    
+    
+  end
+  
+  
+  def get_salad_price_total(order,id_name,num)
+    
+    @order = order
+    
+    id = id_name.gsub(/[^0-9]/i, '')
+    
+    if @order.order_additional.blank? || @order.order_additional['catering_order'] == "0"
+      
+      # get prices based on normal order
+      Salad.find(id.to_i).price * num.to_i
+      
+    else
+        
+      case @order.order_additional['catering_order_group_number']
+      when "1-5"
+        Salad.find(id.to_i).price_one_to_five * num.to_i
+      when "6-19"
+        Salad.find(id.to_i).price_six_to_nineteen * num.to_i
+      when "20+"
+        Salad.find(id.to_i).price_twenty_plus * num.to_i
+      else
+        Salad.find(id.to_i).price * num.to_i
+      end
+      
+    end
+    
+  end
+  
+  
+    
+end

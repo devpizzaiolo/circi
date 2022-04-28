@@ -1,0 +1,374 @@
+#additional_items
+ 
+.body-container.row.body-container-order.additional-items
+	.col-md-12 
+		.clearfix
+			.row.catering-order-header.hide
+				.half-tablet.radio-btn-box.col-6
+					div.static-header.green.m-t-0 Is this a catering order?3333s
+					.checkbox-container.inline
+						- if !@order.order_additional.blank? && @order.order_additional['catering_order'] == "1"
+							//input type="radio" class="catering_order_boolean" name="order[order_additional][catering_order]" value="1" checked="checked"
+							//label Yes
+							div.radio-btn
+								input type="radio" id="order-page-yes-1" class="catering_order_boolean radito-input" name="order[order_additional][catering_order]" value="1" checked="checked"
+								label for="order-page-yes-1" Yes
+						- else
+							//input type="radio" class="catering_order_boolean" name="order[order_additional][catering_order]" value="1"
+							//label Yes
+							div.radio-btn
+								input type="radio" id="order-page-yes-2" class="catering_order_boolean radito-input" name="order[order_additional][catering_order]" value="1" 
+								label for="order-page-yes-2" Yes
+
+					.checkbox-container.inline
+						- if !@order.order_additional.blank? && @order.order_additional['catering_order'] == "0"
+							//input type="radio" class="catering_order_boolean" name="order[order_additional][catering_order]" value="0" checked="checked"
+							//label No
+							div.radio-btn
+								input type="radio" id="order-page-no1" class="catering_order_boolean radito-input" name="order[order_additional][catering_order]" value="0" checked="checked"
+								label for="order-page-no1" No
+						- else
+							//input type="radio" class="catering_order_boolean" name="order[order_additional][catering_order]" value="0" 
+							//label No
+							div.radio-btn
+								input type="radio" id="order-page-no2" class="catering_order_boolean radito-input" name="order[order_additional][catering_order]" value="0" 
+								label for="order-page-no2" No
+							
+				- if !@order.order_additional.blank? && @order.order_additional['catering_order'] == "1"
+					.half-tablet.show_catering_items
+						div.static-header.green.inline Group size
+						select#catering_order_group_number name="order[order_additional][catering_order_group_number]" class="additional_items_form select-input inline"
+							- if !@order.order_additional.blank? && @order.order_additional['catering_order'] == "1" && @order.order_additional['catering_order_group_number'] == "1-5"
+								option value="1-5" selected="" 1-5
+							- else
+								option value="1-5" 1-5
+							- if !@order.order_additional.blank? && @order.order_additional['catering_order'] == "1" && @order.order_additional['catering_order_group_number'] == "6-19"
+								option value="6-19" selected="" 6-19
+							- else
+								option value="6-19" 6-19
+							- if !@order.order_additional.blank? && @order.order_additional['catering_order'] == "1" && @order.order_additional['catering_order_group_number'] == "20+"
+								option value="20+" selected="" 20+
+							- else
+								option value="20+" 20+
+							
+				- else
+					.half-tablet.show_catering_items.hideit.col-6
+						div.static-header.green.inline Group size
+						select#catering_order_group_number name="order[order_additional][catering_order_group_number]" class="additional_items_form select-input inline"
+							option value="1-5"
+								| 1-5
+							option value="6-19"
+								| 6-19
+							option value="20+"
+								| 20+
+
+
+			#Dipping
+				.home-content-panel.mobile-home-content
+					.row
+						.col-12.col-sm-8.offset-sm-4
+							h2 Dipping<br> Sauces.
+							p Add some zest to your Pizzaiolo favorite.
+					
+				.row
+					- @dipping_sauces.each do |dipping_sauce|
+						.col-md-3.col-12
+							.order-item-row.dipping-item-row
+								div.item_image
+									= image_tag "/assets/new_design/additional/#{dipping_sauce.name.downcase}.png"
+								div.card-details
+									.left-cell
+										= "#{dipping_sauce.name} "
+										small.align-price.item-price.muted= "#{number_to_currency(dipping_sauce.price)} ea."
+										- unless dipping_sauce.description.blank?
+											small.align-price.muted= "#{dipping_sauce.description}"
+									.right-cell
+										- num_ordered = 0
+										- unless @order.order_additional.blank?
+											- num_ordered = @order.order_additional['dipping_sauces']['dipping_sauce_' + dipping_sauce.id.to_s]
+										.box-border
+											= image_tag "ui/minus.png", class: 'minus'
+											input name="order[order_additional][dipping_sauces][dipping_sauce_#{dipping_sauce.id}]" value="#{num_ordered}" class="span1 validate[required,custom[integer]] additional_items_form"
+											= image_tag "ui/plus.png", class: 'plus'
+									
+
+
+			
+			#Bottles
+					
+				div.static-header.green 
+				.home-content-panel.page-sub-title
+					.row
+						.col-12.col-sm-8.offset-sm-4
+							h2 POP & JUICE
+				.row
+					- @beverages.where(:active => true, :pop_and_juice => true).order("sort_order asc").each do |beverage|
+						.col-md-3.col-12
+							.order-item-row.dipping-item-row
+								div.item_image
+									= image_tag beverage.product_image.url
+								div.card-details data-sort="#{beverage.sort_order}"	
+									.left-cell
+										= "#{beverage.name} "
+										small.align-price.item-price.muted
+											= "#{number_to_currency(beverage.price)} ea."
+											- if beverage.extra_info && beverage.extra_info
+													small.align-extra = "(#{beverage.extra_info})"	
+									.right-cell
+										- num_ordered = 0
+										- unless @order.order_additional.blank?
+											- num_ordered = @order.order_additional['beverages']['beverage_' + beverage.id.to_s]
+										.box-border
+											= image_tag "ui/minus.png", class: 'minus'
+											input name="order[order_additional][beverages][beverage_#{beverage.id}]" value="#{num_ordered}" class="span1 validate[required,custom[integer]] additional_items_form"
+											= image_tag "ui/plus.png", class: 'plus'
+
+									
+					
+			#Pop	
+				.home-content-panel.page-sub-title
+					.row
+						.col-12.col-sm-8.offset-sm-4
+							h2 Water
+
+				.row
+					- @beverages.where(:active => true, :water => true).order("sort_order asc").each do |beverage|
+						.col-md-3.col-12
+							.order-item-row.dipping-item-row
+								div.item_image
+									= image_tag beverage.product_image.url
+								div.card-details data-sort="#{beverage.sort_order}"	
+									.left-cell
+										= "#{beverage.name} "
+										br.hidden-phone
+										small.align-price.item-price.muted 
+											= "#{number_to_currency(beverage.price)} ea."
+											- if beverage.extra_info && beverage.extra_info
+												small.align-extra = "(#{beverage.extra_info})"	
+									.right-cell
+										- num_ordered = 0
+										- unless @order.order_additional.blank?
+											- num_ordered = @order.order_additional['beverages']['beverage_' + beverage.id.to_s]
+										.box-border
+											= image_tag "ui/minus.png", class: 'minus'
+											input name="order[order_additional][beverages][beverage_#{beverage.id}]" value="#{num_ordered}" class="span1 validate[required,custom[integer]] additional_items_form"
+											= image_tag "ui/plus.png", class: 'plus'
+									
+			#Pop	
+				.home-content-panel.page-sub-title
+					.row
+						.col-12.col-sm-8.offset-sm-4
+							h2 Premium Drinks
+
+				.row
+					- @beverages.where(:active => true, :premium_drinks => true).order("sort_order asc").each do |beverage|
+						.col-md-3.col-12
+							.order-item-row.dipping-item-row
+								div.item_image
+									= image_tag beverage.product_image.url
+								div.card-details data-sort="#{beverage.sort_order}"	
+									.left-cell
+										= "#{beverage.name} "
+										br.hidden-phone
+										small.align-price.item-price.muted
+											= "#{number_to_currency(beverage.price)} ea."
+											- if beverage.extra_info && beverage.extra_info
+												small.align-extra = "(#{beverage.extra_info})"
+									.right-cell
+										- num_ordered = 0
+										- unless @order.order_additional.blank?
+											- num_ordered = @order.order_additional['beverages']['beverage_' + beverage.id.to_s]
+										.box-border
+											= image_tag "ui/minus.png", class: 'minus'
+											input name="order[order_additional][beverages][beverage_#{beverage.id}]" value="#{num_ordered}" class="span1 validate[required,custom[integer]] additional_items_form"
+											= image_tag "ui/plus.png", class: 'plus'
+									
+
+			#salads
+				.row
+					.home-content-panel.page-sub-title
+							.col-12.col-sm-8.offset-sm-4
+								h2.additional-item-page-title FRESH<br>SALADS
+								p.additional-item-content All of our salads are made daily on premise with fresh ingredients. Garden and Greco salads come with balsamic dressing.
+				.row.additional-item-row
+					- @salads.each do |salad|
+						.order-item-row
+							div.item_image
+								= image_tag salad.product_image.url
+							div.card-details
+								.left-cell
+										= "#{salad.name} "
+										small.muted.align-price.item-price id="salad_#{salad.id}_price"
+											= "#{number_to_currency(get_salad_price(@order, 'salad_' + salad.id.to_s))}"
+								.right-cell.qty-box
+									- num_ordered = 0
+									- unless @order.order_additional.blank?
+										- num_ordered = @order.order_additional['salads']['salad_' + salad.id.to_s]
+									.box-border
+										= image_tag "ui/minus.png", class: 'minus'
+										input name="order[order_additional][salads][salad_#{salad.id}]" id="salad_#{salad.id}" value="#{num_ordered}" class="span1 input_salad validate[required,custom[integer]] additional_items_form" data-price="#{number_to_currency(salad.price)}" data-price-one-to-five="#{number_to_currency(salad.price_one_to_five)}" data-price-six-to-nineteen="#{number_to_currency(salad.price_six_to_nineteen)}" data-price-twenty-plus="#{number_to_currency(salad.price_twenty_plus)}" data-salad-id="#{salad.id}"
+										= image_tag "ui/plus.png", class: 'plus'
+								
+
+				#garlic
+					.row
+						.home-content-panel.page-sub-title
+							.col-12.col-sm-8.offset-sm-4
+								h2.additional-item-page-title GARLIC BREAD
+					.row.additional-item-row
+						- @garlic_breads.each do |garlic_bread|
+							.order-item-row
+								div.item_image
+									= image_tag garlic_bread.product_image.url
+								div.card-details
+									.left-cell
+											= "#{garlic_bread.name} "
+											small.muted.align-price.item-price id="garlic_bread_#{garlic_bread.id}_price"
+												= "#{number_to_currency(get_garlic_bread_price(@order, 'garlic_bread_' + garlic_bread.id.to_s))}"
+												- if garlic_bread.extra_info && garlic_bread.extra_info
+													small.align-extra = "(#{garlic_bread.extra_info})"		
+									.right-cell.qty-box
+										- num_ordered = 0
+										- unless @order.order_additional.blank?
+											- num_ordered = @order.order_additional['garlic_breads'] ? @order.order_additional['garlic_breads']['garlic_bread_' + garlic_bread.id.to_s] : 0 
+										.box-border
+											= image_tag "ui/minus.png", class: 'minus'
+											input name="order[order_additional][garlic_breads][garlic_bread_#{garlic_bread.id}]" id="garlic_bread_#{garlic_bread.id}" value="#{num_ordered}" class="span1 input_garlic_bread validate[required,custom[integer]] additional_items_form" data-price="#{number_to_currency(garlic_bread.price)}" data-price-one-to-five="#{number_to_currency(garlic_bread.price_one_to_five)}" data-price-six-to-nineteen="#{number_to_currency(garlic_bread.price_six_to_nineteen)}" data-price-twenty-plus="#{number_to_currency(garlic_bread.price_twenty_plus)}" data-garlic-bread-id="#{garlic_bread.id}"
+											= image_tag "ui/plus.png", class: 'plus'
+									
+				#garlic
+					.row.cannoli-hide
+						.home-content-panel.page-sub-title
+							.col-12.col-sm-8.offset-sm-4
+								h2.additional-item-page-title Cannoli
+					.row.additional-item-row.cannoli-hide
+						- @cannolis.each do |cannoli|
+							.order-item-row
+								div.item_image
+									= image_tag cannoli.product_image.url
+								div.card-details
+									.left-cell
+											= "#{cannoli.name} "
+											small.muted.align-price.item-price id="cannoli_#{cannoli.id}_price"
+												= "#{number_to_currency(get_cannoli_price(@order, 'cannoli_' + cannoli.id.to_s))}"		
+									.right-cell.qty-box
+										- num_ordered = 0
+										- unless @order.order_additional.blank?
+											- num_ordered = @order.order_additional['cannolis'] ? @order.order_additional['cannolis']['cannoli_' + cannoli.id.to_s] : 0 
+										.box-border
+											= image_tag "ui/minus.png", class: 'minus'
+											input name="order[order_additional][cannolis][cannoli_#{cannoli.id}]" id="cannoli_#{cannoli.id}" value="#{num_ordered}" class="span1 input_cannoli validate[required,custom[integer]] additional_items_form" data-price="#{number_to_currency(cannoli.price)}" data-cannoli-id="#{cannoli.id}"
+											= image_tag "ui/plus.png", class: 'plus'
+				
+				#calzone.hide
+					div.static-header.green 
+					.home-content-panel.page-sub-title
+						.row
+							.col-12.col-sm-8.offset-sm-4
+								h2 CALZONE.
+
+					.media-list.order-pizza-card.row
+						- @calzones.each do |calzone_preset|
+
+								div.pizza-select.col-12.col-md-4.product_display.pizza_preset
+									.pizza-card
+										.product-image
+											= image_tag calzone_preset.calzone_image_flat.size_800.url
+										div.card-data.calzone
+											h2.card-title
+												= raw("#{calzone_preset.product_name}")
+											small.muted.align-price.item-price id="calzone_preset_#{calzone_preset.id}_price"
+												= "#{number_to_currency(calzone_preset.price)}"
+											/p.ingredients = calzone_preset.description
+
+											div.bottom-button
+												= link_to "ADD TO ORDER", orders_path(:calzone_preset_id => calzone_preset.id), :class => "button default mobile-card-btn"
+	
+			- if !@order.order_additional.blank? && @order.order_additional['catering_order'] == "1"
+				- hide = ""
+			- else
+				- hide = "hideit"
+			#Fruit.hide
+				.show_catering_items class="#{hide}"
+					.home-content-panel.page-sub-title
+						.row
+							.col-12.col-sm-8.offset-sm-4
+								h2 Fruit & Desserts
+					.row
+						- @desserts.each do |dessert|
+							.col-md-3.col-12
+								.order-item-row.dipping-item-row
+									div.item_image
+										= image_tag "/assets/new_design/additional/#{dessert.name.downcase}.png"
+									div.card-details
+										.left-cell
+											= dessert.name
+											br.hidden-phone
+											small.align-price.item-price.muted= "#{number_to_currency(dessert.price)}#{ if dessert.show_each? then ' ea.' end }"
+										- if dessert.multiple_of_12?
+											.right-cell.select
+												select name="order[order_additional][desserts][dessert_#{dessert.id}]" class="span2 additional_items_form select-input"
+													- sel_arr = [0,12,24,36,48,60,72,96]
+													- sel_arr.each do |sel|
+														= sel.to_s
+														- unless @order.order_additional.blank?
+															- if sel.to_s == @order.order_additional['desserts']['dessert_' + dessert.id.to_s]
+																option value="#{sel}" selected=""
+																	= sel.to_s
+															- else
+																option value="#{sel}"
+																	= sel.to_s
+														- else
+															option value="#{sel}"
+																	= sel.to_s	
+											.bottom-actions.bottom-order-btn.m-t-30.hidden-phone
+												button class="add_additional_to_order button default smaller"
+													| Order						
+										- else
+											.right-cell
+												.box-border
+													= image_tag "ui/minus.png", class: 'minus'
+													input name="order[order_additional][desserts][dessert_#{dessert.id}]" value="0" class="span1 additional_items_form"
+													= image_tag "ui/plus.png", class: 'plus'
+											.bottom-actions.bottom-order-btn.m-t-30.hidden-phone
+												button class="add_additional_to_order button default smaller"
+													| ADD TO ORDER
+			#Utensils.hide
+				.home-content-panel.page-sub-title
+					.row
+						.col-12.col-sm-8.offset-sm-4
+							h2 Utensils
+				.row
+					- @utensils.each do |utensil|
+						.col-md-3.col-12
+							.order-item-row.dipping-item-row
+								div.item_image
+									= image_tag "/assets/new_design/additional/#{utensil.name.downcase}.png"
+								div.card-details
+									.left-cell
+										= utensil.name
+										br.hidden-phone
+										small.align-price.item-price.muted no charge
+									.right-cell
+										- num_ordered = 0
+										- unless @order.order_additional.blank?
+											- num_ordered = @order.order_additional['utensils']['utensil_' + utensil.id.to_s]
+										.box-border
+											= image_tag "ui/minus.png", class: 'minus'
+											input name="order[order_additional][utensils][utensil_#{utensil.id}]" value="#{num_ordered}" class="span1 validate[required,custom[integer]] additional_items_form"
+											= image_tag "ui/plus.png", class: 'plus'
+									
+
+				.clear
+
+		
+	#order-summary-table.col-md-4.hide
+		.summary-container
+			#inline_calculator_order_additional	
+				= render(:partial => 'orders/inline_calculator_order_additional')
+			.bottom-actions.text-center
+				button class="cancel_add_additional_to_order button m-r muted smaller"
+					| Cancel
+
+				button class="add_additional_to_order button default smaller"
+					| Update

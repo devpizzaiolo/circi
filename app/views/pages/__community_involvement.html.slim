@@ -1,0 +1,34 @@
+- @header = "community_involvement"
+- @heading = "community_involvement"
+
+- meta title: "Pizzaiolo | Gourmet Pizza | Pizza Delivery Toronto | Pizza Donations",
+     description: "Pizzaiolo annual donation promotion, one dollar from every slice of pizza sold goes to a select charity. Toronto's best pizza, Toronto' best gourmet pizza, toronto pizza catering, toronto pizza company, pizza delivery Toronto, best pizza delivery Toronto. Non gmo pizza, nut free pizza.",
+     keywords: "Pizzaiolo Community Involvement"
+
+div.top-bar
+	h1
+		= link_to raw('&#8592;'), request.referer.present? ? request.referer : root_path
+		| Community Involvement
+		
+div.page-header.community
+
+div.body-container.nunito
+	.container
+		h2.static-header.m-t-0.visible-phone At Pizzaiolo, we are firm believers in contributing to our extended family - our community. By providing food or donations, we show we care by striving to brighten the lives of people around us.
+
+		h2.regular-p.text-center.hidden-phone.smaller.hidden-phone At Pizzaiolo, we are firm believers in contributing to our extended family - our community. By providing food or donations, we show we care by striving to brighten the lives of people around us.
+		.row
+			.span4.hidden-phone
+				img src="/assets/community_involvement/victoria.jpg" alt="Victoria"
+			.span8
+				p.regular-p Keep your eyes open for our annual donation promotion, where one dollar from every slice of pizza sold at all of our stores during lunch will go to a select charity.
+
+				p.regular-p We are proud to give to our main charity, Sick Kids, as well as provide food for many other charities and their events, including the United Way, the Canadian Cystic Fibrosis Foundation, and the Canadian Cancer Society.
+
+				p.regular-p We contribute to various elementary, high school, and university events, including Pizza Days and special events. We have also sponsored corporate events such as TD and RBC fundraisers.
+
+				p.regular-p We have been a proud pizza sponsor of the Toronto Santa Claus parade since 2005.
+
+				= mail_to "info@pizzaiolo.ca", "Invite Us", class: 'button default full visible-phone'
+				div.text-center.hidden-phone.m-t-30.text-center
+					= mail_to "info@pizzaiolo.ca", "Invite Us", class: 'button default half centered'

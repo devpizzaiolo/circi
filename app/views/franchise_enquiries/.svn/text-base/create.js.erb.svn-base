@@ -1,0 +1,10 @@
+<% if @fe_ok == true %>
+	$("#franchise_enquiry_form").hide();
+	$("#franchise_enquiry_form_error").hide();
+	$('form#new_franchise_enquiry').trigger("reset");
+	$("#franchise_enquiry_form_message").fadeIn();
+<% else %>
+	$("#franchise_enquiry_form").show();
+	$("#franchise_enquiry_form_error").show();
+	$("#franchise_enquiry_form_message").hide();
+<% end %>

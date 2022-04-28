@@ -1,0 +1,78 @@
+- if params[:id] == "catering"
+.row
+	.span12
+
+		.padded_box
+	
+			h3 Salads/Insalata
+		
+			p Fresh and healthy salads are the perfect companion to a great gourmet pizza. All our salads are made on the premises with fresh ingredients. Garden and Greco salads come with balsamic dressing.
+			
+			- if params[:id] == "catering"
+			
+				- cache('catering_salads') do
+			
+					table.table.pricing-table
+						thead
+							tr
+								th
+								th 1-5 People
+								th 6-19 People
+								th 20+ People
+						tbody
+							- Salad.where(:active => true).order("name ASC").each do |salad|
+								tr
+									td= salad.name
+									td= "#{number_to_currency(salad.price_one_to_five)} each"
+									td= "#{number_to_currency(salad.price_six_to_nineteen)} each"
+									td= "#{number_to_currency(salad.price_twenty_plus)} each"
+									
+- else
+
+	.row
+		.span12
+			
+			h3 Salads/Insalata
+	
+			p Fresh and healthy salads are the perfect companion to a great gourmet pizza. All our salads are made on the premises with fresh ingredients. Garden and Greco salads come with balsamic dressing.
+	
+			- cache('salads_modal') do
+	
+				- unless @salads
+					- @salads = Salad.where(:active => true)
+
+				- @salads.each do |salad|
+
+					div id="lightbox_salad_#{salad.id.to_s}" class="lightbox hide fade"  tabindex="-1" role="dialog" aria-hidden="true"
+						.lightbox-content
+							img src="#{salad.product_image.size_800.url}"
+							div.lightbox-caption
+								p= salad.name
+
+
+	.row
+	
+		.span12
+
+			.media-list
+			
+				- cache('salads_menu') do
+			
+					- @salads.each do |salad|
+
+						.media.product_display.salad
+
+							a.pull-left href="#lightbox_salad_#{salad.id.to_s}" data-toggle="lightbox"
+								= image_tag salad.product_image.size_300.url, :class => "img-polaroid"
+								
+							.media-body
+
+								h4
+									= "#{salad.name} "
+								p= salad.description
+								p
+									span.item_price= "#{number_to_currency(salad.price)}"
+
+
+								span=link_to "Order", orders_path(:side_order => 1), :class => "btn btn-primary pull-right"
+

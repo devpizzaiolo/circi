@@ -1,0 +1,41 @@
+.page-header
+	h1 Franchise Locations
+
+	
+table.table.table-striped
+
+	thead
+		tr
+			th Address
+			th Phone
+			th Area Name
+			th Latitude
+			th Longitude
+			th Boundaries
+			th
+			
+	tbody
+		- @franchise_locations.each do |location|
+			- count = 0
+			- unless location.kml.blank?
+				- count += 1
+			- unless location.kml_b.blank?
+				- count += 1
+				
+			tr
+				td
+					strong= location.address
+				td= location.phone
+				td= location.area_name
+				td= location.latitude
+				td= location.longitude			
+				td
+					- if count > 0
+						span.badge.badge-success= count
+					- else
+						span.badge.badge-important= count
+				td= link_to "edit", edit_admins_franchise_location_path(location.id)
+				
+hr
+
+= link_to "New Franchise Location", new_admins_franchise_location_path, :class => "btn btn-large btn-primary"

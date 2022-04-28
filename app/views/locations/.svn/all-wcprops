@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/pizzaioloca/!svn/ver/120/trunk/pizzaiolo.ca/app/views/locations
+END
+_selected_location.html.slim
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/pizzaioloca/!svn/ver/120/trunk/pizzaiolo.ca/app/views/locations/_selected_location.html.slim
+END
+index.html.slim
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/pizzaioloca/!svn/ver/120/trunk/pizzaiolo.ca/app/views/locations/index.html.slim
+END

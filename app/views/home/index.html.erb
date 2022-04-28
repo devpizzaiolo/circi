@@ -1,0 +1,175 @@
+<% content_for(:title) {"Welcome"} %>
+
+<% meta title: "Pizzaiolo | Toronto and GTA’s Gourmet Pizza | Takeout and Delivery",
+	description: "Pizzaiolo prides themselves on making fresh pizza with fresh ingredients daily. A wide selection of gourmet meat, veggie, vegan and Gluten-Free pizzas. Order today!",
+	keywords: "Pizzaiolo, Gourmet Pizza, Gluten Free, Pizza Delivery" %>
+
+<!--First Section Start-->
+<section class="greenborder"></section>
+<section class="home-section" style="background-image: url('/assets/new_design/Background pattern.jpg'); background-repeat: no-repeat; background-size: cover;">
+  <div class="home-category-thumb">
+    <div class="container mobile-container">
+      <div class="row no-gutters gridOrder gridCard main-menu">
+        <div class="food-category">
+          <a href="/orders/pizza/create-your-own-pizza">
+            <div class="card border-0 rounded-0 hc-block">
+              <img class="card-img rounded-0" src="/assets/new_design/thumb_customize.jpg" alt="Card image">
+              <div class="card-img-overlay d-flex align-items-center justify-content-center">
+                <h2 class="card-title">CUSTOMIZE</h2>
+              </div>
+            </div>
+          </a>
+        </div>  
+        <div class="food-category">
+          <a href="/orders/<%= @pizza_category[0].slug %>/categories">
+            <div class="card border-0 rounded-0 hc-block">
+              <img class="card-img rounded-0" src="/assets/new_design/thumb_meat.jpg" alt="Card image">
+              <div class="card-img-overlay d-flex align-items-center justify-content-center">
+                <h2 class="card-title">MEAT</h2>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="food-category">
+          <a href="/orders/<%= @pizza_category[1].slug %>/categories">
+            <div class="card border-0 rounded-0 hc-block">
+              <img class="card-img rounded-0" src="/assets/new_design/thumb_veggie.jpg" alt="Card image">
+              <div class="card-img-overlay d-flex align-items-center justify-content-center">
+                <h2 class="card-title">VEGGIE</h2>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="food-category">
+          <a href="/orders/<%= @pizza_category[2].slug %>/categories">
+            <div class="card border-0 rounded-0 hc-block">
+              <img class="card-img rounded-0" src="/assets/new_design/thumb_vegan.jpg" alt="Card image">
+              <div class="card-img-overlay d-flex align-items-center justify-content-center">
+                <h2 class="card-title">VEGAN</h2>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="food-category">
+          <a href="/orders/<%= @pizza_category[4].slug %>/categories">
+            <div class="card border-0 rounded-0 hc-block">
+              <img class="card-img rounded-0" src="/assets/new_design/new_gluten_Free.jpg" alt="Card image">
+              <div class="card-img-overlay d-flex align-items-center justify-content-center gulten_free_title">
+                <h2 class="card-title">Gluten Free & Cauliflower</h2>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="food-category">
+          <a href="/orders/<%= @pizza_category[5].slug %>/categories">
+            <div class="card border-0 rounded-0 hc-block">
+              <img class="card-img rounded-0" src="/assets/new_design/plant_based_thumb.jpg" alt="Card image">
+              <div class="card-img-overlay d-flex align-items-center justify-content-center">
+                <h2 class="card-title">Plant Based</h2>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!--div class="food-category">
+          <a href="/orders/calzone/baked-calzone">
+            <div class="card border-0 rounded-0 hc-block">
+              <img class="card-img rounded-0" src="/assets/new_design/calzones.jpg" alt="Card image">
+              <div class="card-img-overlay d-flex align-items-center justify-content-center">
+                <h2 class="card-title">CALZONES</h2>
+              </div>
+            </div>
+          </a>
+        </div-->
+      </div>
+      <div class="home-content-panel page-sub-title" style="">
+        <div class="row">
+          <div class="col-sm-8 offset-sm-4">
+            <h2>COMPLETE <br> Your MEAL</h2>
+          </div>
+        </div>
+      </div>
+      <div class="row no-gutters gridCard order-additional order-additional-mobile-style">
+        <div class="food-category calzones">
+          <a class="pizza_category" href="/orders/calzone/baked-calzone">
+            <div class="card border-0 rounded-0 hc-block">
+              <img alt="Drink_dips" src="/assets/new_design/calzones.jpg">
+              <div class="card-img-overlay d-flex align-items-center justify-content-center">
+                <h2 class="card-title">CALZONES</h2>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="food-category beverages">
+          <a href="/orders/additional_items#garlic">
+            <div class="card border-0 rounded-0 hc-block">
+              <img alt="Garlic_break" src="/assets/new_design/garlic_break.jpg">
+              <div class="card-img-overlay d-flex align-items-center justify-content-center">
+                <h2 class="card-title">GARLIC<br>BREAD</h2>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="food-category salads">
+          <a href="/orders/additional_items#salads">
+            <div class="card border-0 rounded-0 hc-block">
+              <img alt="Salad" src="/assets/new_design/salad.jpg">
+              <div class="card-img-overlay d-flex align-items-center justify-content-center">
+                <h2 class="card-title">SALADS</h2>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="food-category calzones">
+          <a class="pizza_category" href="/orders/additional_items#Bottles">
+            <div class="card border-0 rounded-0 hc-block">
+              <img alt="Drink_dips" src="/assets/new_design/drink_dips.jpg">
+              <div class="card-img-overlay d-flex align-items-center justify-content-center">
+                <h2 class="card-title">DRINKS</h2>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="food-category beverages">
+          <a href="/orders/additional_items#Dipping">
+            <div class="card border-0 rounded-0 hc-block">
+              <img alt="Dips-cat" src="/assets/new_design/dips-cat.jpg">
+              <div class="card-img-overlay d-flex align-items-center justify-content-center">
+                <h2 class="card-title">DIPS</h2>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="food-category Cater">
+          <a class="pizza_category" href="/orders/delicious_events">
+            <div class="card border-0 rounded-0 hc-block">
+              <img alt="Drink_dips" src="/assets/new_design/cater.jpg">
+              <div class="card-img-overlay d-flex align-items-center justify-content-center">
+                <h2 class="card-title">Catering</h2>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="home-content-panel home-content-layout">
+      <div class="row">
+        <div class="col-sm-2 hidden-mobile"> <img src="/assets/new_design/brand.svg" alt="" width="100px"> </div>
+        <div class="col-12 col-sm-7">
+          <h2>ARE YOU
+            READY
+            TO PIZZA?
+          </h2>
+          <p>Pizzaiolo has a wide selection<br> of  gourmet meat, veggie, <br> and vegan pizzas.  You can even design<br  class="hidden-mobile"> your own. All our pizzas are <br  class="hidden-mobile">available Gluten-free.</p>
+        </div>
+      </div>
+      <div class="row mobile-align">
+        <div class="col-sm-9 text-right"> 
+          <%= link_to "Order", '/orders/menu', { :class=>"btn-green" } %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--First Section End-->

@@ -1,0 +1,21 @@
+current directory: /Users/manpreetnarang/Sites2/pizzaiolo.ca/gems/bcrypt-ruby-3.0.1/ext/mri
+/System/Library/Frameworks/Ruby.framework/Versions/2.6/usr/bin/ruby -I /System/Library/Frameworks/Ruby.framework/Versions/2.6/usr/lib/ruby/2.6.0 -r ./siteconf20210108-35852-vuyqsr.rb extconf.rb
+creating Makefile
+
+current directory: /Users/manpreetnarang/Sites2/pizzaiolo.ca/gems/bcrypt-ruby-3.0.1/ext/mri
+make "DESTDIR=" clean
+
+current directory: /Users/manpreetnarang/Sites2/pizzaiolo.ca/gems/bcrypt-ruby-3.0.1/ext/mri
+make "DESTDIR="
+compiling bcrypt_ext.c
+bcrypt_ext.c:27:19: error: implicit declaration of function 'ruby_bcrypt' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
+    return (VALUE)ruby_bcrypt(args->output, args->key, args->salt);
+                  ^
+bcrypt_ext.c:27:19: note: did you mean 'ruby_script'?
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.1.sdk/System/Library/Frameworks/Ruby.framework/Versions/2.6/usr/include/ruby-2.6.0/ruby/ruby.h:2666:6: note: 'ruby_script' declared here
+void ruby_script(const char* name);
+     ^
+1 error generated.
+make: *** [bcrypt_ext.o] Error 1
+
+make failed, exit code 2

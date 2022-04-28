@@ -1,0 +1,76 @@
+- @header = "catering"
+- @heading = "catering"
+- @parent = "catering_page"
+
+- meta title: "Pizzaiolo | Gourmet Pizza | Pizza Delivery Toronto | Pizza Catering",
+     description: "Pizzaiolo catering, toronto pizza catering, pizza catering company, pizza catering toronto. Ordering online today for your next event, online pizza, order pizza online, pizza delivery company Toronto, Pizza delivery Toronto, best pizza delivery Toronto. Non gmo pizza, take out pizza Toronto.",
+     keywords: "Pizza Catering Company"
+		 
+- content_for(:heading) {("DELICIOUS EVENTS").html_safe}
+//- content_for(:description) {""}
+- content_for(:body_class) {"catering_home_page"}
+
+section
+  .container
+   // = render(:partial => 'common/title', locals: { title: " pizzaiolo makes \r\n delicious \r\n events", content: "" } )
+
+<div class="page-background-catering" style="background-image: url('/assets/new_design/MEAT_LOVER.jpg'); background-repeat: no-repeat; background-size: cover;"></div>
+
+div.container
+	div.row
+		div.col-12.col-md-8.catering-content
+			p.regular-p.light Pizzaiolo Gourmet Pizza would be pleased to cater your next event.<br>See below for catering options and submit your catering request online.<br>We will contact you to confirm your order.
+		/ div.col-12.col-md-12.catering-content-border
+		/ 	div.border-bottom
+	div.row.catering-content-1
+		.col-12.col-md-12.catering-hours
+			p.regular-p.light Please allow 24 to 48 hours for a catering order.
+			p.regular-p.light
+				| Not sure what to order or how much? Let us help: 
+				= mail_to "info@pizzaiolo.ca", "info@pizzaiolo.ca", class: 'green-link'
+
+	div.row
+			.col-12.col-md-12
+				= render(:partial => 'common/dipping_sauces')
+			
+	div.row
+			.col-12.col-md-12
+				= render(:partial => 'common/beverages')
+
+	div.row
+			.col-12.col-md-12
+				= render(:partial => 'common/salads')
+
+	div.row
+		.col-12.col-md-12
+			= render(:partial => 'common/salads_tray_medium')		
+
+		div.row
+		.col-12.col-md-12
+			= render(:partial => 'common/salads_tray_large')					
+			
+	div.row
+			.col-12.col-md-12
+				= render(:partial => 'common/garlic_breads')
+
+				/ table.table.pricing-table.default-table
+				/ 	thead.thead-dark
+				/ 		tr
+				/ 			th.first Desserts
+				/ 			th Description
+				/ 			th Price
+				/ 	tbody
+				/ 		- Dessert.where(:active => true).order("name ASC").each do |dessert|
+				/ 			tr
+				/ 				td.first
+				/ 					p = dessert.name
+				/ 				td
+				/ 					p = "#{dessert.description}"
+				/ 				- if dessert.multiple_of_12?
+				/ 					td = "#{number_to_currency(dessert.price)} #{ if dessert.show_each? then ' each' end }"
+				/ 				- else
+				/ 					td = "#{number_to_currency(dessert.price)} #{ if dessert.show_each? then ' each' end }"
+												
+				
+				div.order-create-btn
+					= link_to "ORDER CATERING", '/orders/delicious_events#edit_or_update_order_items', :class => "btn-green page-btn"

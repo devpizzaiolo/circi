@@ -1,0 +1,75 @@
+- content_for(:title) {"Nutritional Information"}
+- @header = "nutritional_information"
+- @heading = "nutritional_information"
+- @menu = true
+
+h1 style="Nutritional Information"
+
+- @file = Flyer.where(:name => "nutritional guide").first
+- if @file
+	p.lead
+		= link_to "View Our Flyer", @file.filename.url, :target => "_blank"
+
+p.lead A Note for All Pizza Lovers with Allergies, Gluten or Lactose Intolerance, or Health Concerns: Pizzaiolo is pleased to provide you with a number of flexible options to make sure your pizza meets your health needs. We want you to be able to enjoy our pizza as much as we do!
+
+br
+
+p Our gluten-free pizza dough is made fresh daily, and has been called the Best Gluten-Free Pizza in Canada. Add your own gluten-free toppings to ensure you and your loved ones don’t miss out on the mouthwatering flavour of traditional Italian pizza. Your pizza can be made with Daiya cheese, a lactose and gluten-free vegetarian-based cheese, which is also free of caseine and soya. All of our Pizzaiolo locations are 100% nut free, and we do not add sugar to any of our products - we don’t even have any on the premises!
+
+br 
+
+p For our pizza lovers looking to eat healthier without sacrificing great taste, we are proud to say Pizzaiolo is the only company with 6 Health Check pizzas under the Heart and Stroke Foundation. Just look for the Health Check symbol.
+
+br
+
+p
+	strong
+		em From all of us at Pizzaiolo, enjoy your meal!
+
+hr
+
+h3 We Make Our Own Gluten-Free/Wheat-Free Dough
+
+p Ingredients: water, sweet rice flour, potato starch, tapioca starch, eggs, potato flour, unsweetened apple juice, organic evaporated cane juice, sea salt, active dry yeast, xanthan gum. Contains: eggs
+
+br
+
+p Gluten-free, wheat-free, dairy-free. Non-GMO (no corn, no soy, no canola).
+
+br
+
+p During preparation we have implemented necessary procedures to reduce the chances of cross-contamination.
+
+br
+
+p We make our own gluten-free dough, fresh daily, never frozen. We understand that this is what Pizzaiolo customers want and expect with all our ingredients. We choose to make all of our doughs and sauces ourselves, with the best possible ingredients.
+
+br
+
+p 
+	| We are pleased to provide a copy of our Nutritional Information for 
+	a href="/assets/Pizzaiolo_HealthCheck_Nutrition_Guide.pdf" target="_blank" download
+	| .
+
+br
+
+p Did you know? A number of Pizzaiolo pizzas have been approved by Health Check standards. See the list here:
+
+br
+
+- @dont_show_selection = true
+- @pizza_presets = PizzaPreset.where(:active => true, :health_check => true)
+- cache('pizza_presets_nutritional') do
+	= render(:partial => 'orders/pizza_selection')
+
+br
+
+p 
+	| Have you tried one of our Health Check pizzas?
+	br
+	| Are you interested in trying one? We encourage our customers to complete this 
+	a href="https://www.surveymonkey.com/s/PIzzaiolo" target="_blank" Health Check survey
+	|!
+
+br
+

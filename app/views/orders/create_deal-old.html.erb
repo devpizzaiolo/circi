@@ -1,0 +1,85 @@
+<title>Pizzaiolo | <%= @product_combo.title.try(:html_safe).try(:titleize) %></title>
+<div class="container hide">
+  <div class="orders-index extra-p">
+    <div class="home-content-panel pp-page-title mobile-home-content pizza-type-name">
+      <div class="row">
+        <div class="col-sm-8 offset-sm-4 pp-ipad-styling">
+          <div class="homepage-headings">
+            <h2 class="malbeck super-header light green"><%= @product_combo.title.try(:html_safe).try(:html_safe) %></h2>
+            <p class="ingredients">
+              <span style="font-size: 18px;font-family: 'Lance-Sans-Regular';">1</span> Medium Double Toni Roni (Tiny cup & char Pepperoni) <br/>
+              <span style="font-size: 18px;font-family: 'Lance-Sans-Regular';">1</span> Medium Original Double Toni Pepperoni
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% content_for(:heading) {"#{@product_combo.try(:title)}".html_safe} %>
+<% content_for(:description) {("<span class='point-highlighted'>1</span> Medium Double Toni Roni (Tiny cup & char Pepperoni)<br/><span class='point-highlighted'>1</span> Medium Original Double Toni Pepperoni").html_safe}%>
+<% content_for(:body_class) {"deals_page"} %>
+
+<div class="dual-deal-page-bg">
+  <div class="page-background-pepproni" style="background-image: url('/assets/new_design/pepproni_banner.png'); background-repeat: no-repeat; background-size: cover;"></div>
+</div>
+<div class="pp-main-page-mobile-only">
+  <img src="/assets/new_design/pepproni_banner_mobile.png">
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 col-xs-12">
+      <% @order.order_items.where(deal_id: @deal_id).each_with_index do |order_item, index| %>
+        <div class="multiple-pizza-card">
+          <div class="multiple-pizza-details">
+            <div class="multiple-pizza-image">
+              <img src="<%= order_item.item_image %>"> 
+            </div>
+            <div class="multiple-pizza-content">
+              <h2><%= order_item.product_info['product_name'].try(:html_safe) %></h2>
+              <% if order_item.pizza_preset_description? %>
+                <p><%= order_item.pizza_preset_description %></p>
+              <% else %>
+                <p><%= order_item.toppings.to_sentence(:last_word_connector => ' and ') %></p>
+              <% end %>
+            </div>
+          </div>
+          <div class="multiple-pizza-customize">
+            <a href="javascript:void(0)" class="multiple-customize-btn" data-deal-item="deal_order_item_modal_<%= index %>">Customize</a>
+          </div>
+          <div id="deal_order_item_modal_<%= index %>" class="deal-order-modal modal">
+            <div class="deal-order-modal-content modal-content">
+              <div class="deal-order-modal-header modal-header">
+                <h2><%= ActionView::Base.full_sanitizer.sanitize(order_item.product_info['product_name']) %></h2>
+                <span class="deal-order-close close" onclick="dataDealItem(<%= index %>)">&times;</span>
+              </div>
+              <div class="modal-body deal-order-modal-body">
+                <div class="deal-order-modal-header modal-header">
+                  <h2><%= ActionView::Base.full_sanitizer.sanitize(order_item.product_info['product_name']) %></h2>
+                  <span class="deal-order-close close" onclick="dataDealItem(<%= index %>)">&times;</span>
+                </div>
+                <div class="deal-pepperoni-body-content">
+                  <div class="container">
+                    <div class="row">
+                      <%= render :partial => 'order_items/deal_order_item_form', locals: {order_item: order_item, deal_id: @deal_id, pizza_preset: order_item.pizza_preset, index: index} %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <div class="col-md-4 col-xs-12">
+      <div class="deal_order_summary" id="deal_order_summary">
+        <%= render :partial => 'orders/deal_order_summary' %>
+      </div>
+    </div>
+  </div>
+  <div class="deal-order-complete-meal-btn">
+    <%= link_to 'ADD TO ORDER', "/orders/complete_meal", :class => "btn-green", :id => "deal_complete_your_meal" %>
+  </div> 
+</div>

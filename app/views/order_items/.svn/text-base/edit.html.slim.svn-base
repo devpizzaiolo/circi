@@ -1,0 +1,4 @@
+= simple_form_for(@order_item) do |f|
+
+	= f.input :product_name
+	

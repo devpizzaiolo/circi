@@ -1,0 +1,28 @@
+.page-header
+	h1="Welcome #{current_admin.first_name}"
+
+.row
+	.span12
+		h2 Products
+		h3
+			= link_to "Pizzas", admins_pizza_presets_path
+		h3
+			= link_to "Calzones", admins_calzone_presets_path
+
+	.clear
+
+	.span12
+		h2 Stats
+	
+	.clear
+
+	.span12
+		h2 Customers
+	
+	.clear
+
+	.span12
+		h2 System
+		- if current_admin.edit_admins?
+			h3
+				= link_to "Admins", admins_admins_path

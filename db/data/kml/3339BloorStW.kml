@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.2">
+<Document>
+  <name>3339 Bloor St W</name>
+  <description><![CDATA[Toronto, Ontario
+M8X 1E9
+416-234-0404]]></description>
+  <Style id="style1">
+    <LineStyle>
+      <color>40000000</color>
+      <width>3</width>
+    </LineStyle>
+    <PolyStyle>
+      <color>73FF0000</color>
+      <fill>1</fill>
+      <outline>1</outline>
+    </PolyStyle>
+  </Style>
+  <Placemark>
+    <name>Delivery Area</name>
+    <description><![CDATA[<div dir="ltr">3339 Bloor St W<br>Toronto, Ontario<br>416-234-0404</div>]]></description>
+    <styleUrl>#style1</styleUrl>
+    <Polygon>
+      <outerBoundaryIs>
+        <LinearRing>
+          <tessellate>1</tessellate>
+          <coordinates>
+            -79.559601,43.635796,0.000000
+            -79.567238,43.654800,0.000000
+            -79.555649,43.657253,0.000000
+            -79.563553,43.674629,0.000000
+            -79.526337,43.682610,0.000000
+            -79.513420,43.652779,0.000000
+            -79.500809,43.622871,0.000000
+            -79.531616,43.616871,0.000000
+            -79.532387,43.619080,0.000000
+            -79.533943,43.618641,0.000000
+            -79.534622,43.619362,0.000000
+            -79.536209,43.623119,0.000000
+            -79.540627,43.622250,0.000000
+            -79.543678,43.628651,0.000000
+            -79.543892,43.630508,0.000000
+            -79.545647,43.632839,0.000000
+            -79.548058,43.638653,0.000000
+            -79.559601,43.635796,0.000000
+          </coordinates>
+        </LinearRing>
+      </outerBoundaryIs>
+    </Polygon>
+  </Placemark>
+</Document>
+</kml>

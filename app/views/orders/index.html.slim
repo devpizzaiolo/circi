@@ -1,0 +1,309 @@
+style type="text/css" title="text/css" media="all"
+	| span.show-menu { display:none; }
+	| span.show-menu a { display:none; }
+	| #order_table { display: none; }
+	| #checkout_cart_link { display: none; }
+ 
+
+- meta title: "#{@seo_title if @seo_title}",
+     	description: "#{@seo_metadescription if @seo_metadescription}",
+     	keywords: "#{@seo_keywords if @seo_keywords}"
+
+- if params[:calzone_preset_id].present? || params[:calzone_slug].present?
+	- content_for(:heading) {("BAKED <br >CALZONE").html_safe}
+	- content_for(:body_class) {"calzone_page"}
+	//- content_for(:description) {""}
+- elsif @order_item && @order_item.product_info['product_name']
+		- if @order_item.product_info['product_name']  == "Create Your Own Pizza"
+			- content_for(:heading) {("Create <br>Your Own <br>Masterpiece").html_safe}
+		- else	
+			- content_for(:heading) {(@order_item.product_info['product_name']).html_safe}
+		- if @pizza_preset.present? && @pizza_preset.description.present? && @pizza_preset.description != nil 
+				- content_for(:description) {(@pizza_preset.description).html_safe}
+		- else
+				- content_for(:description) {(@pizza_preset.toppings.to_sentence(:last_word_connector => ' and ')).html_safe}		
+- elsif params[:set_catering_order].present?
+	- content_for(:heading) {("DELICIOUS EVENTS").html_safe}
+	- content_for(:body_class) {"catering_home_page"}
+-else
+	- content_for(:heading) {("ARE YOU <br>READY <br> TO PIZZA?").html_safe	}
+	- content_for(:description) {"Pizzaiolo has a wide selection of gourmet meat, veggie, and vegan pizzas. You can even design your own. All of our pizzas are available Gluten-free."}
+
+
+
+section
+	div.container
+		div class="orders-index #{if @order.total_price > 0 then 'extra-p' end}"
+			div
+				.row
+				  / .col-sm-8.offset-sm-4
+					/ 	.homepage-headings style="#{if params[:set_catering_order] == "1" || params[:pizza_preset_id] then "display:none;" end}"
+					/ 		- if params[:calzone_preset_id]
+					/ 			h2.malbeck BAKED <br >CALZONE
+					/ 			p 
+					/ 		- else
+					/ 			h2.malbeck ARE YOU <br>READY <br> TO PIZZA?
+					/ 			p Pizzaiolo has a wide selection of gourmet meat, veggie, and vegan pizzas. You can even design your own. All of our pizzas are available Gluten-free.
+							
+					
+						/ .homepage-headings style="#{if params[:set_catering_order].nil?  then "display:none;" end}"
+						/ 	h2.malbeck pizzaiolo makes <br>delicious<br> events
+
+						/ .homepage-headings style="#{if params[:pizza_preset_id].nil?  then "display:none;" end}"
+						/ 	- if @pizza_preset
+						/ 		- if @order_item && @order_item.product_info['product_name']
+						/ 			h2.malbeck.super-header.light.green
+						/ 				- if @order_item.product_info['product_name']  == "Create Your Own Pizza"
+						/ 					= "Create Your Own Masterpiece"
+						/ 				- else	
+						/ 					= @order_item.product_info['product_name']
+											
+						/ 			/ - if @pizza_preset.description != nil && @pizza_preset.description.present?
+						/ 			/ 	p.ingredients = @pizza_preset.description
+						/ 			/ - else
+						/ 			/ 	p.ingredients = @pizza_preset.toppings.to_sentence(:last_word_connector => ' and ')
+
+						/ 			p.ingredients
+						/ 				- if @pizza_preset.description != nil && @pizza_preset.description.present?
+						/ 						= @pizza_preset.description
+						/ 				- else
+						/ 					= @pizza_preset.toppings.to_sentence(:last_word_connector => ' and ')
+						/ 					- if @pizza_preset.id == 82
+						/ 							|  included
+						/ 	- else 
+						/ 		- if @order_item && @order_item.product_info['product_name']
+						/ 			h2.malbeck.super-header.light.green
+						/ 				= @order_item.product_info['product_name'] 
+
+ 	
+	div.page-background-catering style="#{if params[:set_catering_order].nil?  then "display:none;" end}"
+		div.bg-img style="background-image: url('/assets/new_design/MEAT_LOVER.jpg'); background-repeat: no-repeat; background-size: cover;"
+
+	div.page-background-catering style="#{if (params[:pizza_preset_id].nil? && params[:slug].nil? && params[:deals_slug].nil?) then "display:none;" end}"
+		- if params[:pizza_preset_id].present?
+			div.bg-img style="background-image: url('#{PizzaPreset.find_by_id(params[:pizza_preset_id]).pizza_image_angled.size_800.url}'); background-repeat: no-repeat; background-size: cover;    background-position: bottom;"
+
+		- if params[:slug].present?
+			div.bg-img style="background-image: url('#{PizzaPreset.find_by_slug(params[:slug]).pizza_image_angled.size_800.url}'); background-repeat: no-repeat; background-size: cover;    background-position: bottom;"
+
+		- if params[:deals_slug].present?
+			div.bg-img style="background-image: url('#{PizzaPreset.find_by_slug(params[:deals_slug]).pizza_image_angled.size_800.url}'); background-repeat: no-repeat; background-size: cover;    background-position: bottom;"
+
+	div.container.gridOnMobile
+		#edit_or_update_order_items
+		
+		#select_products.home-category-thumb style="#{if params[:pizza_preset_id] || params[:pizza_preset_id] || params[:slug] || params[:calzone_preset_id] || params[:calzone_slug] || params[:deals_slug] || params[:additional_items] then "display:none;" end}"
+			div.food-categories-all#all-categories style="#{if params[:set_catering_order] == "1" || params[:side_order] == "1" then "display:none;" end}"
+				div
+					.row.no-gutters.main-menu.gridCard
+						div.food-category.meat-pizza
+							= link_to orders_slug_path(:slug => PizzaCategory.find(4).pizza_presets.first.slug), :class => "show-menu" do
+								div.card.border-0.rounded-0.hc-block
+									= image_tag '/assets/new_design/thumb_customize.jpg'
+									div.card-img-overlay.d-flex.align-items-center.justify-content-center
+										h2.card-title	CUSTOMIZE
+										
+						div.food-category.meat-pizza
+							a.pizza_category  href="/orders/#{@pizza_category[0].slug}/categories" 
+								div.card.border-0.rounded-0.hc-block
+									= image_tag '/assets/new_design/thumb_meat.jpg'
+									div.card-img-overlay.d-flex.align-items-center.justify-content-center
+										h2.card-title	 MEAT
+
+						div.food-category.meat-pizza
+							a.pizza_category  href="/orders/#{@pizza_category[1].slug}/categories" 
+								div.card.border-0.rounded-0.hc-block
+									= image_tag '/assets/new_design/thumb_veggie.jpg'
+									div.card-img-overlay.d-flex.align-items-center.justify-content-center
+										h2.card-title	VEGGIE
+
+						div.food-category.meat-pizza
+							a.pizza_category  href="/orders/#{@pizza_category[2].slug}/categories" 
+								div.card.border-0.rounded-0.hc-block
+									= image_tag '/assets/new_design/thumb_vegan.jpg'
+									div.card-img-overlay.d-flex.align-items-center.justify-content-center
+										h2.card-title	VEGAN
+
+						div.food-category.meat-pizza
+							a.pizza_category  href="/orders/#{@pizza_category[4].slug}/categories" 
+								div.card.border-0.rounded-0.hc-block
+									= image_tag '/assets/new_design/new_gluten_Free.png'
+									div.card-img-overlay.d-flex.align-items-center.justify-content-center.gulten_free_title
+										h2.card-title Gluten Free & Cauliflower
+
+						div.food-category.meat-pizza
+							a.pizza_category  href="/orders/#{@pizza_category[5].slug}/categories" 
+								div.card.border-0.rounded-0.hc-block
+									= image_tag '/assets/new_design/plant_based_thumb.jpg'
+									div.card-img-overlay.d-flex.align-items-center.justify-content-center
+										h2.card-title Plant Based		
+
+						/ div.food-category.beverages
+						/ 	a href="/orders?calzone_preset_id=2"
+						/ 		div.card.border-0.rounded-0.hc-block
+						/ 			= image_tag '/assets/new_design/calzones.jpg'
+						/ 			div.card-img-overlay.d-flex.align-items-center.justify-content-center
+						/ 				h2.card-title CALZONES
+						
+
+					
+						// div.food-category.own-pizza.full-dsk.col-md-3
+						// 	= link_to new_order_item_path(:pizza_preset_id => PizzaCategory.find(4).pizza_presets.first.id), :remote => true, :class => "show-ordering" do
+						// 		h2 Create your own Pizza
+						// 	= link_to orders_path(:pizza_preset_id => PizzaCategory.find(4).pizza_presets.first.id), :class => "show-menu" do
+						// 		h2 Create your own Pizza
+								
+
+						//div.hot-links.clearfix.visible-phone
+						/ div.sub-category data-subcategory="pizzaiolo-favourites"
+						/ 	a.pizza_category href="#select_pizza" data-toggle="tab"
+						/ 		= image_tag 'ui/heart-icon.png'
+						/ 		h2 Pizzaiolo Favourites
+						/ div.sub-category data-subcategory="customer-favourites"
+						/ 	a.pizza_category href="#select_pizza" data-toggle="tab"
+						/ 		= image_tag 'ui/star-icon.png'
+						/ 		h2 Customer Favourites
+				/ div.hidden-phone
+				/ 	.homepage-headings style="#{if params[:calzone_preset_id] || params[:additional_items] || params[:pizza_preset_id] || params[:set_catering_order] == "1" || params[:side_order] == "1" then "display:none;" end}"
+				/ 		.container
+				/ 			h2 
+				/ 				| ALL OF OUR INGREDIENTS ARE NUT-FREE AND
+				/ 				= image_tag 'ui/gmo-stamp-white.png'
+				/ 			h2.light Gluten-free and wheat-free dough available
+				/ .container
+				/ 	div.food-category.calzones
+				/ 		a.pizza_category data-pizza-category-id="4" href="#select_calzone" data-toggle="tab"
+				/ 			h2 Calzones
+
+				/ 	div.food-category.salads
+				/ 		a href="/orders?additional_items=1"
+				/ 			h2 Salads
+
+				/ 	div.food-category.beverages
+				/ 		a href="/orders?additional_items=1"
+				/ 			h2 Drinks &amp; Dipping Sauces
+
+					/ div.hot-links.clearfix.hidden-phone
+					/ 	div.sub-category data-subcategory="pizzaiolo-favourites"
+					/ 		a.pizza_category href="#select_pizza" data-toggle="tab"
+					/ 			= image_tag 'ui/heart-icon-lg.png'
+					/ 			h2 Pizzaiolo Favourites
+					/ 	div.sub-category data-subcategory="customer-favourites"
+					/ 		a.pizza_category href="#select_pizza" data-toggle="tab"
+					/ 			= image_tag 'ui/star-icon-lg.png'
+					/ 			h2 Customer Favourites
+
+			
+			.container
+				
+				.tab-content
+					.tab-pane#select_pizza
+						- cache('pizza_presets') do
+							= render(:partial => 'orders/pizza_selection')
+
+					.tab-pane#select_calzone
+						= render(:partial => 'orders/calzone_selection')
+		
+				
+		.home-content-panel.page-sub-title style="#{if params[:calzone_preset_id] || params[:calzone_slug] || params[:additional_items] || params[:pizza_preset_id] ||  params[:slug] || params[:deals_slug] || params[:set_catering_order] == "1" || params[:side_order] == "1" then "display:none;" end}"
+			.row
+				.col-sm-8.offset-sm-4
+					h2.titleOnSmallDevice COMPLETE <br> Your MEAL.
+		div.home-category-thumb style="#{if params[:calzone_preset_id] || params[:calzone_slug] || params[:additional_items] || params[:pizza_preset_id] ||  params[:slug] || params[:deals_slug] || params[:set_catering_order] == "1" || params[:side_order] == "1" then "display:none;" end}"
+			div.mobile-container
+				div.row.no-gutters.order-additional.order-additional-mobile-style.gridCard
+					
+					div.food-category.calzones
+						a.pizza_category   href="/orders/calzone/baked-calzone" 
+							div.card.border-0.rounded-0.hc-block
+								= image_tag '/assets/new_design/calzones.jpg'
+								div.card-img-overlay.d-flex.align-items-center.justify-content-center
+									h2.card-title CALZONES
+
+					div.food-category.beverages
+						a href="/orders/additional_items#garlic"
+							div.card.border-0.rounded-0.hc-block
+								= image_tag '/assets/new_design/garlic_break.jpg'
+								div.card-img-overlay.d-flex.align-items-center.justify-content-center
+									h2.card-title GARLIC<br>BREAD
+
+					div.food-category.salads
+						a href="/orders/additional_items#salads"
+							div.card.border-0.rounded-0.hc-block
+								= image_tag '/assets/new_design/salad.jpg'
+								div.card-img-overlay.d-flex.align-items-center.justify-content-center
+									h2.card-title SALADS
+
+					div.food-category.calzones
+						a.pizza_category   href="/orders/additional_items#Bottles" 
+							div.card.border-0.rounded-0.hc-block
+								= image_tag '/assets/new_design/drink_dips.jpg'
+								div.card-img-overlay.d-flex.align-items-center.justify-content-center
+									h2.card-title DRINKS
+
+					div.food-category.beverages
+						a href="/orders/additional_items#Dipping"
+							div.card.border-0.rounded-0.hc-block
+								= image_tag '/assets/new_design/dips-cat.jpg'
+								div.card-img-overlay.d-flex.align-items-center.justify-content-center
+									h2.card-title DIPS	
+			
+					div.food-category.beverages
+						a href="/orders/delicious_events"
+							div.card.border-0.rounded-0.hc-block
+								= image_tag '/assets/new_design/cater.jpg'
+								div.card-img-overlay.d-flex.align-items-center.justify-content-center
+									h2.card-title Catering
+									
+					
+			
+		#order_item_form
+		
+				- if params[:pizza_preset_id] || params[:calzone_preset_id] || params[:slug] || params[:calzone_slug] || params[:deals_slug]
+					= render(:partial => 'order_items/order_item_form')
+
+					/ this is where the form to edit/update/add from will be rendered
+				- if params[:additional_items] == "1" || params[:set_catering_order] == "1" || params[:side_order] == "1"
+					= render(:partial => 'orders/order_additional')
+			
+		.row.order_actions_bottom.single-pizza style="#{unless params[:calzone_preset_id] || params[:calzone_slug] then "display:none;" end}"
+			.order-update-btn.calzone-btn.hidden-mobile
+				button.button.default.m-r.add_product_to_order.order-page-bottom-btn
+					|  ADD TO ORDER
+				
+				/ button.button.gray.cancel_add_product_to_order
+				/ 	| Cancel
+		
+		.container
+			#order_table
+				div.top-bar
+					h1 
+						a.back_to_categories href="#" &#8592;
+						span Order Summary
+				.hidden-phone.row
+					.clearfix.p-t-40
+						h2.super-header.green.text-center Order Summary
+				/ div#shopping_cart.body-container.clearfix
+				/ 	= render(:partial => 'orders/shopping_cart_table')
+		
+		#checkout_cart_link class="#{if @order.total_price > 0 then 'visible' end} flashin"	
+			a 
+				= image_tag 'ui/shopping_cart.png'
+				span MY ORDER
+						
+						
+
+	<div id="modalAddProduct" class="modal modal-new hide" tabindex="12" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3 class="static-header green">Your order has been updated</h3>
+			</div>
+			<div class="modal-body">
+				<p class="regular-p">Would you like to add something else to your order?</p>
+			</div>
+			<div class="modal-footer text-center">
+				<a class="button agree-btn default half m-r" data-dismiss="modal" aria-hidden="true" id="modalLinkOrderMore">Yes, please</a>
+				<button class="button no-thanks-btn gray half" data-dismiss="modal" aria-hidden="true" id="modalLinkOrderSummary">No, thanks</button>
+			</div>
+		</div>
+	</div>

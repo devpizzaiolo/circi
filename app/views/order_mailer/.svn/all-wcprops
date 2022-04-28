@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/pizzaioloca/!svn/ver/243/trunk/pizzaiolo.ca/app/views/order_mailer
+END
+admin_order_confirmation_email.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/pizzaioloca/!svn/ver/243/trunk/pizzaiolo.ca/app/views/order_mailer/admin_order_confirmation_email.html.erb
+END
+franchise_location_order_confirmation_email.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/pizzaioloca/!svn/ver/243/trunk/pizzaiolo.ca/app/views/order_mailer/franchise_location_order_confirmation_email.html.erb
+END
+order_confirmation_email.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/pizzaioloca/!svn/ver/211/trunk/pizzaiolo.ca/app/views/order_mailer/order_confirmation_email.html.erb
+END

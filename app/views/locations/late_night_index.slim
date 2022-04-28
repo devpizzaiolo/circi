@@ -1,0 +1,49 @@
+- meta title: "Pizzaiolo Locations | Pizza Delivery Toronto | Pizza Online",
+     description: "Find your Pizzaiolo location. Gluten free pizza, wheat free pizza dough, thin crust pizza, nut free pizza, non GMO pizza. Pizza catering company, pizza delivery company Toronto, order pizza online, take out pizza Toronto, pizza delivery Toronto, best pizza delivery Toronto, popular pizza.",
+     keywords: "Pizza Store Locations"
+
+h1 style="display:none;" Locations
+
+#location-search class="#{if !params[:find_location_near_me] then 'visible' end}"
+	div.top-bar
+		h1
+			= link_to raw('&#8592;'), root_path
+			| Locations open after midnight
+
+	div.body-container.min-height.clearfix.container
+		h2.heading-green.hidden-phone.text-center.light.m-b-20 Pizzaiolo locations open after midnight tonight
+		
+		- if @locations.count < 1
+			.m-t-20.text-center
+					p.regular-p There are no Pizzaiolo locations open after midnight tonight
+					= link_to "Back to all locations", locations_path, class: 'button default'
+
+		- if @locations.count > 0
+			- for location in @locations do
+				div class="area area-#{location.area_name.parameterize}"
+					div.location-card.clearfix
+						.map.hidden-phone
+							a href="#{location.google_maps_url}" target="_blank"
+								- map = GoogleStaticMap.new(:zoom => 13, :center => MapLocation.new(:latitude => location.latitude, :longitude => location.longitude), :format => "gif", :width => 300, :height => 180, :api_key => "AIzaSyDPVYwXziaEirqCtv-YJnnM0KUcsot5a2Y")
+								- map.markers << MapMarker.new(:color => "green", :location => MapLocation.new(:latitude => location.latitude, :longitude => location.longitude))
+								- image_url = map.url(:auto)
+								img src="#{image_url}" rel="tooltip" alt="Location map" title="click to view full size map" class="img-polaroid"
+
+						.info
+							h3 #{location.address}
+							div.address
+								- unless location.address_details.blank?
+									| <em>#{location.address_details}</em>
+							h3.large-green #{link_to location.phone, "tel:#{location.phone.delete('-')}"}
+							div.visible-phone
+								= link_to "Store Details", location_path(location), class: 'button default smaller'
+
+						.text-center.card-button
+							= link_to "Store Details", location_path(location), class: 'button default smaller hidden-phone'
+						.map.visible-phone
+							a href="#{location.google_maps_url}" target="_blank"
+								- map = GoogleStaticMap.new(:zoom => 13, :center => MapLocation.new(:latitude => location.latitude, :longitude => location.longitude), :format => "gif", :width => 110, :height => 110, :api_key => "AIzaSyDPVYwXziaEirqCtv-YJnnM0KUcsot5a2Y")
+								- map.markers << MapMarker.new(:color => "green", :location => MapLocation.new(:latitude => location.latitude, :longitude => location.longitude))
+								- image_url = map.url(:auto)
+								img src="#{image_url}" rel="tooltip" alt="Location map" title="click to view full size map" class="img-polaroid"
+	

@@ -1,0 +1,4 @@
+$("div#inline_calculator_<%= @order_item[:product_info]["id"] %>").hide();
+$('div#inline_calculator_<%= @order_item[:product_info]["id"] %>').html("<%= escape_javascript(render(:partial => 'order_items/inline_calculator')) %>");
+$('div#inline_calculator_<%= @order_item[:product_info]["id"] %>').show();
+$('div#deal_order_summary').html("<%= escape_javascript(render(:partial => 'orders/deal_order_summary')) %>");

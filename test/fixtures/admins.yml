@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  active: false
+  first_name: MyString
+  last_name: MyString
+  edit_products: false
+  view_stats: false
+  view_customers: false
+  edit_admins: false
+
+two:
+  active: false
+  first_name: MyString
+  last_name: MyString
+  edit_products: false
+  view_stats: false
+  view_customers: false
+  edit_admins: false

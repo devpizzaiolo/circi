@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.2">
+<Document>
+  <name>834 Yonge St</name>
+  <description><![CDATA[834 Yonge St
+Toronto, ON M4W 2H1, Canada
+(416) 323-3456]]></description>
+  <Style id="style1">
+    <LineStyle>
+      <color>40000000</color>
+      <width>3</width>
+    </LineStyle>
+    <PolyStyle>
+      <color>7366CCFF</color>
+      <fill>1</fill>
+      <outline>1</outline>
+    </PolyStyle>
+  </Style>
+  <Placemark>
+    <name>834 Yonge - Delivery area</name>
+    <description><![CDATA[<div dir="ltr">834 Yonge St<br>Toronto, ON M4W 2H1, Canada<br>(416) 323-3456</div>]]></description>
+    <styleUrl>#style1</styleUrl>
+    <Polygon>
+      <outerBoundaryIs>
+        <LinearRing>
+          <tessellate>1</tessellate>
+          <coordinates>
+            -79.397209,43.676765,0.000000
+            -79.361748,43.683880,0.000000
+            -79.362740,43.681870,0.000000
+            -79.362381,43.678791,0.000000
+            -79.361900,43.676472,0.000000
+            -79.361366,43.674782,0.000000
+            -79.360947,43.673939,0.000000
+            -79.360382,43.673111,0.000000
+            -79.358292,43.670738,0.000000
+            -79.381020,43.665771,0.000000
+            -79.386131,43.664749,0.000000
+            -79.386711,43.665909,0.000000
+            -79.391190,43.665031,0.000000
+            -79.391640,43.665829,0.000000
+            -79.392593,43.666111,0.000000
+            -79.392914,43.666058,0.000000
+            -79.397209,43.676765,0.000000
+          </coordinates>
+        </LinearRing>
+      </outerBoundaryIs>
+    </Polygon>
+  </Placemark>
+</Document>
+</kml>

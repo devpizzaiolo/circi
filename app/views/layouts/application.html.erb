@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+		
+	<!-- <%= request.host %> -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	
+	<%= metamagic %>
+	
+    <!-- Open Graph data -->
+    <meta property="og:title" content="Pizzaiolo Gourmet Pizza" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.pizzaiolo.ca/" />
+    <meta property="og:image" content="/assets/ui/pizzaiolo_logo_trans.png" />
+    <meta property="og:description" content="Pizzaiolo is Toronto's best gourmet pizza. Our famous Pizzaiolo tomato sauce and artisan dough are never frozen." />
+    <link rel="apple-touch-icon" sizes="57x57" href="/assets/ui//apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/assets/ui//apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/assets/ui//apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/assets/ui//apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/assets/ui//apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/assets/ui//apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/assets/ui//apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/assets/ui//apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/ui//apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/assets/ui//android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/ui//favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/assets/ui//favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/ui//favicon-16x16.png">
+    <link rel="manifest" href="/assets/ui//manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/assets/ui//ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    
+    <script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&key=AIzaSyAiE37Lx_OQ4jFWUQxJHJb_yJwyCFc_yEg" type="text/javascript"></script>
+    <script type="text/javascript">
+      var formType, autocomplete;
+      var isAutoCompletedSelected = false;
+      var orderForm = {
+        order_address_1: 'short_name',
+        // route: 'long_name',
+        order_city: 'long_name',
+        //administrative_area_level_1: 'short_name',
+        //country: 'long_name',
+        order_postal_code: 'short_name'
+      };
+     
+      function initialize() {
+        // var map = new google.maps.Map(document.getElementById('map'), {
+        //   center: {
+        //     lat: -33.8688,
+        //     lng: 151.2195
+        //   },
+        //   zoom: 13
+        // });
+        var northEast = new google.maps.LatLng(44.941160, -76.895187);
+        var southWest = new google.maps.LatLng(41.946172, -83.296577);
+
+        // var SWmark = new google.maps.Marker({
+        //   map: map,
+        //   position: southWest,
+        //   title: southWest.toUrlValue(6),
+        //   label: "SW"
+        // });
+        // var NEmark = new google.maps.Marker({
+        //   map: map,
+        //   position: northEast,
+        //   title: northEast.toUrlValue(6),
+        //   label: "NE"
+        // });
+        var TorontoBounds = new google.maps.LatLngBounds(southWest, northEast);
+        // var rectangle = new google.maps.Rectangle({
+        //   map: map,
+        //   bounds: TorontoBounds
+        // });
+        // map.fitBounds(TorontoBounds);
+        //var input = document.getElementById('order_address_1');
+        var input = $(".google-autocomplete");
+        formType = input.attr('data_id');
+        var options = {
+          fields: ['address_components', 'name'],
+          bounds: TorontoBounds,
+          strictBounds: true,
+          componentRestrictions: {
+            country: 'CA',
+          }
+        };
+        autocomplete = new google.maps.places.Autocomplete(input[0], options);
+        autocomplete.addListener('place_changed', fillInAddress);
+      }
+      google.maps.event.addDomListener(window, 'load', initialize);
+
+      function fillInAddress() {
+         var address = {
+          street_number: "",
+          street_address: "",
+          city: "",
+          postal_code: ""
+        };
+        var place = autocomplete.getPlace();
+        isAutoCompletedSelected = true;
+        for (var i = 0; i < place.address_components.length; i++) {
+          var addressType = place.address_components[i].types[0];
+          if(addressType == "street_number") {
+            address.street_number = place.address_components[i].long_name;
+          }
+          if(addressType == "route") {
+            address.street_address = place.address_components[i].long_name;
+          }
+          if(addressType == "locality" || addressType == "political") {
+            address.city = place.address_components[i].long_name;
+          }
+          if(addressType == "postal_code") {
+            address.postal_code = place.address_components[i].long_name;
+          }
+        }
+
+        // filling fields
+        if(formType == "order-form") {
+          $("#order_address_1").val(address.street_number + " " + address.street_address);
+          $("#order_city").val(address.city);
+          $("#order_postal_code").val(address.postal_code);
+          if(address.postal_code == ""){
+            $("#order_postal_code_wrapper").show();
+          }else{
+            $("#order_postal_code_wrapper").hide();
+          }
+        }
+
+        if(formType == "signup-form") {
+          $("#customer_address_1").val(address.street_number + " " + address.street_address);
+          $("#customer_city").val(address.city);
+          $("#customer_postal_code").val(address.postal_code);
+          if(address.postal_code == ""){
+            $("#customer_postal_code").attr('type', 'text')
+          }else{
+            $("#customer_postal_code").attr('type', 'hidden')
+          }
+        }
+
+        if(formType == "new-delivery-form") {
+          $(".add1").val(address.street_number + " " + address.street_address);
+          $(".city1").val(address.city);
+          $(".pin1").val(address.postal_code);
+          if(address.postal_code == ""){
+            $("#new_delivery_postal_code_wrapper").show();
+            //$(".pin1").attr('type', 'text')
+          }else{
+            //$(".pin1").attr('type', 'hidden')
+            $("#new_delivery_postal_code_wrapper").hide();
+          }
+        }
+
+        if(formType == "payment-form") {
+          $("#bambora_address_line1").val(address.street_number + " " + address.street_address);
+          $("#bambora_city").val(address.city);
+          $("#bambora_postal_code").val(address.postal_code);
+        }
+
+        if(formType == "edit-customer-form") {
+          $("#customer_address_1").val(address.street_number + " " + address.street_address);
+          $("#customer_city").val(address.city);
+          $("#customer_postal_code").val(address.postal_code);
+          if(address.postal_code == ""){
+            $("#edit_customer_postal_code_wrapper").show();
+            // $("#customer_postal_code").attr('type', 'text')
+          }else{
+            $("#edit_customer_postal_code_wrapper").hide();
+            //$("#customer_postal_code").attr('type', 'hidden')
+          }
+        }
+
+        if(formType == "delivery-address-form") {
+          $("#order_delivery_address_1").val(address.street_number + " " + address.street_address);
+          $("#order_delivery_city").val(address.city);
+          $("#order_delivery_postal_code").val(address.postal_code);
+          if(address.postal_code == ""){
+            $("#order_delivery_postal_code_wrapper").show();
+          }else{
+            $("#order_delivery_postal_code_wrapper").hide();
+          }
+        }
+      }
+    </script>
+    <%= favicon_link_tag 'ui/favicon.png' %>
+    <%= csrf_meta_tags %>
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.1/html5shiv.js" type="text/javascript"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <%= stylesheet_link_tag "new_design/application", :media => "all" %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <!-- For third-generation iPad with high-resolution Retina display: -->
+    <!-- Size should be 144 x 144 pixels -->
+    <%#= favicon_link_tag 'images/apple-touch-icon-144x144-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '144x144' %>
+
+    <!-- For iPhone with high-resolution Retina display: -->
+    <!-- Size should be 114 x 114 pixels -->
+    <%#= favicon_link_tag 'images/apple-touch-icon-114x114-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '114x114' %>
+
+    <!-- For first- and second-generation iPad: -->
+    <!-- Size should be 72 x 72 pixels -->
+    <%#= favicon_link_tag 'images/apple-touch-icon-72x72-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '72x72' %>
+
+    <!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
+    <!-- Size should be 57 x 57 pixels -->
+    <%#= favicon_link_tag 'images/apple-touch-icon-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png' %>
+
+    <!-- For all other devices -->
+    <!-- Size should be 32 x 32 pixels -->
+    <%#= favicon_link_tag 'favicon.ico', :rel => 'shortcut icon' %>
+		
+		<meta name="apple-mobile-web-app-title" content="Pizzaiolo">
+		
+		<link rel="stylesheet" media="(max-width: 480px)" href="/stylesheets/phone.css" />
+		
+		<%= render(:partial => 'common/analytics') %>
+    <%= render(:partial => 'common/pixel') %>
+    <%= render(:partial => 'common/google_pixel') %>
+    <script src="https://libs.na.bambora.com/customcheckout/1/customcheckout.js"></script>
+    <script>
+      window.customcheckout = customcheckout();
+    </script>
+  </head>
+  <body class="<%= yield :body_class %>">
+  	<%= render(:partial => 'common/analytics_noscript') %>
+  	<%# unless current_page?('/locations') %>
+	<!-- <div id="maintenance">
+		<h2>Online orders are currently under maintenance. Please call your store to place an order:</h2>
+		<%# link_to "LOCATIONS", locations_path, :style => "display: block; margin-top: 30px; font-size: 25px; color: white; font-weight: bold" %>
+	</div> -->
+	<%#	 end %>
+		<!--Header Start-->
+		<%= render(:partial => 'common/header') %>
+		<!--Header End--> 
+    <div class="inner-page-wrap <%= @heading %>"> 
+      <%#= yield :page_title %>
+      <div class="page-header-title">
+        <div class="page-title-position <%= params[:slug] && params[:slug] === 'plant-based' ? 'custom-plant-based-header-title' : ''  %> ">
+          <h2><%= yield :heading %></h2>
+          <div class="gp-logo-vegan" style="<%= params[:slug] && params[:slug] === 'gourmet-vegan-pizzas' ? '' : 'display:none;'  %>">
+            <div class="vegan-tagline">
+              Try our new<br>vegan cheese
+            </div>
+            <div class="gp-logo-image">
+              <img class="gp-logo" src="/assets/new_design/GPF_logo.png" alt="">
+            </div>
+          </div>
+          <div class="fr-logo-plant-based" style="<%= params[:slug] && params[:slug] === 'plant-based' ? '' : 'display:none;'  %>">
+            <div class="fr-logo-image">
+              <img class="fr-logo" src="/assets/new_design/fr_logo.jpg" alt="">
+            </div>
+          </div>
+        </div>
+        <div class="fr-tagline" style="<%= params[:slug] && params[:slug] === 'plant-based' ? '' : 'display:none;'  %>">
+          <p>MAKE IT VEGAN! REPLACE YOUR MOZZARELLA WITH VEGAN CHEESE.</p>
+        </div>
+        <div><p><%= yield :description %></p></div>
+      </div>
+      <!-- Time Now: <%= Time.now %> -->	
+      <% if Time.new(Time.now.year, 12, 12,  5,  0,  0).past? && Time.new(Time.now.year, 12, 26,  9,  0,  0).future? && params[:controller] == 'orders' %>
+        <div class="holiday-message-box">  
+          <div class="holiday-message">
+            <h3 class="hidden-phone">Online orders closed Dec 24 @ 8pm to Dec 26 @ 10am</h3>
+            <p>Please call your local Pizzaiolo store for holiday hours or to place an order. Thank you for all your support.</p>
+            <div class="holiday-wishes-style">
+              <img alt="Happy Holidays" src="/assets/new_design/bell.png">
+              <p><strong><em>Happy Holidays from the Pizzaiolo family to yours.</em></strong></p>
+              <img alt="Happy Holidays" src="/assets/new_design/bell.png">
+            </div>
+          </div>
+        </div>
+      <% end %>
+      <div class="container error">
+        <% flash.each do |key, value| %>
+          <div class="row top-alerts">
+            <div class="col-md-12">
+              <%= bootstrap_flash %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+     <%= yield %>
+       
+		</div>
+		
+
+		<!--Footer Start-->
+		<footer>
+			<div class="container">
+					<%= render(:partial => 'common/footer_menu') %>
+			</div>
+			<%= render(:partial => 'common/copyright') %>
+		</footer> 
+		<!--Footer End--> 
+    <%= render(:partial => 'common/welcome_popup') %>
+		<!-- Javascripts
+    ================================================== -->
+		<!-- Placed at the end of the document so the pages load faster -->
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <%= javascript_include_tag "application" %>	
+  </body>
+</html>

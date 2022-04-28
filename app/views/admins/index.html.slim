@@ -1,0 +1,27 @@
+.container
+	.body-container
+		.page-header
+			h1="Welcome #{current_admin.first_name}"
+
+		.row
+			.span12
+				h2.static-header.green Products
+				p	= link_to "Pizzas", admins_pizza_presets_path, class: 'regular-link'
+				p	= link_to "Calzones", admins_calzone_presets_path, class: 'regular-link'
+
+			.clear
+
+			.span12.m-t-40
+				h2.static-header.green Stats
+			
+			.clear
+
+			.span12.m-t-40
+				h2.static-header.green Customers
+			
+			.clear
+
+			.span12.m-t-40
+				h2.static-header.green System
+				- if current_admin.edit_admins?
+					p = link_to "Admins", admins_admins_path, class: 'regular-link'

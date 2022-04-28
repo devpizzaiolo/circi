@@ -1,0 +1,4 @@
+$("div#inline_calculator").hide();
+$('div#inline_calculator').html("<%= escape_javascript(render(:partial => 'order_items/inline_calculator')) %>");
+$('div#inline_calculator').show();
+$('#summery-table').animate({scrollTop:$("#summery-table table").height()}, 'slow');

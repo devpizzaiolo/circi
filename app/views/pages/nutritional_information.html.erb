@@ -1,0 +1,96 @@
+<% meta title: "Pizzaiolo | Nutritional Information",
+     description: "All of our ingredients are made and prepared in-house for the freshest and safest pizza available to meet our customers needs. No cross-contamination, no sugar and no nuts!",
+     keywords: "Pizzaiolo, Fresh Ingredients, Nutritional Guide, Gluten Free, Vegan, Dairy Free, Nut Free, Sugar Free"
+%>
+<%
+	content_for(:heading) {("Great pizza starts <br>with great <br>ingredients").html_safe}
+	content_for(:description) {""}
+%>
+<!-- <section class="">
+  <div class="container">
+		<%= render(:partial => 'common/title', 
+			locals: { title: "Great pizza starts with great ingredients", content: "" }
+		) %>
+	</div>
+</section -->
+
+<div class="page-background" style="background-image: url('/assets/new_design/GR19020_Pizzaiolo_Process-4943.jpg'); background-repeat: no-repeat; background-size: cover;"></div>
+
+<div class="container">
+	<%# <div class="row careers-content"> %>
+		<%# <div class="col-12 sub-block text-center">
+			<h5 class="">A note for all pizza lovers with allergies, gluten or lactose intolerance, or health concerns: Pizzaiolo is pleased to provide you with a number of flexible options to make sure your pizza meets your health needs. We want you to be able to enjoy our pizza as much as we do!</h5>
+		</div> %>
+		<!-- <div class="col-md-12 text-center margin-top-20 margin-bottom-20">
+				<% @file = Flyer.where(:name => "nutritional guide").first %>
+				<% if @file %>
+					<%= link_to "View Our Flyer", @file.filename.url, :target => "_blank", class: 'button default full m-b-20' %>
+				<% end %>
+		</div> -->
+		
+		<%# <div class="col-12 margin-top-20 margin-bottom-20">
+				<ul class="checkmark-list">
+					<li>Made fresh daily</li>
+					<li>Non-GMO ingredients</li>
+					<li>No sugars added</li>
+				</ul>
+		</div> %>
+	<%# </div> %>
+	
+	<%# <div class="row">
+		<div class="col-12 sub-block">
+			<img alt="We-recycle" class="sub-block-img" src="/assets/ui/gluten-free-d5235770acc0b23ceb86e2fb1de23fb1.png">
+			<p class="sub-block-p">Our gluten-free pizza dough is made fresh daily, and has been called the Best Gluten-Free Pizza in Canada. Add your own gluten-free toppings to ensure you and your loved ones don’t miss out on the mouthwatering flavour of traditional Italian pizza. Your pizza can be made with Daiya cheese, a lactose and gluten-free vegetarian-based cheese, which is also free of caseine and soya.</p>
+		</div>
+	</div> 
+	<div class="row">
+		<div class="col-12 sub-block">
+			<img class="sub-block-img" alt="Nut-free" src="/assets/ui/nut-free-d269f9ddfb3cc8a1e15c57b43ca1b362.png">
+			<p class="sub-block-p">All of our Pizzaiolo locations are 100% nut free, and we do not add sugar to any of our products - we don’t even have any on the premises!</p>
+		</div>
+	</div>
+	<div class="row margin-top-20">
+		<div class="col-12 margin-top-20">
+			<h5 class="bold margin-bottom-20">From all of us at Pizzaiolo, enjoy your meal!</h5>
+			<h5 class=" bold green-text margin-bottom-20">Our Gluten-Free/Wheat-Free Dough</h5>
+			<p class="regular-p">Ingredients: water, sweet rice flour, potato starch, tapioca starch, eggs, potato flour, unsweetened apple juice, organic evaporated cane juice, sea salt, active dry yeast, xanthan gum. Contains: eggs</p>
+			<p class="regular-p">Gluten-free, wheat-free, dairy-free. Non-GMO (no corn, no soy, no canola).</p>
+			<p class="regular-p">During preparation we have implemented necessary procedures to reduce the chances of cross-contamination.</p>
+		</div>
+	</div>
+	<div class="row margin-top-20">
+			<div class="col-12">
+				<div class="bottom-imgs">
+					<img alt="Canadian" src="/assets/ui/canadian-1fc6671f63ffa012ae529ceaefbdfa5a.png">
+					<img alt="Gmo-stamp" src="/assets/ui/gmo-stamp-005e8f7b5ccbd25ab1aaeba280176885.gif">
+					<img alt="Nut-free" src="/assets/ui/nut-free-d269f9ddfb3cc8a1e15c57b43ca1b362.png">
+					<img alt="We-recycle" src="/assets/ui/we-recycle-e2862b3da00b37df70d64aa2721cf01a.png">
+				</div>
+			</div>
+	</div> %>
+	<div class="row careers-content">
+		<div class="col-12 margin-bottom-20">
+			<div class="p-style mb-3">
+				At Pizzaiolo, we ONLY use quality ingredients. Our dough is made fresh daily and sauce is made in-house - nothing is ever frozen. We take pride in our product and quality is important when it comes to our customers.  Each hand crafted pizza is stretched fresh every time.
+			</div>
+			<div class="p-style">
+				Pizzaiolo’s gluten-free and cauliflower crusts are specially prepared for us.  Here are the specific ingredients for each:
+			</div>
+		</div>
+		<div class="col-12 col-md-12 sub-points">
+			<h3 class="">Gluten Free Ingredients</h3>
+			<p>Pizza mix (corn starch, rice flour, potato starch, dextrose, vegetable fibers:  Psyllium, fructose, emulsifier, vegetable fibers: inulin, stabilizer: sorbitol), water, extra virgin olive oil, brown cane sugar, sea salt, yeast.</p>
+
+			<h3 class="">Cauliflower Ingredients</h3>
+			<p>Cauliflower, corn starch, rice flour, potato starch, inulin, psyllium husk powder, water, dextrose, fructose, hydroxypropyl, methylcellulose, extra virgin olive oil, yeast, brown cane sugar, sea salt.</p>
+			
+			<h3 class="">Vegan Cheese</h3>
+			<p>Filtered Water, Coconut Oil, Food Starch - Modified (Potato & Tapioca), Potato Starch, Calcium Citrate, Sea Salt, Mozzarella Flavor (Vegan Sources), Sorbic Acid (Preservative), Beta Carotene (Color).</p>
+
+			<h3 class="">Nut & Sugar Free</h3>
+			<p>At Pizzaiolo our locations are 100% nut free. We do NOT add sugar to any of our products and there is NO sugar on the premises.</p>
+		</div>
+		<div class="col-md-12 text-center margin-top-20 margin-bottom-20">
+				<a class="button default nutrilo-info-btn full m-b-20" href="/assets/15492_Pizzaiolo_NutritionGuide_Flyer-3.pdf" target="_blank">View Nutritional Information</a>
+		</div>
+	</div>

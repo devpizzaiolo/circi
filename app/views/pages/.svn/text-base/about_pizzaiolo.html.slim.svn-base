@@ -1,0 +1,77 @@
+- content_for(:title) {"About Pizzaiolo"}
+- @header = "about_us"
+- @heading = "about_pizzaiolo"
+
+.row.hidden-phone
+
+	.span4
+		img src="/assets/about_pizzaiolo/gm-sauce.jpg"
+	
+	.span4
+		img src="/assets/about_pizzaiolo/3-generations.jpg"
+	
+	.span4
+		img src="/assets/about_pizzaiolo/luigi.jpg"
+
+br
+
+h2
+	| 1940s: The First Generation
+
+p Our story begins back in the 1940s, in a little town in central Italy called Montorio. This is where young Nonno Giuseppe and Nonna Ida opened their very first pizzeria. Renowned for their delicious, traditional Italian pizzas, these “pizzaioli” (&ldquo;pizza makers&rdquo;) spent many long nights passing their skills along to the rest of the family.
+
+h2
+	| 1960s: The Second Generation
+
+p Looking to take their passion for pizza-making on a journey to a different world, Mama Anna and Papa Antonio made the trip to Canada from their homeland in the 1960s, bringing with them the perfectionist, old-world traditions taught to them by Nonno and Nonna. They opened their first restaurant in 1967: La Gondola at Keele and Wilson. In 1970, they felt their new baby Luigi’s birth should be marked in celebration, and opened another restaurant at Bathurst and Harbord, called Pizza Gigi. Pizza Gigi was sold to Sam the Pizza Maker; having three kids and running a pizzeria proved to be too much. However, approximately 25 years later, the family noticed a need for better pizza in Toronto, and Pizzaiolo was born.
+
+h2
+	| 2000s: The Third Generation
+
+p Although baby Luigi has grown up since the early days of Pizza Gigi, his love and passion for the pizza-making business has been inherited from his parents. Luigi continued to carry on the family tradition and authenticity by opening his first store on November 13, 2000; the Pizzaiolo you know today.
+
+p Just like his Nonno and Nonna before him, Luigi has shared his experience, skills and values with all of us at Pizzaiolo, and because of this, you’re sure to taste the difference that family and tradition can bring to your table, at all of our locations.
+
+br
+
+.row
+	
+	.span12 style="background-color:#f4f4ef;"
+	
+		.row
+		
+			.span12
+				p.lead Since the days of Nonno and Nonna, we’ve been building our list of what it means to create a high-quality product. We are proud to share these Pizzaiolo family values with you:
+	
+			.span12
+	
+				.row
+					.span6
+						ul style="margin-bottom:0px;margin-left:32px;"
+							li We never freeze our tomato sauce or dough
+							li We make our own gluten-free dough
+							li Our famous Pizzaiolo sauce and dough are 100% vegan
+							li Our famous Pizzaiolo sauce is made from scratch using freshly ground Roma tomatoes
+							li Our vegetables and meats are hand cut on the premises
+							li We cut our smoked Italian sausage fresh daily
+							li We use real Canadian bacon
+					.span6
+						ul style="margin-left:32px;margin-bottom:24px;"
+							li We use the highest quality cheese and unbleached flour
+							li Our mozzarella cheese has no rennet
+							li We use yellow corn meal for our dough
+							li We use extra virgin olive oil for our pizzas
+							li We do not fry anything
+							li We do not use trans fats
+							li We do not use additives or preservatives
+							li We do not add sugar
+
+
+br 
+
+p
+	| Our products are all nut-free! See more 
+	= link_to "Nutritional information", page_path('nutritional_information')
+	| .
+
+P Pizzaiolo Gift Cards are available at all of our locations, for any amount. Share the flavour!

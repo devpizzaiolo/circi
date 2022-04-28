@@ -1,0 +1,2 @@
+# create required admins
+Admin.create(first_name: 'Matt', :last_name => "Roby", :email => "mroby@colorshadow.com", :password => "sgtpepper", :edit_products => true, :view_stats => true, :view_customers => true, :edit_admins => true)

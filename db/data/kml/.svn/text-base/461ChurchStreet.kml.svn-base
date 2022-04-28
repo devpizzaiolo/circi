@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.2">
+<Document>
+  <name>461 Church Street</name>
+  <description><![CDATA[]]></description>
+  <Style id="style1">
+    <LineStyle>
+      <color>40000000</color>
+      <width>3</width>
+    </LineStyle>
+    <PolyStyle>
+      <color>730000CC</color>
+      <fill>1</fill>
+      <outline>1</outline>
+    </PolyStyle>
+  </Style>
+  <Placemark>
+    <name>church delivery</name>
+    <description><![CDATA[]]></description>
+    <styleUrl>#style1</styleUrl>
+    <Polygon>
+      <outerBoundaryIs>
+        <LinearRing>
+          <tessellate>1</tessellate>
+          <coordinates>
+            -79.379028,43.656158,0.000000
+            -79.373322,43.657341,0.000000
+            -79.355301,43.661491,0.000000
+            -79.356842,43.666908,0.000000
+            -79.357552,43.669361,0.000000
+            -79.357979,43.670231,0.000000
+            -79.358368,43.670727,0.000000
+            -79.369614,43.668331,0.000000
+            -79.383583,43.665272,0.000000
+            -79.379562,43.656349,0.000000
+            -79.379028,43.656158,0.000000
+          </coordinates>
+        </LinearRing>
+      </outerBoundaryIs>
+    </Polygon>
+  </Placemark>
+</Document>
+</kml>

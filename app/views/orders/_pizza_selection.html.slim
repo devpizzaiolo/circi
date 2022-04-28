@@ -1,0 +1,71 @@
+- unless @pizza_categories
+	- @pizza_categories = PizzaCategory.where(:active => true)
+
+
+- unless @pizza_presets
+	- @pizza_presets = PizzaPreset.where(:active => true).order("product_name ASC")
+
+
+- unless @dont_show_selection || @dont_show_selection == false
+	.row
+		.span12#pizza_list
+			.hidden-phone.top-desktop
+				h1.super-header.light.green
+					a.back_to_categories href="#" &#8592;
+					span CATEGORY NAME
+			div.top-bar
+				h1 
+					a href="/orders" &#8592;
+					span CATEGORY NAME	
+			.media-list
+				- @pizza_presets.each do |pizza_preset|
+				
+					- unless pizza_preset.pizza_category.direct_edit?
+
+						div.pizza-select.product_display.pizza_preset data-pizza-category-id="#{ pizza_preset.pizza_category_id }" data-subcategories="#{ if pizza_preset.spicy? then 'spicy ' end }#{ if pizza_preset.pizzaiolo_favourites? then 'pizzaiolo-favourites ' end }#{if pizza_preset.customer_favourites? then 'customer-favourites' end }" style="#{if pizza_preset.pizza_category.name == "Create Your Own Pizza" then 'display:none;' end}"
+							.pizza-card
+								.product-image
+									= image_tag pizza_preset.pizza_image_angled.size_800.url
+									= image_tag 'ui/close-icon.png', class: 'close-preview'
+								h2
+									- if pizza_preset.health_check?
+										sup &dagger;
+									= raw("#{pizza_preset.product_name} ")
+								.right-icons
+									- if pizza_preset.spicy?
+										img.subcat-icn src="/assets/ui/icn_spicy.png" align="top" data-toggle="tooltip" rel="tooltip" title="Spicy"
+									- if pizza_preset.pizzaiolo_favourites?
+										img.subcat-icn src="/assets/ui/icn_pfav.png" align="top" data-toggle="tooltip" rel="tooltip" title="Pizzaiolo Favourite"
+									- if pizza_preset.customer_favourites?
+										img.subcat-icn src="/assets/ui/icn_cfav.png" align="top" data-toggle="tooltip" rel="tooltip" title="Customer Favourite"
+									- if pizza_preset.health_check?
+										img.subcat-icn src="/assets/ui/icn_healthcheck_sml.png" align="top" data-toggle="tooltip" rel="tooltip" title="Health Check"
+									- if pizza_preset.vegan?
+										img.subcat-icn src="/assets/ui/icn_vegan.png" align="top" data-toggle="tooltip" rel="tooltip" title="Vegan"
+									
+								- if pizza_preset.calories
+									p.calories = pizza_preset.calories
+
+								- if pizza_preset.toppings.count > 0
+									p.ingredients = pizza_preset.toppings.to_sentence(:last_word_connector => ' and ')
+										
+								- else
+									p.ingredients = pizza_preset.description.html_safe
+									
+
+								- if pizza_preset.nut_free?
+									div.text-center.m-b-20
+										span.label.blue Nut Free
+								
+								div.bottom-button
+									= link_to "Order", orders_path(:pizza_preset_id => pizza_preset.id), :class => "button default"
+								/ div.show-ordering.bottom-button	
+								/ 	= link_to "Order", new_order_item_path(:pizza_preset_id => pizza_preset.id), :remote => true, :class => "button default"
+				
+					
+/ style
+/ 	- if @menu && @menu == true
+/ 		| .show-ordering { display:none; }
+/ 	- else
+/ 		| .show-menu { display:none; }
+		

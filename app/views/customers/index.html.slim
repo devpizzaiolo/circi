@@ -1,0 +1,53 @@
+- content_for(:title) {"Account"}
+/ .row.visible-phone
+/ 	.span12
+/ 		ul.nav.nav-pills
+/ 			li.active = link_to "Order History", customers_path
+/ 			li = link_to "My Account", customers_customers_path
+- content_for(:heading) {("Order History").html_safe}
+//- content_for(:description) {""}
+- content_for(:body_class) {"order_history_page"}
+
+.body-container.desktop
+	.container
+		.signin-row.customers-signin.dashboard
+			h2.super-header.light.green.pull-left.inner-page-sub-title Past Order
+			= link_to "My Account", customers_customers_path, class: 'button default pull-right'
+		div
+			p.regular-p Some items are no longer offered on our menu, so the re-order function may not be available on certain orders.
+		- current_customer.orders.where(:ordered => true).order("ordered_at DESC").each do |order|
+			- if order.items_unavailable > 0
+				div.past-order.row
+					p.date = order.ordered_at.strftime("%B %d, %Y")
+					.details
+						- if !order.order_additional.blank? && order.order_additional.blank? != "" && order.order_additional['catering_order'] == "1"
+							h3.static-header.green Catering Order: 
+						- unless order.quick_summary.blank?
+							= raw order.quick_summary.to_sentence(:words_connector => '', :last_word_connector => '')
+						- else
+							| "N/A"
+
+						
+					div.actions.m-t-20
+						= link_to "Order Details", customers_order_path(order.id), :class => "button smaller muted m-r"
+						= link_to "Re-Order", customers_order_path(order.id), :class => "button re-order-btn smaller default disabled"
+			- else
+				div.past-order.row
+					p.date = order.ordered_at.strftime("%B %d, %Y")
+					.details
+						- if !order.order_additional.blank? && order.order_additional.blank? != "" && order.order_additional['catering_order'] == "1"
+							h3.static-header.green Catering Order: 
+						- unless order.quick_summary.blank?
+							= raw order.quick_summary.to_sentence(:words_connector => '', :last_word_connector => '')
+						- else
+							| "N/A"
+
+						
+					div.actions.m-t-20
+						= link_to "Order Details", customers_order_path(order.id), :class => "button smaller muted m-r"
+						= link_to "Re-Order", customers_orders_new_order_from_old_path(order.id), :class => "button re-order-btn smaller default"
+						
+
+- if params[:registered] == 'true'
+	javascript:
+		fbq('track', 'CompleteRegistration');

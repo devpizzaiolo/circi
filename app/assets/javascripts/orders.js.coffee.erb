@@ -1,0 +1,439 @@
+# Place all the behaviors and hooks related to the matching controller here.
+# All this logic will automatically be available in application.js.
+# You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
+
+jQuery ->
+	
+	# $("form").validationEngine({promptPosition : "bottomLeft"});
+	
+	# FOR THE REMOTELY LOADED PARTIALS
+		
+	# 1. choose the size...
+	$(document).on 'click', "input.product_pizza_size,input#product_pizza_size", ->
+		 #alert($(this).val());
+		if $(this).val().indexOf("gluten-free") >= 0 || $(this).val().indexOf("cauliflower") >= 0
+			console.log $(this).val().indexOf("gluten-free")
+			$('#product_pizza_size_group').addClass("hide");
+			$('#product_pizza_crust_style_group').addClass("hide");
+			$("div#deep_dish_option_price").addClass("hide");
+			$("#product_pizza_crust_style_original").prop("checked", true);
+			$("div#gluten-free").show();
+		else
+			$("span#deep_dish_option_price").html($(this).attr('data-deep-dish-option-price'));
+			$("div#deep_dish_option_price").removeClass("hide");
+			$('#product_pizza_size_group').removeClass("hide");
+			$('#product_pizza_crust_style_group').removeClass("hide");
+			$("div#gluten-free").hide();
+		
+		# $('small.topping_price').not("#vegetable-based-cheese small.topping_price").text($(this).attr('topping-price'));
+		#$('span.topping_price').not("#vegetable-based-cheese span.topping_price").text($(this).attr('topping-price'));
+		# $('option.topping_price_extra').not("#vegetable-based-cheese option.topping_price_extra").text("Extra + " + $(this).attr('topping-price'));
+		# $('option.topping_price_double').not("#vegetable-based-cheese option.topping_price_double").text("Double + " + $(this).attr('topping-price-double') );
+
+		# $("#vegetable-based-cheese small.topping_price").text($(this).attr('topping-price-double'));
+		# $("#vegetable-based-cheese span.topping_price").text($(this).attr('topping-price-double'));
+		# $("#vegetable-based-cheese option.topping_price_extra").text("Normal");
+		
+				
+		# update the live calculator
+		order_item = $('form#add_product').serializeArray();
+		$.post("/order_items/live_calculate", order_item );
+		pizza_size_prices_update()
+		
+		
+	# 2. then choose the crust...
+	$(document).on 'click', "input#product_pizza_crust,input.product_pizza_crust", ->
+		$('#product_toppings_group').show();
+		# update the live calculator
+		order_item = $('form#add_product').serializeArray();
+		$.post("/order_items/live_calculate", order_item );
+		pizza_size_prices_update()
+		
+	# #. then choose the crust style...
+	$(document).on 'click', "input#product_pizza_crust_style", ->
+		# update the live calculator
+		order_item = $('form#add_product').serializeArray();
+		$.post("/order_items/live_calculate", order_item );
+		pizza_size_prices_update()
+
+	# #. then choose the special instructions...
+	$(document).on 'click', "input.product_special_instructions", ->
+		# update the live calculator
+		order_item = $('form#add_product').serializeArray();
+		$.post("/order_items/live_calculate", order_item );
+		pizza_size_prices_update()
+		
+
+	# 3. then choose toppings...
+	$(document).on 'click', "input.hideshow_topping", ->
+
+		# if $(this).is(':checked')
+		# 	$("#product_toppings_topping-" + dt_id + "_preference").removeAttr('disabled');
+		# 	$("#product_toppings_topping-" + dt_id + "_position").removeAttr('disabled');
+		# else
+		# 	$("#product_toppings_topping-" + dt_id + "_preference").attr('disabled', 'disabled');
+		# 	$("#product_toppings_topping-" + dt_id + "_position").attr('disabled', 'disabled');
+	
+		order_item = $('form#add_product').serializeArray();
+		$.post("/order_items/live_calculate", order_item );
+		pizza_size_prices_update()
+
+		dt_id = $(this).attr('data-topping-id')
+		
+		$("#product_toppings_topping-" + dt_id ).toggle();
+
+		$("#product_toppings_topping-" + dt_id + "_preference_group").toggle();
+		$("#product_toppings_topping-" + dt_id + "_position_group").toggle();
+		
+		if $(this).is(':checked') 
+			$(this).parent().parent().addClass('selectedTopping');
+		else
+			$(this).parent().parent().removeClass('selectedTopping');
+		# $("#product_toppings_topping-" + dt_id + "_preference").toggle();
+		# $("#product_toppings_topping-" + dt_id + "_position").toggle();
+		
+		
+			
+	
+	$(document).on 'change', "select.topping_position", ->
+		order_item = $('form#add_product').serializeArray();
+		$.post("/order_items/live_calculate", order_item );
+		pizza_size_prices_update()
+	
+	
+	$(document).on 'change', "select.topping_preference", ->
+		order_item = $('form#add_product').serializeArray();
+		$.post("/order_items/live_calculate", order_item );
+		pizza_size_prices_update()
+		
+	# $(document).on 'change', "select.topping_position", ->
+	# 	order_item = $('form#add_product').serializeArray();
+	# 	$.post("/order_items/live_calculate", order_item );
+	# 	pizza_size_prices_update()
+		
+	
+	$(document).on 'change', 'select.additional_items_form', ->
+		additional_items = $('form#add_additional_to_order').serializeArray();
+		$.post("/orders/live_calculate_additional_items", additional_items );
+
+	$(document).on 'change', 'input.additional_items_form', ->
+		additional_items = $('form#add_additional_to_order').serializeArray();
+		$.post("/orders/live_calculate_additional_items", additional_items );
+
+	$(document).on 'keyup', 'input.additional_items_form', ->
+		additional_items = $('form#add_additional_to_order').serializeArray();
+		$.post("/orders/live_calculate_additional_items", additional_items );
+		
+		
+	# MPG UNHOOK CATERING PRICES
+	$(document).on 'click', ".catering_order_boolean", ->
+		if $(this).val() == "1"
+			$("div.show_catering_items").show();
+			$("select#catering_order_group_number").children("option[value='1-5']").prop('selected',true)
+			
+		else
+			$("div.show_catering_items").hide();
+
+		$('input.input_salad').each ->
+			id = $(@).attr("id")
+			num_of_order=$(@).val()
+			switch
+				when (num_of_order > 5) && (num_of_order < 20) 
+					$("#" + id + '_price').text($(@).attr('data-price-six-to-nineteen'))
+				when (num_of_order > 19)
+					$("#" + id + '_price').text($(@).attr('data-price-twenty-plus')) 
+				else
+					$("#" + id + '_price').text($(@).attr('data-price-one-to-five'))
+
+	
+	$(document).on 'click', '.right-cell .minus, .right-cell .plus', ->
+		if $('.catering_order_boolean:checked').val() == "1"
+			$("div.show_catering_items").show();
+			$("select#catering_order_group_number").children("option[value='1-5']").prop('selected',true)
+		else
+			$("div.show_catering_items").hide();
+
+		$('input.input_salad').each ->
+				id = $(@).attr("id")
+				num_of_order=$(@).val()
+				switch
+					when (num_of_order > 5) && (num_of_order < 20) 
+						$("#" + id + '_price').text($(@).attr('data-price-six-to-nineteen'))
+					when (num_of_order > 19)
+						$("#" + id + '_price').text($(@).attr('data-price-twenty-plus')) 
+					else
+						$("#" + id + '_price').text($(@).attr('data-price-one-to-five'))
+	
+	$(document).on 'click', "button.add_additional_to_order", (e) ->
+		e.preventDefault()
+		order_item = $('form#add_additional_to_order').serializeArray();
+		$.post "/orders/add_additional_to_order", order_item, (data) ->
+			if $("button.add_additional_to_order").hasClass('catering-btn')
+				window.location.href = '/orders/complete_meal'
+			else
+				window.location.href = '/orders/complete_meal'
+			return
+		return false;
+				
+			
+	$(document).on 'click', "a.edit_additional_items", (e) ->
+		e.preventDefault()
+		$('#select_products').show();
+		$('#order_item_form').hide();
+		$('#order_table').removeClass('visible');
+		$('#select_additional').addClass('active');
+		$('.tab-content').show();
+		$('.order_actions_bottom').hide();
+		$('#product_tabs a[href="#select_additional"]').tab('show');
+		
+		$.scrollTo( 0 );
+		$.scrollTo( '#edit_or_update_order_items', 0, {} );
+	
+	$(document).on 'click', "button.cancel_add_product_to_order", (e) ->
+		e.preventDefault()
+		$('.tab-pane.active').removeClass("active");
+		$("#select_products").show();
+		$(".homepage-headings").show();
+		$("#order_item_form").hide();
+		$('.order_actions_bottom').hide();
+		$('#select_additional').removeClass('active');
+		$('#all-categories').show();
+		$('html, body').animate({
+	        scrollTop: 0
+	    }, 500);
+		
+		
+	$(document).on 'click', "button.cancel_add_additional_to_order", (e) ->
+		e.preventDefault();
+		window.location.href = '/orders'
+		#$('.tab-pane.active').removeClass("active");
+		#$("#select_products").show();
+		#$(".homepage-headings").show();
+		#$("#order_item_form").hide();
+		#$('#select_additional').removeClass('active');
+		#$('#all-categories').show();
+		#$.post("orders/cancel_add_additional_to_order");
+		#return false;
+		#$('.order_actions_bottom').hide();
+		#$('html, body').animate({
+	  #      scrollTop: 0
+	  #  }, 500);
+
+	# MODAL ACTIONS
+
+	$(document).on "click", "#modalLinkOrderSummary", (e) ->
+		e.preventDefault();
+		$('.tab-pane.active').removeClass('active');
+		$('.tab-content, #all-categories').hide();
+		$('#order_table').addClass('visible');
+		$('.top-bar h1 span').text("Order Summary");
+		$('.order_actions_bottom').hide();
+		$('.left-container-dsk .order_actions_bottom').show();
+		$('.summary-container .order_actions_bottom').show();
+		$('.homepage-headings').hide();
+		$('#checkout_cart_link').addClass('visible');
+		$('.orders-index').addClass('extra-p');
+
+		$('html, body').animate({
+	        scrollTop: 0
+	    }, 500);
+
+		$('#modalAddProduct').on 'hidden', ->
+		
+	$(document).on 'click', "#order_for_delivery", (e) ->
+		unless $("#total_price_calc").attr('data-total-price') > 9.99
+			e.preventDefault()
+			alert("A minumum order of $9.99 applies to Deliveries.")
+			
+	
+	$(document).on 'change', "#create_an_account", (e) ->
+		if $(this).is(':checked')
+			$("#create_account_password").show()
+		else
+			$("#create_account_password").hide()
+			
+	# do the check on the time entered and show result.
+	$(document).on 'change', "form#order_time_and_date select", (e) ->
+		e.preventDefault()
+		$.post '/orders/get_delivery_times', order_time: year: $("#order_time_date_1i").val(), month: $("#order_time_date_2i").val(), day: $("#order_time_date_3i").val(), time: $("#order_time_time_5i").val()
+		return false;
+		
+	# check the time with the backend, if it is good, then submit the form...
+	$(document).on 'click', "#order_with_chosen_time", (e) ->
+		e.preventDefault()
+		$.post '/orders/check_delivery_times_and_goto_summary', order_time: year: $("#order_time_date_1i").val(), month: $("#order_time_date_2i").val(), day: $("#order_time_date_3i").val(), time: $("#order_time_time_5i").val()
+		return false;
+		
+	#subcategories
+	$(document).on 'click', "div.sub-category", (e) ->
+		e.preventDefault()
+		subcat = $(this).attr('data-subcategory')
+		$("div.pizza_preset").each ->
+			$(@).hide();
+			if $(@).attr('data-subcategories').indexOf(subcat) >= 0
+				$(@).fadeIn();
+				
+		if $(window).width() < 768
+			$.scrollTo( '#pizza_list', 0, {} );
+
+
+	$(document).on 'click', 'button.add_product_to_order', (e) ->
+		e.preventDefault();
+		show_popup = $("#summery-table").data("show_popup");
+		popup_message = $("#summery-table").data("popup_message");
+		$(".additional_popup_message").remove();
+		if show_popup
+			$("#order-summary-table .order_actions_bottom").before("<div class='additional_popup_message alert alert-danger'>" + popup_message + "</div>")
+			return false
+		else
+			order_item = $('form#add_product').serializeArray();
+			$.post '/order_items/add_or_update', order_item, (data) ->
+				
+				window.location.href = '/orders/complete_meal'
+				return
+			return false;
+		
+	
+	# FOR ALL DOM ELEMENTS LOADED AT STARTUP
+	
+	$(document).ready ->
+		# scroll to the correct section if jumping to catering, pizza or calzone edit -->
+
+		if $('.alert.alert-success:contains("Your new order has been created, please review and continue.")').length > 0
+			$('.tab-content, #all-categories').hide();
+			$('.tab-pane.active').removeClass('active');
+			$('#order_item_form').hide();
+			$('#order_table').addClass('visible');
+			$('.homepage-headings').hide();
+			$('.left-container-dsk .order_actions_bottom').show();
+			$('html, body').animate({
+		        scrollTop: 0
+		    }, 500);
+
+		url = $.url();
+		
+		
+		# timer on the page to prevent orders in the past
+		# if url.attr('path') == '/orders/define_delivery_time'
+			
+		# 	url_to_redirect_to =  "/orders/define_delivery_time?overtime=1"
+				
+		# 	timer = $.timer( => window.location.href = url_to_redirect_to );
+
+		# 	timer.once(900000);
+		
+		
+		# timer on the page to prevent orders in the past
+		# if url.attr('path') == '/orders/summary'
+			
+		# 	url_to_redirect_to =  "/orders/define_delivery_time?overtime=1"
+				
+		# 	timer = $.timer( => window.location.href = url_to_redirect_to );
+
+		# 	timer.once(900000);
+		
+		
+		
+		if url.param('set_catering_order')
+			$.scrollTo( 0 );
+			$.scrollTo( '#edit_or_update_order_items', 0, {} );
+			
+		if url.param('side_order')
+			$.scrollTo( 0 );
+			$.scrollTo( '#edit_or_update_order_items', 0, {} );
+			
+		if url.param('calzone_preset_id')
+			$.scrollTo( 0 );
+			$.scrollTo( '#edit_or_update_order_items', 0, {} );
+		
+		if url.param('pizza_preset_id')
+			$.scrollTo( 0 );
+			$.scrollTo( '#edit_or_update_order_items', 0, {} );
+		
+		
+		$("form").validationEngine({promptPosition : "bottomLeft"});
+		
+		$("#submit_pickup_order_for_processing, #submit_pickup_order_for_processing1").click (e) ->
+			e.preventDefault()
+			if !$("form#payment_method option:selected").val()
+				alert("Please select a method of payment")
+			else
+				$("form#payment_method").submit()
+			
+		$("#submit_pickup_order_for_processing_phone").click (e) ->
+			e.preventDefault()
+			if !$("form#payment_method option:selected").val()
+				alert("Please select a method of payment")
+			else
+				$("form#payment_method").submit()
+			
+		$("#submit_delivery_order_for_processing, #submit_delivery_order_for_processing1").click (e) ->
+			e.preventDefault()
+			if !$("form#payment_method option:selected").val()
+				alert("Please select a method of payment")
+			else
+				$("form#payment_method").submit()
+				
+		$("#submit_delivery_order_for_processing_phone").click (e) ->
+			e.preventDefault()
+			if !$("form#payment_method option:selected").val()
+				alert("Please select a method of payment")
+			else
+				$("form#payment_method").submit()
+			
+
+			
+			
+		$('#checkout_cart_link a').click (e) ->
+			e.preventDefault();
+			$('.tab-content, #all-categories').hide();
+			$('.tab-pane.active').removeClass('active');
+			$('#order_item_form').hide();
+			$('#order_table').addClass('visible');
+			$('.order_actions_bottom').hide();
+			$('.summary-container .order_actions_bottom').show();
+			$('.homepage-headings').hide();
+			$('.left-container-dsk .order_actions_bottom').show();
+			$('html, body').animate({
+		        scrollTop: 0
+		    }, 500);
+			
+		
+		$('#datetimepicker1').datetimepicker({pickSeconds: false, startDate: new Date(), pick12HourFormat: true});
+		
+
+
+		# NEW FUNCTIONS FOR MODAL
+
+		$("#modalLinkOrderMore").click (e) ->
+			e.preventDefault()
+
+			$('#modalAddProduct').on 'hidden', ->
+				# $('#product_tabs a[href="#select_additional"]').tab('show');
+				$('.tab-content').hide();
+				$('#order_table').removeClass('visible');
+				$('#all-categories').show();
+				$('.homepage-headings').show();
+				$('#checkout_cart_link').addClass('visible');
+				$('.orders-index').addClass('extra-p');
+				$.scrollTo( 0 );
+				$.scrollTo( '#edit_or_update_order_items', 0, {} );
+		
+		
+		# MPG added catering price logic
+		
+		# only change if catering is set
+		
+		$('input.input_salad').each ->
+			id = $(@).attr("id")
+			$("#" + id).on 'input propertychange paste', ->
+				num_of_order=$(@).val()
+				switch
+					 when (num_of_order > 5) && (num_of_order < 20)
+						 $("#" + id + '_price').text($(@).attr('data-price-six-to-nineteen'))
+					 when (num_of_order > 19) 
+						 $("#" + id + '_price').text($(@).attr('data-price-twenty-plus')) 
+					 else
+						 $("#" + id + '_price').text($(@).attr('data-price-one-to-five'))
+						 
+		

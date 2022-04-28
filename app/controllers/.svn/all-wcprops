@@ -1,0 +1,83 @@
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/pizzaioloca/!svn/ver/272/trunk/pizzaiolo.ca/app/controllers
+END
+home_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/app/controllers/home_controller.rb
+END
+admins_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/app/controllers/admins_controller.rb
+END
+locations_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/pizzaioloca/!svn/ver/251/trunk/pizzaiolo.ca/app/controllers/locations_controller.rb
+END
+order_items_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/pizzaioloca/!svn/ver/64/trunk/pizzaiolo.ca/app/controllers/order_items_controller.rb
+END
+orders_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/pizzaioloca/!svn/ver/268/trunk/pizzaiolo.ca/app/controllers/orders_controller.rb
+END
+orders_for_pickup_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/app/controllers/orders_for_pickup_controller.rb
+END
+pages_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/app/controllers/pages_controller.rb
+END
+application_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/pizzaioloca/!svn/ver/32/trunk/pizzaiolo.ca/app/controllers/application_controller.rb
+END
+customer_services_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/pizzaioloca/!svn/ver/187/trunk/pizzaiolo.ca/app/controllers/customer_services_controller.rb
+END
+customers_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/app/controllers/customers_controller.rb
+END
+sessions_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/pizzaioloca/!svn/ver/82/trunk/pizzaiolo.ca/app/controllers/sessions_controller.rb
+END
+franchise_enquiries_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/pizzaioloca/!svn/ver/270/trunk/pizzaiolo.ca/app/controllers/franchise_enquiries_controller.rb
+END
+orders_for_delivery_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/app/controllers/orders_for_delivery_controller.rb
+END

@@ -1,0 +1,454 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Order Confirmation</title>
+    <link src="https://pizzaiolo.ca/assets/new_design/fonts/fonts_email.css">
+    <style type="text/css">
+      @font-face {
+      font-family: 'Lance-Sans-Regular';
+      src: url('https://pizzaiolo.ca/assets/new_design/fonts/Lance-Sans-Regular.eot?#iefix') format('embedded-opentype'),  url('https://pizzaiolo.ca/assets/new_design/fonts/Lance-Sans-Regular.woff') format('woff'), url('https://pizzaiolo.ca/assets/new_design/fonts/Lance-Sans-Regular.ttf')  format('truetype'), url('https://pizzaiolo.ca/assets/new_design/fonts/Lance-Sans-Regular.svg#Lance-Sans-Regular') format('svg');
+      font-weight: normal;
+      font-style: normal;
+      }
+      @font-face {
+      font-family: 'Gotham Pro';
+      font-style: normal;
+      font-weight: normal;
+      src: local('Gotham Pro'), url('https://pizzaiolo.ca/assets/new_design/fonts/GothaProReg.woff') format('woff');
+      }
+      @font-face {
+      font-family: 'Gotham Pro Bold';
+      font-style: normal;
+      font-weight: normal;
+      src: local('Gotham Pro Black'), url('https://pizzaiolo.ca/assets/new_design/fonts/GothaProBol.woff') format('woff');
+      }
+      #outlook a {padding:0;}
+      body{ width:100% !important; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; margin:0; padding:0; background-color: white;}
+      .ExternalClass {width:100%;}
+      .ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div {line-height: 100%;}
+      #backgroundTable {margin:0; padding:0; width:100% !important; line-height: 100% !important;}
+      img {outline:none; text-decoration:none; -ms-interpolation-mode: bicubic;}
+      a img {border:none;}
+      .image_fix {display:block;}
+      p {margin: 1em 0;}
+      h1, h2, h3, h4, h5, h6 {color: black !important;}
+      h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {color: blue !important;}
+      h1 a:active, h2 a:active,  h3 a:active, h4 a:active, h5 a:active, h6 a:active {
+      color: red !important;
+      }
+      h1 a:visited, h2 a:visited,  h3 a:visited, h4 a:visited, h5 a:visited, h6 a:visited {
+      color: purple !important;
+      }
+      table td {border-collapse: collapse;}
+      table { border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt; }
+      a {
+      color: #009949;
+      text-decoration: none;
+      }
+      a:link { color: #000; }
+      a:visited { color: #000; }
+      a:hover { color: #000; }
+      body {
+      background-color: white;
+      }
+      h1, h2, h3, h4, h5, h6 {
+      font-family: 'Lance-Sans-Regular';
+      }
+      p, td, th {
+      margin: 0px;
+      }
+      .content-line-1{
+      font-size: 16px;
+      font-family: 'Gotham Pro', Verdana !important;
+      line-height: 22px;
+      padding-bottom:28px;
+      }
+      .content-line-2{
+      font-size: 16px;
+      font-family: 'Gotham Pro', Verdana !important;
+      line-height: 22px;
+      padding-bottom:28px;
+      font-weight:bold;
+      }
+      p.m-0 {
+      margin: 0;
+      }
+      .below-header {
+      padding: 10px;
+      margin-top: 39px;
+      margin-bottom: 59px;
+      }
+      .below-header h2 {
+      font-size: 45px;
+      margin: 0;
+      line-height: 35px;
+      }
+      .mail-header img {
+      display: block;
+      }
+      .mail-header {
+      padding: 10px;
+      }
+      .mail-body {
+      }
+      .text-center {
+      text-align: center!important;
+      }
+      .total-price{
+      font-family: 'Gotham Pro Bold', Verdana !important;
+      font-size:22px !important;
+			}
+			.total-price small{
+      font-family: 'Gotham Pro', Verdana !important;
+      font-size:12px !important;
+			}
+      .mail-container {
+      max-width: 600px;
+      margin: 10px auto;
+      }
+      .mail-container .payment-method{
+      font-size:16px;
+      font-family: 'Gotham Pro', Verdana !important;
+      padding-top:67px;
+      margin:0px;
+      padding-bottom:58px;
+      }
+      .mail-container p{
+      font-size: 13px !important;
+      font-family: 'Gotham Pro';
+      }
+      .change-password-btn{
+      display: inline-block;
+      background-color: #000;
+      color: #FFF !important;
+      padding: 15px 30px;
+      font-family: 'Gotham Pro Bold', Verdana !important;
+      margin: 50px 0px;
+      font-size: 16px;
+      }
+      .hello-customer{
+      font-family: 'Gotham Pro Bold', Verdana !important;
+      font-size: 22px;
+      }
+      .mail-wrapper {
+      padding: 20px;
+      max-width: 90%;
+      margin: 0 auto;
+      }
+      .col100 {
+      width: calc(100% - 40px);
+      }
+      .col50 {
+      width: calc(50% - 40px);
+      }
+      .col100, .col50 {
+      padding: 15px 20px;
+      float: left;
+      }
+      table {
+      width: 100%;
+      }
+      .clearfix:after {
+      visibility: hidden;
+      display: block;
+      font-size: 0;
+      content: " ";
+      clear: both;
+      height: 0;
+      }
+      * html .clearfix             { zoom: 1; } /* IE6 */
+      *:first-child+html .clearfix { zoom: 1; } /* IE7 */
+      .customer-name {
+      font-size: 16px;
+      padding-bottom: 11px;
+      font-family: 'Gotham Pro', Verdana !important;
+      margin:0px;
+      }
+      .order-number {
+      font-size: 16px;
+      padding-bottom: 28px;
+      font-family: 'Gotham Pro', Verdana !important;
+      font-weight:normal;
+      margin:0px;
+      }
+      .item-title{
+      font-size:22px !important;
+      font-family: 'Gotham Pro Bold', Verdana !important;
+      margin: 0px;
+      }
+      .item-title > p{
+      font-weight:normal;
+      font-family: 'Gotham Pro', Verdana !important;
+      padding-top:6px;
+      }
+      .item-price > p{
+      font-size:22px;
+      font-family: 'Gotham Pro Bold', Verdana !important;
+      }
+      .tops{
+      font-weight:normal;
+      font-family: 'Gotham Pro', Verdana !important;
+      }
+      h3.green, h2.green, h4.green {
+      color: #009949!important;
+      }
+      h3.green a {
+      color: #009949!important;
+      text-decoration: none;
+      }
+      table td {
+      vertical-align: top;
+      padding: 15px 0;
+      }
+      .totals td {
+      padding: 5px 0;
+      vertical-align: middle;
+      font-family: 'Gotham Pro', Verdana !important;
+      font-size:16px;
+      }
+      .border-none{
+      border:none;
+      }
+      .padding-top{
+      padding-top:17px !important;
+      }
+      .padding-bottom{
+      padding-bottom:17px !important;
+      }
+      .mail-footer{
+      border-top: 30px solid #009949;
+      text-align: center;
+      padding:62px 0px;
+      }
+      .mail-footer h2,h6{
+      margin:0px;
+      }
+      .mail-footer h2{
+      font-size: 38px;
+      padding-bottom: 10px;
+      }
+      h4 p {
+      font-size: 15px;
+      font-weight: 400;
+      margin: 0;
+      }
+      .tops p {
+      margin-bottom: 5px;
+      margin-top: 0;
+      }
+      tr {
+      border-bottom: 1px solid #E5E8EE;
+      }
+      td.right {
+      text-align: right;
+      }
+      td.right p {
+      margin: 0;
+      }
+      .tops {
+      margin-top: 6px;
+      }
+      p.m-t-10 {
+      margin-top: 10px;
+      margin-bottom: 5px;
+      }
+      h3.m-t-20 {
+      margin-top: 60px;
+      font-family: 'Gotham Pro Bold', Verdana !important;
+      font-size:21px;
+      line-height: 24px;
+      }
+      .title-01{
+      margin: 0px;
+      font-family: 'Gotham Pro Bold', Verdana !important;
+      font-size:21px;
+      line-height: 24px;
+      padding-bottom: 10px;
+			}
+			.center .title-01{
+				padding-bottom: 5px !important;
+			} 
+      .title-01-content{
+      margin: 0px;
+      font-family: 'Gotham Pro', Verdana !important;
+      font-size:16px;
+      line-height: 20px;
+      }
+      .order-prepared h2{
+      font-size:22px;
+      font-family: 'Gotham Pro Bold', Verdana !important;
+      }
+      .addditional-item{
+      font-size: 22px;
+      font-family: 'Gotham Pro Bold', Verdana !important;
+      }
+      .col-style{
+      padding-left:15px;
+      }
+      .col-style-padding{
+      padding-left: 34px;
+      }
+      .col-style-padding p{
+      font-family: 'Gotham Pro', Verdana !important;
+      font-size:16px;
+      line-height: 22px;
+      }
+      .col100 h2.green {
+      margin-bottom: 30px;
+      }
+      .footer-tagline{
+      padding-top:50px;
+      }
+      .super-header {
+      color: #009949;
+      text-align: center;
+      font-size: 34px;
+      line-height: 34px;
+      font-weight: 700;
+      }
+      .super-header span {
+      font-size: 20px;
+      line-height: 20px;
+      vertical-align: top;
+      }
+      p a {
+      text-decoration: none;
+			}
+			.customer-address{
+				margin-top:25px;
+			}
+			.customer-confirmation p{
+				font-size: 14px !important;
+			}
+			.customer-thanks{
+				line-height: 30px;
+				margin: 0px;
+				font-family: 'Gotham Pro', Verdana !important;
+			}
+			.customer-order-number{
+				margin: 0px;
+				font-family: 'Gotham Pro', Verdana !important;
+				font-weight: normal;
+    		padding: 10px 0;
+			}
+			.special-h3{
+				font-family: 'Gotham Pro', Verdana !important;
+				font-size:16px;
+				margin:0px;
+				line-height:20px;
+			}
+			.special-p{
+				font-family: 'Gotham Pro', Verdana !important;
+				font-size: 16px;
+				line-height: 22px;
+			}
+			.special-ul{
+				padding-left:0px;
+			}
+			.special-ul .inner-ul{
+				padding-left:15px;
+				list-style-type: none;
+			}
+			.special-ul .inner-ul li:before {
+				content: '-';
+				left: 99px;
+				font-size: 20px;
+				position: absolute;
+				margin-top: -3px;
+			}
+			
+			.customer-item p{
+				padding:0px !important;
+			}
+			.mail-header-admin{
+				margin-bottom:10px;
+			}
+			.deal-title-header{
+				border-bottom:0px;
+			}
+			.deal-title-header h2{
+				margin: 0px;
+			}
+			.deal-item-details-for-admin td:first-child{
+				padding-left:10px !important;
+			}
+			.deal-item-details-for-admin .item-title p{
+				padding-left:10px !important;
+			}
+			.deal-item-details-for-admin .special-ul{
+				margin: 0px 0px 10px 0px !important;
+			}
+			.deal-item-details-for-admin .special-ul .inner-ul {
+				padding-left: 10px !important;
+			}
+			.deal-item-details-for-admin .special-ul .inner-ul li:before {
+				content: '-';
+				left: 170px;
+				font-size: 20px;
+				position: absolute;
+				margin-top: -3px;
+			}
+			.special-ul .inner-ul li:before {
+				content: '-';
+				left: 162px;
+				font-size: 20px;
+				position: absolute;
+				margin-top: -2px;
+			}
+    </style>
+  </head>
+  <body>
+    <div class="mail-wrapper">
+      <div class="mail-header">
+        <img src="https://staging.pizzaiolo.ca/assets/new_design/new-logo.png" />
+      </div>
+      <div class="mail-body clearfix">
+        <div class="col100 col-style-padding">
+          <table cellpadding="0" cellspacing="0" border="0" id="backgroundTable" width="100%">
+            <tr class="border-none">
+              <td>
+                <table width="90%" cellpadding="0" cellspacing="0" border="0" align="center" id="contentTable">
+                  <tr>
+                    <td colspan="3">
+                    </td>
+                  </tr>
+                  <tr class="border-none">
+                    <td width="5%" class="side-col">
+                    <td width="90%" valign="top">
+                      <br />
+                      <p><strong>An order has been placed online with your Pizzaiolo location</strong>.</p>
+                      <p>For <strong><%= if @order.for_pickup? then "Pickup" else "Delivery" end %></strong> at: <strong><%= l(@order.to_be_ready_at, :format => :long_wam) %></strong></p>
+                      <p class="customer-address">
+                        <%= if @order.for_pickup? then "By" else "To" end %>:<br />
+                        <strong><%= @order.first_name %> <%= @order.last_name %></strong><br />
+                        <%= @order.email %><br />
+                        <% if @order.for_pickup? %><%= @order.contact_phone_number %><% else %><%= @order.phone_number %><% end %><br />
+                        <% unless @order.for_pickup? %><%= @order.delivery_address_1 %>, <%= @order.delivery_address_2 %>, <%= @order.delivery_postal_code %><% end %><br />
+                      </p>
+                      <br /><br />
+                      <div align="center" class="customer-confirmation">
+                        <p><strong>-- Below is a copy of the confirmation email the customer received --</strong></p>
+                      </div>
+                      <br /><br />
+                      <h1 class="customer-thanks">Thanks for your order, <%= @order.first_name %></h1>
+                      <%= render(:partial => 'common/email_order_summary') %>
+                      <br />
+                      
+                      <br /><br />
+                    </td>
+                    <td width="5%" class="side-col">
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="mail-footer">
+      <img class="" src="https://staging.pizzaiolo.ca/assets/new_design/mail-footer.png" />
+    </div>
+  </body>
+</html>

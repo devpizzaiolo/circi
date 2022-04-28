@@ -1,0 +1,138 @@
+@import url("fonts/fonts.css");
+/*+++++Generel Settiing++++++*/
+
+body {
+	font-family: 'Gotham Pro';
+	font-size: 1rem;
+	color: #1A1919;
+	background-color: #F2F2F2;
+}
+img {
+	max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+	font-family: 'Lance-Sans-Regular';
+}
+p {
+	color: #1A1919;
+	font-family: 'Gotham Pro Light';
+}
+a, img, input {
+	transition: all ease-in-out 0.5s;
+}
+a:hover, a:focus {
+	text-decoration: none;
+}
+
+
+/*Styling*/
+
+
+
+.row-eq-height {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+}
+.owl-carousel .owl-item img {
+	width: auto;
+	display: inline-block;
+}
+
+.hero-panel {
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	text-align: center;
+	padding-top: 5rem;
+}
+.hero-content {
+}
+.hero-content .title {
+	font-size: 3rem;
+	line-height: 3.5rem;
+	font-family: 'Gotham Pro Bold';
+}
+.hero-content .sub-title {
+	font-family: 'Gotham Pro Light';
+	font-size: 1rem;
+	color: #A6A7BB;
+	margin: 20px auto;
+	max-width: 58%;
+}
+.hero-content .btn {
+	margin-top: 2rem;
+	min-width: 253px;
+	height: 60px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #2D4EF5;
+	color: #fff;
+	box-shadow: 5px 10px 30px rgba(45, 78, 245, 0.5);
+}
+.hero-content .btn:focus, .hero-content .btn:hover {
+	opacity: 0.75;
+}
+.hero-content .tc {
+	color: #022047;
+	font-size: 12px;
+	margin: 11px auto;
+}
+
+
+
+
+
+/*++++++++++++++++++++++++
+		Responsive
++++++++++++++++++++++++++*/
+
+/*For below tablet devices*/
+@media (max-width:767px) {
+.navbar-collapse {
+	height: 100vh;
+	position: absolute;
+	top: 100%;
+	right: 0;	
+	min-width: 150px;
+	text-align: center;
+	left: 0;
+}
+
+}
+
+/*For small mobile devices*/
+@media (min-width:320px) and (max-width:480px) {
+}
+
+/*For landscape mobiles devices*/
+@media (max-width:736px) and (orientation:landscape) {
+}
+
+/*For tablet devices (both orentations)*/
+@media (min-width:768px) and (max-width:979px) {
+.navbar-collapse {
+	height: 100vh;
+	position: absolute;
+	top: 100%;
+	right: 0;	
+	min-width: 150px;
+	text-align: center;
+	left: 0;
+}
+
+}
+
+/*For small screens and laptops devices*/
+@media (min-width:980px) and (max-width:1199px) {
+
+}
+
+@media (min-width:1400px) and (max-width:1920px) {
+}
+
+/*===Safari Specific===*/
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+}

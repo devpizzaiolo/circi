@@ -1,0 +1,123 @@
+- meta title: "Pizzaiolo | Gourmet Pizza | Pizza Delivery Toronto | Take Out Pizza",
+	description: "Pizzaiolo prides themselves on making fresh pizza with fresh ingredients daily. Pizza delivery Toronto, best pizza delivery Toronto. Gluten-free pizza, wheat free pizza dough, thin crust pizza. Pizzaiolo is a pizza catering company, pizza delivery company, order pizza online, popular pizza.",
+	keywords: "Pizzaiolo"
+
+- content_for(:heading) {(@order.for_pickup? ? "Set Pickup Time" : "Set Delivery Time").html_safe}
+//- content_for(:description) {""}
+- content_for(:body_class) {"choose_time_pages"}
+
+div.top-bar
+	h1
+		= link_to raw('&#8592;'), request.referer.present? ? request.referer : root_path
+		- if @order.for_pickup?
+			| Set Pickup Time
+		- else
+			| Set Delivery Time
+div.body-container
+	.container
+		.row
+			.col-12.col-md-12.delivery-time-page
+				h2.super-header.hidden-phone.green.m-b-40.inner-page-sub-title
+					- if @order.for_pickup?
+						| Pickup details
+					- else
+						| Delivery details
+				- unless @order.for_catering == true
+					- if @order.for_pickup?
+							div.static-header.green.m-t-0.delivered-from Your order will be available for pickup at:
+					- else
+							div.static-header.green.m-t-0.delivered-from Your order will be delivered by:
+					
+					div.regular-p.m-t-0.m-b-0.address-line
+						div.regular-p 
+							strong Pizzaiolo
+						span = @order.franchise_location.address
+					p.hidden-phone.m-t-0.m-b-20.address-line = @order.franchise_location.phone
+					//p.visible-phone.m-t-0.m-b-20.address-line = raw link_to @order.franchise_location.phone, "tel:#{@order.franchise_location.phone.delete('-')}"
+					
+					- if @order.franchise_location.open_for_business == true
+						/ p = "This location is OPEN"
+					- else
+						p.regular-p.text-center.red-text = "We open at #{@order.franchise_location.opening_time.strftime(TIME_ONLY_FORMAT)}"
+				
+					.row.time-table		
+						.span6.mob-center-left-desk.col-md-5
+							- if @order.for_pickup?
+								h2.title Pickup Now
+								div.block-border-style
+									- unless @order.franchise_location.open_for_pickup == true
+										/ p.regular-p.text-error This store does not accept pickup orders for the current time.
+										p.regular-p.bold The next available time to have your order ready by would be:
+										p.regular-p = l(@order.franchise_location.pickup_asap_eta, :format => :long_wam)
+									- if @order.franchise_location.open_for_pickup == true
+										h2.static-header.green.m-t-30 Choose to pickup as soon as possible
+										p.regular-p.m-t-10 Ready in about #{@order.baked_items_count >=3 ? "30" : "25"} minutes.
+										/= link_to "Pickup ASAP", orders_order_asap_path, :class => "button default full"
+										= link_to "Pickup ASAP", 'javascript:void(0)', :class => "button default right-btn-top full", :id => "deliver_asap"
+									- else
+										h2.static-header.green.m-t-30 Choose to pickup as soon as possible
+										/= link_to "Pickup ASAP", orders_order_asap_path, :class => "button default full"
+										= link_to "Pickup ASAP", 'javascript:void(0)', :class => "button default right-btn-top full", :id => "deliver_asap"
+							- else
+								h2.title Deliver Now
+								div.block-border-style
+									- if @order.franchise_location.open_for_deliveries == true
+										/ desktop
+										p.regular-p.red.p-0.highlighted-text 
+											strong Delivery times can be affected by weather, traffic, distance, holidays, and order volumes.
+									- else
+										/ p.text-error This store does not accept delivery orders for the current time.
+										p.regular-p.bold The next available time to have your order ready by would be:
+										p.regular-p = l(@order.franchise_location.deliver_asap_eta, :format => :long_wam)
+									- if @order.franchise_location.open_for_deliveries == true
+										//h2.static-header.green.m-t-30 Choose to order delivery ASAP
+										/= link_to "Deliver ASAP", orders_order_asap_path, :class => "button default full"
+										= link_to "Deliver Now", 'javascript:void(0)', :class => "button default right-btn-top full", :id => "deliver_asap"
+									- else
+										//h2.static-header.green.m-t-30 Choose to order delivery ASAP
+										/ = link_to "Deliver ASAP", orders_order_asap_path, :class => "button default full"
+										= link_to "Deliver Now", 'javascript:void(0)', :class => "button default right-btn-top full", :id => "deliver_asap"
+						.col-md-2.or-text 
+							span or
+						= render "schedule_order"
+				- else
+					= render "schedule_order"
+								
+												
+				/ .row.hidden-phone
+					- unless @order.for_catering == true
+						div.text-center
+							- if @order.for_pickup?
+								- if @order.franchise_location.open_for_pickup == true
+									=link_to "Order For Pickup ASAP", orders_order_asap_path, :class => "btn btn-primary full"
+								- else
+									=link_to "Order For Pickup ASAP", orders_order_asap_path, :class => "btn btn-primary full", :confirm => "This store is currently closed. Are you sure you want to place an order for the next open time?"
+							- else
+								- if @order.franchise_location.open_for_deliveries == true
+									=link_to "Order For Delivery ASAP", orders_order_asap_path, :class => "button default"
+								- else
+									=link_to "Order For Delivery ASAP", orders_order_asap_path, :class => "button default", :confirm => "This store is currently closed. Are you sure you want to place an order for the next open time?"
+					
+					div.text-center
+						- if @order.for_pickup?
+							=link_to "Order For Pickup", "#", :class => "button default", :id => "order_with_chosen_time"
+						- else
+							=link_to "Order For Delivery", "#", :class => "button default", :id => "order_with_chosen_time"
+									
+
+
+<div id="asap_modal" class="modal store-close fade" role="dialog" aria-labelledby="asapModal" aria-hidden="true">
+	<div class="modal-content">	
+		<div class="modal-body" style="text-align: center;">
+			<p style="color: #009949; font-weight: bold; font-size: 17px;">This store is closing soon or already closed.</p><br/>
+			<p style="font-weight: bold;">Your order cannot be fulfilled until <span id="asap_date"></span>.</p>
+			<p style="font-weight: bold;">Would you still like to place your ASAP order?</p>
+		</div>
+		<div class="modal-footer text-center">
+			<div style="height: 10px;" class="hidden-mobile"></div>
+			<a class="cancel-for-next-btn" style="margin-right: 25px;padding-left:8px; padding-right:8px;text-decoration: none; cursor: pointer; display: inline-block" data-dismiss="modal" aria-hidden="true" id="cancelOrder">Cancel Order</a>
+			<a class="order-for-next-btn mrt5 button default btn-mobile full" data-dismiss="modal" aria-hidden="true" id="doAsapOrder" style="margin-left: 3px;text-decoration: none; cursor: pointer; word-wrap: break-word;padding-left: 8px; padding-right:8px;display: inline-block">Order for next available date</a>
+			<div style="height: 10px;"></div>
+		</div>
+	</div>
+</div>

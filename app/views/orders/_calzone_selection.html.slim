@@ -1,0 +1,33 @@
+- unless @calzones
+	- @calzones = CalzonePreset.where(:active => true)
+	
+/ style
+/ 	- if @menu && @menu == true
+/ 		| .show-ordering { display:none; }
+/ 	- else
+/ 		| .show-menu { display:none; }
+.hidden-phone.top-desktop.text-center
+	h1.super-header.light.green
+		a.back_to_categories href="#" &#8592;
+		span CALZONE
+div.top-bar
+	h1 
+		a href="/orders" &#8592;
+		| Calzones
+- cache ['calzone_preset_selection'] do
+	- @calzones.each do |calzone_preset|
+		.row
+			.span12.text-center
+				.media-list
+					- @calzones.each do |calzone_preset|
+						div.pizza-select.product_display.calzone_preset
+							.pizza-card.calz
+								.product-image
+									= image_tag calzone_preset.calzone_image_flat.size_800.url
+									= image_tag 'ui/close-icon.png', class: 'close-preview'
+								h2 = "#{calzone_preset.product_name} "
+								p.ingredients = calzone_preset.description
+								.bottom-button
+									= link_to "Order", orders_path(:calzone_preset_id => calzone_preset.id), :class => "button default"
+								/ .show-ordering.bottom-button
+								/ 	= link_to "Order", new_order_item_path(:calzone_preset_id => calzone_preset.id), :remote => true, :class => "button default show-ordering"

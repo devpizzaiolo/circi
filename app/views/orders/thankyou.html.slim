@@ -1,0 +1,71 @@
+- content_for(:body_class) {"thank_you_page"}
+div.top-bar
+	h1 
+		= link_to raw('&#8592;'), root_path
+		span Thank you for your order!
+
+div.body-container.thankyou-page
+	div.container
+		.row
+			.col-sm-12
+				.homepage-headings 
+					h2.malbeck Thank you<br> for your order. <br> Enjoy!
+		
+	.container.nunito
+		.row.thankyou-summary
+			.col-12.col-sm-12
+				p.semi-header.green.m-t-30 = "Order No: #{@order.try(:order_number)}"
+				- if @order.method_of_payment_id === 4 && @order.franchise_location.try(:enable_online_payments) && @order.payment_transactions.count > 0
+					p.semi-header.green.m-t-30 = "Transaction ID: #{@order.payment_transactions.last.try(:transaction_id)}"
+					p.semi-header.green.m-t-30 = "Transaction Date: #{@order.payment_transactions.last.transaction_date.to_datetime.strftime('%a %b %d, %Y at %I:%M%p')}"
+					p.semi-header.green.m-t-30 = "Status: #{@order.payment_transactions.last.try(:status)}"
+					p.semi-header.green.m-t-30 = "Paid Using: xxxx-xxxx-xxxx-#{@order.payment_transactions.last.last_four_digits}"
+				p.regular-p.light
+					| Details have been emailed to you.
+				p.semi-header.green.m-t-30.fresh-at
+					| Your order will be prepared fresh at:
+				
+				p.semi-header.m-b-0.green Store Location:
+				p.regular-p.m-b-0.light = @order.franchise_location.address
+				p.regular-p.light = link_to @order.franchise_location.phone, "tel:#{@order.franchise_location.phone.delete('-')}"
+				br
+				
+				p.regular-p = @delivery_pickup_message
+				
+				br
+
+				p.regular-p.light
+					| For any changes or questions about your order, please contact the store directly.
+				/ div.m-t-30.border-top.p-b-20.p-t-20.visible-phone
+				/ 	h2.super-header.green.text-center 
+				/ 		| IT'S BEEN A SLICE
+				/ 		span.trade &trade;
+
+				/ div.m-t-30.p-b-20.p-t-20.hidden-phone
+				/ 	h2.super-header.green.text-center
+				/ 		| IT'S BEEN A SLICE 
+				/ 		span.trade &trade;
+/ ! Facebook Pixel Event: Purchases 
+javascript:
+	fbq('track', 'Purchase', {currency: "CAD", value: #{{@total_price}}});
+/ ! Google Code for Purchase Conversion Conversion Page
+javascript:
+	/!*  */
+	| var google_conversion_id = 857610062;
+	| var google_conversion_language = "en";
+	| var google_conversion_format = "3";
+	| var google_conversion_color = "ffffff";
+	| var google_conversion_label = "6JMgCKSbwm8Qzq74mAM";
+	| var google_conversion_value = #{{@total_price}};
+	| var google_conversion_currency = "CAD";
+	| var google_remarketing_only = false;
+	/!*  */
+script src="//www.googleadservices.com/pagead/conversion.js" type="text/javascript" 
+noscript
+	div style="display:inline;" 
+		img alt="" height="1" src="//www.googleadservices.com/pagead/conversion/857610062/?value=#{{@total_price}}&amp;currency_code=CAD&amp;label=6JMgCKSbwm8Qzq74mAM&amp;guid=ON&amp;script=0" style="border-style:none;" width="1" /
+
+/ ! Google pixels Event : Purchase conversion
+javascript:
+	gtag('event', 'conversion', {'send_to': 'AW-439383975/IJUWCP2g6fEBEKfvwdEB', 'value': #{{@total_price}}, 'currency': 'CAD', 'transaction_id': #{{@order.try(:order_number)}}});
+/ ! Google pixels

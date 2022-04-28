@@ -1,0 +1,11 @@
+class PrintOrderReport < Rescpos::Report
+  
+  require 'rescpos'
+  
+  
+  def initialize(id)
+    @order = Order.find(id)
+  end
+  
+  
+end

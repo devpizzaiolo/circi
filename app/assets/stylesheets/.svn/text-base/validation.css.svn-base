@@ -1,0 +1,12 @@
+label.error {
+	font-weight: bold;
+	color: red;
+	font-size: 11px;
+	line-height: 11px;
+	margin-top: -6px;
+	margin-bottom: 18px;
+}
+
+div.date label.error {
+	margin-top: 6px;
+}

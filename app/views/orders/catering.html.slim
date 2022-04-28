@@ -1,0 +1,68 @@
+style type="text/css" title="text/css" media="all"
+	| span.show-menu { display:none; }
+	| span.show-menu a { display:none; }
+	| #order_table { display: none; }
+	| #checkout_cart_link { display: none; }
+ 
+
+- meta title: "#{@seo_title if @seo_title}",
+     	description: "#{@seo_metadescription if @seo_metadescription}",
+     	keywords: "#{@seo_keywords if @seo_keywords}"
+
+- content_for(:heading) {("DELICIOUS EVENTS").html_safe}
+- content_for(:body_class) {"catering_home_page"}
+
+
+
+section
+	div.page-background-catering
+		div.bg-img style="background-image: url('/assets/new_design/catering_new.jpg'); background-repeat: no-repeat; background-size: cover;"
+
+	div.container	
+		#edit_or_update_order_items
+			
+		#order_item_form
+		
+			= render(:partial => 'orders/order_additional')
+			
+		.row.order_actions_bottom.single-pizza style="#{unless params[:calzone_preset_id] || params[:calzone_slug] then "display:none;" end}"
+			.order-update-btn.calzone-btn.hidden-mobile
+				button.button.default.m-r.add_product_to_order.order-page-bottom-btn
+					|  ADD TO ORDER
+				
+				/ button.button.gray.cancel_add_product_to_order
+				/ 	| Cancel
+		
+		.container
+			#order_table
+				div.top-bar
+					h1 
+						a.back_to_categories href="#" &#8592;
+						span Order Summary
+				.hidden-phone.row
+					.clearfix.p-t-40
+						h2.super-header.green.text-center Order Summary
+				/ div#shopping_cart.body-container.clearfix
+				/ 	= render(:partial => 'orders/shopping_cart_table')
+		
+		#checkout_cart_link class="#{if @order.total_price > 0 then 'visible' end} flashin"	
+			a 
+				= image_tag 'ui/shopping_cart.png'
+				span MY ORDER
+						
+						
+
+	<div id="modalAddProduct" class="modal modal-new hide" tabindex="12" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3 class="static-header green">Your order has been updated</h3>
+			</div>
+			<div class="modal-body">
+				<p class="regular-p">Would you like to add something else to your order?</p>
+			</div>
+			<div class="modal-footer text-center">
+				<a class="button agree-btn default half m-r" data-dismiss="modal" aria-hidden="true" id="modalLinkOrderMore">Yes, please</a>
+				<button class="button no-thanks-btn gray half" data-dismiss="modal" aria-hidden="true" id="modalLinkOrderSummary">No, thanks</button>
+			</div>
+		</div>
+	</div>

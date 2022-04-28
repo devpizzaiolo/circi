@@ -1,0 +1,111 @@
+.row
+	.span12
+		.page-header
+			h1 Edit Order Item
+			
+	.span12
+		.row
+			.span12
+			
+				h3 Your Order
+				
+				table.table
+					thead
+						th Product
+						th Price
+						th Options
+					tbody
+						- @order.order_items.each do |order_item|
+							tr
+								td= "#{order_item.product_info[:product_name]}, #{order_item.product_info[:product_type].try(:titleize)}"
+								td= "$ price"
+								td= "#{link_to "Remove", orders_path(order_item.id), :method => :delete}"
+						tr
+							td colspan="3"
+								div align="right"
+									| Total = $total
+			
+	.span12
+	
+		form#add_product
+			
+			input name="product[product_type]" type="hidden" value="pizza"
+			input name="product[product_name]" type="hidden" value="Maranare"
+			
+			.row
+				
+				.span4
+					h3
+						| Select Size 
+						small Step 1 of 5
+					fieldset
+						- PizzaSize.where(:active => true).each do |pizza_size|
+							label.radio
+								input type="radio" name="product[pizza_size]" value="#{pizza_size.name.parameterize}" id="product_pizza_size" topping-price=number_to_currency(pizza_size.topping_price)
+								= pizza_size.name + " " + number_to_currency(pizza_size.price)
+								
+				.span8#product_pizza_size_group.hideit
+					h3
+						| Select Crust 
+						small Step 2 of 5
+					fieldset
+						- PizzaCrust.where(:active => true).each do |pizza_crust|
+							label.radio
+								input type="radio" name="product[pizza_crust]" value="#{pizza_crust.name.parameterize}" id="product_pizza_crust"
+								= pizza_crust.name
+						
+						label.checkbox
+							input type="checkbox" name="deep_dish_option" value="0"
+								| Deep Dish<br />
+								- ddo = []
+								- PizzaSize.where(:active => true).each do |pizza_size|
+									- ddo << pizza_size.abbr_name + " " + number_to_currency(pizza_size.deep_dish_option_price).to_s
+								small= "Add: " + ddo.to_sentence
+								
+			.row#product_toppings_group.hideit
+				.span12
+					<br />
+					h3
+						| Select Toppings 
+						small Step 3 of 5
+						
+				.clear
+				
+				- TypeOfTopping.where(:active => true).order("name ASC").each do |type_of_topping|
+					.span2.toppings
+						legend= type_of_topping.name
+						- type_of_topping.toppings.where(:active => true).order("name ASC").each do |topping|
+							
+							div id=topping.name.parameterize
+							
+								label.checkbox.small
+									input.hideshow-preference type="checkbox" id=topping.name.parameterize name="product[toppings][#{topping.name.parameterize}]" value="1"
+									= topping.name
+									| <br />
+									- if topping.free_topping?
+										small	free
+									- else
+										small.topping_price= "$0.00"
+										
+								select.hideit.span2.small id="#{topping.name.parameterize}-preference" name="product[toppings][#{topping.name.parameterize}-preference]" disabled="disabled"
+									- if topping.type_of_topping.preference_normal?
+										option Normal
+									- if topping.type_of_topping.preference_light?
+										option Light
+									- if topping.type_of_topping.preference_extra?
+										option Extra
+									- if topping.type_of_topping.preference_double?
+										option Double
+										
+								select.hideit.span2.small id="#{topping.name.parameterize}-position" name="product[toppings][#{topping.name.parameterize}-position]" disabled="disabled"
+									option Whole Pizza
+									option Left Side
+									option Right Side
+
+			.row
+				.span12
+					button.btn#add_product_to_order
+						i.icon-plus
+						| Add Pizza To Order
+								
+						

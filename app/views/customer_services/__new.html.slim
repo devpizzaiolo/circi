@@ -1,0 +1,34 @@
+- meta title: "Pizzaiolo | Pizza Delivery Toronto | Gourmet Pizza | Take Out Pizza",
+     description: "Toronto's best pizza, Toronto's best gourmet pizza, high quality pizza, toronto pizza catering, toronto pizza company, online pizza, order pizza online, pizza delivery company Toronto, Pizza delivery Toronto, best pizza delivery Toronto. Non gmo pizza, take out pizza Toronto. Non gmo pizza.",
+     keywords: "Gourmet Pizza Toronto"     
+div.top-bar
+	h1
+		= link_to raw('&#8592;'), request.referer.present? ? request.referer : root_path
+		| Customer Service
+		
+div.page-header.customer-service
+
+div.body-container.nunito
+	.container
+		h2.static-header.m-t-0.visible-phone Pizzaiolo is proud to be Toronto’s best gourmet pizza. We are committed to quality, from the ingredients we purchase and prepare, right through to your very last bite. This includes every aspect of your experience, and we take customer service seriously. 
+
+		h2.regular-p.text-center.hidden-phone.smaller Pizzaiolo is proud to be Toronto’s best gourmet pizza. We are committed to quality, from the ingredients we purchase and prepare, right through to your very last bite. This includes every aspect of your experience, and we take customer service seriously.
+
+		
+		p.regular-p We appreciate your feedback. Please fill in the form below so we can ensure your future experiences with Pizzaiolo are the best they can be.
+
+		= simple_form_for(@customer_service, :html => {:class => 'default-form inline-fields' }) do |f|
+
+			= f.input :first_name, :required => true, :input_html => {:class => "validate[required]"}, :label => false, :placeholder => "First Name"
+			= f.input :last_name, :required => true, :input_html => {:class => "validate[required]"}, :label => false, :placeholder => "Last Name"
+			= f.input :email, :required => true, :input_html => {:class => "validate[required,custom[email]]"}, :label => false, :placeholder => "E-mail"
+
+			= f.input :telephone, :required => true, :input_html => {:class => "validate[required,custom[phone]]"}, :label => false, :placeholder => "Phone"
+			= f.input :pickup, as: :select, :required => true, :label => false, include_blank: 'Was this order for pickup?', :input_html => {:class => "span6"}
+			= f.association :franchise_location, :required => true, collection: FranchiseLocation.where(:active => true).all(order: 'address'), label_method: "#{:address_long_form}", value_method: :id, include_blank: false, prompt: "Franchise Location", :label_html => {}, :label => false, :input_html => {:class => "span6 validate[required]"}
+			= f.input :comment, :input_html => {:class => "span6 validate[required]"}, :required => true, :label => false, :placeholder => 'Comment'
+			.control-group.text
+				= show_simple_captcha(:object=>"customer_service")
+		
+			div style="clear:both;"
+				= f.button :submit, "Send Comment", :class => "button default full"

@@ -1,0 +1,118 @@
+- meta title: "Pizzaiolo | Gourmet Pizzeria | Locations #{@title}",
+     description: "#{@description}",
+     keywords: "Pizzaiolo, Local Pizza, Delivery, Order Online Takeout, Gluten Free, Vegan, Gourmet Pizza"
+
+- content_for(:heading) {("FIND YOUR <br> CLOSEST <br>PIZZAIOLO").html_safe}
+//- content_for(:description) {""}
+- content_for(:body_class) {"find_location_page"}
+
+h1 style="display:none;" Locations
+
+section
+  .container.search-location-body
+    / .location-content-panel
+		/ 	.row
+		/ 		.col-12.col-sm-10
+		/ 			h2 FIND YOUR <br> CLOSEST <br>PIZZAIOLO.</h2>
+				
+	#location-search class="visible"
+		/div.top-bar
+			/ h1
+			/ 	= link_to raw('&#8592;'), root_path
+			/ 	| Find your closest Pizzaiolo
+
+		.body-container.min-height.search-loation-block
+			/ p.regular-txt.text-center.m-b-20.visible-phone
+			/ 	| Enter your postal code 
+			/ 	br
+			/ 	| or select an area
+
+			/h2.heading-green.hidden-phone.text-center.light.m-b-20 Find Your Closest Pizzaiolo
+			/p.regular-txt.text-center.m-b-20.hidden-phone Enter your postal code or select an area
+
+			p.regular-txt.error.text-center.m-b-20#error
+			div.search-locations-forms.row.location-row
+				form.default-form.search-location-form.inline#search_locations.col-12
+						
+					- if params[:find_location_near_me] && params[:find_location_near_me] != ""
+						input.input-small#find_location_near_me name="find_location_near_me" class="location-input google-autocomplete" data-mask="phone" type="text" placeholder="Address or Postal Code" value="#{params[:find_location_near_me]}"
+					- else
+						input.input-small#find_location_near_me name="find_location_near_me" class="location-input google-autocomplete" data-mask="phone" type="text" placeholder="Address or Postal Code"
+					
+				
+					p.text-center.regular-txt.m-b-15 Or
+
+					= select_tag "find_location_in_area", options_for_select(@all_areas, params[:find_location_in_area]), class: "location-input", prompt: "Select Area"
+				
+					button.button.default.location-search-btn.full.no-m type="submit" id="search-locations"
+							| Search
+					a.button.secondary-btn.full.no-m href="/locations" id="clear-locations"
+							| Clear
+
+	#location-filter class="#{if params[:find_location_near_me] && params[:find_location_near_me] != "" then 'visible' end}"
+		- message = ""
+		- params[:find_location_in_area] == "all" ? params[:find_location_in_area] = "" : ""
+		- if params[:find_location_near_me].present? && (!params[:find_location_in_area].present?)
+			- message = "Showing all locations near <b class='bold'>#{params[:find_location_near_me].upcase}</b>".html_safe
+		- elsif (!params[:find_location_near_me].present? && params[:find_location_in_area].present?)
+			- message = "Showing all locations in <b class='bold'>#{params[:find_location_in_area]}</b>".html_safe
+		-elsif (params[:find_location_near_me].present? && params[:find_location_in_area].present?)
+			- message = "Showing all locations near <b class='bold'>#{params[:find_location_near_me].upcase}</b> in <b class='bold'>#{params[:find_location_in_area]}</b>".html_safe
+		- if !message.blank?
+			nav aria-label="breadcrumb"
+				ol.breadcrumb
+					li.breadcrumb-item 
+						a href="/locations" 
+							b.bold All Locations
+					- if params[:find_location_in_area]
+						li.breadcrumb-item 
+							span= message
+		div.top-bar.text-center.store-area-title
+			h2 class="inner-page-sub-title #{if @locations.count < 1 then 'hide' end}"
+				/a#back_to_locations_search href="/locations"
+				/	| &#8592;
+				| Pizzaiolo Stores in your area
+		div.body-container.min-height.clearfix.row.location-search-result
+			/ h2.heading-green.hidden-phone.text-center.light.m-b-20 Pizzaiolo locations in your area
+			
+			
+			/ - if !params[:find_location_near_me].blank?
+					
+			- if @locations.count < 1
+				.m-t-20.text-center.col-12
+						p.regular-p.p-style No Pizzaiolo location is within the postal code entered.
+						= link_to "Back to locations", locations_path, class: 'button default'
+						br
+						br
+			- if @locations.count > 0
+				div.regular-p.text-center.m-b-20.col-12.ranked-closest Ranked closest to you
+				- for location in @locations do
+					div class="area col-12 col-md-4 area-#{location.area_name.parameterize}"
+						div.location-card
+							.map.hidden-phone
+								a href="#{location.google_maps_url}" target="_blank" class="store-map-pin"
+									- map = GoogleStaticMap.new(:zoom => 17, :center => MapLocation.new(:latitude => location.latitude, :longitude => location.longitude), :format => "gif",  :height => 250, :api_key => "AIzaSyDPVYwXziaEirqCtv-YJnnM0KUcsot5a2Y")
+									/ - map.markers << MapMarker.new(:color => "black", :location => MapLocation.new(:latitude => location.latitude, :longitude => location.longitude))
+									- image_url = map.url(:auto)
+									img src="#{image_url}" rel="tooltip" alt="Location map" title="click to view full size map" class="img-polaroid"
+									img class="store-logo-pin" src="/assets/new_design/store-pin-icon.png"
+							.info.text-center
+								div.address #{location.address}<br /> #{location.city}, #{location.province} #{location.postal_code}
+								div
+									- unless location.address_details.blank?
+										| #{location.address_details}
+								h3.large-green #{link_to location.phone, "tel:#{location.phone.delete('-')}"}
+								div.visible-phone
+									= link_to "Store Details", location_path(location), class: 'button default smaller'
+
+							.text-center.card-button
+								= link_to "More Info", location_path(location), class: 'button default smaller hidden-phone'
+							.map.visible-phone
+								a href="#{location.google_maps_url}" target="_blank"
+									- map = GoogleStaticMap.new(:zoom => 13, :center => MapLocation.new(:latitude => location.latitude, :longitude => location.longitude), :format => "gif", :width => 110, :height => 110, :api_key => "AIzaSyDPVYwXziaEirqCtv-YJnnM0KUcsot5a2Y")
+									- map.markers << MapMarker.new(:color => "green", :location => MapLocation.new(:latitude => location.latitude, :longitude => location.longitude))
+									- image_url = map.url(:auto)
+									//img src="#{image_url}" rel="tooltip" alt="Location map" title="click to view full size map" class="img-polaroid"
+		/ div.text-center
+		/ 	a#back_to_locations_search class=" button default" href="/locations"
+		/ 		| Back					

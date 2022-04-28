@@ -1,0 +1,19 @@
+.container
+	.body-container
+		= simple_form_for([:admins, @discount_code_filter], multipart: true) do |f|
+			
+			fieldset
+				legend Discount Code Filter Details
+				=f.input :filter_type, :prompt => "Select Filter Type", collection: [['Toppings', 'toppings'], ['Email', 'email'], ['Franchise Location', 'franchise_location']], :required => true
+				=f.input :toppings, :prompt => "Select Toppings", collection: Topping.where(:active => true).map {|top| [top.name, top.id]}, selected: @discount_code_filter.toppings.blank? ? [''] : @discount_code_filter.toppings.split(','), input_html: { multiple: true, style: "height: 120px;" }, include_blank: false
+				=f.input :email
+				=f.input :franchise_location_id, :label => "Franchise Location", :prompt => "Select Franchise Location", collection: FranchiseLocation.where(:active => true).map {|fl| [fl.address, fl.id]}
+				=f.input :discount_code_id, :label => "Discount Code", :prompt => "Select Discount Code", collection: DiscountCode.where(:active => true).map {|dc| [dc.code, dc.id]}, :required => true
+				=f.input :active
+				
+			hr
+				= f.button :submit, "Save/Update", :class => "btn btn-primary"
+
+				= " "
+				
+				= link_to "Cancel", admins_discount_code_filters_path, :class => "btn"

@@ -1,0 +1,2 @@
+module FranchiseLocations::PrinterTestsHelper
+end

@@ -1,0 +1,16 @@
+
+	$('.modal').modal('hide');
+	$('body').removeClass('modal-open');
+	$('.modal-backdrop').remove();
+	$("#order_item_form").hide();
+	$('div#order_item_form').html("<%= escape_javascript(render(:partial => 'order_items/order_item_form')) %>");
+	$("#select_products").hide();
+	$("#order_item_form").show();
+	$("button.add_product_to_order").show();
+	$("button.cancel_add_product_to_order").show();
+	$('div#order_item_form').show();
+
+	$.scrollTo( '#edit_or_update_order_items', 0, {} )
+	
+
+

@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/pizzaioloca/!svn/ver/210/trunk/pizzaiolo.ca/app/assets/javascripts/admins
+END
+pizza_presets.js.coffee
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/app/assets/javascripts/admins/pizza_presets.js.coffee
+END
+products.js.coffee
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/app/assets/javascripts/admins/products.js.coffee
+END
+toppings.js.coffee
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/pizzaioloca/!svn/ver/107/trunk/pizzaiolo.ca/app/assets/javascripts/admins/toppings.js.coffee
+END
+ad_boxes.js.coffee
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/pizzaioloca/!svn/ver/199/trunk/pizzaiolo.ca/app/assets/javascripts/admins/ad_boxes.js.coffee
+END
+flyers.js.coffee
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/pizzaioloca/!svn/ver/102/trunk/pizzaiolo.ca/app/assets/javascripts/admins/flyers.js.coffee
+END
+salads.js.coffee
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/pizzaioloca/!svn/ver/56/trunk/pizzaiolo.ca/app/assets/javascripts/admins/salads.js.coffee
+END
+yesterdays_orders.js.coffee
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/pizzaioloca/!svn/ver/183/trunk/pizzaiolo.ca/app/assets/javascripts/admins/yesterdays_orders.js.coffee
+END
+admins.js.coffee
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/pizzaioloca/!svn/ver/146/trunk/pizzaiolo.ca/app/assets/javascripts/admins/admins.js.coffee
+END
+franchise_locations.js.coffee
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/pizzaioloca/!svn/ver/49/trunk/pizzaiolo.ca/app/assets/javascripts/admins/franchise_locations.js.coffee
+END
+calzone_presets.js.coffee
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/app/assets/javascripts/admins/calzone_presets.js.coffee
+END
+order_printer_status.js.coffee
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/pizzaioloca/!svn/ver/210/trunk/pizzaiolo.ca/app/assets/javascripts/admins/order_printer_status.js.coffee
+END
+todays_orders.js.coffee
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/pizzaioloca/!svn/ver/200/trunk/pizzaiolo.ca/app/assets/javascripts/admins/todays_orders.js.coffee
+END

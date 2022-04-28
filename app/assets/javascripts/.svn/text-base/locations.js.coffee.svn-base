@@ -1,0 +1,23 @@
+# Place all the behaviors and hooks related to the matching controller here.
+# All this logic will automatically be available in application.js.
+# You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
+
+jQuery ->
+	
+	$(document).ready ->
+		
+		# filter the available areas
+		$("select#filter_by_area").change ->
+			filter_by_area = $("select#filter_by_area").val()
+			if filter_by_area != "all"
+				$("div.area").hide();
+				$("div."+filter_by_area).show();
+			else
+				$("div.area").show();
+					
+
+		
+		
+		
+		
+		

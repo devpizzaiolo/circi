@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/test/functional/customers
+END
+orders_controller_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/test/functional/customers/orders_controller_test.rb
+END
+customers_controller_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/test/functional/customers/customers_controller_test.rb
+END

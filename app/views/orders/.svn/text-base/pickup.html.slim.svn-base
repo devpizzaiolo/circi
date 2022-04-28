@@ -1,0 +1,66 @@
+.page-header
+	h1 Place Order for Pickup
+	
+h2 Contact Info & Customer Address
+	
+.row
+	.span6
+	
+		p Have an account? Sign in to complete your order.
+
+		- @customer = Customer.new
+		
+		= simple_form_for(@customer, :url => customer_session_path) do |f|
+
+			= f.input :email, :required => false, :autofocus => true
+			= f.input :password, :required => false
+			
+
+			= f.input :goto_pickup, :as => :hidden, :input_html => {:value => 1}
+
+			= f.button :submit, "Login", :class => "btn btn-primary"
+	
+		br
+		br
+
+		/= render "devise/shared/links"
+		
+	.span6
+	
+		p If you do not have an account, please enter your contact information.
+		
+		p
+			em
+				strong Please note, this does not require creating an account.
+		
+		= simple_form_for(@order, :url => orders_generate_customer_path) do |f|
+			
+			= f.input :goto_pickup, :as => :hidden, :input_html => {:value => 1}
+
+			= f.input :first_name, :required => true
+			= f.input :last_name, :required => true
+			= f.input :email, :required => true
+			= f.input :phone_number, :required => true
+			
+			= f.input :address_1, :required => false
+			= f.input :address_2, :required => false
+			= f.input :city, :required => false
+			= f.input :postal_code, :required => false
+			
+			
+			label
+				input type="checkbox" name="customer[create_account]" id="create_an_account" value="1"
+				|  Create an account for me
+			
+			br
+			
+			#create_account_password style="display:none;"
+				= f.input :password, :required => true
+				= f.input :password_confirmation, :required => true
+			
+			= f.button :submit, "Submit/Next", :class => "btn btn-primary"
+	
+		br
+		br
+			
+	

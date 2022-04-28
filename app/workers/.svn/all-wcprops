@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/pizzaioloca/!svn/ver/266/trunk/pizzaiolo.ca/app/workers
+END
+print_order_worker.rb
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/pizzaioloca/!svn/ver/257/trunk/pizzaiolo.ca/app/workers/print_order_worker.rb
+END
+test_worker.rb
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/pizzaioloca/!svn/ver/266/trunk/pizzaiolo.ca/app/workers/test_worker.rb
+END

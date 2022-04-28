@@ -1,0 +1,4 @@
+.page-header
+	h1 New Franchise Location
+	
+= render(:partial => 'admins/franchise_locations/form')

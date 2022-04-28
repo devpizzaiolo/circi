@@ -1,0 +1,38 @@
+- content_for(:title) {"Account"}
+
+.page-header
+	h1 My Account
+	
+.row
+	.span12
+		ul.nav.nav-pills
+			li.active= link_to "Orders", customers_path
+			li= link_to "My Account Profile", customers_customers_path
+	
+h2 Order History
+	
+table.table.table-striped
+	thead
+		tr
+			th Order Date
+			th Order #
+			th Summary
+			th Options
+	tbody
+		- current_customer.orders.where(:ordered => true).order("ordered_at DESC").each do |order|
+			tr
+				td= l(order.ordered_at, :format => :short_date_only)
+				td
+					strong= order.order_number
+				td
+					- if !order.order_additional.blank? && order.order_additional.blank? !="" && order.order_additional['catering_order'] == "1"
+						strong Catering Order: 
+					- unless order.quick_summary.blank?
+						small = raw order.quick_summary.to_sentence
+					- else
+						small N/A
+				td
+					= link_to "View", customers_order_path(order.id), :class => "btn btn-mini btn-block"
+					= link_to "Order", customers_orders_new_order_from_old_path(order.id), :class => "btn btn-mini btn-block btn-primary"
+	
+

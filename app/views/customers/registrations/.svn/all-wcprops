@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/pizzaioloca/!svn/ver/227/trunk/pizzaiolo.ca/app/views/customers/registrations
+END
+edit.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/app/views/customers/registrations/edit.html.erb
+END
+new.html.slim
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/pizzaioloca/!svn/ver/227/trunk/pizzaiolo.ca/app/views/customers/registrations/new.html.slim
+END

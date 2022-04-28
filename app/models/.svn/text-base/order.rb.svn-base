@@ -1,0 +1,678 @@
+class Order < ActiveRecord::Base
+  
+  
+  include ActionView::Helpers
+  
+  belongs_to :customer
+  belongs_to :franchise_location
+  belongs_to :method_of_payment
+  
+  # belongs_to :contact_phone_number
+  
+  has_many :order_items, dependent: :destroy
+  
+  attr_accessible :customer_id, :special_instructions, :order_additional
+  
+  attr_accessible :delivery_address_1, :delivery_address_2, :delivery_city, :delivery_first_name, :delivery_last_name, :delivery_mailing_list, :delivery_phone_number, :delivery_postal_code, :contact_phone_number
+  attr_accessible :address_1, :address_2, :city, :first_name, :last_name, :mailing_list, :phone_number, :postal_code, :phone_number, :email, :for_pickup, :password, :password_confirmation, :goto_delivery, :address_id
+  attr_accessible :franchise_location_id, :to_be_ready_at, :ordered, :ordered_at, :payment_method, :goto_pickup, :contact_phone_number_id, :created_at, :updated_at, :special_instructions, :method_of_payment_id, :sent_to_printer, :email_sent
+  
+  
+  # fro signing up a user via the contact info portion of the order process
+  attr_accessor :password, :password_confirmation, :goto_delivery, :goto_pickup, :save_new
+  
+  
+  serialize :order_additional, JSON
+  
+  
+  after_update :remove_null
+  
+  
+  
+  # additional methods
+  
+  def total_price
+    
+    total_price = 0
+    
+    # CALZONES & PIZZAS
+    self.order_items.each do |oi|
+      total_price += oi.price
+    end
+    
+    # ADDITIONAL ITEMS
+    
+    dipping_sauces_total = 0
+    salads_total = 0
+    desserts_total = 0
+    beverages_total = 0
+    utensils_total = 0
+    
+    unless self.order_additional.blank? || self.order_additional == '' || self.order_additional == 'null'
+      
+      self.order_additional['dipping_sauces'].each do |dipping_sauce|
+        price = ApplicationController.helpers.get_dipping_sauce_price_total(dipping_sauce[0],dipping_sauce[1])
+        # puts "Sauce Price : #{price}"
+        dipping_sauces_total += price
+      end
+      
+      self.order_additional['salads'].each do |salad|
+        price = ApplicationController.helpers.get_salad_price_total(self,salad[0],salad[1])
+        # puts "Salad Price : #{price}"
+        salads_total += price
+      end
+      
+      if self.order_additional['catering_order'] == "1"
+        self.order_additional['desserts'].each do |dessert|
+          price = ApplicationController.helpers.get_dessert_price_total(dessert[0],dessert[1])
+          # puts "Dessert Price : #{price}"
+          desserts_total += price
+        end
+      end
+      
+      self.order_additional['beverages'].each do |beverage|
+        price = ApplicationController.helpers.get_beverage_price_total(beverage[0],beverage[1])
+        # puts "Bevrage Price : #{price}"
+        beverages_total += price
+      end
+      
+    end
+    
+    # puts "Total Sauce Price : #{dipping_sauces_total}"
+    
+    # puts "Total Salad Price : #{salads_total}"
+    
+    # puts "Total Dessert Price : #{desserts_total}"
+    
+    # puts "Total Beverage Price : #{beverages_total}"
+    
+    order_total = [total_price, dipping_sauces_total, salads_total,desserts_total, beverages_total].sum
+    
+    # puts "Order Total (not inc. tax): #{order_total}"
+    
+    order_total
+    
+  end
+  
+  def for_catering
+    
+    truefalse = false
+    
+    unless self.order_additional.blank? || self.order_additional == '' || self.order_additional == 'null'
+      
+      if self.order_additional['catering_order'] == "1"
+        truefalse = true
+      else
+        truefalse = false
+      end
+      
+    else
+      truefalse = false
+    end
+    
+    return truefalse
+    
+  end
+  
+  
+  def total_additional_items_price
+    
+    additional_items_price = 0
+    
+    dipping_sauces_total = 0
+    salads_total = 0
+    desserts_total = 0
+    beverages_total = 0
+    utensils_total = 0
+    
+    unless self.order_additional.blank? || self.order_additional == '' || self.order_additional == 'null'
+      
+      self.order_additional['dipping_sauces'].each do |dipping_sauce|
+        price = ApplicationController.helpers.get_dipping_sauce_price_total(dipping_sauce[0],dipping_sauce[1])
+        # puts "Sauce Price : #{price}"
+        dipping_sauces_total += price
+      end
+      
+      self.order_additional['salads'].each do |salad|
+        price = ApplicationController.helpers.get_salad_price_total(self,salad[0],salad[1])
+        # puts "Salad Price : #{price}"
+        salads_total += price
+      end
+      
+      if self.order_additional['catering_order'] == "1"
+        self.order_additional['desserts'].each do |dessert|
+          price = ApplicationController.helpers.get_dessert_price_total(dessert[0],dessert[1])
+          # puts "Dessert Price : #{price}"
+          desserts_total += price
+        end
+      end
+      
+      self.order_additional['beverages'].each do |beverage|
+        price = ApplicationController.helpers.get_beverage_price_total(beverage[0],beverage[1])
+        # puts "Bevrage Price : #{price}"
+        beverages_total += price
+      end
+      
+    end
+    
+    # puts "Total Sauce Price : #{dipping_sauces_total}"
+    
+    # puts "Total Salad Price : #{salads_total}"
+    
+    # puts "Total Dessert Price : #{desserts_total}"
+    
+    # puts "Total Beverage Price : #{beverages_total}"
+    
+    additional_items_total = [additional_items_price, dipping_sauces_total, salads_total, desserts_total, beverages_total].sum
+    
+    # puts "Additional Items Total (not inc. tax): #{additional_items_total}"
+    
+    return additional_items_total
+    
+  end
+  
+  
+  
+  
+  # individual item price totals
+  
+  def beverages_total
+
+    beverages_total = 0
+    
+    unless self.order_additional.blank? || self.order_additional == '' || self.order_additional == 'null'
+            
+      self.order_additional['beverages'].each do |beverage|
+        price = ApplicationController.helpers.get_beverage_price_total(beverage[0],beverage[1])
+        # puts "Bevrage Price : #{price}"
+        beverages_total += price
+      end
+      
+    end
+    
+    # puts "Total Beverage Price : #{beverages_total}"
+    
+    return beverages_total
+    
+  end
+  
+  
+  def salads_total
+    
+    salads_total = 0
+    
+    unless self.order_additional.blank? || self.order_additional == '' || self.order_additional == 'null'
+      
+      self.order_additional['salads'].each do |salad|
+        price = ApplicationController.helpers.get_salad_price_total(self,salad[0],salad[1])
+        # puts "Salad Price : #{price}"
+        salads_total += price
+      end
+      
+    end
+    
+    # puts "Total Salad Price : #{salads_total}"
+    
+    return salads_total
+    
+  end
+  
+  
+  
+  def desserts_total
+    
+    desserts_total = 0
+    
+    unless self.order_additional.blank? || self.order_additional == '' || self.order_additional == 'null'
+      
+      if self.order_additional['catering_order'] == "1"
+      
+        self.order_additional['desserts'].each do |dessert|
+          price = ApplicationController.helpers.get_dessert_price_total(dessert[0],dessert[1])
+          # puts "Dessert Price : #{price}"
+          desserts_total += price
+        end
+      
+      end
+      
+    end
+    
+    # puts "Total Dessert Price : #{desserts_total}"
+    
+    return desserts_total
+
+  end
+  
+  
+  
+  def dipping_sauces_total
+    
+    dipping_sauces_total = 0
+    
+    unless self.order_additional.blank? || self.order_additional == '' || self.order_additional == 'null'
+      
+      self.order_additional['dipping_sauces'].each do |dipping_sauce|
+        price = ApplicationController.helpers.get_dipping_sauce_price_total(dipping_sauce[0],dipping_sauce[1])
+        # puts "Sauce Price : #{price}"
+        dipping_sauces_total += price
+      end
+      
+    end
+    
+    # puts "Total Dipping Sauce Price : #{dipping_sauces_total}"
+    
+    return dipping_sauces_total
+    
+  end
+  
+  
+  
+  
+  def salads_total_formatted
+    return number_to_currency(self.salads_total)
+  end
+  
+  def desserts_total_formatted
+    return number_to_currency(self.desserts_total)
+  end
+  
+  def beverages_total_formatted
+    return number_to_currency(self.beverages_total)
+  end
+  
+  def dipping_sauces_total_formatted
+    return number_to_currency(self.dipping_sauces_total)
+  end
+  
+  
+  
+  
+  def sales_tax
+    sales_tax = self.total_price * 13/100
+    # puts "Sales Tax: #{sales_tax}"
+    sales_tax
+  end
+  
+  def sales_tax_inc_delivery
+    sales_tax = (self.total_price + self.delivery) * 13/100
+    # puts "Sales Tax: #{sales_tax}"
+    sales_tax
+  end
+  
+  def delivery
+    delivery = 0
+    if self.for_pickup?
+      delivery = 0
+    else
+      delivery = Constant::DELIVERY_CHARGE
+    end
+    delivery
+  end
+  
+  def total_price_including_sales_tax
+    total = self.total_price + self.sales_tax
+    # puts "Order Total (inc. tax): #{total}"
+    total
+  end
+  
+  def total_price_including_sales_tax_inc_delivery
+    total = self.total_price + self.delivery + self.sales_tax_inc_delivery
+    # puts "Order Total (inc. tax): #{total}"
+    total
+  end
+  
+  def order_number
+    self.ordered_at.to_i
+  end
+  
+  
+  
+  
+  def quick_summary
+    
+    order_summary_arr = []
+    
+    self.order_items.each do |order_item|
+    	order_summary_arr << order_item.item_title
+    end
+						
+    unless self.order_additional.blank? || self.order_additional == "" || self.order_additional == "null"
+	
+    	self.order_additional['dipping_sauces'].each do |dipping_sauce|
+    		if dipping_sauce[1].to_i > 0
+    			order_summary_arr << "#{ApplicationController.helpers.get_dipping_sauce_name(dipping_sauce[0])} Dipping Sauce"
+    		end
+    	end
+	
+    	self.order_additional['beverages'].each do |beverage|
+    		if beverage[1].to_i > 0
+    			order_summary_arr << "#{ApplicationController.helpers.get_beverage_name(beverage[0])} x #{beverage[1]}"
+    		end
+    	end
+					
+    	self.order_additional['salads'].each do |salad|
+    		if salad[1].to_i > 0
+    			order_summary_arr << "#{ApplicationController.helpers.get_salad_name(salad[0])} x #{salad[1]}"
+    		end
+    	end
+
+    	if self.order_additional['catering_order'] == "1"
+    		self.order_additional['desserts'].each do |dessert|
+    			if dessert[1].to_i > 0
+    				order_summary_arr << "#{ApplicationController.helpers.get_dessert_name(dessert[0])} x #{dessert[1]}"
+    			end
+    		end
+    	end
+	
+      # if self.order_additional['catering_order'] == "1"
+      #   self.order_additional['utensils'].each do |utensil|
+      #     if utensil[1].to_i > 0
+      #       order_summary_arr << "#{ApplicationController.helpers.get_utensil_name(utensil[0])} x #{utensil[1]}"
+      #     end
+      #   end  
+      # end
+						
+    end
+
+    return order_summary_arr
+    
+  end
+  
+  
+  def beverages_summary
+    order_summary_arr = []
+						
+    unless self.order_additional.blank? || self.order_additional == "" || self.order_additional == "null"
+	
+    	self.order_additional['beverages'].each do |beverage|
+    		if beverage[1].to_i > 0
+    			order_summary_arr << "#{ApplicationController.helpers.get_beverage_name(beverage[0])} x #{beverage[1]}"
+    		end
+    	end
+						
+    end
+
+    return order_summary_arr
+  end
+  
+  def beverages_summary_print
+    order_summary_arr = []
+						
+    unless self.order_additional.blank? || self.order_additional == "" || self.order_additional == "null"
+	
+    	self.order_additional['beverages'].each do |beverage|
+    		if beverage[1].to_i > 0
+          inner_arr = []
+    			inner_arr << "#{beverage[1]} #{ApplicationController.helpers.get_beverage_name(beverage[0])}"
+          inner_arr << number_to_currency( ApplicationController.helpers.get_beverage_price_total(beverage[0],beverage[1]) )
+          order_summary_arr << inner_arr
+    		end
+    	end
+						
+    end
+
+    return order_summary_arr
+  end
+  
+  def dipping_sauces_summary_print
+    order_summary_arr = []
+						
+    unless self.order_additional.blank? || self.order_additional == "" || self.order_additional == "null"
+	
+    	self.order_additional['dipping_sauces'].each do |dipping_sauce|
+    		if dipping_sauce[1].to_i > 0
+          inner_arr = []
+    			inner_arr << "#{dipping_sauce[1]} #{ApplicationController.helpers.get_dipping_sauce_name(dipping_sauce[0])}"
+          inner_arr << number_to_currency( ApplicationController.helpers.get_dipping_sauce_price_total(dipping_sauce[0],dipping_sauce[1]) )
+          order_summary_arr << inner_arr
+    		end
+    	end
+						
+    end
+
+    return order_summary_arr
+  end
+  
+  def salads_summary_print
+    order_summary_arr = []
+						
+    unless self.order_additional.blank? || self.order_additional == "" || self.order_additional == "null"
+      @order = Order.find(self.id)
+    	self.order_additional['salads'].each do |salad|
+    		if salad[1].to_i > 0
+          inner_arr = []
+    			inner_arr << "#{salad[1]} #{ApplicationController.helpers.get_salad_name(salad[0])}"
+          inner_arr << number_to_currency( ApplicationController.helpers.get_salad_price_total(@order,salad[0],salad[1]))
+          order_summary_arr << inner_arr
+    		end
+    	end
+						
+    end
+
+    return order_summary_arr
+  end
+  
+  def utensils_summary_print
+    order_summary_arr = []
+						
+    unless self.order_additional.blank? || self.order_additional == "" || self.order_additional == "null"
+      
+      if self.order_additional['catering_order'] == "1"
+	
+      	self.order_additional['utensils'].each do |utensil|
+      		if utensil[1].to_i > 0
+            inner_arr = []
+      			inner_arr << "#{utensil[1]} #{ApplicationController.helpers.get_utensil_name(utensil[0])}"
+            order_summary_arr << inner_arr
+      		end
+      	end
+      
+      end
+						
+    end
+
+    return order_summary_arr
+  end
+  
+  def desserts_summary_print
+    order_summary_arr = []
+						
+    unless self.order_additional.blank? || self.order_additional == "" || self.order_additional == "null"
+      
+      if self.order_additional['catering_order'] == "1"
+	
+      	self.order_additional['desserts'].each do |dessert|
+      		if dessert[1].to_i > 0
+            inner_arr = []
+      			inner_arr << "#{dessert[1]} #{ApplicationController.helpers.get_dessert_name(dessert[0])}"
+            inner_arr << number_to_currency( ApplicationController.helpers.get_dessert_price_total(dessert[0],dessert[1]) )
+            order_summary_arr << inner_arr
+      		end
+      	end
+      
+      end
+						
+    end
+
+    return order_summary_arr
+  end
+  
+  
+  
+  def dipping_sauces_summary
+  
+    order_summary_arr = []
+						
+    unless self.order_additional.blank? || self.order_additional == "" || self.order_additional == "null"
+	
+    	self.order_additional['dipping_sauces'].each do |dipping_sauce|
+    		if dipping_sauce[1].to_i > 0
+    			order_summary_arr << "#{ApplicationController.helpers.get_dipping_sauce_name(dipping_sauce[0])} Dipping Sauce x #{dipping_sauce[1]}"
+    		end
+    	end
+						
+    end
+
+    return order_summary_arr
+  
+  end
+  
+  
+  
+  
+  def salads_summary
+    order_summary_arr = []
+						
+    unless self.order_additional.blank? || self.order_additional == "" || self.order_additional == "null"
+					
+    	self.order_additional['salads'].each do |salad|
+    		if salad[1].to_i > 0
+    			order_summary_arr << "#{ApplicationController.helpers.get_salad_name(salad[0])} x #{salad[1]}"
+    		end
+    	end
+						
+    end
+
+    return order_summary_arr
+  end
+  
+  def desserts_summary
+    order_summary_arr = []
+						
+    unless self.order_additional.blank? || self.order_additional == "" || self.order_additional == "null"
+
+    	if self.order_additional['catering_order'] == "1"
+    		self.order_additional['desserts'].each do |dessert|
+    			if dessert[1].to_i > 0
+    				order_summary_arr << "#{ApplicationController.helpers.get_dessert_name(dessert[0])} x #{dessert[1]}"
+    			end
+    		end
+    	end
+						
+    end
+
+    return order_summary_arr
+  end
+  
+  def utensils_summary
+    order_summary_arr = []
+						
+    unless self.order_additional.blank? || self.order_additional == "" || self.order_additional == "null"
+	
+    	if self.order_additional['catering_order'] == "1"
+    		self.order_additional['utensils'].each do |utensil|
+    			if utensil[1].to_i > 0
+    				order_summary_arr << "#{ApplicationController.helpers.get_utensil_name(utensil[0])} x #{utensil[1]}"
+    			end
+    		end	
+    	end
+						
+    end
+
+    return order_summary_arr
+  end
+  
+  
+  
+  
+  def to_be_ready_at_formatted
+    l(self.to_be_ready_at, :format => :for_printer)
+  end
+  
+  
+  # subtotal-formatted
+  def total_price_formatted
+    number_to_currency(self.total_price)
+  end
+  
+  # sales-tax-formatted
+  def sales_tax_inc_delivery_formatted
+    number_to_currency(self.sales_tax_inc_delivery)
+  end
+  
+  # delivery charge - formatted
+  def delivery_formatted
+    number_to_currency(self.delivery)
+  end
+  
+  def total_price_including_sales_tax_inc_delivery_formatted
+    number_to_currency(self.total_price_including_sales_tax_inc_delivery)
+  end
+  
+  def has_account
+    unless self.customer_id.nil?
+      return true
+    else
+      return false
+    end
+  end
+  
+  
+  def print_and_confirm_order
+    
+    PrintOrderWorker.perform_async(self.id)
+    
+    # # TEST LOCALLY
+#     # home printer -->
+#     printer = Rescpos::Printer.open("192.168.0.29", 9100)
+# 
+#     report = PrintOrderReport.new(id)
+#     printer.print_report(report, :encoding => "UTF-8//IGNORE")
+#     printer.close
+    
+  end
+  
+  def email_confirmation_to_customer
+    OrderMailer.order_confirmation_email(self.id).deliver
+  end
+  
+  def email_confirmation_to_franchise_location
+    if self.franchise_location.receive_order_confirmation_emails?
+      OrderMailer.franchise_location_order_confirmation_email(self.id).deliver
+    end
+  end
+  
+  def email_confirmation_to_admins
+    
+    @admins = Admin.where(:receive_order_confirmation_emails => true)
+    @admins.each do |admin|
+      OrderMailer.admin_order_confirmation_email(self.id,admin.id).deliver
+    end
+    
+  end
+  
+  
+  
+  def pizza_count
+    pizza_count = 0
+    self.order_items.each do |order_item|
+      if order_item.product_info['product_type'] == "pizza"
+        pizza_count +=1
+      end
+    end
+    return pizza_count
+  end
+  
+  def calzone_count
+    calzone_count = 0
+    self.order_items.each do |order_item|
+      if order_item.product_info['product_type'] == "calzone"
+        calzone_count +=1
+      end
+    end
+    return calzone_count
+  end
+  
+  
+  
+  
+  
+  
+  
+  private
+
+    def remove_null
+      # self.update_attributes(:order_additional => nil)
+    end
+
+end

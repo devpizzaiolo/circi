@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.2">
+<Document>
+  <name>289 Dundas St W</name>
+  <description><![CDATA[289 Dundas Street West
+Toronto, ON M5T 1G1, Canada
+(416) 597-1100]]></description>
+  <Style id="style1">
+    <LineStyle>
+      <color>40000000</color>
+      <width>3</width>
+    </LineStyle>
+    <PolyStyle>
+      <color>73FFCC33</color>
+      <fill>1</fill>
+      <outline>1</outline>
+    </PolyStyle>
+  </Style>
+  <Placemark>
+    <name>289 Dundas - Delivery Area</name>
+    <description><![CDATA[<div dir="ltr">289 Dundas Street West<br>Toronto, ON M5T 1G1, Canada<br>(416) 597-1100</div>]]></description>
+    <styleUrl>#style1</styleUrl>
+    <Polygon>
+      <outerBoundaryIs>
+        <LinearRing>
+          <tessellate>1</tessellate>
+          <coordinates>
+            -79.401840,43.663120,0.000000
+            -79.400940,43.660320,0.000000
+            -79.400162,43.660198,0.000000
+            -79.399948,43.659580,0.000000
+            -79.400459,43.658958,0.000000
+            -79.396240,43.648651,0.000000
+            -79.380653,43.652245,0.000000
+            -79.381447,43.654064,0.000000
+            -79.382256,43.655991,0.000000
+            -79.382278,43.656006,0.000000
+            -79.382271,43.655991,0.000000
+            -79.384560,43.661049,0.000000
+            -79.385941,43.660820,0.000000
+            -79.387978,43.665630,0.000000
+            -79.391113,43.664951,0.000000
+            -79.391541,43.665821,0.000000
+            -79.392647,43.666069,0.000000
+            -79.393379,43.665909,0.000000
+            -79.393982,43.665100,0.000000
+            -79.398270,43.664230,0.000000
+            -79.399353,43.663582,0.000000
+            -79.401840,43.663120,0.000000
+          </coordinates>
+        </LinearRing>
+      </outerBoundaryIs>
+    </Polygon>
+  </Placemark>
+</Document>
+</kml>

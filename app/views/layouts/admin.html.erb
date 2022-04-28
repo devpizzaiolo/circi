@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+		
+	<!-- <%= request.host %> -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	
+	<%= metamagic %>
+	
+    <!-- Open Graph data -->
+    <meta property="og:title" content="Pizzaiolo Gourmet Pizza" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.pizzaiolo.ca/" />
+    <meta property="og:image" content="/assets/ui/pizzaiolo_logo_trans.png" />
+    <meta property="og:description" content="Pizzaiolo is Toronto's best gourmet pizza. Our famous Pizzaiolo tomato sauce and artisan dough are never frozen." />
+    <link rel="apple-touch-icon" sizes="57x57" href="/assets/ui//apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/assets/ui//apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/assets/ui//apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/assets/ui//apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/assets/ui//apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/assets/ui//apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/assets/ui//apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/assets/ui//apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/ui//apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/assets/ui//android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/ui//favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/assets/ui//favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/ui//favicon-16x16.png">
+    <link rel="manifest" href="/assets/ui//manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/assets/ui//ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <%= favicon_link_tag 'ui/favicon.png' %>
+    <%= csrf_meta_tags %>
+    <%= favicon_link_tag 'ui/favicon.png' %>
+    <%= csrf_meta_tags %>
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.1/html5shiv.js" type="text/javascript"></script>
+    <![endif]-->
+
+    
+    <%= stylesheet_link_tag "old_design/application", :media => "all" %>
+
+    <!-- For third-generation iPad with high-resolution Retina display: -->
+    <!-- Size should be 144 x 144 pixels -->
+    <%#= favicon_link_tag 'images/apple-touch-icon-144x144-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '144x144' %>
+
+    <!-- For iPhone with high-resolution Retina display: -->
+    <!-- Size should be 114 x 114 pixels -->
+    <%#= favicon_link_tag 'images/apple-touch-icon-114x114-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '114x114' %>
+
+    <!-- For first- and second-generation iPad: -->
+    <!-- Size should be 72 x 72 pixels -->
+    <%#= favicon_link_tag 'images/apple-touch-icon-72x72-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '72x72' %>
+
+    <!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
+    <!-- Size should be 57 x 57 pixels -->
+    <%#= favicon_link_tag 'images/apple-touch-icon-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png' %>
+
+    <!-- For all other devices -->
+    <!-- Size should be 32 x 32 pixels -->
+    <%#= favicon_link_tag 'favicon.ico', :rel => 'shortcut icon' %>
+		
+		<meta name="apple-mobile-web-app-title" content="Pizzaiolo">
+		
+		<link rel="stylesheet" media="(max-width: 480px)" href="/stylesheets/phone.css" />
+		
+		<%= render(:partial => 'common/analytics') %>
+    <%= render(:partial => 'common/pixel') %>
+    <%= render(:partial => 'common/google_pixel') %>
+  </head>
+  <body>
+    <%= render(:partial => 'common/analytics_noscript') %>
+  	<%# unless current_page?('/locations') %>
+	<!-- <div id="maintenance">
+		<h2>Online orders are currently under maintenance. Please call your store to place an order:</h2>
+		<%# link_to "LOCATIONS", locations_path, :style => "display: block; margin-top: 30px; font-size: 25px; color: white; font-weight: bold" %>
+	</div> -->
+	<%#	 end %>
+	<%= render(:partial => 'common/header') %>	
+	<div class="inner-page-wrap admin-wrap desktop-gray">
+		<!-- line 56 -->
+		 
+	  <div id="content" class="container">
+			<%= render :partial => "common/admins_menu" %>
+				
+      <!-- Time Now: <%= Time.now %> -->	
+			<% if Time.new(Time.now.year, 12, 12,  5,  0,  0).past? && Time.new(Time.now.year, 12, 26,  9,  0,  0).future? && params[:controller] == 'orders' %>
+        <div class="container">
+          <div class="holiday-message">
+            <h3 class="hidden-phone">Online orders closed Dec 24 @ 6pm to Dec 26 @ 9am</h3>
+            <h3 class="visible-phone m-b-10">Online orders closed </br> Dec 24 @ 6pm to Dec 26 @ 9am</h3>
+            <p>Call your local store for holiday hours or to place an order.<br />
+            <strong><em>Happy Holidays, from our famiglia to yours</em></strong></p>
+          </div>	
+        </div>	
+			<% end %>
+			
+			<div class="container">
+					<div class="row top-alerts">
+				<div class="span12">
+					<%= bootstrap_flash %>
+				</div>
+			</div>
+			</div>
+      <%= yield %>
+    </div> 
+	</div>
+		<!--Footer Start-->
+  <footer>
+    <div class="container">
+        <%= render(:partial => 'common/footer_menu') %>
+    </div>
+    <%= render(:partial => 'common/copyright') %>
+  </footer> 
+  <!--Footer End--> 
+  <!-- Javascripts
+  ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <%= javascript_include_tag "application" %>
+  </body>
+</html>

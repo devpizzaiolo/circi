@@ -1,0 +1,136 @@
+style type="text/css" title="text/css" media="all"
+	| span.show-menu { display:none; }
+	| span.show-menu a { display:none; }
+
+- meta title: "Pizzaiolo | Pizza Menu | Order Pizza Online | Toronto Pizza Delivery",
+     description: "Check out Pizzaiolo's menu of gourmet pizzas made with fresh, never frozen ingredients. Pizza delivery Toronto, best pizza delivery Toronto. Gluten-free pizza, vegan pizza, nut free pizza Toronto, non gmo pizza, gourmet pizza, take out pizza Toronto, pizza catering company, pizza delivery.",
+     keywords: "Order Pizza, Online Delivery, Toronto"
+
+div class="orders-index #{if @order.total_price > 0 then 'extra-p' end}"
+	.hidden-phone
+		.homepage-headings style="#{if params[:calzone_preset_id] || params[:additional_items] || params[:pizza_preset_id] || params[:set_catering_order] == "1" || params[:side_order] == "1" then "display:none;" end}"
+				.container
+					h2.malbeck Made Fresh Daily!
+
+	#edit_or_update_order_items
+	
+	#select_products style="#{if params[:pizza_preset_id] || params[:calzone_preset_id] || params[:additional_items] then "display:none;" end}"
+		div.food-categories-all#all-categories style="#{if params[:set_catering_order] == "1" || params[:side_order] == "1" then "display:none;" end}"
+			.container
+				div.food-category.meat-pizza
+					a.pizza_category data-pizza-category-id="1" href="#select_pizza" data-toggle="tab"
+						h2 Gourmet Meat Pizzas
+
+				div.food-category.veg-pizza
+					a.pizza_category data-pizza-category-id="2" href="#select_pizza" data-toggle="tab"
+						h2 Gourmet Vegetarian Pizzas
+
+				div.food-category.vegan-pizza
+					a.pizza_category data-pizza-category-id="3" href="#select_pizza" data-toggle="tab"
+						h2 Gourmet Vegan Pizzas
+
+				div.food-category.own-pizza.full-dsk
+					= link_to new_order_item_path(:pizza_preset_id => PizzaCategory.find(4).pizza_presets.first.id), :remote => true, :class => "show-ordering" do
+						h2 Create your own Pizza
+					= link_to orders_path(:pizza_preset_id => PizzaCategory.find(4).pizza_presets.first.id), :class => "show-menu" do
+						h2 Create your own Pizza
+						
+
+				div.hot-links.clearfix.visible-phone
+					div.sub-category data-subcategory="pizzaiolo-favourites"
+						a.pizza_category href="#select_pizza" data-toggle="tab"
+							= image_tag 'ui/heart-icon.png'
+							h2 Pizzaiolo Favourites
+					div.sub-category data-subcategory="customer-favourites"
+						a.pizza_category href="#select_pizza" data-toggle="tab"
+							= image_tag 'ui/star-icon.png'
+							h2 Customer Favourites
+			div.hidden-phone
+				.homepage-headings style="#{if params[:calzone_preset_id] || params[:additional_items] || params[:pizza_preset_id] || params[:set_catering_order] == "1" || params[:side_order] == "1" then "display:none;" end}"
+					.container
+						h2 
+							| ALL OF OUR INGREDIENTS ARE NUT-FREE AND
+							= image_tag 'ui/gmo-stamp-white.png'
+						h2.light Gluten-free and wheat-free dough available
+			.container
+				div.food-category.calzones
+					a.pizza_category data-pizza-category-id="4" href="#select_calzone" data-toggle="tab"
+						h2 Calzones
+
+				div.food-category.salads
+					a href="/orders?additional_items=1"
+						h2 Salads
+
+				div.food-category.beverages
+					a href="/orders?additional_items=1"
+						h2 Drinks &amp; Dipping Sauces
+
+				div.hot-links.clearfix.hidden-phone
+					div.sub-category data-subcategory="pizzaiolo-favourites"
+						a.pizza_category href="#select_pizza" data-toggle="tab"
+							= image_tag 'ui/heart-icon-lg.png'
+							h2 Pizzaiolo Favourites
+					div.sub-category data-subcategory="customer-favourites"
+						a.pizza_category href="#select_pizza" data-toggle="tab"
+							= image_tag 'ui/star-icon-lg.png'
+							h2 Customer Favourites
+
+		.container
+			
+			.tab-content
+				.tab-pane#select_pizza
+					- cache('pizza_presets') do
+						= render(:partial => 'orders/pizza_selection')
+
+				.tab-pane#select_calzone
+					= render(:partial => 'orders/calzone_selection')
+	
+			
+	#order_item_form.clearfix.container
+	
+			- if params[:pizza_preset_id] || params[:calzone_preset_id]
+				= render(:partial => 'order_items/order_item_form')
+
+				/ this is where the form to edit/update/add from will be rendered
+			- if params[:additional_items] == "1" || params[:set_catering_order] == "1" || params[:side_order] == "1"
+				= render(:partial => 'orders/order_additional')
+		
+	.row.order_actions_bottom style="#{unless params[:pizza_preset_id] || params[:calzone_preset_id] then "display:none;" end}"
+		.text-center.visible-phone
+			button.button.default.m-r.add_product_to_order
+				| Add / Update
+			
+			button.button.gray.cancel_add_product_to_order
+				| Cancel
+	
+	.container
+		#order_table
+			div.top-bar
+				h1 
+					a.back_to_categories href="#" &#8592;
+					span Order Summary
+			.hidden-phone.row
+				.clearfix.p-t-40
+					h2.super-header.green.text-center Order Summary
+			div#shopping_cart.body-container.clearfix
+				= render(:partial => 'orders/shopping_cart_table')
+	
+	#checkout_cart_link class="#{if @order.total_price > 0 then 'visible' end} flashin"	
+		a 
+			= image_tag 'ui/shopping_cart.png'
+			span MY ORDER
+					
+					
+
+<div id="modalAddProduct" class="modal hide" tabindex="12" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-header">
+		<h3 class="static-header green">Your order has been updated</h3>
+	</div>
+	<div class="modal-body">
+		<p class="regular-p">Would you like to add something else to your order?</p>
+	</div>
+	<div class="modal-footer text-center">
+		<a class="button default half m-r" data-dismiss="modal" aria-hidden="true" id="modalLinkOrderMore">Yes, please</a>
+		<button class="button gray half" data-dismiss="modal" aria-hidden="true" id="modalLinkOrderSummary">No, thanks</button>
+	</div>
+</div>

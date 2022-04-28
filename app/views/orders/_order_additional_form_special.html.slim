@@ -1,0 +1,206 @@
+#additional_items
+
+.clearfix.body-container
+	.left-container-dsk
+		.clearfix
+			.half-tablet
+				h2.static-header.green.m-t-0 Is this a catering order?1111
+
+				.checkbox-container.inline
+					- if !@order.order_additional.blank? && @order.order_additional['catering_order'] == "1"
+						
+						div.radio-btn
+							input type="radio" id="order-page-yes-1" class="radio-input catering_order_boolean" name="order[order_additional][catering_order]" value="1" checked="checked"
+							label for="order-page-yes-1"
+								| Yes
+					- else
+						div.radio-btn
+						input type="radio" id="order-page-yes-1" class="radio-input catering_order_boolean" name="order[order_additional][catering_order]" value="1"
+						label for="order-page-yes-1"
+							| Yes
+
+				.checkbox-container.inline
+					- if !@order.order_additional.blank? && @order.order_additional['catering_order'] == "0"
+						div.radio-btn
+							input type="radio" id="order-page-yes-2" class="radio-input catering_order_boolean" name="order[order_additional][catering_order]" value="0" checked="checked"
+							label for="order-page-yes-2"
+								| No
+
+					- else
+						div.radio-btn
+							input type="radio" id="order-page-yes-2" class="radio-input catering_order_boolean" name="order[order_additional][catering_order]" value="0" 
+							label for="order-page-yes-2"
+								| No
+							
+			- if !@order.order_additional.blank? && @order.order_additional['catering_order'] == "1"
+				.half-tablet.show_catering_items
+					h2.static-header.green.inline Group size
+					select#catering_order_group_number name="order[order_additional][catering_order_group_number]" class="additional_items_form select-input inline"
+						- if !@order.order_additional.blank? && @order.order_additional['catering_order'] == "1" && @order.order_additional['catering_order_group_number'] == "1-5"
+							option value="1-5" selected="" 1-5
+						- else
+							option value="1-5" 1-5
+						- if !@order.order_additional.blank? && @order.order_additional['catering_order'] == "1" && @order.order_additional['catering_order_group_number'] == "6-19"
+							option value="6-19" selected="" 6-19
+						- else
+							option value="6-19" 6-19
+						- if !@order.order_additional.blank? && @order.order_additional['catering_order'] == "1" && @order.order_additional['catering_order_group_number'] == "20+"
+							option value="20+" selected="" 20+
+						- else
+							option value="20+" 20+
+						
+			- else
+				.half-tablet.show_catering_items.hideit
+					h2.static-header.green.inline Group size
+					select#catering_order_group_number name="order[order_additional][catering_order_group_number]" class="additional_items_form select-input inline"
+						option value="1-5"
+							| 1-5
+						option value="6-19"
+							| 6-19
+						option value="20+"
+							| 20+
+			
+		
+
+			h2.hidden-phone.border-top.semi-header.green.m-t-20.clear Select Items		
+			
+			#salads
+			
+				h2.static-header.green.m-t-10 Salads
+				
+				- @salads.each do |salad|
+					.order-item-row
+						.left-cell
+							= "#{salad.name} "
+							small.muted.align-price id="salad_#{salad.id}_price"
+								= "#{number_to_currency(get_salad_price(@order, 'salad_' + salad.id.to_s))}"
+						.right-cell
+							- num_ordered = 0
+							- unless @order.order_additional.blank?
+								- num_ordered = @order.order_additional['salads']['salad_' + salad.id.to_s]
+							= image_tag "ui/minus.png", class: 'minus'
+							input name="order[order_additional][salads][salad_#{salad.id}]" id="salad_#{salad.id}" value="#{num_ordered}" class="span1 input_salad validate[required,custom[integer]] additional_items_form" data-price="#{number_to_currency(salad.price)}" data-price-one-to-five="#{number_to_currency(salad.price_one_to_five)}" data-price-six-to-nineteen="#{number_to_currency(salad.price_six_to_nineteen)}" data-price-twenty-plus="#{number_to_currency(salad.price_twenty_plus)}" data-salad-id="#{salad.id}"
+							= image_tag "ui/plus.png", class: 'plus'
+			
+			h2.static-header.green Dipping Sauces
+			
+			- @dipping_sauces.each do |dipping_sauce|
+				.order-item-row
+					.left-cell
+						= "#{dipping_sauce.name} "
+						br.hidden-phone
+						small.align-price.muted= "#{number_to_currency(dipping_sauce.price)} ea."
+						- unless dipping_sauce.description.blank?
+							small.align-price.muted= "#{dipping_sauce.description}"
+					.right-cell
+						- num_ordered = 0
+						- unless @order.order_additional.blank?
+							- num_ordered = @order.order_additional['dipping_sauces']['dipping_sauce_' + dipping_sauce.id.to_s]
+						= image_tag "ui/minus.png", class: 'minus'
+						input name="order[order_additional][dipping_sauces][dipping_sauce_#{dipping_sauce.id}]" value="#{num_ordered}" class="span1 validate[required,custom[integer]] additional_items_form"
+						= image_tag "ui/plus.png", class: 'plus'
+				
+				
+			h2.static-header.green Bottles & Premium
+			
+			- @beverages.where(:bottles_and_premium_drinks => true).each do |beverage|
+				.order-item-row
+					.left-cell
+						= "#{beverage.name} "
+						br.hidden-phone
+						small.align-price.muted= "#{number_to_currency(beverage.price)} ea."
+					.right-cell
+						- num_ordered = 0
+						- unless @order.order_additional.blank?
+							- num_ordered = @order.order_additional['beverages']['beverage_' + beverage.id.to_s]
+						= image_tag "ui/minus.png", class: 'minus'
+						input name="order[order_additional][beverages][beverage_#{beverage.id}]" value="#{num_ordered}" class="span1 validate[required,custom[integer]] additional_items_form"
+						= image_tag "ui/plus.png", class: 'plus'
+			
+			h2.static-header.green Pop & Spring Water
+			
+			- @beverages.where(:pop_and_spring_water => true).each do |beverage|
+				.order-item-row
+					.left-cell
+						= "#{beverage.name} "
+						br.hidden-phone
+						small.align-price.muted= "#{number_to_currency(beverage.price)} ea."
+					.right-cell
+						- num_ordered = 0
+						- unless @order.order_additional.blank?
+							- num_ordered = @order.order_additional['beverages']['beverage_' + beverage.id.to_s]
+						= image_tag "ui/minus.png", class: 'minus'
+						input name="order[order_additional][beverages][beverage_#{beverage.id}]" value="#{num_ordered}" class="span1 validate[required,custom[integer]] additional_items_form"
+						= image_tag "ui/plus.png", class: 'plus'
+
+
+		- if !@order.order_additional.blank? && @order.order_additional['catering_order'] == "1"
+			- hide = ""
+		- else
+			- hide = "hideit"
+
+		.show_catering_items class="#{hide}"
+			h2.static-header.green Fruit & Desserts
+			- @desserts.each do |dessert|
+				.order-item-row
+					.left-cell
+						= dessert.name
+						br.hidden-phone
+						small.align-price.muted= "#{number_to_currency(dessert.price)}#{ if dessert.show_each? then ' ea.' end }"
+					- if dessert.multiple_of_12?
+						.right-cell.select
+							select name="order[order_additional][desserts][dessert_#{dessert.id}]" class="span2 additional_items_form select-input"
+								- sel_arr = [0,12,24,36,48,60,72,96]
+								- sel_arr.each do |sel|
+									= sel.to_s
+									- unless @order.order_additional.blank?
+										- if sel.to_s == @order.order_additional['desserts']['dessert_' + dessert.id.to_s]
+											option value="#{sel}" selected=""
+												= sel.to_s
+										- else
+											option value="#{sel}"
+												= sel.to_s
+									- else
+										option value="#{sel}"
+												= sel.to_s				
+					- else
+						.right-cell
+							= image_tag "ui/minus.png", class: 'minus'
+							input name="order[order_additional][desserts][dessert_#{dessert.id}]" value="0" class="span1 additional_items_form"
+							= image_tag "ui/plus.png", class: 'plus'
+		
+			h2.static-header.green Utensils
+			- @utensils.each do |utensil|
+				.order-item-row
+					.left-cell
+						= utensil.name
+						br.hidden-phone
+						small.align-price.muted free
+					.right-cell
+						- num_ordered = 0
+						- unless @order.order_additional.blank?
+							- num_ordered = @order.order_additional['utensils']['utensil_' + utensil.id.to_s]
+						= image_tag "ui/minus.png", class: 'minus'
+						input name="order[order_additional][utensils][utensil_#{utensil.id}]" value="#{num_ordered}" class="span1 validate[required,custom[integer]] additional_items_form"
+						= image_tag "ui/plus.png", class: 'plus'
+
+			.clear
+
+		.bottom-actions.text-center.m-t-30.hidden-phone
+			button class="cancel_add_additional_to_order button m-r muted smaller"
+				| Cancel
+
+			button class="add_additional_to_order button default smaller"
+				| Update Order
+		
+	#order-summary-table
+		.summary-container
+			#inline_calculator_order_additional	
+				= render(:partial => 'orders/inline_calculator_order_additional')
+			.bottom-actions.text-center
+				button class="cancel_add_additional_to_order button m-r muted smaller"
+					| Cancel
+
+				button class="add_additional_to_order button default smaller"
+					| Update
+		

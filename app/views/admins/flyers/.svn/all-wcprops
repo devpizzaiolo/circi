@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/pizzaioloca/!svn/ver/121/trunk/pizzaiolo.ca/app/views/admins/flyers
+END
+edit.html.slim
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/pizzaioloca/!svn/ver/105/trunk/pizzaiolo.ca/app/views/admins/flyers/edit.html.slim
+END
+index.html.slim
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/pizzaioloca/!svn/ver/121/trunk/pizzaiolo.ca/app/views/admins/flyers/index.html.slim
+END
+new.html.slim
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/pizzaioloca/!svn/ver/105/trunk/pizzaiolo.ca/app/views/admins/flyers/new.html.slim
+END
+_form.html.slim
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/pizzaioloca/!svn/ver/121/trunk/pizzaiolo.ca/app/views/admins/flyers/_form.html.slim
+END

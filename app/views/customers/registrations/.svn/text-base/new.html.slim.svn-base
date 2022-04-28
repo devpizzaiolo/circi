@@ -1,0 +1,43 @@
+- content_for(:title) {"Account"}
+h1 style="display:none;" Sign Up
+
+p.lead By creating an account with Pizzaiolo, you'll be able to see your past order history, and easily select previous orders you want to order again to make your ordering process as quick and painless as possible!
+
+.row
+	.span12
+		br 
+		
+		= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
+
+				.row
+	
+					.span6
+						fieldset
+							= f.input :first_name, :required => true, :autofocus => true, :input_html => {:class => "span5 validate[required]"}
+							= f.input :last_name, :required => true, :class => "span5", :input_html => {:class => "span5 validate[required]"}
+							= f.input :email, :required => true, :class => "span5", :input_html => {:class => "span5 validate[required,custom[email]]"}
+							= f.input :password, :required => true, :class => "span5", :input_html => {:class => "span5 validate[required]"}
+							= f.input :password_confirmation, :required => true, :class => "span5", :input_html => {:class => "span5 validate[required,equals[customer_password]]"}
+			
+					.span6
+						fieldset
+							= f.input :address_1, :required => true, :input_html => {:class => "span5 validate[required]"}
+							= f.input :address_2, :input_html => {:class => "span5"}
+							= f.input :city, :required => true, :input_html => {:class => "span5 validate[required]"}
+							= f.input :postal_code, :required => true, :input_html => {:class => "span5 validate[required,custom[postalCode]]"}
+							= f.input :phone_number, :required => true, :input_html => {:class => "span5 validate[required,custom[phone]]"}
+							
+							=f.input :mailing_list, :required => false, :label => "Send me news and promotions from Pizzaiolo", :input_html => {:checked => false}
+			
+				.row
+					.span12
+						
+						br
+					
+						= f.button :submit, "Sign Up", :class => "btn btn-primary"
+						= " "
+						= link_to "Cancel", "/", :class => "btn"
+
+hr
+
+= render "devise/shared/links"

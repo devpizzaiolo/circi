@@ -1,0 +1,162 @@
+- if session[:franchise_location_id]
+	.span12
+		.row
+		
+			.span12
+
+				h2 Your Selected Location:
+		
+			.clear
+	
+			- location = FranchiseLocation.find(session[:franchise_location_id])
+			
+			.span2
+				address
+					| <strong>#{location.address}</strong><br />
+					- unless location.address_details.blank?
+						| <em>#{location.address_details}</em><br />
+					span.hidden-phone
+						| Order by Phone:<br /><strong>#{location.phone}</strong><br />
+					span.visible-phone
+						| Order by Phone:<br /><strong>#{link_to location.phone, "tel:#{location.phone.delete('-')}"}</strong><br />
+					
+			
+			.span4
+				- map = GoogleStaticMap.new(:zoom => 13, :center => MapLocation.new(:latitude => location.latitude, :longitude => location.longitude), :format => "gif", :width => 240, :height => 120)
+				- map.markers << MapMarker.new(:color => "green", :location => MapLocation.new(:latitude => location.latitude, :longitude => location.longitude))
+				- image_url = map.url(:auto)
+				= image_tag image_url
+				| <br /><br />
+			
+			.span3
+				small
+					strong
+						| Opening Hours:
+					br
+					table
+						- times = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
+						- times.each do |time|
+							- open = "#{time}_open"
+							- closed = "#{time}_closed"
+							tr
+								td = "#{time}: "
+								td = "#{l(location.send(open), :format => :time_only)}"
+								td -
+								td = "#{l(location.send(closed), :format => :time_only)}"
+
+						br
+						/ - open = "#{time}_open"
+						/ - closed = "#{time}_closed"
+						/ = "#{time}: #{l(location.send(open), :format => :time_only)} - #{l(location.send(closed), :format => :time_only)}"
+					br
+				
+				- if location.respond_to?('distance')
+					p
+						- distance_km = location.distance * 1.6
+						small Distance: #{distance_km.round(1)} km, #{Geocoder::Calculations.compass_point(location.bearing)}
+						br
+						
+			.span3
+					| <strong><em>#{location.area_name}</em></strong><br /><br />
+			
+					- if params[:controller] == "locations"
+						= link_to "Order Online", orders_path, :class => "btn btn-small btn-primary btn-block"
+						br
+					= link_to "Choose Different Location", locations_set_location_path("choose"), :class => "btn btn-small btn-block"
+					| <br /><br />
+	
+			.clear
+	
+			.span12
+				hr
+	
+			.clear
+	
+- else
+
+	.span12
+		
+		h3 Please select a Pizziolo location to order.
+	
+	.clear
+
+	.span4
+		p Enter your postal code:
+	
+
+	.span3
+		form.form-inline#search_locations
+			input.input-small id="find_location_near_me" name="find_location_near_me" data-mask="phone" type="text" value=params[:find_location_near_me]
+			button.btn type="submit" Search
+	
+.clear
+
+- unless params[:controller] == "orders" && session[:franchise_location_id]
+	
+	- if @locations.count > 1
+	
+		.span12
+			| Select Area:
+			form
+				- unless @locations.count <1
+					select#filter_by_area
+						option value="all"
+							| Show All
+						- for location in @locations.group(:area_name) do
+							option value="area-#{location.area_name.parameterize}" =location.area_name
+							
+	.clear
+	
+	.span12
+
+		- unless @locations.count <1
+			- @locations.each do |location|
+				
+				.row.area class="area-#{location.area_name.parameterize}"
+					.span4
+						- cache [location, 'map'] do
+							- map = GoogleStaticMap.new(:zoom => 13, :center => MapLocation.new(:latitude => location.latitude, :longitude => location.longitude), :format => "gif", :width => 240, :height => 120)
+							- map.markers << MapMarker.new(:color => "green", :location => MapLocation.new(:latitude => location.latitude, :longitude => location.longitude))
+							- image_url = map.url(:auto)
+							= image_tag image_url
+							| <br /><br />
+					.span5
+						address
+						
+							- cache [location, 'address'] do
+							
+								| <strong>#{location.address}</strong><br />
+								- unless location.address_details.blank?
+									| <em>#{location.address_details}</em><br />
+								
+								span.hidden-phone
+									| Order by Phone:<br /><strong>#{location.phone}</strong><br />
+								span.visible-phone
+									| Order by Phone:<br /><strong>#{link_to location.phone, "tel:#{location.phone.delete('-')}"}</strong><br />
+							
+							- if location.respond_to?('distance')
+								p
+									- distance_km = location.distance * 1.6
+									small Distance: #{distance_km.round(1)} km, #{Geocoder::Calculations.compass_point(location.bearing)}
+					.span3
+							| <strong><em>#{location.area_name}</em></strong><br /><br />
+							- unless @locations.count > 1
+								- unless params[:controller] == "orders"
+									= link_to "Order Online", locations_set_location_path(location.id), :class => "btn btn-small btn-block"
+								- else
+									= link_to "Select Location", locations_set_location_path(location.id), :class => "btn btn-small btn-block"
+								| <br /><br />
+					.clear
+					.span12
+						hr
+					
+		- else
+			p
+		  	| No locations found within 20 miles of your location.
+
+	
+
+	
+	
+
+	

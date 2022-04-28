@@ -1,0 +1,38 @@
+.body-container
+	.container
+		= simple_form_for([:admins, @topping], multipart: true) do |f|
+			
+			fieldset
+				legend Topping Details
+			
+				=f.input :name, :required => true
+				=f.input :print_name, :label => "Name for Print Receipt & POS"
+				=f.input :active, :label => "Show Topping"
+				=f.association :type_of_topping
+				=f.input :non_gluten_free, :label => "Non Gluten-Free"
+				
+			fieldset
+				legend Pricing Setup
+				
+				=f.input :free_topping, :label => "Is the topping Free?"
+				=f.input :extra_free, :label => "Is Extra Free?"
+				=f.input :double_free, :label => "Is Double Free?"
+				=f.input :count_as_double, :label => "Is Count As Double?"
+				=f.input :half_price_topping, :label => "Is Half Price Topping?"
+				=f.input :new_topping, :label => "New Topping"
+
+			fieldset
+				legend Display Position
+				
+				=f.input :move_to_top, :label => "Situate at the top of a list in form(s)"
+				=f.input :move_to_end_of_description, :label => "Move to the end of a product description"
+				
+
+			hr
+				= f.button :submit, "Save/Update Topping", :class => "btn btn-primary"
+				
+				= " "
+				
+				= link_to "Cancel", admins_toppings_path, :class => "btn"
+				
+				

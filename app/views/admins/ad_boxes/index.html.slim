@@ -1,0 +1,26 @@
+.body-container.lg
+	.page-header
+		h1 Ad Boxes
+		
+	table.table.table-striped
+		thead
+			tr
+				th Name
+				th sdfsdf
+				th 
+		tbody
+			- @ad_boxes.each do |ad_box|
+				tr
+					td=ad_box.name
+					td
+						img.img.img-polaroid src="#{ad_box.pod.thumb.url}"
+					td
+						.text-right
+							= link_to "Edit", edit_admins_ad_box_path(ad_box.id), :class => "btn btn-small"
+							= " "
+							= link_to "Delete", admins_ad_box_path(ad_box.id), :class => "btn btn-mini btn-danger", :method => :delete
+
+	hr
+
+	= link_to "Add Ad box", new_admins_ad_box_path, :class => "button default"
+

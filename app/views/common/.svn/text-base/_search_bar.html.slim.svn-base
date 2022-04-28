@@ -1,0 +1,8 @@
+.container
+	.row
+		.span12.text-center
+			= form_for("postal_code", :url => locations_path, :method => :get, :html => { :class => "form-inline", :id => "search_locations" }) do |f|
+				.input-append
+					input.input-small#find_location_near_me name="find_location_near_me" data-mask="phone" type="text" placeholder="Your Postal Code" style="width:120px;"
+					button.btn.btn-primary type="submit"
+						| Find Location

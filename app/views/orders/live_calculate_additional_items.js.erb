@@ -1,0 +1,5 @@
+
+$("div#inline_calculator_order_additional").hide();
+$('div#inline_calculator_order_additional').html("<%= escape_javascript(render(:partial => 'orders/inline_calculator_order_additional')) %>");
+$('div#inline_calculator_order_additional').show();
+$('#summery-table').animate({scrollTop:$("#summery-table table").height()}, 'slow');

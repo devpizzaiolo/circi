@@ -1,0 +1,36 @@
+.body-container
+	.page-header
+		h1 Salads
+		
+	table.table
+		thead
+			tr
+				th Name
+				th Show in Menu
+				th Premium Drinks
+				th Water
+				th Pop/Juice
+				th Sort Order
+				th Options
+		tbody
+			- @beverages.each do |beverage|
+				
+				tr
+					td= beverage.name
+					td= beverage.active
+					td= beverage.premium_drinks
+					td= beverage.water
+					td= beverage.pop_and_juice
+					td= beverage.sort_order
+					td= image_tag beverage.product_image.thumbnail.url
+					
+					td
+						- if beverage.active?
+							| Yes
+						- else
+							| No
+					td 
+						= link_to "Edit", edit_admins_beverage_path(beverage.id), :class => "btn btn-mini"
+						= link_to "Delete", admins_beverage_path(beverage.id), :class => "btn btn-mini", :method => :delete
+		
+	= link_to "New Beverage", new_admins_beverage_path, class: 'button default'

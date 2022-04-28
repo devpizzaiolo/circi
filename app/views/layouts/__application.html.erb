@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+		
+	<!-- <%= request.host %> -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	
+	<%= metamagic %>
+	
+    <!-- Open Graph data -->
+    <meta property="og:title" content="Pizzaiolo Gourmet Pizza" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.pizzaiolo.ca/" />
+    <meta property="og:image" content="https://pizzaiolo.ca/assets/ui/pizzaiolo_logo_trans.png" />
+    <meta property="og:description" content="Pizzaiolo is Toronto's best gourmet pizza. Our famous Pizzaiolo tomato sauce and artisan dough are never frozen." />
+    
+    <%= favicon_link_tag 'ui/favicon.png' %>
+    <%= csrf_meta_tags %>
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.1/html5shiv.js" type="text/javascript"></script>
+    <![endif]-->
+
+    <%= stylesheet_link_tag "application", :media => "all" %>
+
+    <!-- For third-generation iPad with high-resolution Retina display: -->
+    <!-- Size should be 144 x 144 pixels -->
+    <%#= favicon_link_tag 'images/apple-touch-icon-144x144-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '144x144' %>
+
+    <!-- For iPhone with high-resolution Retina display: -->
+    <!-- Size should be 114 x 114 pixels -->
+    <%#= favicon_link_tag 'images/apple-touch-icon-114x114-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '114x114' %>
+
+    <!-- For first- and second-generation iPad: -->
+    <!-- Size should be 72 x 72 pixels -->
+    <%#= favicon_link_tag 'images/apple-touch-icon-72x72-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '72x72' %>
+
+    <!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
+    <!-- Size should be 57 x 57 pixels -->
+    <%#= favicon_link_tag 'images/apple-touch-icon-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png' %>
+
+    <!-- For all other devices -->
+    <!-- Size should be 32 x 32 pixels -->
+    <%#= favicon_link_tag 'favicon.ico', :rel => 'shortcut icon' %>
+		
+		<meta name="apple-mobile-web-app-title" content="Pizzaiolo">
+		
+		<link rel="stylesheet" media="(max-width: 480px)" href="/stylesheets/phone.css" />
+		
+		<%= render(:partial => 'common/analytics') %>
+		<%= render(:partial => 'common/pixel') %>
+		<%= render(:partial => 'common/google_pixel') %>
+  </head>
+  <body>
+  	<%# unless current_page?('/locations') %>
+	<!-- <div id="maintenance">
+		<h2>Online orders are currently under maintenance. Please call your store to place an order:</h2>
+		<%# link_to "LOCATIONS", locations_path, :style => "display: block; margin-top: 30px; font-size: 25px; color: white; font-weight: bold" %>
+	</div> -->
+	<%#	 end %>
+		
+	<div class="page-container desktop-gray">
+			
+		<%= render(:partial => 'common/drop_down_main_menu') %>
+
+		<!-- line 56 -->
+		<div class="header_holder hidden-phone <%= if @header then @header end %>">
+			<div class="header">
+				<div class="visible-tablet navigation">
+					<div class="container">
+						<a href="/" class="logo">
+							<img src="/assets/ui/pizzaiolo_logo_trans.png"  class="main_logo">
+						</a>
+						<%= link_to "ORDER ONLINE", orders_path %> 
+						<%= link_to "MENU", orders_path %>
+						<%= link_to "CATERING", page_path('catering') %>
+						<%= link_to "LOCATIONS", locations_path %>
+						<% if current_customer %>
+							<%= link_to "MY ACCOUNT", customers_path %>
+						<% else %>
+							<%= link_to "LOGIN", customers_path %>
+						<% end %>
+					</div>
+				</div>
+				
+				<div class="hidden-tablet navigation">
+					<div class="container">
+						<a href="/" class="logo">
+							<img src="/assets/ui/pizzaiolo_logo_trans.png"  class="main_logo">
+						</a>
+						<%= link_to "ORDER ONLINE", orders_path %>
+						<%= link_to "MENU", orders_path %>
+						<%= link_to "CATERING", page_path('catering') %>
+						<%= link_to "LOCATIONS", locations_path %>
+						<% if current_customer %>
+							<%= link_to "MY ACCOUNT", customers_path %>
+						<% else %>
+							<%= link_to "LOGIN", customers_path %>
+						<% end %>
+					</div>
+				</div>
+			</div>
+			
+			<div class="heading text-center hidden-phone">
+				<% if @heading %>
+					<img src="/assets/ui/hdr_<%= @heading %>.png" class="heading_graphic hidden-phone" class="">
+					<img src="/assets/ui/hdr_<%= @heading %>.png" class="heading_graphic visible-phone" style="height:12px;">
+				<% elsif request.fullpath.include? "customer"  %>
+					<img src="/assets/ui/hdr_account.png" class="heading_graphic">
+				<% end %>
+			</div>
+		</div>
+		<!-- container -->
+	    <div id="content">
+			<%= render :partial => "common/admins_menu" %>
+				
+			<!-- Time Now: <%= Time.now %> -->	
+			<% if Time.new(Time.now.year, 12, 12,  5,  0,  0).past? && Time.new(Time.now.year, 12, 26,  9,  0,  0).future? && params[:controller] == 'orders' %>
+				
+				<div class="holiday-message">
+					<h3 class="hidden-phone">Online orders closed Dec 24 @ 6pm to Dec 26 @ 9am</h3>
+					<h3 class="visible-phone m-b-10">Online orders closed </br> Dec 24 @ 6pm to Dec 26 @ 9am</h3>
+					<p>Call your local store for holiday hours or to place an order.<br />
+					<strong><em>Happy Holidays, from our famiglia to yours</em></strong></p>
+				</div>
+				
+			<% end %>
+			
+	      	<div class="container">
+  		      	<div class="row top-alerts">
+  					<div class="span12">
+  						<%= bootstrap_flash %>
+  					</div>
+  				</div>
+	      	</div>
+			<%= yield %>
+	    </div>
+		
+		<footer class="footer">
+			<div class="container">
+				<div class="footer_holder">
+					<p class="malbeck">From our famiglia to yours!</p>
+					<p class="tagline"><strong>Pizzaiolo - Toronto's best gourmet pizza</strong></p>
+					<%= render :partial => 'common/bottom_links' %>
+					<small>Copyright &copy; <%= Date.today.year %> Pizzaiolo Gourmet Pizza</small>
+				</div>
+			</div>
+		</footer>
+			
+
+	    <!-- Javascripts
+	    ================================================== -->
+	    <!-- Placed at the end of the document so the pages load faster -->
+	    <%= javascript_include_tag "application" %>
+		
+	</div>
+  </body>
+</html>

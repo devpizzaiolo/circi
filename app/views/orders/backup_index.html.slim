@@ -1,0 +1,63 @@
+/ div.food-categories-all
+/ 	div.food-category.meat-pizza
+/ 		h2 Gourmet Meat Pizzas
+
+/ 	div.food-category.veg-pizza
+/ 		h2 Gourmet Vegetarian Pizzas
+
+/ 	div.food-category.vegan-pizza
+/ 		h2 Gourmet Vegan Pizzas
+
+/ 	div.food-category.own-pizza
+/ 		h2 Create your own Pizza
+
+/ 	div.hot-links.clearfix
+/ 		a
+/ 			= image_tag 'ui/heart-icon.png'
+/ 			p Pizzaiolo Favourites
+/ 		a
+/ 			= image_tag 'ui/star-icon.png'
+/ 			p Customer Favourites
+
+/ 	div.food-category.calzones
+/ 		h2 Calzones
+
+/ 	div.food-category.salads
+/ 		h2 Salads
+
+/ 	div.food-category.beverages
+/ 		h2 Beverages
+
+div.top-bar
+	h1 
+		= link_to raw('&#8592;'), request.referer.present? ? request.referer : root_path
+		| Gourmet Meat Pizzas
+div
+	div.pizza-select
+		div.product-image
+			= image_tag 'product_images/bianca.jpg'
+		h2 PIZZA NAME
+		.right-icons
+			= image_tag 'ui/star-icon-xs.png'
+			= image_tag 'ui/heart-icon-xs.png'
+		p.calories 120 cal/slice
+		p.ingredients
+			| Bacon (Real Canadian), Mushrooms (Fresh), Oregano, Parmigiano Cheese, Mozzarella Cheese and Pizzaiolo Tomato Sauce.
+
+		= link_to "Add to order", root_path, class: 'button default'
+
+	div.pizza-select
+		h2 PIZZA NAME
+		p.calories 120 cal/slice
+		p.ingredients
+			| Bacon (Real Canadian), Mushrooms (Fresh), Oregano, Parmigiano Cheese, Mozzarella Cheese and Pizzaiolo Tomato Sauce.
+
+		= link_to "Add to order", root_path, class: 'button default'
+
+	div.pizza-select
+		h2 PIZZA NAME
+		p.calories 120 cal/slice
+		p.ingredients
+			| Bacon (Real Canadian), Mushrooms (Fresh), Oregano, Parmigiano Cheese, Mozzarella Cheese and Pizzaiolo Tomato Sauce.
+
+		= link_to "Add to order", root_path, class: 'button default'

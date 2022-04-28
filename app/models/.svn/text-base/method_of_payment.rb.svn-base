@@ -1,0 +1,4 @@
+class MethodOfPayment < ActiveRecord::Base
+  attr_accessible :active, :name, :position
+  has_many :orders
+end

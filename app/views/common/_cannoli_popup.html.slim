@@ -1,0 +1,212 @@
+input type="hidden" id="cannoli_url" name="cannoli_url"
+input type="hidden" id="cannoli_require_add_update" name="cannoli_require_add_update" value="#{@show_cannoli_popup ? 'yes' : 'no'}"
+input type="hidden" id="cannoli_page" name="cannoli_page"
+
+#cannoli-popup.container.zero-contact-message
+  .zero-header
+    .zero-title Cannoli
+    #close-btn-cannoli-popup.close-cannoli-popup
+      img alt="" src="/assets/new_design/popup-close.svg" /
+  .row
+    .col-12
+      form#add_cannoli_to_order
+        - @dipping_sauces && @dipping_sauces.each do |dipping_sauce|
+					.order-item-row.row.cannoli-hide
+						.left-cell.col-md-6
+							= "#{dipping_sauce.name} "
+							br.hidden-phone
+							small.align-price.muted= "#{number_to_currency(dipping_sauce.price)} ea. "
+							- unless dipping_sauce.description.blank?
+								small.align-price.muted= "#{dipping_sauce.description}"
+						.right-cell.col-md-6.qty-item-style
+							- num_ordered = 0
+							- unless @order.order_additional.blank? || @order.order_additional['dipping_sauces'].blank?
+								- num_ordered = @order.order_additional['dipping_sauces']['dipping_sauce_' + dipping_sauce.id.to_s]
+							.box-border
+								= image_tag "ui/minus.png", class: 'minus'
+								input name="order[order_additional][dipping_sauces][dipping_sauce_#{dipping_sauce.id}]" value="#{num_ordered}" class="span1 validate[required,custom[integer]] additional_items_form"
+								= image_tag "ui/plus.png", class: 'plus'
+
+        - @beverages && @beverages.where(:active => true, :pop_and_juice => true).order("sort_order asc").each do |beverage|
+					.order-item-row.row.cannoli-hide
+						.left-cell.col-md-6
+							= "#{beverage.name} "
+							br.hidden-phone
+							small.align-price.muted= "#{number_to_currency(beverage.price)} ea."
+							- if beverage.extra_info && beverage.extra_info
+								small.align-extra = "(#{beverage.extra_info})"
+						.right-cell.col-md-6.qty-item-style
+							- num_ordered = 0
+							- unless @order.order_additional.blank?
+								- num_ordered = @order.order_additional['beverages']['beverage_' + beverage.id.to_s]
+							.box-border
+								= image_tag "ui/minus.png", class: 'minus'
+								input name="order[order_additional][beverages][beverage_#{beverage.id}]" value="#{num_ordered}" class="span1 validate[required,custom[integer]] additional_items_form"
+								= image_tag "ui/plus.png", class: 'plus'
+
+        - @beverages && @beverages.where(:active => true, :water => true).order("sort_order asc").each do |beverage|
+					.order-item-row.row.cannoli-hide
+						.left-cell.col-md-6
+							= "#{beverage.name} "
+							br.hidden-phone
+							small.align-price.muted= "#{number_to_currency(beverage.price)} ea."
+							- if beverage.extra_info && beverage.extra_info
+								small.align-extra = "(#{beverage.extra_info})"
+						.right-cell.col-md-6.qty-item-style
+							- num_ordered = 0
+							- unless @order.order_additional.blank?
+								- num_ordered = @order.order_additional['beverages']['beverage_' + beverage.id.to_s]
+							.box-border
+								= image_tag "ui/minus.png", class: 'minus'
+								input name="order[order_additional][beverages][beverage_#{beverage.id}]" value="#{num_ordered}" class="span1 validate[required,custom[integer]] additional_items_form"
+								= image_tag "ui/plus.png", class: 'plus'
+
+        - @beverages && @beverages.where(:active => true, :premium_drinks => true).order("sort_order asc").each do |beverage|
+					.order-item-row.row.cannoli-hide
+						.left-cell.col-md-6
+							= "#{beverage.name} "
+							br.hidden-phone
+							small.align-price.muted= "#{number_to_currency(beverage.price)} ea."
+							- if beverage.extra_info && beverage.extra_info
+								small.align-extra = "(#{beverage.extra_info})"
+						.right-cell.col-md-6.qty-item-style
+							- num_ordered = 0
+							- unless @order.order_additional.blank?
+								- num_ordered = @order.order_additional['beverages']['beverage_' + beverage.id.to_s]
+							.box-border
+								= image_tag "ui/minus.png", class: 'minus'
+								input name="order[order_additional][beverages][beverage_#{beverage.id}]" value="#{num_ordered}" class="span1 validate[required,custom[integer]] additional_items_form"
+								= image_tag "ui/plus.png", class: 'plus'
+
+        - @salads && @salads.each do |salad|
+          .order-item-row.row.cannoli-hide
+            .left-cell.col-md-6
+              = "#{salad.name} "
+              br
+              small.muted.align-price id="salad_#{salad.id}_price"
+                = "#{number_to_currency(get_salad_price(@order, 'salad_' + salad.id.to_s))}"
+            .right-cell.col-md-6.qty-item-style
+              - num_ordered = 0
+              - unless @order.order_additional.blank?
+                - num_ordered = @order.order_additional['salads']['salad_' + salad.id.to_s]
+              .box-border
+                = image_tag "ui/minus.png", class: 'minus'
+                input name="order[order_additional][salads][salad_#{salad.id}]" id="salad_#{salad.id}" value="#{num_ordered}" class="span1 input_salad validate[required,custom[integer]] additional_items_form" data-price="#{number_to_currency(salad.price)}" data-price-one-to-five="#{number_to_currency(salad.price_one_to_five)}" data-price-six-to-nineteen="#{number_to_currency(salad.price_six_to_nineteen)}" data-price-twenty-plus="#{number_to_currency(salad.price_twenty_plus)}" data-salad-id="#{salad.id}"
+                = image_tag "ui/plus.png", class: 'plus'
+
+        - @salads_medium && @salads_medium.each do |salad|
+          .order-item-row.row.cannoli-hide
+            .left-cell.col-md-6
+              = "#{salad.name} "
+              br
+              small.muted.align-price id="salad_#{salad.id}_price"
+                = "#{number_to_currency(get_salad_price(@order, 'salad_' + salad.id.to_s))}"
+            .right-cell.col-md-6.qty-item-style
+              - num_ordered = 0
+              - unless @order.order_additional.blank?
+                - num_ordered = @order.order_additional['salads']['salad_' + salad.id.to_s]
+              .box-border
+                = image_tag "ui/minus.png", class: 'minus'
+                input name="order[order_additional][salads][salad_#{salad.id}]" id="salad_#{salad.id}" value="#{num_ordered}" class="span1 input_salad validate[required,custom[integer]] additional_items_form" data-price="#{number_to_currency(salad.price)}" data-price-one-to-five="#{number_to_currency(salad.price_one_to_five)}" data-price-six-to-nineteen="#{number_to_currency(salad.price_six_to_nineteen)}" data-price-twenty-plus="#{number_to_currency(salad.price_twenty_plus)}" data-salad-id="#{salad.id}"
+                = image_tag "ui/plus.png", class: 'plus'
+
+        - @salads_large && @salads_large.each do |salad|
+          .order-item-row.row.cannoli-hide
+            .left-cell.col-md-6
+              = "#{salad.name} "
+              br
+              small.muted.align-price id="salad_#{salad.id}_price"
+                = "#{number_to_currency(get_salad_price(@order, 'salad_' + salad.id.to_s))}"
+            .right-cell.col-md-6.qty-item-style
+              - num_ordered = 0
+              - unless @order.order_additional.blank?
+                - num_ordered = @order.order_additional['salads']['salad_' + salad.id.to_s]
+              .box-border
+                = image_tag "ui/minus.png", class: 'minus'
+                input name="order[order_additional][salads][salad_#{salad.id}]" id="salad_#{salad.id}" value="#{num_ordered}" class="span1 input_salad validate[required,custom[integer]] additional_items_form" data-price="#{number_to_currency(salad.price)}" data-price-one-to-five="#{number_to_currency(salad.price_one_to_five)}" data-price-six-to-nineteen="#{number_to_currency(salad.price_six_to_nineteen)}" data-price-twenty-plus="#{number_to_currency(salad.price_twenty_plus)}" data-salad-id="#{salad.id}"
+                = image_tag "ui/plus.png", class: 'plus'
+
+        - @garlic_breads && @garlic_breads.each do |garlic_bread|
+          .order-item-row.row.cannoli-hide
+            .left-cell.col-md-6
+              = "#{garlic_bread.name} "
+              br
+              small.muted.align-price id="garlic_bread_#{garlic_bread.id}_price"
+                = "#{number_to_currency(get_garlic_bread_price(@order, 'garlic_bread_' + garlic_bread.id.to_s))}"
+                  - if garlic_bread.extra_info
+                  small.align-extra = "(#{garlic_bread.extra_info}) "
+            .right-cell.col-md-6.qty-item-style
+              - num_ordered = 0
+              - unless @order.order_additional.blank?
+                - num_ordered = @order.order_additional['garlic_breads'] ? @order.order_additional['garlic_breads']['garlic_bread_' + garlic_bread.id.to_s] : 0
+              .box-border
+                = image_tag "ui/minus.png", class: 'minus'
+                input name="order[order_additional][garlic_breads][garlic_bread_#{garlic_bread.id}]" id="garlic_bread_#{garlic_bread.id}" value="#{num_ordered}" class="span1 input_garlic_bread validate[required,custom[integer]] additional_items_form" data-price="#{number_to_currency(garlic_bread.price)}" data-price-one-to-five="#{number_to_currency(garlic_bread.price_one_to_five)}" data-price-six-to-nineteen="#{number_to_currency(garlic_bread.price_six_to_nineteen)}" data-price-twenty-plus="#{number_to_currency(garlic_bread.price_twenty_plus)}" data-garlic-bread-id="#{garlic_bread.id}"
+                = image_tag "ui/plus.png", class: 'plus'
+
+        - @cannolis && @cannolis.each do |cannoli|
+          .order-item-row.row
+            div.item_image.cannoli-popup-image
+              = image_tag cannoli.product_image.url
+            .left-cell.cannoli-title
+              h5 = "HAPPY VALENTINE'S DAY"
+            .right-cell.col-md-12.qty-item-style.cannoli-hide
+              - num_ordered = 0
+              - unless @order.order_additional.blank?
+                - num_ordered = @order.order_additional['cannolis'] ? @order.order_additional['cannolis']['cannoli_' + cannoli.id.to_s].to_i + 1 : 1
+              .box-border
+                = image_tag "ui/minus.png", class: 'minus'
+                input name="order[order_additional][cannolis][cannoli_#{cannoli.id}]" id="cannoli_#{cannoli.id}" value="#{num_ordered}" class="span1 input_cannoli validate[required,custom[integer]] additional_items_form" data-price="#{number_to_currency(cannoli.price)}" data-cannoli-id="#{cannoli.id}"
+                = image_tag "ui/plus.png", class: 'plus'
+
+          - @desserts && @desserts.each do |dessert|
+            .order-item-row.row.hide
+              .left-cell.col-md-6
+                = dessert.name
+                br.hidden-phone
+                small.align-price.muted= "#{number_to_currency(dessert.price)}#{ if dessert.show_each? then ' ea.' end }"
+              - if dessert.multiple_of_12?
+                .right-cell.select.col-md-6
+                  select name="order[order_additional][desserts][dessert_#{dessert.id}]" class="span2 additional_items_form select-input"
+                    - sel_arr = [0,12,24,36,48,60,72,96]
+                    - sel_arr.each do |sel|
+                      = sel.to_s
+                      - unless @order.order_additional.blank?
+                        - if sel.to_s == @order.order_additional['desserts']['dessert_' + dessert.id.to_s]
+                          option value="#{sel}" selected=""
+                            = sel.to_s
+                        - else
+                          option value="#{sel}"
+                            = sel.to_s
+                      - else
+                        option value="#{sel}"
+                            = sel.to_s				
+              - else
+                .right-cell.col-md-6.qty-item-style
+                  .box-border
+                    = image_tag "ui/minus.png", class: 'minus'
+                    input name="order[order_additional][desserts][dessert_#{dessert.id}]" value="0" class="span1 additional_items_form"
+                    = image_tag "ui/plus.png", class: 'plus'
+
+          - @utensils && @utensils.each do |utensil|
+            .order-item-row.row.cannoli-hide
+              .left-cell.col-md-6
+                = utensil.name
+                br.hidden-phone
+                small.align-price.muted no charge
+              .right-cell.col-md-6.qty-item-style
+                - num_ordered = 0
+                - unless @order.order_additional.blank?
+                  - num_ordered = @order.order_additional['utensils']['utensil_' + utensil.id.to_s]
+                
+                div.utensils-select-box
+                  select id="utensil_quantity" name="order[order_additional][utensils][utensil_#{utensil.id}]" class="utensil_quantity select-input inline" data-index="#{utensil.id}" data-previous="#{num_ordered}"
+                    - numbers = [0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100]
+                    - numbers.each do |n|
+                      - if n === num_ordered.to_i
+                        option value="#{n}" selected="" #{n}
+                      - else 
+                        option value="#{n}" #{n}
+
+      .zero-contact-exit-btn
+        a#close-btn-cannoli-popup.btn-green.close-cannoli-popup href="javascript:void(0);"  continue

@@ -1,0 +1,30 @@
+- content_for(:title) {"Menu"}
+- @header = "menu"
+- @heading = "menu"
+
+h1 style="display:none;" Menu
+	
+p.lead All of our pizzas are available on gluten-free, wheat-free dough.
+
+p
+	strong All our products are NUT-FREE
+
+- @menu = true
+- cache('pizza_presets_menu') do
+	= render(:partial => 'orders/pizza_selection')
+
+
+
+hr
+
+h3 Calzones
+
+= render(:partial => 'orders/calzone_selection')
+
+hr
+
+= render(:partial => 'common/salads')
+
+br
+
+= render(:partial => 'common/beverages')

@@ -1,0 +1,126 @@
+style type="text/css" title="text/css" media="all"
+	| span.show-menu { display:none; }
+	| span.show-menu a { display:none; }
+	
+.row
+	
+	.span12
+		.row
+			.span12#order_table
+			
+				h3 Your Order
+				
+				div#shopping_cart
+					= render(:partial => 'orders/shopping_cart_table')
+	
+	.span12#edit_or_update_order_items
+	
+	.span12#select_products style="#{if params[:pizza_preset_id] || params[:calzone_preset_id] then "display:none;" end}"
+		.row
+			.span12
+			
+				ul.nav.nav-tabs#product_tabs
+					- unless params[:set_catering_order] == "1" || params[:side_order] == "1"
+						li.active
+							a href="#select_pizza" data-toggle="tab"
+								span.visible-phone Pizzas
+								span.hidden-phone Order Pizzas
+						li
+							a href="#select_calzone" data-toggle="tab"
+								span.visible-phone Calzones
+								span.hidden-phone Order Calzones
+						li
+							a href="#select_additional" data-toggle="tab"
+								span.visible-phone Sides Orders
+								span.hidden-phone Side-Orders / Beverages
+					- else
+						li
+							a href="#select_pizza" data-toggle="tab"
+								span.visible-phone Pizzas
+								span.hidden-phone Order Pizzas
+						li
+							a href="#select_calzone" data-toggle="tab"
+								span.visible-phone Calzones
+								span.hidden-phone Order Calzones
+						li.active
+							a href="#select_additional" data-toggle="tab"
+								span.visible-phone Sides Orders
+								span.hidden-phone Side-Orders / Beverages
+				
+				.tab-content
+				
+					
+				
+					- unless params[:set_catering_order] == "1" || params[:side_order] == "1"
+					  .tab-pane.active#select_pizza
+							- cache('pizza_presets') do
+								= render(:partial => 'orders/pizza_selection')
+						
+					  .tab-pane#select_calzone
+							= render(:partial => 'orders/calzone_selection')
+						
+					  .tab-pane#select_additional
+							= render(:partial => 'orders/order_additional')
+					- else
+					  .tab-pane#select_pizza
+							- cache('pizza_presets') do
+								= render(:partial => 'orders/pizza_selection')
+						
+					  .tab-pane#select_calzone
+							= render(:partial => 'orders/calzone_selection')
+						
+					  .tab-pane.active#select_additional
+							= render(:partial => 'orders/order_additional')
+			
+	
+				
+	.span12
+
+		#order_item_form
+			- if params[:pizza_preset_id] || params[:calzone_preset_id]
+				= render(:partial => 'order_items/order_item_form')
+
+				/ this is where the form to edit/update/add from will be rendered
+			
+		.row
+			.span12
+				button.btn.btn-primary.add_product_to_order style="#{unless params[:pizza_preset_id] || params[:calzone_preset_id] then "display:none;" end}"
+					i.icon-plus
+					| Add / Update
+					
+				= " "
+				
+				button.btn.cancel_add_product_to_order style="#{unless params[:pizza_preset_id] || params[:calzone_preset_id] then "display:none;" end}"
+					| Cancel
+					
+					
+					
+
+<div id="modalAddProduct" class="modal hide" tabindex="12" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		<h3>Your order has been updated</h3>
+	</div>
+	<div class="modal-body">
+		<p>Would you like to add something else to your order?</p>
+	</div>
+	<div class="modal-footer text-center">
+		<div class="visible-phone">
+		<a class="btn btn-primary btn-block" data-dismiss="modal" aria-hidden="true" id="modalLinkAddPizza_phone"><i class="icon-plus"></i> Pizza</a>
+		<a class="btn btn-primary btn-block" data-dismiss="modal" aria-hidden="true" id="modalLinkAddCalzone_phone"><i class="icon-plus"></i> Calzone</a>
+		<a class="btn btn-primary btn-block" data-dismiss="modal" aria-hidden="true" id="modalLinkAddDippingSauce_phone"><i class="icon-plus"></i> Dips</a>
+		<a class="btn btn-primary btn-block" data-dismiss="modal" aria-hidden="true" id="modalLinkAddBeverage_phone"><i class="icon-plus"></i> Drink</a>
+		<a class="btn btn-primary btn-block" data-dismiss="modal" aria-hidden="true" id="modalLinkAddSalad_phone"><i class="icon-plus"></i> Salad</a>
+		<button class="btn btn-block" data-dismiss="modal" aria-hidden="true">No Thanks</button>
+		</div>
+		<div class="hidden-phone text-left">
+		<a class="btn btn-primary" data-dismiss="modal" aria-hidden="true" id="modalLinkAddPizza">Pizza</a>
+		<a class="btn btn-primary" data-dismiss="modal" aria-hidden="true" id="modalLinkAddCalzone">Calzone</a>
+		<a class="btn btn-primary" data-dismiss="modal" aria-hidden="true" id="modalLinkAddDippingSauce">Dips</a>
+		<a class="btn btn-primary" data-dismiss="modal" aria-hidden="true" id="modalLinkAddSalad">Salad</a>
+		<a class="btn btn-primary" data-dismiss="modal" aria-hidden="true" id="modalLinkAddBeverage">Drink</a>
+		<button class="btn" data-dismiss="modal" aria-hidden="true">No Thanks</button>
+		</div>
+	</div>
+</div>
+							

@@ -1,0 +1,82 @@
+10
+
+dir
+273
+https://mroby@colorshadow.svn.cloudforge.com/pizzaioloca/trunk/pizzaiolo.ca/app/views
+https://mroby@colorshadow.svn.cloudforge.com/pizzaioloca
+
+
+
+2015-04-23T16:41:02.292887Z
+273
+mroby
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+dd90b5e1-f7a2-4852-858d-22f5db6319bf
+
+customers
+dir
+
+franchise_enquiries
+dir
+
+common
+dir
+
+home
+dir
+
+locations
+dir
+
+orders
+dir
+
+pages
+dir
+
+layouts
+dir
+
+order_mailer
+dir
+
+customer_services
+dir
+
+orders_for_delivery
+dir
+
+franchise_enquiry_mailer
+dir
+
+customer_service_mailer
+dir
+
+admins
+dir
+
+simple_captcha
+dir
+
+order_items
+dir
+
+franchise_locations
+dir
+
+orders_for_pickup
+dir
+

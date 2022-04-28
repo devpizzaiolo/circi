@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.2">
+<Document>
+  <name>3 Rees St Queens Quay</name>
+  <description><![CDATA[3 Rees St
+Toronto, Ontario
+M5V 3J2
+416-360-4444]]></description>
+  <Style id="style1">
+    <LineStyle>
+      <color>40000000</color>
+      <width>3</width>
+    </LineStyle>
+    <PolyStyle>
+      <color>73FF0000</color>
+      <fill>1</fill>
+      <outline>1</outline>
+    </PolyStyle>
+  </Style>
+  <Placemark>
+    <name>Queens Quay Delivery zone</name>
+    <description><![CDATA[<div dir="ltr">Pizzaiolo Queens Quay delivery area<br>3 </div>]]></description>
+    <styleUrl>#style1</styleUrl>
+    <Polygon>
+      <outerBoundaryIs>
+        <LinearRing>
+          <tessellate>1</tessellate>
+          <coordinates>
+            -79.407143,43.637508,0.000000
+            -79.412628,43.637218,0.000000
+            -79.429581,43.632759,0.000000
+            -79.429466,43.631302,0.000000
+            -79.425797,43.630089,0.000000
+            -79.420570,43.626469,0.000000
+            -79.410507,43.627369,0.000000
+            -79.405769,43.630878,0.000000
+            -79.401482,43.630901,0.000000
+            -79.394974,43.634918,0.000000
+            -79.391953,43.636581,0.000000
+            -79.378860,43.637890,0.000000
+            -79.359329,43.645641,0.000000
+            -79.355270,43.640419,0.000000
+            -79.351967,43.636009,0.000000
+            -79.347099,43.632648,0.000000
+            -79.335838,43.638435,0.000000
+            -79.347008,43.651020,0.000000
+            -79.351784,43.649151,0.000000
+            -79.353729,43.648880,0.000000
+            -79.357628,43.648960,0.000000
+            -79.364563,43.646740,0.000000
+            -79.374763,43.644562,0.000000
+            -79.383171,43.640400,0.000000
+            -79.391632,43.638729,0.000000
+            -79.397743,43.637840,0.000000
+            -79.401237,43.637970,0.000000
+            -79.407143,43.637508,0.000000
+          </coordinates>
+        </LinearRing>
+      </outerBoundaryIs>
+    </Polygon>
+  </Placemark>
+</Document>
+</kml>

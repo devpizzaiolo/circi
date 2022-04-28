@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.2">
+<Document>
+  <name>624 Queen Street W</name>
+  <description><![CDATA[]]></description>
+  <Style id="style1">
+    <LineStyle>
+      <color>406666FF</color>
+      <width>3</width>
+    </LineStyle>
+    <PolyStyle>
+      <color>73FFFF66</color>
+      <fill>1</fill>
+      <outline>1</outline>
+    </PolyStyle>
+  </Style>
+  <Placemark>
+    <name>Pizzaiolo - 624 Queen Delivery Area</name>
+    <description><![CDATA[<div dir="ltr">No Changes</div>]]></description>
+    <styleUrl>#style1</styleUrl>
+    <Polygon>
+      <outerBoundaryIs>
+        <LinearRing>
+          <tessellate>1</tessellate>
+          <coordinates>
+            -79.437927,43.655510,0.000000
+            -79.406197,43.662220,0.000000
+            -79.404411,43.657299,0.000000
+            -79.407890,43.656540,0.000000
+            -79.400383,43.637909,0.000000
+            -79.403923,43.637814,0.000000
+            -79.407417,43.637505,0.000000
+            -79.412331,43.637333,0.000000
+            -79.414497,43.636791,0.000000
+            -79.423172,43.634415,0.000000
+            -79.429390,43.632660,0.000000
+            -79.437927,43.655510,0.000000
+          </coordinates>
+        </LinearRing>
+      </outerBoundaryIs>
+    </Polygon>
+  </Placemark>
+</Document>
+</kml>

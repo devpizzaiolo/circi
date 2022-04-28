@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/pizzaioloca/!svn/ver/59/trunk/pizzaiolo.ca/db/seeds/products
+END
+utensils.seeds.rb
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/seeds/products/utensils.seeds.rb
+END
+salads.seeds.rb
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/seeds/products/salads.seeds.rb
+END
+fruits_and_desserts.seeds.rb
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/seeds/products/fruits_and_desserts.seeds.rb
+END
+pizza_sizes.seeds.rb
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/seeds/products/pizza_sizes.seeds.rb
+END
+catering.seeds.rb
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/seeds/products/catering.seeds.rb
+END
+dipping_sauces.seeds.rb
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/seeds/products/dipping_sauces.seeds.rb
+END
+pizza_categories.seeds.rb
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/seeds/products/pizza_categories.seeds.rb
+END
+beverages.seeds.rb
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/seeds/products/beverages.seeds.rb
+END
+crust_styles.seeds.rb
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/pizzaioloca/!svn/ver/59/trunk/pizzaiolo.ca/db/seeds/products/crust_styles.seeds.rb
+END
+crusts.seeds.rb
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/seeds/products/crusts.seeds.rb
+END
+toppings.seeds.rb
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/db/seeds/products/toppings.seeds.rb
+END

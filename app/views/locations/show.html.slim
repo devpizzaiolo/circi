@@ -1,0 +1,93 @@
+- meta title: "#{@seo_title if @seo_title}",
+     description: "#{@seo_metadescription if @seo_metadescription}",
+     keywords: "#{@seo_keywords if @seo_keywords}"
+
+- content_for(:title) {"Locations"}
+- content_for(:heading) {("Store Details").html_safe}
+//- content_for(:description) {""}
+- content_for(:body_class) {"store_details_page"}
+
+div.top-bar
+	h1
+		= link_to raw('&#8592;'), request.referer.present? ? request.referer : locations_path
+		| #{ @location.address}
+
+div.body-container.clearfix.single-location
+	.container
+		.row.location-shop-detail
+			.col-12.col-md-12
+				nav aria-label="breadcrumb"
+					ol.breadcrumb
+						li.breadcrumb-item 
+							a href="/locations" 
+								b.bold All Locations
+						li.breadcrumb-item 
+							a href="/locations?find_location_in_area=#{@location.area_name}" 
+								b.bold= @location.area_name
+						li.breadcrumb-item 
+							a href=""
+								span= raw("#{@location.address} #{@location.city}, #{@location.province} #{@location.postal_code}")
+
+			.span6.visible-phone
+				div.top-map.padded.border-b
+					a href="#{@location.google_maps_url}" target="_blank"
+						- map = GoogleStaticMap.new(:zoom => 13, :center => MapLocation.new(:latitude => @location.latitude, :longitude => @location.longitude), :format => "gif", :width => 240, :height => 120, :api_key => "AIzaSyDPVYwXziaEirqCtv-YJnnM0KUcsot5a2Y")
+						- map.markers << MapMarker.new(:color => "green", :location => MapLocation.new(:latitude => @location.latitude, :longitude => @location.longitude))
+						- image_url = map.url(:auto)
+						img src="#{image_url}" rel="tooltip" title="click to view full size map" class="img-polaroid" alt="Location map"
+			.span6.col-12.col-md-6.single-store-details.location-left-side-info
+				div.hidden-phone.address.padded
+					h2.heading-green.inner-page-sub-title
+						| #{@location.address}
+					p.store-location-details #{@location.city}, #{@location.province} #{@location.postal_code}
+					- unless @location.address_details.blank?
+							div
+							/ | <em>#{@location.address_details}</em>
+					div.location-area-landmark
+						div.area-name-location
+								| #{@location.area_name}
+						div.area-landmark-location
+							| #{@location.address_details}
+				div.phone.padded.border-b.details-hover-style
+					= link_to "tel:#{@location.phone.delete('-')}" do
+						p.large-green = @location.phone
+						= image_tag 'ui/phone-icon.png', class: 'icon'
+				div.address.padded.border-b.details-hover-style
+					a href="#{@location.google_maps_url}" target="_blank"
+						div.large-green
+							| Get Directions
+						= image_tag 'ui/map-icon.png', class: 'icon'
+
+						- if @location.respond_to?('distance')
+							div
+								- distance_km = @location.distance * 1.6
+								small Distance: #{distance_km.round(1)} km, #{Geocoder::Calculations.compass_point(@location.bearing)}
+
+				div.hours.padded.shop-hours
+					h3.medium-green.m-b-15 HOURS OF OPERATION
+
+					table.hours
+						- times = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
+						- times.each do |time|
+							- open = "#{time}_open"
+							- closed = "#{time}_closed"
+							tr
+								td.day = "#{time.capitalize}: "
+								- if l(@location.send(closed), :format => :time_only) === "11:59 pm"
+									td.time = @location.send("#{time}_full_day_close") ? "CLOSED" : "#{l(@location.send(open), :format => :time_only)} - 12:00 am" 
+								- else
+									td.time = @location.send("#{time}_full_day_close") ? "CLOSED" : "#{l(@location.send(open), :format => :time_only)} - #{l(@location.send(closed), :format => :time_only)}" 
+
+				div.action.visible-phone
+					= link_to "Order Online", '/orders', :class => "button half default centered"
+
+			.span6.col-12.col-md-4.hidden-phone
+				div.top-map.padded.border-b
+					a href="#{@location.google_maps_url}" target="_blank" class="store-map-pin"
+						- map = GoogleStaticMap.new(:zoom => 13, :center => MapLocation.new(:latitude => @location.latitude, :longitude => @location.longitude), :format => "gif", :width => 320, :height => 250, :api_key => "AIzaSyDPVYwXziaEirqCtv-YJnnM0KUcsot5a2Y")
+						/ - map.markers << MapMarker.new(:color => "black", :location => MapLocation.new(:latitude => @location.latitude, :longitude => @location.longitude))
+						- image_url = map.url(:auto)
+						img src="#{image_url}" rel="tooltip" title="click to view full size map" class="img-polaroid" alt="Location map"
+						img class="store-logo-pin" src="/assets/new_design/store-pin-icon.png"
+				div.action.menu-btn-location
+					= link_to "Order Online", '/orders', :class => "button half default centered"

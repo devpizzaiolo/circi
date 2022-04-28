@@ -1,0 +1,766 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<title>Online order payment failed</title>
+	<link src="https://pizzaiolo.ca/assets/new_design/fonts/fonts_email.css">
+	
+	<style type="text/css">
+		@font-face {
+		font-family: 'Lance-Sans-Regular';
+		src: url('https://pizzaiolo.ca/assets/new_design/fonts/Lance-Sans-Regular.eot?#iefix') format('embedded-opentype'),  url('https://pizzaiolo.ca/assets/new_design/fonts/Lance-Sans-Regular.woff') format('woff'), url('https://pizzaiolo.ca/assets/new_design/fonts/Lance-Sans-Regular.ttf')  format('truetype'), url('https://pizzaiolo.ca/assets/new_design/fonts/Lance-Sans-Regular.svg#Lance-Sans-Regular') format('svg');
+		font-weight: normal;
+		font-style: normal;
+		}
+
+		@font-face {
+		font-family: 'Gotham Pro';
+		font-style: normal;
+		font-weight: normal;
+		src: local('Gotham Pro'), url('https://pizzaiolo.ca/assets/new_design/fonts/GothaProReg.woff') format('woff');
+		}
+
+		@font-face {
+		font-family: 'Gotham Pro Bold';
+		font-style: normal;
+		font-weight: normal;
+		src: local('Gotham Pro Black'), url('https://pizzaiolo.ca/assets/new_design/fonts/GothaProBol.woff') format('woff');
+		}
+
+		#outlook a {padding:0;}
+		
+		body{ width:100% !important; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; margin:0; padding:0; background-color: white;}
+
+		.ExternalClass {width:100%;}
+		.ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div {line-height: 100%;}
+
+		#backgroundTable {margin:0; padding:0; width:100% !important; line-height: 100% !important;}
+		
+		img {outline:none; text-decoration:none; -ms-interpolation-mode: bicubic;}
+		a img {border:none;}
+		.image_fix {display:block;}
+		p {margin: 1em 0;}
+		h1, h2, h3, h4, h5, h6 {color: black !important;}
+		
+		h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {color: blue !important;}
+		h1 a:active, h2 a:active,  h3 a:active, h4 a:active, h5 a:active, h6 a:active {
+			color: red !important;
+		 }
+
+		h1 a:visited, h2 a:visited,  h3 a:visited, h4 a:visited, h5 a:visited, h6 a:visited {
+			color: purple !important;
+		}
+
+		table td {border-collapse: collapse;}
+
+		table { border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt; }
+
+		a {
+			color: #009949;
+			text-decoration: none;
+		}
+		a:link { color: #000; }
+		a:visited { color: #000; }
+		a:hover { color: #000; }
+		
+		body {
+			background-color: white;
+		}
+
+		h1, h2, h3, h4, h5, h6 {
+			font-family: 'Lance-Sans-Regular';
+		}
+
+		p, td, th {
+			margin: 0px;
+		}
+
+    p{
+      font-family: 'Gotham Pro', Verdana !important;
+    }
+
+		.content-line-1{
+			font-size: 16px;
+			font-family: 'Gotham Pro', Verdana !important;
+			line-height: 22px;
+			padding-bottom:28px;
+		}
+
+		.content-line-2{
+			font-size: 16px;
+			font-family: 'Gotham Pro', Verdana !important;
+			line-height: 22px;
+			padding-bottom:28px;
+			font-weight:bold;
+		}
+
+		p.m-0 {
+			margin: 0;
+		}
+
+		.below-header {
+			padding: 10px;
+			margin-top: 39px;
+			margin-bottom: 59px;
+		}
+
+		.below-header h2 {
+			font-size: 45px;
+			margin: 0;
+			line-height: 35px;
+		}
+
+		.mail-header img {
+			display: block;
+		}
+
+		.mail-header {
+			padding: 10px;
+		}
+
+		.mail-body {
+			
+		}
+
+		.text-center {
+			text-align: center!important;
+		}
+
+		.total-price{
+			font-family: 'Gotham Pro Bold', Verdana !important;
+			font-size:22px !important;
+		}
+
+		.mail-container {
+			max-width: 600px;
+			/* margin: 10px auto; */
+		}
+
+		.mail-container .payment-method{
+			font-size:16px;
+			font-family: 'Gotham Pro', Verdana !important;
+			padding-top:67px;
+			margin:0px;
+			padding-bottom:58px;
+		}
+
+		.mail-container p{
+			font-size: 13px;
+			font-family: 'Gotham Pro';
+		}
+
+		.mail-wrapper {
+			padding: 20px;
+			max-width: 90%;
+			margin: 0 auto;
+		}
+
+		.col100 {
+			width: calc(100% - 40px);
+		}
+
+		.col50 {
+			width: calc(50% - 40px);
+		}
+
+		.col100, .col50 {
+			padding: 15px 20px;
+			float: left;
+		}
+
+		table {
+			width: 100%;
+		}
+
+		.clearfix:after {
+		  visibility: hidden;
+		  display: block;
+		  font-size: 0;
+		  content: " ";
+		  clear: both;
+		  height: 0;
+		}
+		* html .clearfix             { zoom: 1; } /* IE6 */
+		*:first-child+html .clearfix { zoom: 1; } /* IE7 */
+		
+		.customer-name {
+			font-size: 16px;
+			padding-bottom: 11px;
+			font-family: 'Gotham Pro', Verdana !important;
+			margin:0px;
+		}
+
+		.order-number {
+			font-size: 16px;
+			padding-bottom: 28px;
+			font-family: 'Gotham Pro', Verdana !important;
+			font-weight:normal;
+			margin:0px;
+		}
+
+		.item-title{
+			font-size:22px;
+			font-family: 'Gotham Pro Bold', Verdana !important;
+			margin: 0px;
+		}
+
+		.item-title > p{
+			font-weight:normal;
+			font-family: 'Gotham Pro', Verdana !important;
+			padding-top:6px;
+			font-size: 16px;
+		}
+
+		.item-price > p{
+			font-size:22px;
+			font-family: 'Gotham Pro Bold', Verdana !important;
+		}
+
+		.tops{
+			font-weight:normal;
+			font-family: 'Gotham Pro', Verdana !important;
+		}
+
+		h3.green, h2.green, h4.green {
+			color: #009949!important;
+		}
+
+		h3.green a {
+			color: #009949!important;
+			text-decoration: none;
+		}
+
+		table td {
+			vertical-align: top;
+			padding: 15px 0;
+		}
+
+		.totals td {
+			padding: 5px 0;
+			vertical-align: middle;
+			font-family: 'Gotham Pro', Verdana !important;
+			font-size:16px;
+		}
+
+		.border-none{
+			border:none;
+		}
+
+		.padding-top{
+			padding-top:17px !important;
+		}
+
+		.padding-bottom{
+			padding-bottom:17px !important;
+		}
+
+		.mail-footer{
+			border-top: 30px solid #009949;
+    	text-align: center;
+			padding:62px 0px;
+		}
+
+		.mail-footer h2,h6{
+			margin:0px;
+		}
+
+		.mail-footer h2{
+			font-size: 38px;
+    	padding-bottom: 10px;
+		}
+
+		h4 p {
+			font-size: 15px;
+			font-weight: 400;
+			margin: 0;
+		}
+
+		.tops p {
+			margin-bottom: 5px;
+			margin-top: 0;
+		}
+		
+		tr {
+			border-bottom: 1px solid #E5E8EE;
+		}
+
+		td.right {
+			text-align: right;
+		}
+
+		td.right p {
+			margin: 0;
+		}
+
+		.tops {
+			margin-top: 6px;
+		}
+
+		p.m-t-10 {
+			margin-top: 10px;
+			margin-bottom: 5px;
+		}
+
+		h3.m-t-20 {
+			margin-top: 60px;
+			font-family: 'Gotham Pro Bold', Verdana !important;
+			font-size:21px;
+			line-height: 24px;
+		}
+
+		.title-01{
+			margin: 0px;
+			font-family: 'Gotham Pro Bold', Verdana !important;
+			font-size:21px;
+			line-height: 24px;
+			padding-bottom: 10px;
+		}
+
+		.title-01-content{
+			margin: 0px;
+			font-family: 'Gotham Pro', Verdana !important;
+			font-size:16px;
+			line-height: 20px;
+		}
+
+		.order-prepared h2{
+			font-size:22px;
+			font-family: 'Gotham Pro Bold', Verdana !important;
+		}
+
+		.addditional-item{
+			font-size: 22px;
+			font-family: 'Gotham Pro Bold', Verdana !important;
+		}
+
+		.col-style{
+			padding-left:0px;
+		}
+
+		.col-style-padding{
+			padding-left: 8px;
+		}
+
+		.col100 h2.green {
+			margin-bottom: 30px;
+		}
+
+
+		.super-header {
+			color: #009949;
+			text-align: center;
+		    font-size: 34px;
+		    line-height: 34px;
+		    font-weight: 700;
+		}
+
+		.super-header span {
+			font-size: 20px;
+		    line-height: 20px;
+		    vertical-align: top;
+		}
+
+		p a {
+			text-decoration: none;
+    }
+    
+    .thank-you  h3{ 
+      padding-left:25px;
+    }
+
+    .thank-you p{
+      padding-left:25px;
+    }
+
+    .order-confirmation{
+      width:280px;
+		}
+		.deal-border-bottom{
+			border-bottom: 0px !important;
+		}
+		.deal-tabs-style{
+			padding-left: 10px !important;
+		}
+		.deal-tabs-style .item-title{
+			padding-left: 0px !important;
+		}
+		.deal-tabs-style p{
+			padding-left: 10px !important;
+		}
+	</style>
+</head>
+<body>
+  <div class="mail-wrapper">
+    <div class="mail-header">
+      <img src="https://staging.pizzaiolo.ca/assets/new_design/new-logo.png" />
+    </div>
+    <div class="below-header col-style-padding">
+      <img class="order-confirmation" src="https://staging.pizzaiolo.ca/assets/new_design/payment_failed.png" />
+    </div>
+    <div class="mail-body clearfix">
+      <div class="col100 col-style-padding">
+        <h3 class="customer-name"><%= @order.first_name %></h3>
+        <h3 class="order-number">Order No: <%= @order.order_number %></h3>
+        <p class="content-line-1">Order Online Payment failed. Details of order are below:</p>
+      </div>
+      <div class="col100">
+        <%# <h2 class="col-style-padding">Order Summary</h2> %>
+        <div class="mail-container">
+          <table>
+						<tbody>
+							<% @order.order_items.where("deal_id IS NOT NULL").group_by(&:deal_id).each do |deal_id, order_items| %>
+								<tr class="deals-title-no-padding deal-border-bottom">
+									<td>
+										<h4 class="item-title"><%= order_items.first.deal_title.html_safe %></h4>
+									</td>
+									<td class="right item-price">
+										<p><%= number_to_currency(@order.deal_price(deal_id) * order_items.first.quantity.to_i) %></p>
+									</td>
+								</tr>
+								<% order_items.each do |order_item| %>
+									<tr class="deal-border-bottom">
+										<td class="deal-tabs-style">
+											<h4 class="item-title"><%= order_item.item_title %></h4>
+											<% if order_item.product_info['product_type'] != "calzone" %>
+											<% selected_toppings=order_item.toppings_1 %>
+											<% if selected_toppings.count > 0 %>
+											<div class="tops">
+												<!--<%= pluralize(order_item.num_paid_toppings, 'topping')%>-->
+												<% if selected_toppings.any? { |s| s.include?('Whole Pizza') } %>
+												<p class="m-t-10"><strong>Whole Pizza</strong></p>
+												<% selected_toppings.each do |t| %>
+												<% if t.include?('Whole Pizza') then %>
+												<p>- <%= t[11..-1] %></p>
+												<% end %>
+												<% end %>
+												<% end %>
+												<% if selected_toppings.any? { |s| s.include?('Left Side') } %>
+												<p class="m-0"><strong>Left Side</strong></p>
+												<% selected_toppings.each do |t| %>
+												<% if t.include?('Left Side') then %>
+												<p>- <%= t[9..-1] %></p>
+												<% end %>
+												<% end %>
+												<% end %>
+												<% if selected_toppings.any? { |s| s.include?('Right Side') } %>
+												<p class="m-0"><strong>Right Side</strong></p>
+												<% selected_toppings.each do |t| %>
+												<% if t.include?('Right Side') then %>
+												<p>- <%= t[10..-1]%></p>
+												<% end %>
+												<% end %>
+												<% end %>
+											</div>
+											<% else %>
+											<p><%= pluralize(0, 'topping') %></p>
+											<% end %>
+
+											<!-- For Product Combo additional items -->
+
+											<% @pizza_preset = PizzaPreset.find(order_item[:product_info]['pizza_preset_id']) %>
+											<% if @pizza_preset.present? && @pizza_preset.is_product_combo %>
+												<div style="margin-bottom: 15px;">
+													<% @product_combo = ProductCombo.find(@pizza_preset.product_combo_id) %>
+													<% @additional_items_names = @product_combo.categories_of_additional_items.try(:split, ",") %>
+													<% @beverages_additional_items = @product_combo.beverages_additional_items.try(:split, ",") %>
+													<% if order_item.product_info["order_additional"] && order_item.product_info["order_additional"].count > 0 %>
+														<p class="m-t-10"><strong>Additional</strong></p>
+													<% end %>
+
+													<% if order_item.product_info["order_additional"] && order_item.product_info["order_additional"]['dipping_sauces'] && order_item.product_info["order_additional"]['dipping_sauces'].count > 0 %>
+														<% order_item.product_info["order_additional"]['dipping_sauces'].each do |dipping_sauce| %>
+															<% if dipping_sauce[1].to_i > 0 %>
+																<p>
+																	- <%= get_dipping_sauce_name(dipping_sauce[0]) %> Dipping Sauce <small> x <%= dipping_sauce[1] %></small>
+																</p>
+															<% end %>
+														<% end %>
+													<% end %>
+													<% if order_item.product_info["order_additional"] && order_item.product_info["order_additional"]['beverages'] && order_item.product_info["order_additional"]['beverages'].count > 0 %>													
+														<% order_item.product_info["order_additional"]['beverages'].each do |beverage| %>
+															<% if beverage[1].to_i > 0 %>
+																<p>
+																	- <%= get_beverage_name(beverage[0]) %> <small> x <%= beverage[1] %></small>
+																</p>
+															<% end %>
+														<% end %>
+													<% end %>
+												</div>
+											<% end %>
+											
+											<!--<p>Quantity: <%= order_item.quantity %></p>->
+											<% else %>
+											<div class="tops">
+												<% if order_item.toppings.count > 0 %>
+												<p>Copyright © 2019 Pizzaiolo</p>
+												<p><%= pluralize(order_item.num_paid_toppings, 'additional topping') %></p>
+												<p>Copyright © 2019 Pizzaiolo</p>
+												<p><%= order_item.toppings.to_sentence(:last_word_connector => ' and ')%></p>
+												<p>Copyright © 2019 Pizzaiolo</p>
+												<% end %>
+												<p>Copyright © 2019 Pizzaiolo</p>
+											</div>
+											<% end %>
+										</td>
+										<td class="right item-price">
+											<!-- <p><%= number_to_currency(order_item.price * order_item.quantity.to_i) %></p> -->
+										</td>
+									</tr>
+								<% end %>
+								<tr>
+									<td class="deal-tabs-style">
+										<p>Quantity: <%= order_items.first.quantity %></p>
+									</td>
+									<td>
+									</td>
+								</tr>
+							<% end %>
+              <% @order.order_items.where(deal_id: nil).each do |order_item| %>
+								<tr>
+									<td>
+										<h4 class="item-title"><%= order_item.item_title %></h4>
+										<% if order_item.product_info['product_type'] != "calzone" %>
+										<% selected_toppings=order_item.toppings_1 %>
+										<% if selected_toppings.count > 0 %>
+										<div class="tops">
+											<!--<%= pluralize(order_item.num_paid_toppings, 'topping')%>-->
+											<% if selected_toppings.any? { |s| s.include?('Whole Pizza') } %>
+											<p class="m-t-10"><strong>Whole Pizza</strong></p>
+											<% selected_toppings.each do |t| %>
+											<% if t.include?('Whole Pizza') then %>
+											<p>- <%= t[11..-1] %></p>
+											<% end %>
+											<% end %>
+											<% end %>
+											<% if selected_toppings.any? { |s| s.include?('Left Side') } %>
+											<p class="m-0"><strong>Left Side</strong></p>
+											<% selected_toppings.each do |t| %>
+											<% if t.include?('Left Side') then %>
+											<p>- <%= t[9..-1] %></p>
+											<% end %>
+											<% end %>
+											<% end %>
+											<% if selected_toppings.any? { |s| s.include?('Right Side') } %>
+											<p class="m-0"><strong>Right Side</strong></p>
+											<% selected_toppings.each do |t| %>
+											<% if t.include?('Right Side') then %>
+											<p>- <%= t[10..-1]%></p>
+											<% end %>
+											<% end %>
+											<% end %>
+										</div>
+										<% else %>
+										<p><%= pluralize(0, 'topping') %></p>
+										<% end %>
+
+										<!-- For Product Combo additional items -->
+
+										<% @pizza_preset = PizzaPreset.find(order_item[:product_info]['pizza_preset_id']) %>
+										<% if @pizza_preset.present? && @pizza_preset.is_product_combo %>
+											<div style="margin-bottom: 15px;">
+												<% @product_combo = ProductCombo.find(@pizza_preset.product_combo_id) %>
+												<% @additional_items_names = @product_combo.categories_of_additional_items.try(:split, ",") %>
+												<% @beverages_additional_items = @product_combo.beverages_additional_items.try(:split, ",") %>
+												<% if order_item.product_info["order_additional"] && order_item.product_info["order_additional"].count > 0 %>
+													<p class="m-t-10"><strong>Additional</strong></p>
+												<% end %>
+
+												<% if order_item.product_info["order_additional"] && order_item.product_info["order_additional"]['dipping_sauces'] && order_item.product_info["order_additional"]['dipping_sauces'].count > 0 %>
+													<% order_item.product_info["order_additional"]['dipping_sauces'].each do |dipping_sauce| %>
+														<% if dipping_sauce[1].to_i > 0 %>
+															<p>
+																- <%= get_dipping_sauce_name(dipping_sauce[0]) %> Dipping Sauce <small> x <%= dipping_sauce[1] %></small>
+															</p>
+														<% end %>
+													<% end %>
+												<% end %>
+												<% if order_item.product_info["order_additional"] && order_item.product_info["order_additional"]['beverages'] && order_item.product_info["order_additional"]['beverages'].count > 0 %>													
+													<% order_item.product_info["order_additional"]['beverages'].each do |beverage| %>
+														<% if beverage[1].to_i > 0 %>
+															<p>
+																- <%= get_beverage_name(beverage[0]) %> <small> x <%= beverage[1] %></small>
+															</p>
+														<% end %>
+													<% end %>
+												<% end %>
+											</div>
+										<% end %>
+										
+										<p>Quantity: <%= order_item.quantity %></p>
+										<% else %>
+										<div class="tops">
+											<% if order_item.toppings.count > 0 %>
+											<p>Copyright © 2019 Pizzaiolo</p>
+											<p><%= pluralize(order_item.num_paid_toppings, 'additional topping') %></p>
+											<p>Copyright © 2019 Pizzaiolo</p>
+											<p><%= order_item.toppings.to_sentence(:last_word_connector => ' and ')%></p>
+											<p>Copyright © 2019 Pizzaiolo</p>
+											<% end %>
+											<p>Copyright © 2019 Pizzaiolo</p>
+										</div>
+										<% end %>
+									</td>
+									<td class="right item-price">
+										<p><%= number_to_currency(order_item.price * order_item.quantity.to_i) %></p>
+									</td>
+								</tr>
+              <% end %>
+              <% unless @order.order_additional.blank? %>
+              <!-- dipping sauces -->
+              <%  @order.order_additional['dipping_sauces'] && @order.order_additional['dipping_sauces'].each do |dipping_sauce| %>
+              <% if dipping_sauce[1].to_i > 0 %>
+              <tr>
+                <td><%= get_dipping_sauce_name(dipping_sauce[0]) %> Dipping Sauce x <%= dipping_sauce[1] %></td>
+                <td class="right">
+                  <p><%= number_to_currency( get_dipping_sauce_price_total(dipping_sauce[0],dipping_sauce[1]) ) %></p>
+                </td>
+              </tr>
+              <% end %>
+              <% end %>
+              <!-- beverages -->
+              <% @order.order_additional['beverages'] && @order.order_additional['beverages'].each do |beverage| %>
+              <% if beverage[1].to_i > 0 %>
+              <tr>
+                <td>
+                  <p><%= get_beverage_name(beverage[0]) + " x " + beverage[1] %></p>
+                </td>
+                <td class="right">
+                  <p><%= number_to_currency( get_beverage_price_total(beverage[0],beverage[1]) ) %></p>
+                </td>
+              </tr>
+              <% end %>
+							<% end %>
+							<!-- garlic_breads -->
+							<% if @order.order_additional['garlic_breads'] %>
+								<% @order.order_additional['garlic_breads'].each do |garlic_bread| %>
+									<% if garlic_bread[1].to_i > 0 %>
+									<tr>
+										<td class="addditional-item">
+										<p><%= get_garlic_bread_name(garlic_bread[0]) + " x " + garlic_bread[1] %></p>	
+										</td>
+										<td class="right addditional-item">
+											<p><%= number_to_currency(get_garlic_bread_price_total(@order, garlic_bread[0], garlic_bread[1]) ) %></p>
+										</td>
+									</tr>
+									<% end %>			
+								<% end %>			
+              <% end %>
+              <!-- salads -->
+              <% @order.order_additional['salads'] && @order.order_additional['salads'].each do |salad| %>
+              <% if salad[1].to_i > 0 %>
+              <tr>
+                <td class="addditional-item">
+									<p><%= get_salad_name(salad[0]) + " x " + salad[1] %></p>
+								</td>
+                <td class="right addditional-item">
+									<p><%= number_to_currency(get_salad_price_total(@order, salad[0], salad[1]) ) %></p>
+								</td>
+              </tr>
+              <% end %>			
+              <% end %>
+              <!-- desserts -->
+              <% if @order.order_additional['catering_order'] == "1" %>
+              <% @order.order_additional['desserts'] && @order.order_additional['desserts'].each do |dessert| %>
+              <% if dessert[1].to_i > 0 %>
+              <tr>
+                <td><%= get_dessert_name(dessert[0]) + " x " + dessert[1] %></td>
+                <td class="right">
+                  <p><%= number_to_currency(get_dessert_price_total(dessert[0], dessert[1])) %></p>
+                </td>
+              </tr>
+              <% end %>
+              <% end %>			
+              <% end %>
+              <!-- utensils -->
+              <% if @order.order_additional['catering_order'] == "1" %>
+              <% @order.order_additional['utensils'] && @order.order_additional['utensils'].each do |utensil| %>
+              <% if utensil[1].to_i > 0 %>
+              <tr>
+                <td><%= get_utensil_name(utensil[0]) %> x <%= utensil[1] %></td>
+                <td class="right">
+                  <p>free</p>
+                </td>
+              </tr>
+              <% end %>
+              <% end %>
+              <% end %>
+              <% end %>
+              <% unless @order.total_price_including_sales_tax == 0 %>				
+              <tr class="totals border-none padding-top">
+                <td class="padding-top">
+                  <p>Subtotal</p>
+                </td>
+                <td class="right padding-top">
+                  <p><%= number_to_currency(@order.total_price) %></p>
+                </td>
+              </tr>
+              <% unless @order.for_pickup? %>
+              <tr class="totals border-none padding-top">
+                <td>
+                  <p>Delivery:</p>
+                </td>
+                <td class="right padding-top">
+                  <p><%= number_to_currency(@order.delivery) %></p>
+                </td>
+              </tr>
+							<% end %>	
+							<% if @order.method_of_payment_id === 4 && @order.tip_amount > 0 %>
+								<tr class="totals border-none padding-top">
+									<td>
+										<p>Tip:</p>
+									</td>
+									<td class="right">
+										<p><%= @order.tip_amount_formatted %></p>
+									</td>
+								</tr>
+              <% end %>	
+              <tr class="totals">
+                <td class="padding-bottom">
+                  <p>HST (13%):</p>
+                </td>
+                <td class="right padding-bottom">
+                  <p><%= number_to_currency(@order.sales_tax_inc_delivery) %></p>
+                </td>
+              </tr>
+              <tr class="totals border-none">
+                <td class="padding-top">
+                  <p class="total-price">Total (inc. HST):</p>
+                </td>
+                <td class="right padding-top">
+                  <p class="total-price"><%= number_to_currency(@order.total_price_including_sales_tax_inc_delivery) %></p>
+                </td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+        <div class="mail-container">
+					<h3 class="payment-method"><%= @order.method_of_payment.try(:name) %>.</h3>
+					<% if @order.method_of_payment_id === 4 && @order.payment_transactions.count > 0 %>
+							<p class="m-0 title-01-content">Transaction Date: <%= @order.payment_transactions.last.transaction_date.to_datetime.strftime('%a %b %d, %Y at %I:%M%p') %></p>
+							<p class="m-0 title-01-content">Status: <%= @order.payment_transactions.try(:last).try(:status) %></p>
+							<p class="m-0 title-01-content">Message: <%= "#{@order.payment_transactions.last.try(:remarks)}" %>
+					<% end %>
+
+        </div>
+        <div class="col100 col-style">
+          <h3 class="title-01">Ordered from</h3>
+          <p class="m-0 title-01-content"><%= @order.franchise_location.try(:address) %></p>
+          <p class="title-01-content"><%= @order.franchise_location.try(:phone) %></p>
+        </div>
+        
+      </div>
+    </div>
+		<div class="mail-container thank-you ">
+			<%# <h2 class="super-header">IT'S BEEN A SLICE <span>&trade;</span> </h2> %>
+			<!-- <p>You can contact <a href="mailto:customercare@pizzaiolo.ca">customercare@pizzaiolo.ca</a> for any questions or concerns.</p> -->
+			<p>For any changes or questions about your order, please contact the store directly</p> 
+		</div>
+  </div>
+  <div class="mail-footer">
+    <img class="" src="https://staging.pizzaiolo.ca/assets/new_design/mail-footer.png" />
+  </div>
+</body>
+</html>

@@ -1,0 +1,32 @@
+.container
+	.body-container
+		= simple_form_for([:admins, @beverage], multipart: true) do |f|
+			
+			fieldset
+				legend Product Details
+			
+				=f.input :name, :required => true
+				=f.input :extra_info, :label => "Extra Info"
+				=f.input :active, :label => "Show Beverage?"
+
+				=f.input :pop_and_juice, :label => "Pop and Juice?"
+				=f.input :water, :label => "Water?"
+				=f.input :premium_drinks, :label => "Premium Drinks?"
+				=f.input :product_image, :as => :file, :label => "Show Salad"
+				=f.input :sort_order, :label => "Sort Order"
+				=f.input :sort_order_for_combos, :label => "Sort Order(combos)"
+				
+				
+			fieldset
+				legend Pricing (Cublic)
+				
+				=f.input :price, :as => :string, :label => "Price $"
+
+			hr
+				= f.button :submit, "Save/Update Beverage", :class => "btn btn-primary"
+				
+				= " "
+				
+				= link_to "Cancel", admins_beverages_path, :class => "btn"
+				
+				

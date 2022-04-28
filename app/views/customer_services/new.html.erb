@@ -1,0 +1,92 @@
+<% meta title: "Pizzaiolo | Customer Reviews | Testimonials",
+     description: "We want to hear from you! Tell us how we did, as we love to hear we are providing our best service possible!",
+     keywords: "Pizzaiolo, Customer Reviews, Testimonials, Feedback, Customer Service"
+%> 
+<%
+	content_for(:heading) {("tell us how <br>we did").html_safe}
+	content_for(:description) {""}
+	content_for(:body_class) {"customer_services_page"}
+%>
+<!-- <% content_for :page_title  do %>
+<section class="">
+			<div class="container">
+				<%= render(:partial => 'common/title', 
+					locals: { title: "tell us how 
+					we did.", content: "" }
+				) %>
+			</div>
+		</section>
+<% end %> 
+
+<%# <section class="">
+	<div class="container">
+		<%= render(:partial => 'common/title', 
+			locals: { title: "tell us how 
+			we did.", content: "" }
+		) %>
+	</div>
+</section-->
+
+	<div class="page-background" style="background-image: url('/assets/new_design/customer_services.jpg'); background-repeat: no-repeat; background-size: cover;"></div>
+	
+	<div class="container">
+		<div class="row">
+			<div class="col-12 col-md-9 services-page-content">
+				<p>We appreciate your business and would love your feedback. If anything did not meet your expectations, please take a few minutes to share the details so our team can follow up. And if everything was great, we’d love to hear that too.</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12 col-md-10">
+				<%= simple_form_for(@customer_service, :html => {:class => 'default-form inline-fields' }) do |f| %>
+					<div class="row form-decor">
+						<div class="col-12 col-md-6 form-control-decor">
+							<%= f.input :first_name, :required => true, :input_html => {:class => "validate[required]"}, :label => false, :placeholder => "First Name" %>
+						</div>
+						<div class="col-12 col-md-6 form-control-decor">
+							<%= f.input :last_name, :required => true, :input_html => {:class => "validate[required]"}, :label => false, :placeholder => "Last Name" %>
+						</div>
+						<div class="col-12 col-md-6 form-control-decor">
+							<%= f.input :email, :required => true, :input_html => {:class => "validate[required,custom[email]]"}, :label => false, :placeholder => "E-mail" %>
+						</div>
+						<div class="col-12 col-md-6 form-control-decor">
+							<%= f.input :telephone, :required => true, :input_html => {:class => "validate[required,custom[phone]]"}, :label => false, :placeholder => "Phone" %>
+						</div>
+						<div class="col-12 col-md-6 form-control-decor">
+							<%= f.input :address_1, :required => true, :input_html => {:class => "validate[required]"}, :label => false, :placeholder => "Address 1" %>
+						</div>
+						<div class="col-12 col-md-6 form-control-decor">
+							<%= f.input :address_2, :required => false, :input_html => {:class => ""}, :label => false, :placeholder => "Address 2" %>
+						</div>
+						<div class="col-12 col-md-6 form-control-decor">
+							<%= f.input :city, :required => true, :input_html => {:class => "validate[required]"}, :label => false, :placeholder => "City" %>
+						</div>
+						<div class="col-12 col-md-6 form-control-decor">
+							<%= f.input :pickup, as: :select, :required => true, :label => false, include_blank: 'Was this order for pickup?', :input_html => {:class => "span6"} %>
+						</div>
+						<div class="col-12 col-md-6 form-control-decor">
+							<%= f.association :franchise_location, :required => true, collection: FranchiseLocation.where(:active => true).all(order: 'address'), label_method: "#{:address_long_form}", value_method: :id, include_blank: false, prompt: "Franchise Location", :label_html => {}, :label => false, :input_html => {:class => "span6 validate[required]"} %>
+						</div>
+						<div class="col-12 col-md-12 form-control-decor">
+							<%= f.input :comment, :input_html => {:class => "span6 validate[required]"}, :required => true, :label => false, :placeholder => 'Please give your feedback or comments.' %>
+						</div>
+						<div class="col-12 col-md-6 form-control-decor">
+							<div class="control-group select ">
+								<div class="controls">
+									<%= show_simple_captcha(:object=>"customer_service")  %>
+								</div>
+							</div>
+						</div>
+						<div class="col-12 col-md-12 form-control-decor hide">
+							<div class="checkmark">
+								<input type="checkbox" id="by_phone">
+								<label for="by_phone">It's OK to contact me by phone.</label>
+							</div>
+						</div>
+						<div class="col-12 col-md-12 form-control-decor">
+							<%= f.button :submit, "SUBMIT", :class => "btn-green page-btn" %>
+						</div>
+					</div>
+				<% end %>
+			</div>
+		</div>
+	</div>	

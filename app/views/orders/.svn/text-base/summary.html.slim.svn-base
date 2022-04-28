@@ -1,0 +1,147 @@
+.page-header
+	h1 Order Summary
+	
+	p
+		em
+			small Your order has not yet been placed. Please review and confirm below to submit your order.
+	
+= render(:partial => 'orders/shopping_cart_table')
+
+br
+
+- if !@order.order_additional.blank? && @order.order_additional['catering_order'] == "1"
+	h4.text-info="Note, this is a Catering Order for #{@order.order_additional['catering_order_group_number']} people."
+	hr
+
+- unless @order.special_instructions.blank?
+	h3 Special Instructions
+	= @order.special_instructions
+	
+	hr
+
+.row
+	.span12
+		
+		.row
+		
+			.span6
+
+				h3 Order Location
+				p You will be ordering from:
+				p
+					strong=@order.franchise_location.address
+				p
+					span.hidden-phone=@order.franchise_location.phone
+					span.visible-phone = raw link_to @order.franchise_location.phone, "tel:#{@order.franchise_location.phone.delete('-')}"
+			
+			.span6
+				br
+				.padded_box
+
+					- if @order.for_pickup
+						p
+							| Your order will be ready for pickup at:
+							br
+							strong = l(@order.to_be_ready_at, :format => :long_wam)
+							
+						p
+							| You can be contacted at:
+							br
+							strong = @order.contact_phone_number
+		
+					- else
+	
+						p
+							| Your order will be delivered by:
+							br
+							strong = l(@order.to_be_ready_at, :format => :long_wam)
+							
+						p
+							| Delivering to:
+							br
+							strong
+								= @order.delivery_address_1
+								br
+								-unless @order.delivery_address_2.blank?
+									= @order.delivery_address_2
+									br
+								= @order.delivery_city
+								br
+								= @order.delivery_postal_code
+								br
+							
+				
+				br
+				
+		tr
+			.row
+				.span12
+					hr
+					
+				.clear
+				
+				= simple_form_for(@order, :url => orders_submit_order_path, :html => {:id => "payment_method"}) do |f|
+					
+					-if @order.for_pickup == false
+						.span6
+							p
+								strong Special Instructions For Delivery
+							= f.input :special_instructions, :label => "e.g. buzzer number, please use side door", :input_html => {:class => "span6", :rows => 3}
+					- else
+						.span12
+							p
+								strong Special Instructions For Delivery
+							= f.input :special_instructions, :label => "e.g. buzzer number, please use side door", :input_html => {:class => "span12", :rows => 3}
+					
+					-if @order.for_pickup == false
+						.span6
+							p
+								strong How will you be paying?
+							p
+								| Please select a method of payment:
+					
+							= f.input :method_of_payment_id, collection: MethodOfPayment.where(:active => true), :label => false, :prompt => "Select Payment Method"
+					
+							- MethodOfPayment.where("active = ? AND disclaimer <> ''", true).each do |mop|
+								p.muted
+									em
+										= mop.disclaimer
+										
+					
+
+hr
+
+.hidden-phone
+
+	- if @order.for_pickup?
+		= link_to "Confirm & Submit Order", orders_submit_order_path, :class => "btn btn-primary", :id => "submit_pickup_order_for_processing"
+	- else
+		= link_to "Confirm & Submit Order", orders_submit_order_path, :class => "btn btn-primary", :id => "submit_delivery_order_for_processing"
+
+	= " "
+
+	= link_to "Edit/Update Order", orders_path, :class => "btn"
+
+	= " "
+
+	= link_to "Cancel Order", orders_path, :class => "btn"
+
+
+.visible-phone
+
+	- if @order.for_pickup?
+		= link_to "Confirm & Submit Order", orders_submit_order_path, :class => "btn btn-block btn-primary", :id => "submit_pickup_order_for_processing_phone"
+	- else
+		= link_to "Confirm & Submit Order", orders_submit_order_path, :class => "btn btn-block btn-primary", :id => "submit_delivery_order_for_processing_phone"
+
+	= " "
+
+	= link_to "Edit/Update Order", orders_path, :class => "btn btn-block"
+
+	= " "
+
+	= link_to "Cancel Order", orders_path, :class => "btn btn-block"
+
+hr
+p
+	small By clicking "Confirm & Submit Order", the order shown above will be sent to your local store.

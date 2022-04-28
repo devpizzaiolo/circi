@@ -1,0 +1,42 @@
+- content_for(:title) {"Mailing List"}
+/ - @header = "about_us"
+- @heading = "mailing_list"
+
+h1 style="display:none;" Mailing List
+
+p.lead By joining the Pizzaiolo mailing list, you will be among the first to know about promotions and news.
+
+hr
+
+.row
+
+	.span6
+
+		form action="http://colorshadow.createsend.com/t/y/s/ajlhuu/" method="post"
+		
+			label for="fieldEmail" Email
+			input.span4.required id="fieldEmail" name="cm-ajlhuu-ajlhuu" type="email"
+
+			label for="fieldName" First Name
+			input.span4.required id="fieldName" name="cm-name" type="text"
+
+			label for="fieldplltrr" Last Name
+			input.span4.required id="fieldmilydu" name="cm-f-milydu" type="text"
+			
+			br
+			br
+			
+			.controls
+				button.btn.btn-primary type="submit" Subscribe
+				= " "
+				= link_to "Cancel", "/", :class => "btn"
+
+	- unless current_customer
+		.span6
+
+			p
+				strong Would you like to create an account to make online ordering faster?
+		
+			p It only takes a minute or two.
+	
+			=link_to "Create Account", new_customer_registration_path, :class => "btn btn-primary"

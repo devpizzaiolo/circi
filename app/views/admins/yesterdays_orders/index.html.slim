@@ -1,0 +1,95 @@
+.body-container	
+	.page-header
+		h1
+			| Yesterday's Orders 
+			small= pluralize(@orders.count, 'Order')
+
+	= form_for(:filter, :action => 'index', :controller => "admins/todays_orders", :method => :get, :html => {:class => "date_filter"}) do |f|
+		
+		style
+			| form.date_filter select { width:100px; }
+		
+		fieldset
+			legend Date Range Filter
+			label Start Date (start of day)
+			- if @start_date
+				= select_date( @start_date, prefix: :start_date)
+			- else
+				= select_date( Date.yesterday, prefix: :start_date)
+			
+			br
+			label End Date (end of day)
+			- if @end_date
+				= select_date @end_date, prefix: :end_date
+			- else
+				= select_date Date.yesterday, prefix: :end_date
+			
+			br
+			
+			input.btn.btn-small.btn-primary type="submit" value="Filter"
+			- if @start_date && @end_date
+				= "  "
+				= link_to "Reset", admins_yesterdays_orders_url, :class => "btn btn-small"
+	
+	
+	= form_tag (download_date_orders_url), :method => :get, class: 'date_filter' do
+		
+		style
+			| form.date_filter select { width:100px; }
+		
+		fieldset
+			legend Download data
+			label Start Date (start of day)
+			- if @start_date
+				= select_date( @start_date, prefix: :start_date)
+			- else
+				= select_date( Date.yesterday, prefix: :start_date)
+			
+			br
+			label End Date (end of day)
+			- if @end_date
+				= select_date @end_date, prefix: :end_date
+			- else
+				= select_date Date.yesterday, prefix: :end_date
+			
+			br
+			
+			input.btn.btn-small.btn-primary type="submit" value="Download"
+			
+	hr
+			
+	table.table.table-striped.admin-table
+		thead
+			tr
+				th= "Type"
+				th= "Ordered"
+				th= "Pizzaiolo Location"
+				/ th= "Quick Summary"
+				th= "Name"
+				th= "Items Total"
+				th= "Delivery"
+				th= "Tax"
+				th= "Total (inc.)"
+			
+		tbody
+			- @orders.each do |order|
+				tr
+					td= if order.for_pickup then 'Pickup' else 'Delivery' end
+					td= l(order.ordered_at, :format => :long_wam)
+					td= order.franchise_location.address
+					/ td= raw(order.quick_summary.to_sentence)
+					td= "#{order.first_name} #{order.last_name}"
+					td= number_to_currency(order.total_price)
+					td= number_to_currency(order.delivery)
+					td= number_to_currency(order.sales_tax_inc_delivery)
+					td= number_to_currency(order.total_price_including_sales_tax_inc_delivery)
+					
+
+	- if @orders.count > 0				
+		hr
+
+		- if params[:start_date] && params[:end_date]
+			p.text-center =link_to "Download CSV", download_yesterdays_orders_path(:start_date => params[:start_date], :end_date => params[:end_date]), :class => "btn btn-large"
+		- else
+			p.text-center =link_to "Download CSV", download_yesterdays_orders_path, :class => "btn btn-large"
+			

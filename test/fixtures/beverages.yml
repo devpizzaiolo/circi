@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  type_of_beverage: 
+
+two:
+  name: MyString
+  type_of_beverage: 

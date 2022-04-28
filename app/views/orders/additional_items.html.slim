@@ -1,0 +1,23 @@
+- meta title: "Pizzaiolo | Toronto and GTA's Gourmet Pizzeria | Order Add-Ons",
+     description: "Tonight let's do takeout! Order Pizzaiolo's Gourmet Pizzas, and add your favourite dipping sauce, salads and drinks to make it the perfect night in!",
+     keywords: "Pizzaiolo, Dinner Takeout, Order Online, Delivery, Date night, dinner in"
+- content_for(:body_class) {"additional_items_page"}
+
+
+section
+	div.container
+		form#add_additional_to_order
+	
+			#order_additional_form
+				- cache [@order.updated_at.to_i, 'additional_item_form'] do 
+					= render(:partial => 'orders/order_additional_items_form')
+
+	div.container	
+		div.row
+			
+
+			div.col-12.col-md-12.order-create-btn.text-center.bottom-actions.m-t-30
+				button class="add_additional_to_order complete-roder-fix-button button default smaller"
+					| ADD TO ORDER
+					
+	 

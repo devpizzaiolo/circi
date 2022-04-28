@@ -1,0 +1,34 @@
+.page-header
+	h1
+		| Orders 
+		small= pluralize(@orders.count, 'Order')
+		
+table.table.table-striped
+	thead
+		tr
+			th= "Type"
+			th= "Ordered"
+			th= "Pizzaiolo Location"
+			th= "Quick Summary"
+			th= "Name"
+			th= "Items Total"
+			th= "Delivery"
+			th= "Tax"
+			th= "Total (inc.)"
+		
+	tbody
+		- @orders.each do |order|
+			tr
+				td= if order.for_pickup then 'Pickup' else 'Delivery' end
+				td= l(order.ordered_at, :format => :long_wam)
+				td= order.franchise_location.address
+				td= raw(order.quick_summary.to_sentence)
+				td= "#{order.first_name} #{order.last_name}"
+				td= number_to_currency(order.total_price)
+				td= number_to_currency(order.delivery)
+				td= number_to_currency(order.sales_tax_inc_delivery)
+				td= number_to_currency(order.total_price_including_sales_tax_inc_delivery)
+				
+				
+	
+				

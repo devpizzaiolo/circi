@@ -1,0 +1,116 @@
+- content_for(:title) {"Locations"}
+
+.row
+	
+	.span12
+	
+		p.lead Find Your Closest Pizzaiolo
+		
+		.text-center
+
+			form.form-inline#search_locations
+
+				.input-append
+					
+					- if params[:find_location_near_me] && params[:find_location_near_me] != ""
+						input.input-small#find_location_near_me name="find_location_near_me" data-mask="phone" type="text" placeholder="Postal Code" value="#{params[:find_location_near_me].upcase}"
+					- else
+						input.input-small#find_location_near_me name="find_location_near_me" data-mask="phone" type="text" placeholder="Postal Code"
+					
+					button.btn.btn-primary type="submit"
+						| Search
+					- if params[:find_location_near_me] && params[:find_location_near_me] != ""
+						a.btn.hidden-phone href="/locations"
+							| Clear
+					
+
+		hr
+		
+		.text-center
+			br
+			=link_to "Order Online Now", '/orders', :class => "btn btn-large btn-primary"
+			
+		br
+	
+		h3 Pizzaiolo Locations
+		
+		- if @locations.count < 1
+			.row
+				.span12
+					p
+						strong No Pizzaiolo location is within the postal code entered.
+	
+		- if @locations.count > 0
+		
+			.row
+				.span12
+					| Select Area:
+					form.form-searc
+						- if @locations.count > 1
+							select#filter_by_area
+								option value="all"
+									| Show All
+								- for location in @locations.group(:area_name) do
+									option value="area-#{location.area_name.parameterize}" =location.area_name
+									
+					hr
+		
+			- for location in @locations do
+				.row.area class="area-#{location.area_name.parameterize}"
+				
+					.span12.location_holder
+		
+						.row
+							
+							.span3
+								address
+									| <h4>#{location.address}</h4>
+									- unless location.address_details.blank?
+										| <em>#{location.address_details}</em><br />
+									span.hidden-phone
+										| Order by Phone:<br /><strong>#{location.phone}</strong><br />
+									span.visible-phone
+										| Order by Phone:<br /><strong>#{link_to location.phone, "tel:#{location.phone.delete('-')}"}</strong><br />
+									- if location.respond_to?('distance')
+										p.text-info
+											- distance_km = location.distance * 1.6
+											small Distance: #{distance_km.round(1)} km, #{Geocoder::Calculations.compass_point(location.bearing)}
+											
+							.span4
+								a href="#{location.google_maps_url}" target="_blank"
+									- map = GoogleStaticMap.new(:zoom => 13, :center => MapLocation.new(:latitude => location.latitude, :longitude => location.longitude), :format => "gif", :width => 240, :height => 120)
+									- map.markers << MapMarker.new(:color => "green", :location => MapLocation.new(:latitude => location.latitude, :longitude => location.longitude))
+									- image_url = map.url(:auto)
+									img src="#{image_url}" rel="tooltip" title="click to view full size map" class="img-polaroid"
+								| <br /><br />
+								
+							.span3
+								small
+									strong
+										| Opening Hours:
+									br
+									table
+										- times = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
+										- times.each do |time|
+											- open = "#{time}_open"
+											- closed = "#{time}_closed"
+											tr
+												td = "#{time}: "
+												td = "#{l(location.send(open), :format => :time_only)}"
+												td -
+												td = "#{l(location.send(closed), :format => :time_only)}"
+									br
+								
+							.span2
+									| <strong><em>#{location.area_name}</em></strong><br /><br />
+									/ - if params['find_location_near_me'] && !params['find_location_near_me'].blank?
+/ 										= link_to "Order Online", locations_set_location_path(location.id), :class => "btn btn-small btn-block btn-primary"
+							.clear
+							.span12
+								hr
+	
+		
+		
+		
+		
+			/= render(:partial => 'locations/selected_location')

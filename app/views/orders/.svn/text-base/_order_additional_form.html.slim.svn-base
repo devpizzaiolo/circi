@@ -1,0 +1,201 @@
+#additional_items
+
+.row
+
+	.span12
+		legend Catering Order?
+	
+	.clear
+	
+	
+	.span6
+		label Is this a catering order?
+		select#catering_order name="order[order_additional][catering_order]" class="additional_items_form"
+			- if !@order.order_additional.blank? && @order.order_additional['catering_order'] == "0"
+				option value="0" selected="" no
+			- else
+				option value="0" no
+			- if !@order.order_additional.blank? && @order.order_additional['catering_order'] == "1"
+				option value="1" selected="" yes
+			- else
+				option value="1" yes
+			
+		br
+			
+	- if !@order.order_additional.blank? && @order.order_additional['catering_order'] == "1"
+		.span6.show_catering_items
+			label Group Size
+			select#catering_order_group_number name="order[order_additional][catering_order_group_number]" class="additional_items_form"
+				- if !@order.order_additional.blank? && @order.order_additional['catering_order'] == "1" && @order.order_additional['catering_order_group_number'] == "1-5"
+					option value="1-5" selected="" 1-5
+				- else
+					option value="1-5" 1-5
+				- if !@order.order_additional.blank? && @order.order_additional['catering_order'] == "1" && @order.order_additional['catering_order_group_number'] == "6-19"
+					option value="6-19" selected="" 6-19
+				- else
+					option value="6-19" 6-19
+				- if !@order.order_additional.blank? && @order.order_additional['catering_order'] == "1" && @order.order_additional['catering_order_group_number'] == "20+"
+					option value="20+" selected="" 20+
+				- else
+					option value="20+" 20+
+		br
+				
+	- else
+		.span6.show_catering_items.hideit
+			label Group Size
+			select#catering_order_group_number name="order[order_additional][catering_order_group_number]" class="additional_items_form"
+				option value="1-5"
+					| 1-5
+				option value="6-19"
+					| 6-19
+				option value="20+"
+					| 20+
+			br
+	
+	
+.row
+
+	.span12.hidden-phone
+		legend Select Items
+				
+	.clear
+	
+	.span3#salads
+	
+		legend Salads
+		
+		- @salads.each do |salad|
+			.row.order-item-row
+				.span2
+					= "#{salad.name} "
+					br.hidden-phone
+					small.muted.align-price id="salad_#{salad.id}_price"
+						= "#{number_to_currency(get_salad_price(@order, 'salad_' + salad.id.to_s))}"
+				.span1
+					- num_ordered = 0
+					- unless @order.order_additional.blank?
+						- num_ordered = @order.order_additional['salads']['salad_' + salad.id.to_s]
+					input name="order[order_additional][salads][salad_#{salad.id}]" id="salad_#{salad.id}" value="#{num_ordered}" class="span1 input_salad validate[required,custom[integer]] additional_items_form" data-price="#{number_to_currency(salad.price)}" data-price-one-to-five="#{number_to_currency(salad.price_one_to_five)}" data-price-six-to-nineteen="#{number_to_currency(salad.price_six_to_nineteen)}" data-price-twenty-plus="#{number_to_currency(salad.price_twenty_plus)}" data-salad-id="#{salad.id}"
+					
+		br
+
+	.span3
+		legend Dipping Sauces
+		
+		- @dipping_sauces.each do |dipping_sauce|
+			.row.order-item-row
+				.span2
+					= "#{dipping_sauce.name} "
+					br.hidden-phone
+					small.align-price.muted= "#{number_to_currency(dipping_sauce.price)} ea."
+				.span1
+					- num_ordered = 0
+					- unless @order.order_additional.blank?
+						- num_ordered = @order.order_additional['dipping_sauces']['dipping_sauce_' + dipping_sauce.id.to_s]
+					input name="order[order_additional][dipping_sauces][dipping_sauce_#{dipping_sauce.id}]" value="#{num_ordered}" class="span1 validate[required,custom[integer]] additional_items_form"
+				- unless dipping_sauce.description.blank?
+					.span3 style="line-height:14px;padding-bottom:4px;"
+						small.muted style="margin-top:0px;line-height:14px;"= dipping_sauce.description
+				
+		br
+		
+	.span3
+		legend Bottles & Premium
+		
+		- @beverages.where(:bottles_and_premium_drinks => true).each do |beverage|
+			.row.order-item-row
+				.span2
+					= "#{beverage.name} "
+					br.hidden-phone
+					small.align-price.muted= "#{number_to_currency(beverage.price)} ea."
+				.span1
+					- num_ordered = 0
+					- unless @order.order_additional.blank?
+						- num_ordered = @order.order_additional['beverages']['beverage_' + beverage.id.to_s]
+					input name="order[order_additional][beverages][beverage_#{beverage.id}]" value="#{num_ordered}" class="span1 validate[required,custom[integer]] additional_items_form"
+		br
+		
+	.span3
+		legend Pop & Spring Water
+		
+		- @beverages.where(:pop_and_spring_water => true).each do |beverage|
+			.row.order-item-row
+				.span2
+					= "#{beverage.name} "
+					br.hidden-phone
+					small.align-price.muted= "#{number_to_currency(beverage.price)} ea."
+				.span1
+					- num_ordered = 0
+					- unless @order.order_additional.blank?
+						- num_ordered = @order.order_additional['beverages']['beverage_' + beverage.id.to_s]
+					input name="order[order_additional][beverages][beverage_#{beverage.id}]" value="#{num_ordered}" class="span1 validate[required,custom[integer]] additional_items_form"
+		br
+		
+.row
+		
+
+- if !@order.order_additional.blank? && @order.order_additional['catering_order'] == "1"
+	- hide = ""
+- else
+	- hide = "hideit"
+.row.show_catering_items class="#{hide}"
+
+	/ .span12
+	/ 	legend Catering Items
+	/ 	
+	/ .clear
+
+	.span6
+		legend Fruit & Desserts
+		- @desserts.each do |dessert|
+			.row.order-item-row
+				.span5
+					= dessert.name
+					br.hidden-phone
+					small.align-price.muted= "#{number_to_currency(dessert.price)}#{ if dessert.show_each? then ' ea.' end }"
+				.span1
+					- if dessert.multiple_of_12?
+						select name="order[order_additional][desserts][dessert_#{dessert.id}]" class="span1 additional_items_form"
+							- sel_arr = [0,12,24,36,48,60,72,96]
+							- sel_arr.each do |sel|
+								= sel.to_s
+								- unless @order.order_additional.blank?
+									- if sel.to_s == @order.order_additional['desserts']['dessert_' + dessert.id.to_s]
+										option value="#{sel}" selected=""
+											= sel.to_s
+									- else
+										option value="#{sel}"
+											= sel.to_s
+								- else
+									option value="#{sel}"
+										= sel.to_s
+								
+					- else
+						input name="order[order_additional][desserts][dessert_#{dessert.id}]" value="0" class="span1 additional_items_form"
+		br
+	
+	.span6
+		legend Utensils
+		- @utensils.each do |utensil|
+			.row.order-item-row
+				.span5
+					= utensil.name
+					br.hidden-phone
+					small.align-price.muted free
+				.span1
+					- num_ordered = 0
+					- unless @order.order_additional.blank?
+						- num_ordered = @order.order_additional['utensils']['utensil_' + utensil.id.to_s]
+					input name="order[order_additional][utensils][utensil_#{utensil.id}]" value="#{num_ordered}" class="span1 validate[required,custom[integer]] additional_items_form"
+
+	.clear
+	
+.row
+	.span12
+	
+		hr
+		
+		#inline_calculator_order_additional
+	
+			= render(:partial => 'orders/inline_calculator_order_additional')
+	

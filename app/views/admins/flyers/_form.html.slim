@@ -1,0 +1,22 @@
+.body-container
+	.container
+		= simple_form_for([:admins, @flyer], multipart: true) do |f|
+
+			fieldset
+				legend Basic Info
+				
+				= f.input :filename, :label => "PDF to upload"
+				
+				= f.input :name, :label => "Reference Name"
+				
+			fieldset
+				legend Status
+				= f.input :active
+				
+			hr
+			
+			= f.button :submit, "Save/Update Flyer", :class => "btn btn-primary"
+			
+			= " "
+			
+			= link_to "Cancel", admins_flyers_path, :class => "btn"

@@ -1,0 +1,23 @@
+
+
+= simple_form_for([:admins, @admin]) do |f|
+	fieldset
+		legend User Details
+		= f.input :email
+		= f.input :first_name
+		= f.input :last_name
+		= f.input :password
+	fieldset
+		legend Options
+		= f.input :edit_admins
+		= f.input :edit_products
+		= f.input :view_stats
+		= f.input :view_customers
+		= f.input :receive_order_confirmation_emails
+		
+	hr
+		= f.button :submit, "Save/Update Admin", :class => "btn-primary"
+		
+		= " "
+		
+		= link_to "Cancel", admins_admins_path, :class => "btn"

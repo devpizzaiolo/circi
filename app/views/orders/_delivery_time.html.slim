@@ -1,0 +1,18 @@
+= form_for("order_time", :url => orders_set_delivery_time_path, html: {id: "order_time_and_date", :class => 'default-form'}) do |f|
+
+	= date_select("order_time", "date", start_year: Date.today.year, :use_short_month => true, end_year: (Date.today + 1.year).year, order: [:day, :month, :year])
+	- if @order.for_catering === true
+		= f.time_select("time", :default => Time.now.change(:hour => Time.at(((Time.now + 3.hour).to_f / 15.minutes).round * 15.minutes).hour, :min => Time.at(((Time.now + 3.hour).to_f / 15.minutes).round * 15.minutes).min ), :combined => true, :minute_interval => 15, :ampm => true, :time_separator => "", :end_minute => 30)
+	- else
+		= f.time_select("time", :default => Time.now.change(:hour => Time.at(((Time.now + 1.hour).to_f / 15.minutes).round * 15.minutes).hour, :min => Time.at(((Time.now + 1.hour).to_f / 15.minutes).round * 15.minutes).min ), :combined => true, :minute_interval => 15, :ampm => true, :time_separator => "", :end_minute => 30)
+
+	style
+		| #order_time_date_3i { padding: 0px 4px 0px 15px; }
+		| #order_time_date_2i { padding: 0px 10px 0px 10px; }
+		| #order_time_date_1i { padding: 0px 10px 0px 10px; }
+		| #order_time_time_5i { padding: 0px 4px 0px 12px; }
+		
+#message.alert-message-box
+
+	
+		

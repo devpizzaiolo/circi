@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/pizzaioloca/!svn/ver/217/trunk/pizzaiolo.ca/app/views/admins/franchise_locations
+END
+new.html.slim
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/pizzaioloca/!svn/ver/146/trunk/pizzaiolo.ca/app/views/admins/franchise_locations/new.html.slim
+END
+_form.html.slim
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/pizzaioloca/!svn/ver/216/trunk/pizzaiolo.ca/app/views/admins/franchise_locations/_form.html.slim
+END
+edit.html.slim
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/pizzaioloca/!svn/ver/146/trunk/pizzaiolo.ca/app/views/admins/franchise_locations/edit.html.slim
+END
+index.html.slim
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/pizzaioloca/!svn/ver/217/trunk/pizzaiolo.ca/app/views/admins/franchise_locations/index.html.slim
+END

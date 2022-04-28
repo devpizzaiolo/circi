@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  email: MyString
+  customer_survey_email_exported_at: 2019-10-15 11:04:34
+  week_and_year: MyString
+
+two:
+  email: MyString
+  customer_survey_email_exported_at: 2019-10-15 11:04:34
+  week_and_year: MyString

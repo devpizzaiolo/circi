@@ -1,0 +1,27 @@
+.body-container
+	.page-header
+		h1 Garlic Breads
+		
+	table.table
+		thead
+			tr
+				th Name
+				th 
+				th Show in Menu
+				th Options
+		tbody
+			- @garlic_breads.each do |garlic_bread|
+				
+				tr
+					td= garlic_bread.name
+					td= image_tag garlic_bread.product_image.thumbnail.url
+					td
+						- if garlic_bread.active?
+							| Yes
+						- else
+							| No
+					td 
+						= link_to "Edit", edit_admins_garlic_bread_path(garlic_bread.id), :class => "btn btn-mini"
+						= link_to "Delete", admins_garlic_bread_path(garlic_bread.id), :class => "btn btn-mini", :method => :delete
+		
+	= link_to "New Garlic Bread", new_admins_garlic_bread_path, class: 'button default'

@@ -1,0 +1,44 @@
+.page-header
+	h1 Pizzas
+	
+table.table.table-striped
+	thead
+		tr
+			th Name Of Product
+			th 
+			th Categorized Under
+			th Tagged
+			th Show in menu
+			th Options
+	tbody
+		- @pizza_presets.each do |pizza_preset|
+			
+			tr
+				td= pizza_preset.product_name
+				td=image_tag pizza_preset.pizza_image_angled.thumbnail.url
+				td= pizza_preset.pizza_category.name
+				td
+					- if pizza_preset.pizzaiolo_favourites?
+						| Favourite 
+					- if pizza_preset.spicy?
+						| Spicy 
+					- if pizza_preset.customer_favourites?
+						| Cusomter Favourite 
+					- if pizza_preset.vegan?
+						| Vegan 
+					- if pizza_preset.health_check?
+						| Health Check 
+				td
+					- if pizza_preset.active?
+						| Yes
+					- else
+						| No
+				td 
+					= link_to "Edit", edit_admins_pizza_preset_path(pizza_preset.id), :class => "btn btn-mini"
+					= " "
+					= link_to "Delete", admins_pizza_preset_path(pizza_preset.id), :class => "btn btn-mini btn-danger", :method => :delete
+
+hr
+
+.text-center
+	= link_to "New Pizza", new_admins_pizza_preset_path, :class => "btn btn-primary btn-large"

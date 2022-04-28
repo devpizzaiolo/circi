@@ -1,0 +1,95 @@
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/pizzaioloca/!svn/ver/270/trunk/pizzaiolo.ca/test/functional
+END
+locations_controller_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/test/functional/locations_controller_test.rb
+END
+orders_controller_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/test/functional/orders_controller_test.rb
+END
+pages_controller_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/test/functional/pages_controller_test.rb
+END
+order_mailer_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/pizzaioloca/!svn/ver/128/trunk/pizzaiolo.ca/test/functional/order_mailer_test.rb
+END
+.gitkeep
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/test/functional/.gitkeep
+END
+franchise_enquiry_mailer_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/pizzaioloca/!svn/ver/270/trunk/pizzaiolo.ca/test/functional/franchise_enquiry_mailer_test.rb
+END
+customer_services_controller_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/test/functional/customer_services_controller_test.rb
+END
+customer_service_mailer_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/pizzaioloca/!svn/ver/187/trunk/pizzaiolo.ca/test/functional/customer_service_mailer_test.rb
+END
+orders_for_delivery_controller_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/test/functional/orders_for_delivery_controller_test.rb
+END
+admins_controller_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/test/functional/admins_controller_test.rb
+END
+order_items_controller_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/test/functional/order_items_controller_test.rb
+END
+orders_for_pickup_controller_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/test/functional/orders_for_pickup_controller_test.rb
+END
+customers_controller_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/test/functional/customers_controller_test.rb
+END
+franchise_enquiries_controller_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/pizzaioloca/!svn/ver/270/trunk/pizzaiolo.ca/test/functional/franchise_enquiries_controller_test.rb
+END
+home_controller_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/test/functional/home_controller_test.rb
+END

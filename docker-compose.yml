@@ -1,0 +1,57 @@
+version: '2'
+
+services:
+  rails:
+    tty: true
+    stdin_open: true
+    build:
+      context: .
+    command: bash -c "rm -f /app/tmp/pids/server.pid && bundle install && bundle exec rake db:migrate && bundle exec rails s -p 3006 -b 0.0.0.0"
+    ports:
+      - "3006:3006"
+    depends_on:
+      - db
+      - redis
+    volumes:
+      #- .:/app
+      - pizzaiolo-sync:/app:nocopy
+    environment:
+      REDIS_URL: redis://redis:6379/1
+      DATABASE_HOST: db
+      DATABASE_USER: root
+      DATABASE_PASSWORD: root
+      DATABASE_NAME: pizzaiolo_ca_production
+      RAILS_ENV: development
+      ROLLBAR_ACCESS_TOKEN: NONE
+  # phpmyadmin:
+  #   image: phpmyadmin/phpmyadmin
+  #   ports:
+  #     - "8080:80"
+  #   environment:
+  #     - MYSQL_USER=root      
+  #     - MYSQL_ROOT_PASSWORD=root
+  #     - MYSQL_PASSWORD=root
+  #     - MYSQL_DATABASE=pizzaiolo_ca_production
+  #     - PMA_HOST=db
+  db:
+    image: mysql:5.7.21
+    command: --sql_mode=""
+    ports:
+      - "8806:3306"
+    environment:
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: pizzaiolo_ca_production
+    volumes:
+       - mysql_data:/var/lib/mysql
+  redis:
+    image: redis
+    command: redis-server
+    ports:
+      - '6380:6379'
+volumes:
+    mysql_data:
+    pizzaiolo-sync:
+      external: true
+  

@@ -1,0 +1,63 @@
+- content_for(:title) {"Catering"}
+- @header = "catering"
+- @heading = "catering"
+
+h1 style="display:none;" Catering
+
+p.lead Pizzaiolo Gourmet Pizza would be pleased to cater your next event. See below for catering options and submit your catering request online. We will contact you to confirm your order.
+
+p
+	strong Please allow 24 to 48 hours for a catering order.
+
+p
+	| Not sure what to order or how much? Let us help: 
+	= mail_to "info@pizzaiolo.ca", "info@pizzaiolo.ca"
+	
+br
+
+.row
+	.span12.text-center
+		br
+		=link_to "Order Catering Now", '/orders?set_catering_order=1#edit_or_update_order_items', :class => "btn btn-large btn-primary"
+		
+		br
+		br
+	
+		= render(:partial => 'common/salads')
+						
+		hr
+		
+		.padded_box
+			h3 Desserts/Dolci
+	
+			table.table.pricing-table
+				thead
+					tr
+						th Dessert
+						th Description
+						th Price
+				tbody
+					- Dessert.where(:active => true).order("name ASC").each do |dessert|
+						tr
+							td= dessert.name
+							td= dessert.description
+							- if dessert.multiple_of_12?
+								td= "#{number_to_currency(dessert.price)} #{ if dessert.show_each? then ' each' end }"
+							- else
+								td= "#{number_to_currency(dessert.price)} #{ if dessert.show_each? then ' each' end }"
+								
+		hr
+		
+		= render(:partial => 'common/beverages')
+		
+
+
+.row
+	.span12.text-center
+		br
+		br
+		=link_to "Order Catering Now", '/orders?set_catering_order=1#edit_or_update_order_items', :class => "btn btn-large btn-primary"
+		
+		br
+		br
+

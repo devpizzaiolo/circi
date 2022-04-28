@@ -1,0 +1,172 @@
+.page-header
+	h1 When would you like your order to be ready?
+	
+.row
+	.span12
+		
+		.row
+			- unless @order.for_catering == true
+				.span6
+				
+					- if @order.for_pickup?
+						h3 Pickup As Soon As Possible
+					- else
+						h3 Deliver As Soon As Possible
+				
+					p You will be ordering from:
+					p
+						strong=@order.franchise_location.address
+					p
+						span.hidden-phone=@order.franchise_location.phone
+						span.visible-phone = raw link_to @order.franchise_location.phone, "tel:#{@order.franchise_location.phone.delete('-')}"
+					
+					- if @order.franchise_location.open_for_business == true
+						p= "This location is OPEN"
+					- else
+						p= "This location is CLOSED"
+				
+					- if @order.for_pickup?
+						- if @order.franchise_location.open_for_pickup == true
+							p
+								| This store can start preparing your online order right away.
+								br
+								strong Ready in about 20 minutes.
+						- else
+							p.text-error This store does not accept pickup orders for the current time.
+							p The next available time to have your order ready by would be:
+							p= l(@order.franchise_location.pickup_asap_eta, :format => :long_wam)
+					- else
+						- if @order.franchise_location.open_for_deliveries == true
+							p
+								| This store can start preparing your online order right away.
+								br
+								strong Ready in about 55 minutes.
+								br
+								br
+								em Delivery time depends on traffic and weather conditions
+						- else
+							p.text-error This store does not accept delivery orders for the current time.
+							p The next available time to have your order ready by would be:
+							p=l(@order.franchise_location.deliver_asap_eta, :format => :long_wam)
+				
+				
+				span.visible-phone
+				
+					br 
+					
+					- if @order.for_pickup?
+						- if @order.franchise_location.open_for_pickup == true
+							=link_to "Order For Pickup ASAP", orders_order_asap_path, :class => "btn btn-block btn-primary"
+						- else
+							=link_to "Order For Pickup ASAP", orders_order_asap_path, :class => "btn btn-block btn-primary", :confirm => "This store is currently closed. Are you sure you want to place an order for the next open time?"
+					- else
+						- if @order.franchise_location.open_for_deliveries == true
+							=link_to "Order For Delivery ASAP", orders_order_asap_path, :class => "btn btn-block btn-primary"
+						- else
+							=link_to "Order For Delivery ASAP", orders_order_asap_path, :class => "btn btn-block btn-primary", :confirm => "This store is currently closed. Are you sure you want to place an order for the next open time?"
+					
+					br
+					br
+					
+					p.text-center style="font-size:18px;"
+						strong OR
+					
+					br
+
+			.span6
+				
+				h3
+					| Define Date & Time for 
+					- if @order.for_pickup == true
+						| Pickup
+					- else
+						| Delivery
+					
+				
+				-if !@order.order_additional.blank? && @order.order_additional['catering_order'] && @order.order_additional['catering_order'] == "1"
+					p.text-info Catering orders require a minimum of 25 hours lead time.
+				
+				#define_delivery_time
+				
+					= render(:partial => 'orders/delivery_time')
+				
+				small
+					
+					- if @order.for_pickup?
+					
+						p 
+							strong Orders must be placed for at least 20 minutes from now.
+							
+						- location = @order.franchise_location
+						table
+							- times = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
+							- times.each do |time|
+								- open = "#{time}_open"
+								- closed = "#{time}_closed"
+								tr
+									td = "#{time}: "
+									td = "#{l(location.send(open), :format => :time_only)}"
+									td -
+									td = "#{l(location.send(closed), :format => :time_only)}"
+
+					- else
+					
+						p 
+							- if !@order.order_additional.blank? && @order.order_additional['catering_order'] && @order.order_additional['catering_order'] == "1"
+								strong Catering Orders must be placed for at least 25 hours from now to allow for preparation time.
+							- else 
+								strong Orders must be placed at least 55 minutes from now to allow for preparation time.
+							
+						- location = @order.franchise_location
+						table
+							- times = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
+							- times.each do |time|
+								- open = "delivery_#{time}_open"
+								- closed = "delivery_#{time}_closed"
+								tr
+									td = "#{time}: "
+									td = "#{l(location.send(open), :format => :time_only)}"
+									td -
+									td = "#{l(location.send(closed), :format => :time_only)}"
+									
+					.visible-phone
+						br
+						- if @order.for_pickup?
+							=link_to "Order For Pickup", "#", :class => "btn btn-block btn-primary", :id => "order_with_chosen_time"
+						- else
+							=link_to "Order For Delivery", "#", :class => "btn btn-block btn-primary", :id => "order_with_chosen_time"
+							
+							
+							
+						
+.row.hidden-phone
+	
+	.span12
+		hr
+	
+	.clear
+	
+	- unless @order.for_catering == true
+		.span6.text-center
+			- if @order.for_pickup?
+				- if @order.franchise_location.open_for_pickup == true
+					=link_to "Order For Pickup ASAP", orders_order_asap_path, :class => "btn btn-primary"
+				- else
+					=link_to "Order For Pickup ASAP", orders_order_asap_path, :class => "btn btn-primary", :confirm => "This store is currently closed. Are you sure you want to place an order for the next open time?"
+			- else
+				- if @order.franchise_location.open_for_deliveries == true
+					=link_to "Order For Delivery ASAP", orders_order_asap_path, :class => "btn btn-primary"
+				- else
+					=link_to "Order For Delivery ASAP", orders_order_asap_path, :class => "btn btn-primary", :confirm => "This store is currently closed. Are you sure you want to place an order for the next open time?"
+	
+	.span6.text-center
+		- if @order.for_pickup?
+			=link_to "Order For Pickup", "#", :class => "btn btn-primary", :id => "order_with_chosen_time"
+		- else
+			=link_to "Order For Delivery", "#", :class => "btn btn-primary", :id => "order_with_chosen_time"
+					
+						
+					
+					
+				
+			

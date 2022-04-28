@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en" class="homepage">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	
+	<%= metamagic %>
+	
+    <!-- Open Graph data -->
+    <meta property="og:title" content="Pizzaiolo Gourmet Pizza" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.pizzaiolo.ca/" />
+    <meta property="og:image" content="https://pizzaiolo.ca/assets/ui/pizzaiolo_logo_trans.png" />
+   	<meta property="og:description" content="Pizzaiolo is Toronto's best gourmet pizza. Our famous Pizzaiolo tomato sauce and artisan dough are never frozen." />
+
+
+    <%= favicon_link_tag 'ui/favicon.png' %>
+    <%= csrf_meta_tags %>
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.1/html5shiv.js" type="text/javascript"></script>
+    <![endif]-->
+
+    <%= stylesheet_link_tag "application", :media => "all" %>
+
+    <!-- For third-generation iPad with high-resolution Retina display: -->
+    <!-- Size should be 144 x 144 pixels -->
+    <%#= favicon_link_tag 'images/apple-touch-icon-144x144-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '144x144' %>
+
+    <!-- For iPhone with high-resolution Retina display: -->
+    <!-- Size should be 114 x 114 pixels -->
+    <%#= favicon_link_tag 'images/apple-touch-icon-114x114-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '114x114' %>
+
+    <!-- For first- and second-generation iPad: -->
+    <!-- Size should be 72 x 72 pixels -->
+    <%#= favicon_link_tag 'images/apple-touch-icon-72x72-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '72x72' %>
+
+    <!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
+    <!-- Size should be 57 x 57 pixels -->
+    <%#= favicon_link_tag 'images/apple-touch-icon-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png' %>
+
+    <!-- For all other devices -->
+    <!-- Size should be 32 x 32 pixels -->
+    <%#= favicon_link_tag 'favicon.ico', :rel => 'shortcut icon' %>
+		
+	<meta name="apple-mobile-web-app-title" content="Pizzaiolo">
+		
+	<%= render(:partial => 'common/analytics') %>
+	<%= render(:partial => 'common/pixel') %>
+  </head>
+  <body class="homepage">
+  	<!-- <div id="maintenance">
+  		<h2>Online orders are currently under maintenance. Please call your store to place an order</h2>
+  	</div> -->
+
+	<%= render(:partial => 'common/drop_down_main_menu') %>
+	
+	<div id="fullsizeCarousel" class="carousel slide header homepage hidden-phone">
+	  <ol class="carousel-indicators" style="display:none;">
+	    <li data-target="#fullsizeCarousel" data-slide-to="0" class="active"></li>
+	    <li data-target="#fullsizeCarousel" data-slide-to="1"></li>
+	    <li data-target="#fullsizeCarousel" data-slide-to="2"></li>
+	  </ol>
+	  <!-- Carousel items -->
+	  <div class="carousel-inner">
+		<div class="active item" id="homepage_courousel_header_1">
+			<div class="container">
+				<div class="row">
+					<div class="span5 offset7">
+						<div class="pod">
+							<img src="/assets/home_page/pod_title_spinotta.png" alt="Spinotta Pizza image">
+							<p class="cals">120-170 cals/slice</p>
+							<p>Spinach and herbed tomatoes with extra virgin olive oil, topped with mozzarella, parmigiano, and ricotta cheeses. A Pizzaiolo and Customer Favourite!</p>
+							<%= link_to "ORDER NOW", orders_path(:pizza_preset_id => 83), :class => "button default full" %>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="item" id="homepage_courousel_header_2">
+			<div class="container">
+				<div class="row">
+					<div class="span5 offset7">
+						<div class="pod">
+							<img src="/assets/home_page/pod_title_fredo.png" alt="Fredo Pizza image">
+							<p class="cals">90-130 cals/slice</p>
+							<p>A classic white pizza with rosemary and double the potato! Great for vegans.</p>
+							<%= link_to "ORDER NOW", orders_path(:pizza_preset_id => 66), :class => "button default full" %>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="item" id="homepage_courousel_header_3">
+			<div class="container">
+				<div class="row">
+					<div class="span5 offset7">
+						<div class="pod">
+							<img src="/assets/home_page/pod_title_vittoria.png" alt="Vittoria Pizza image">
+							<p class="cals">80-120 cals/slice</p>
+							<p>A flavourful pizza with red peppers, herbed tomatoes, marinated zucchini, and our famous Pizzaiolo tomato sauce.</p>
+							<%= link_to "ORDER NOW", orders_path(:pizza_preset_id => 67), :class => "button default full" %>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+    
+		<div class="item" id="homepage_courousel_header_4">
+			<div class="container">
+				<div class="row">
+					<div class="span5 offset7"> 
+						<div class="pod">
+							<img src="/assets/home_page/pod_title_diana.png" alt="Diana Pizza image">
+							<p class="cals">90-130 cals/slice</p>
+							<p>This vegan option is made with fresh mushrooms, herbed tomatoes, spinach and marinated zucchini on our whole wheat crust.</p>
+							<%= link_to "ORDER NOW", orders_path(:pizza_preset_id => 57), :class => "button default full" %>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	  </div>
+	  <!-- Carousel nav -->
+	  <a class="carousel-control left" href="#fullsizeCarousel" data-slide="prev">&lsaquo;</a>
+	  <a class="carousel-control right" href="#fullsizeCarousel" data-slide="next">&rsaquo;</a>
+			
+		<div class="home_page_holder hidden-phone">
+			
+			<div class="visible-tablet navigation">
+				<div class="container">
+					<a href="/" class="logo">
+						<img src="/assets/ui/pizzaiolo_logo_trans.png"  class="main_logo">
+					</a>
+					<%= link_to "ORDER ONLINE", orders_path %> 
+					<%= link_to "MENU", orders_path %>
+					<%= link_to "CATERING", page_path('catering') %>
+					<%= link_to "LOCATIONS", locations_path %>
+					<% if current_customer %>
+						<%= link_to "MY ACCOUNT", customers_path %>
+					<% else %>
+						<%= link_to "LOGIN", customers_path %>
+					<% end %>
+				</div>
+			</div>
+			
+			<div class="hidden-tablet navigation">
+				<div class="container">
+					<a href="/" class="logo">
+						<img src="/assets/ui/pizzaiolo_logo_trans.png"  class="main_logo">
+					</a>
+					<%= link_to "ORDER ONLINE", orders_path %>
+					<%= link_to "MENU", orders_path %>
+					<%= link_to "CATERING", page_path('catering') %>
+					<%= link_to "LOCATIONS", locations_path %>
+					<% if current_customer %>
+						<%= link_to "MY ACCOUNT", customers_path %>
+					<% else %>
+						<%= link_to "LOGIN", customers_path %>
+					<% end %>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- phone splash page -->
+	<div class="visible-phone splash-mobile" id="home_page_buttons">
+		<div class="splash-actions">
+			<p class="malbeck left">Welcome to</p>
+			<%= image_tag 'ui/pizzaiolo_logo_trans.png' %>
+			<p class="malbeck">Made fresh daily!</p>
+		</div>
+		
+		<div class="action-buttons">
+			<%= link_to "Order", orders_path, :class => "button default larger" %>
+			<%= link_to "Menu", orders_path, :class => "button default larger" %>
+			<%= link_to "Locations", locations_path, :class => "button default" %>
+			<%= link_to "Catering", page_path('catering'), :class => "button default" %>
+		</div>
+
+		<div class="splash-actions">
+			<p class="malbeck">From our famiglia to yours</p>
+			<%= link_to 'SIGN IN / CREATE ACCOUNT', new_customer_session_path, class: 'full button red bold' %>
+			<div class="late_night">
+				<%= link_to "LATE NIGHT LOCATIONS", late_night_locations_path, class: 'full button black bold' %>
+			</div>
+			<p>Our famous Pizzaiolo tomato sauce &amp; artisan dough are never frozen!</p>
+			<p>All of our products are nut-free.</p>
+			<p>Gluten-free and wheat-free dough available.</p>
+			<div class="bottom-imgs">
+				<%= image_tag 'ui/canadian.png' %>
+				<%= image_tag 'ui/gmo-stamp.gif' %>
+				<%= image_tag 'ui/nut-free.png' %>
+				<%= image_tag 'ui/we-recycle.png' %>
+			</div>
+		</div>
+	</div>
+
+
+		
+    <div class="container">
+		<div class="row">
+			<div class="span12">
+				<%#= bootstrap_flash %>
+			</div>
+		</div>
+		<%= render :partial => "common/admins_menu" %>
+    </div>
+
+    <%= yield %>
+
+    <!-- end of phone splash page -->
+	
+	<!-- footer -->
+
+	<footer class="footer hidden-phone home">
+		<div class="container">
+			<div class="footer_holder">
+				<div class="bottom-imgs">
+					<%= image_tag 'ui/canadian.png' %>
+					<%= image_tag 'ui/gmo-stamp.gif' %>
+					<%= image_tag 'ui/nut-free.png' %>
+					<%= image_tag 'ui/we-recycle.png' %>
+				</div>
+
+				<p class="malbeck">From our famiglia to yours!</p>
+				<p class="tagline"><strong>Pizzaiolo - Toronto's best gourmet pizza</strong></p>
+				<%= render :partial => 'common/bottom_links' %>
+				<small>Copyright &copy; <%= Date.today.year %> Pizzaiolo Gourmet Pizza</small>
+			</div>
+		</div>
+	</footer>
+
+    <!-- Javascripts
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <%= javascript_include_tag "application" %>	
+  </body>
+</html>

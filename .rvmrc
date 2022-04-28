@@ -1,0 +1,6 @@
+rvm use ruby-1.9.3
+export DATABASE_NAME=pizzaiolo_ca_production
+export DATABASE_USER=root
+export DATABASE_PASSWORD=root
+export DATABASE_HOST=127.0.0.1
+export DATABASE_PORT=8806

@@ -1,0 +1,219 @@
+table.table.table-condensed.table-striped.table-bordered
+	thead
+		th Product
+		th
+			div align="right" Total Item Price
+		- if params[:action] != 'summary' && params[:action] != 'thankyou'
+			th
+	tbody
+	
+		- @order.order_items.each do |order_item|
+			tr
+				td
+					- cache [@order, order_item, 'shopping_cart_order_item'] do 
+						strong= order_item.item_title
+						br
+						small
+							- if order_item.product_info['product_type'] != "calzone"
+								- if order_item.toppings.count > 0
+									= raw "#{pluralize(order_item.num_paid_toppings, 'topping')}<span class='hidden-phone'> : #{order_item.toppings.to_sentence(:last_word_connector => ' and ')}</span>"
+								- else
+									= raw "#{pluralize(0, 'topping')}"
+							- else
+								- if order_item.toppings.count > 0
+									= raw "#{pluralize(order_item.num_paid_toppings, 'topping')}<span class='hidden-phone'> : #{order_item.toppings.to_sentence(:last_word_connector => ' and ')}</span>"
+				td
+					div align="right"
+						- cache [@order, order_item, 'shopping_cart_order_item_price'] do 
+							= number_to_currency( order_item.price )
+				- if params[:action] != 'summary' && params[:action] != 'thankyou' && params[:controller] != "customers/orders"
+					td
+						div align="right"
+							- cache [order_item, 'shopping_cart_order_item_links'] do 
+								=link_to "Edit", edit_order_item_path(order_item.id), :remote => true, :class => "btn btn-mini btn-block", :id => "#edit_button_{order_item.id.to_s}"
+								= " "
+								=link_to "Remove", order_path(order_item.id), :method => :delete, :remote => true, :confirm => "Are you sure?", :class => "btn btn-mini btn-block"
+								= " "
+						
+		- unless @order.order_additional.blank?
+			
+			// dipping sauces
+		
+			- @order.order_additional['dipping_sauces'].each do |dipping_sauce|
+				- if dipping_sauce[1].to_i > 0
+					tr
+						- cache [@order, dipping_sauce, 'shopping_cart_dipping_sauces_info'] do						
+								td
+									strong= "#{get_dipping_sauce_name(dipping_sauce[0])} Dipping Sauce"
+									= " "
+									small
+										= "x #{dipping_sauce[1]}"
+								td
+									div align="right"
+										= number_to_currency( get_dipping_sauce_price_total(dipping_sauce[0],dipping_sauce[1]) )
+						- if params[:action] != 'summary' && params[:action] != 'thankyou' && params[:controller] != "customers/orders"
+							- cache [@order, dipping_sauce, 'shopping_cart_dipping_sauces_links'] do
+								td
+									div align="right"
+										= link_to "Edit", "#", :class => "edit_additional_items btn btn-mini btn-block"
+										= " "
+										= link_to "Remove", orders_remove_additional_path('dipping_sauces',dipping_sauce[0]), :remote => true, :confirm => "Are you sure?", :class => "btn btn-mini btn-block"
+								
+			
+			
+			
+			// beverages
+		
+			- @order.order_additional['beverages'].each do |beverage|
+				- if beverage[1].to_i > 0
+					tr
+						- cache [@order, beverage, 'shopping_cart_beverages_info'] do
+							td
+								strong= get_beverage_name(beverage[0])
+								= " "
+								small
+									= "x #{beverage[1]}"
+							td
+								div align="right"
+									= number_to_currency( get_beverage_price_total(beverage[0],beverage[1]) )
+						- if params[:action] != 'summary' && params[:action] != 'thankyou' && params[:controller] != "customers/orders"
+							- cache [@order, beverage, 'shopping_cart_beverages_links'] do
+								td
+									div align="right"
+										= link_to "Edit", "#", :class => "edit_additional_items btn btn-mini btn-block"
+										= " "
+										= link_to "Remove", orders_remove_additional_path('beverages',beverage[0]), :remote => true, :confirm => "Are you sure?", :class => "btn btn-mini btn-block"
+		
+		
+			// salads
+			- @order.order_additional['salads'].each do |salad|
+				- if salad[1].to_i > 0
+					tr
+						- cache [@order, salad, 'shopping_cart_salads_info'] do
+							td
+								strong= get_salad_name(salad[0])
+								= " "
+								small
+									= "x #{salad[1]}"
+							td
+								div align="right"
+									= number_to_currency(get_salad_price_total(@order, salad[0], salad[1]) )
+						- if params[:action] != 'summary' && params[:action] != 'thankyou' && params[:controller] != "customers/orders"
+							- cache [@order, salad, 'shopping_cart_salads_links'] do
+								td
+									div align="right"
+										= link_to "Edit", "#", :class => "edit_additional_items btn btn-mini btn-block"
+										= " "
+										= link_to "Remove", orders_remove_additional_path('salads',salad[0]), :remote => true, :confirm => "Are you sure?", :class => "btn btn-mini btn-block"
+								
+								
+				
+			// desserts
+			- if @order.order_additional['catering_order'] == "1"
+				- @order.order_additional['desserts'].each do |dessert|
+					- if dessert[1].to_i > 0
+						tr
+						- cache [@order, dessert, 'shopping_cart_desserts_info'] do
+							td
+								strong= "#{get_dessert_name(dessert[0])}"
+								= " "
+								small
+									= "x #{dessert[1]}"
+							td
+								div align="right"
+									- cache [@order, dessert, 'shopping_cart_desserts_pricing'] do
+										= number_to_currency( get_dessert_price_total(dessert[0], dessert[1]))
+						- if params[:action] != 'summary' && params[:action] != 'thankyou' && params[:controller] != "customers/orders"
+							td
+								div align="right"
+									- cache [@order, 'shopping_cart_desserts_links'] do
+										= link_to "Edit", "#", :class => "edit_additional_items btn btn-mini btn-block"
+										= " "
+										= link_to "Remove", orders_remove_additional_path('desserts',dessert[0]), :remote => true, :confirm => "Are you sure?", :class => "btn btn-mini btn-block"
+									
+									
+									
+			// utensils
+			- if @order.order_additional['catering_order'] == "1"
+				- @order.order_additional['utensils'].each do |utensil|
+					- if utensil[1].to_i > 0
+						tr
+							- cache [@order, utensil, 'shopping_cart_utensils_info'] do
+								td								
+									strong= "#{get_utensil_name(utensil[0])}"
+									= " "
+									small
+										= "x #{utensil[1]}"
+								td
+									div align="right"
+										= "free"
+							- if params[:action] != 'summary' && params[:action] != 'thankyou' && params[:controller] != "customers/orders"
+								td
+									div align="right"
+										- cache [@order, utensil, 'shopping_cart_utensils_links'] do
+											= link_to "Edit", "#", :class => "edit_additional_items btn btn-mini btn-block"
+											= " "
+											= link_to "Remove", orders_remove_additional_path('utensils',utensil[0]), :remote => true, :confirm => "Are you sure?", :class => "btn btn-mini btn-block"
+									
+										
+		- unless @order.total_price_including_sales_tax == 0
+			tr
+				td colspan="3"
+					div align="right"
+						small= "Item(s) Total: #{number_to_currency(@order.total_price)}"
+
+			- if params[:action] == 'summary' && !@order.for_pickup?
+				tr
+					td colspan="3"
+						div align="right"
+							small= "Delivery: #{number_to_currency(@order.delivery)}"
+					
+			tr
+				td colspan="3"
+					div align="right"
+						- if params[:action] != 'summary' && params[:action] != 'thankyou' && params[:controller] != "customers/orders"
+							small= "HST (13%): #{number_to_currency(@order.sales_tax)}"
+						- else
+							small= "HST (13%): #{number_to_currency(@order.sales_tax_inc_delivery)}"
+						
+			tr
+				td colspan="3"
+					div align="right"
+						strong
+							| Total 
+							small
+								| (inc. HST): 
+								- if params[:action] != 'summary' && params[:action] != 'thankyou' && params[:controller] != "customers/orders"
+									= number_to_currency(@order.total_price_including_sales_tax)
+								- else
+									= number_to_currency(@order.total_price_including_sales_tax_inc_delivery)
+
+						- unless @order.ordered?
+							br
+								small.muted
+									em Note that delivery orders will add $#{Constant::DELIVERY_CHARGE}
+									
+			
+							
+- if params[:action] != 'summary' && params[:action] != 'thankyou' && params[:controller] != "customers/orders"
+
+	- if @order.total_price > 0
+		.row
+			.span6
+
+			.span3
+				=link_to "Place Order For Pickup", orders_pickup_path, :class => "btn btn-large btn-primary btn-block"
+				br
+			.span3
+				=link_to "Place Order For Delivery", orders_delivery_path, :class => "btn btn-large btn-primary btn-block", :id => "order_for_delivery"
+				br
+					
+	- else
+		.text-right
+			p.muted
+				strong Please add items to your order
+
+
+hr
+
+#total_price_calc data-total-price="#{@order.total_price}"

@@ -1,0 +1,68 @@
+<style>
+  html, body {
+    height: 370px;
+    padding: 0;
+    margin: 0;
+    }
+  #map {
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    float: left;
+    border: thin solid #333;
+    }
+
+</style>
+<div class="container">
+  <div class="row">
+    <div class="page-header store-locatione-page">
+      <h1>Location : <%= @franchise_locations.address %></h1>
+    </div>
+    <div class="col-12">
+      <div id="map"></div>	
+    </div>
+  </div>
+</div>
+<input type="hidden" id="title" value="<%= @franchise_locations.address %>" />
+<input type="hidden" id="latitude" value="<%= @franchise_locations.latitude %>" />
+<input type="hidden" id="longitude" value="<%= @franchise_locations.longitude %>" />
+<input type="hidden" id="kml" value="http://pizzaiolo.ca<%= @franchise_locations.kml.url %>" />
+
+
+<script>
+    var map;
+    var lat = parseFloat(document.getElementById('latitude').value);
+    var long = parseFloat(document.getElementById('longitude').value);
+    var title = document.getElementById('title').value;
+    var src = document.getElementById('kml').value;
+
+    function initMap() {
+      
+      map = new google.maps.Map(document.getElementById('map'), {
+        center: new google.maps.LatLng(lat, long),
+        zoom: 1
+      });
+
+      var kmlLayer = new google.maps.KmlLayer(src, {
+        suppressInfoWindows: true,
+        preserveViewport: false,
+        map: map
+      });
+      kmlLayer.addListener('click', function(event) {
+
+        var content = event.featureData.infoWindowHtml;
+       
+      });
+      var myLatLng = {lat: lat, lng: long};
+
+
+      var marker = new google.maps.Marker({
+        position: myLatLng,
+        map: map,
+        title: title
+      });
+    }
+  </script>
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPVYwXziaEirqCtv-YJnnM0KUcsot5a2Y&callback=initMap">
+</script>

@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/pizzaioloca/!svn/ver/270/trunk/pizzaiolo.ca/config
+END
+deploy.rb
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/pizzaioloca/!svn/ver/243/trunk/pizzaiolo.ca/config/deploy.rb
+END
+routes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/pizzaioloca/!svn/ver/270/trunk/pizzaiolo.ca/config/routes.rb
+END
+database.yml
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/pizzaioloca/!svn/ver/5/trunk/pizzaiolo.ca/config/database.yml
+END
+application.rb
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/pizzaioloca/!svn/ver/139/trunk/pizzaiolo.ca/config/application.rb
+END
+boot.rb
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/config/boot.rb
+END
+environment.rb
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/pizzaioloca/!svn/ver/3/trunk/pizzaiolo.ca/config/environment.rb
+END
+sidekiq.yml
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/pizzaioloca/!svn/ver/165/trunk/pizzaiolo.ca/config/sidekiq.yml
+END

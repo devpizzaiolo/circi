@@ -1,0 +1,20 @@
+
+- cache ['catering_beverages'] do
+
+	.padded_box
+		h3 Beverages
+
+		table.table.pricing-table
+			thead
+				tr
+					th 
+					th Price
+			tbody
+				- Beverage.where(:active => true, :bottles_and_premium_drinks => true).order("name ASC").each do |beverage|
+					tr
+						td= beverage.name
+						td= "#{number_to_currency(beverage.price)} each"
+				- Beverage.where(:active => true, :pop_and_spring_water => true).order("name ASC").each do |beverage|
+					tr
+						td= beverage.name
+						td= "#{number_to_currency(beverage.price)} each"

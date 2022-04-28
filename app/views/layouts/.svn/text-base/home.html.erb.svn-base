@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en" class="homepage">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title><%= content_for?(:title) ? "Pizzaiolo Gourmet Pizza : #{yield(:title)}" : "Pizzaiolo Gourmet Pizza"  %></title>
+    <%= csrf_meta_tags %>
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.1/html5shiv.js" type="text/javascript"></script>
+    <![endif]-->
+
+    <%= stylesheet_link_tag "application", :media => "all" %>
+
+    <!-- For third-generation iPad with high-resolution Retina display: -->
+    <!-- Size should be 144 x 144 pixels -->
+    <%#= favicon_link_tag 'images/apple-touch-icon-144x144-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '144x144' %>
+
+    <!-- For iPhone with high-resolution Retina display: -->
+    <!-- Size should be 114 x 114 pixels -->
+    <%#= favicon_link_tag 'images/apple-touch-icon-114x114-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '114x114' %>
+
+    <!-- For first- and second-generation iPad: -->
+    <!-- Size should be 72 x 72 pixels -->
+    <%#= favicon_link_tag 'images/apple-touch-icon-72x72-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '72x72' %>
+
+    <!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
+    <!-- Size should be 57 x 57 pixels -->
+    <%#= favicon_link_tag 'images/apple-touch-icon-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png' %>
+
+    <!-- For all other devices -->
+    <!-- Size should be 32 x 32 pixels -->
+    <%#= favicon_link_tag 'favicon.ico', :rel => 'shortcut icon' %>
+		
+		<meta name="apple-mobile-web-app-title" content="Pizzaiolo">
+		
+		<%= render(:partial => 'common/analytics') %>
+  </head>
+  <body class="homepage">
+		
+		<%= render(:partial => 'common/drop_down_main_menu') %>
+		
+		
+		<!-- <div class="container visible-phone">
+			
+			<div class="row" style="background-color:#023002;">
+				<div class="span12">
+					<br />
+					<a href="/orders"  class="btn btn-large btn-block btn-primary"> Order Online</a>
+					<a href="/pages/menu"  class="btn btn-large btn-block btn-primary"> Menu</a>
+					<br />
+				</div>
+			</div>
+			
+			<br />
+		
+		</div>
+		
+		 -->
+		
+		<div id="fullsizeCarousel" class="carousel slide header homepage hidden-phone">
+		  <ol class="carousel-indicators" style="display:none;">
+		    <li data-target="#fullsizeCarousel" data-slide-to="0" class="active"></li>
+		    <li data-target="#fullsizeCarousel" data-slide-to="1"></li>
+		    <li data-target="#fullsizeCarousel" data-slide-to="2"></li>
+		  </ol>
+		  <!-- Carousel items -->
+		  <div class="carousel-inner">
+		    
+				<div class="active item" id="homepage_courousel_header_1">
+					<div class="container">
+						<div class="row">
+							<div class="span5 offset7">
+								<div class="pod">
+									<img src="/assets/home_page/pod_title_spinotta.png"><br />
+									Spinach and herbed tomatoes with extra virgin olive oil, topped with mozzarella, parmigiano, and ricotta cheeses. A Pizzaiolo and Customer Favourite!
+									<br>
+									<%#= link_to "Order Now", orders_add_item_from_menu_path('pizza',pizza_preset.id), :class => "btn btn-block btn-primary" %>
+									<%= link_to "Order Now", orders_path(:pizza_preset_id => 83), :class => "btn btn-block btn-primary" %>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="item" id="homepage_courousel_header_2">
+					<div class="container">
+						<div class="row">
+							<div class="span5 offset7">
+								<div class="pod">
+									<img src="/assets/home_page/pod_title_fredo.png"><br />
+									A classic white pizza with rosemary and double the potato! Great for vegans.
+									<br>
+									<%#= link_to "Order Now", orders_add_item_from_menu_path('pizza',pizza_preset.id), :class => "btn btn-block btn-primary" %>
+									<%= link_to "Order Now", orders_path(:pizza_preset_id => 66), :class => "btn btn-block btn-primary" %>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="item" id="homepage_courousel_header_3">
+					<div class="container">
+						<div class="row">
+							<div class="span5 offset7">
+								<div class="pod">
+									<img src="/assets/home_page/pod_title_vittoria.png"><br />
+									
+									A flavourful pizza with red peppers, herbed tomatoes, marinated zucchini, and our famous Pizzaiolo tomato sauce.
+									<br>
+									<%#= link_to "Order Now", orders_add_item_from_menu_path('pizza',pizza_preset.id), :class => "btn btn-block btn-primary" %>
+									<%= link_to "Order Now", orders_path(:pizza_preset_id => 67), :class => "btn btn-block btn-primary" %>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+		    
+				<div class="item" id="homepage_courousel_header_4">
+					<div class="container">
+						<div class="row">
+							<div class="span5 offset7"> 
+								<div class="pod">
+									<img src="/assets/home_page/pod_title_diana.png"><br />
+									This vegan option is made with fresh mushrooms, herbed tomatoes, spinach and marinated zucchini on our whole wheat crust.
+									<br>
+									<%#= link_to "Order Now", "#", :class => 'btn' %>
+									<%= link_to "Order Now", orders_path(:pizza_preset_id => 57), :class => "btn btn-block btn-primary" %>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+		  </div>
+		  <!-- Carousel nav -->
+		  <a class="carousel-control left" href="#fullsizeCarousel" data-slide="prev">&lsaquo;</a>
+		  <a class="carousel-control right" href="#fullsizeCarousel" data-slide="next">&rsaquo;</a>
+			
+			<div class="home_page_holder hidden-phone">
+				<div class="container">
+					<div align="right">
+					
+						<div id="top_menu">
+					
+							<a href="/pages/mailing_list">MAILING LIST</a> | <% if current_customer %><%= link_to "MY ACCOUNT", customers_path %> | <% unless Rails.env.development? %><%= link_to "LOG OUT", destroy_customer_session_url(:protocol => "https"), :method => :delete %><% else %><%= link_to "LOG OUT", destroy_customer_session_path, :method => :delete %><% end %><% else %><%= link_to "LOGIN", customers_path %><% end %>
+					
+						</div>
+					
+					</div>
+				</div>
+				
+				
+				<div class="visible-tablet navigation">
+				
+					<div class="container">
+						<a href="/"><img src="/assets/ui/pizzaiolo_logo_trans.png"  class="main_logo"></a>
+					
+						<%= link_to "Order Online", orders_path %> <%= link_to "Menu", page_path('menu') %> <%= link_to "Catering", page_path('catering') %> <%= link_to "Locations", locations_path %>
+					
+					</div>
+				
+				</div>
+				
+				<div class="hidden-tablet navigation">
+				
+					<div class="container">
+						<a href="/"><img src="/assets/ui/pizzaiolo_logo_trans.png"  class="main_logo"></a>
+					
+						<%= link_to "Order Online", orders_path %> <%= link_to "Menu", page_path('menu') %> <%= link_to "Catering", page_path('catering') %> <%= link_to "Locations", locations_path %>
+					
+					</div>
+				
+				</div>
+				
+			</div>
+			
+		</div>
+		
+		<div class="visible-phone" id="home_page_buttons">
+		
+			<%= link_to raw("<i class='icon-check'></i> Order Online"), orders_path, :class => "btn btn-primary btn-large btn-block" %>
+			<%= link_to raw("<i class='icon-map-marker'></i> Locations"), locations_path, :class => "btn btn-primary btn-large btn-block" %>
+			<%= link_to raw("<i class='icon-book'></i> Menu"), page_path('menu'), :class => "btn btn-primary btn-large btn-block" %>
+			
+		</div>
+		
+		<div class="searchbar">
+			
+			<%= render(:partial => 'common/search_bar') %>
+			
+		</div>
+	
+		
+    <div class="container">
+
+      <div class="row">
+				<div class="span12">
+					<%#= bootstrap_flash %>
+				</div>
+			</div>
+			
+			<%= render :partial => "common/admins_menu" %>
+			<%= yield %>
+			
+			
+			<br />
+
+    </div>
+		
+		<div class="footer">
+			
+			<div class="container">
+				
+				
+				<br />
+					
+				<div class="footer_holder">
+					
+					<p><strong>Pizzaiolo is Toronto's best gourmet pizza</strong></p>
+			
+					<%= render :partial => 'common/bottom_links' %>
+				
+					<br />
+				
+					<small>Copyright &copy; <%= Date.today.year %> Pizzaiolo</small>
+				
+				</div>
+				
+			</div>
+			
+		</div>
+		
+
+
+		
+
+    <!-- Javascripts
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <%= javascript_include_tag "application" %>
+		
+		
+  </body>
+</html>

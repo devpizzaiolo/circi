@@ -1,0 +1,23 @@
+.body-container.lg
+	.page-header
+		h1 Flyers
+		
+	table.table.table-striped
+		thead
+			tr
+				th Name
+				th 
+		tbody
+			tr
+				- @flyers.each do |flyer|
+					td=flyer.name
+					td
+						.text-right
+							= link_to "Edit", edit_admins_flyer_path(flyer.id), :class => "btn btn-small"
+							= " "
+							= link_to "Delete", admins_flyer_path(flyer.id), :class => "btn btn-mini btn-danger", :method => :delete
+
+	hr
+
+	= link_to "Add Flyer", new_admins_flyer_path, :class => "button default"
+	

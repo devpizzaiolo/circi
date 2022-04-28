@@ -1,0 +1,2 @@
+module Admins::PizzaPresetsHelper
+end

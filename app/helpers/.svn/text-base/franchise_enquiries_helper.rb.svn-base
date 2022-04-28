@@ -1,0 +1,2 @@
+module FranchiseEnquiriesHelper
+end

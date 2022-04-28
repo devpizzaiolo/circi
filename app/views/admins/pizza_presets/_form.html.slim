@@ -1,0 +1,210 @@
+.body-container
+	.container
+		= simple_form_for([:admins, @pizza_preset], multipart: true) do |f|
+
+			input name="product[product_type]" type="hidden" value="pizza"
+			
+			fieldset
+				legend Product Details
+			
+				=f.input :product_name, :required => true
+				
+				=f.input :active, :label => "Show Pizza in the Order Menu"
+				
+				=f.input :show_images, :label => "Show Product Images"
+				
+				=f.input :gluten_free_only, :label => "Set Product to be 'Gluten Free' Only"
+
+				=f.input :is_product_combo, :label => "Is Product Combo"
+
+				=f.input :is_10_inches, :label => "Is 10 inches only"
+
+				=f.input :is_new_pizza, :label => "Is New Pizza Preset"
+
+				=f.input :sort, :label => "Sort Order"
+
+				=f.input :product_combo_id, :label => "Product Combo", collection: ProductCombo.all.map {|pc| [pc.title, pc.id]} 
+				
+				=f.association :pizza_category, include_blank: false
+				
+				hr
+				
+				=f.input :pizzaiolo_favourites
+				=f.input :spicy
+				=f.input :customer_favourites
+				=f.input :vegan
+				=f.input :health_check
+				=f.input :nut_free
+				=f.input :calories
+				=f.input :description	
+				=f.input :tag_list, :label => "Tags (separated by commas)"
+			
+			fieldset
+			
+				legend Product Images
+			
+				
+				=f.input :pizza_image_flat, :as => :file, :required => true, :label => "Upload/Replace Product Image (flat)"
+				- unless @pizza_preset.pizza_image_flat.blank? 
+					= image_tag @pizza_preset.pizza_image_flat.size_800.url
+				hr
+				
+					
+				/ =f.input :image_flat, :as => :file, :required => true, :label => "Product Image (angled)"
+				
+				=f.input :pizza_image_angled, :as => :file, :required => true, :label => "Upload/Replace Product Image (angled)"
+				- unless @pizza_preset.pizza_image_angled.blank?
+					= image_tag @pizza_preset.pizza_image_angled.size_800.url
+			
+				br
+				
+				br
+			
+			/ input name="product[product_name]" class=""
+			
+			legend Pizza Setup
+			
+			.row
+
+				.span4
+					h3 Select Size
+
+					fieldset
+						- PizzaSize.where(:active => true).each do |pizza_size|
+							label.radio
+								- if !@pizza_preset.product_info.blank? && @pizza_preset.product_info['pizza_size'].present? && @pizza_preset.product_info['pizza_size'] == pizza_size.name.parameterize
+									input type="radio" name="product[pizza_size]" value="#{pizza_size.name.parameterize}" id="product_pizza_size" topping-price=number_to_currency(pizza_size.topping_price) checked=""
+								- else
+									input type="radio" name="product[pizza_size]" value="#{pizza_size.name.parameterize}" id="product_pizza_size" topping-price=number_to_currency(pizza_size.topping_price)
+								= pizza_size.name
+						
+				.span3#product_pizza_size_group class="#{unless @pizza_preset then "hideit" end}"
+					h3 Select Crust
+					fieldset
+						- PizzaCrust.where(:active => true).order("name ASC").each do |pizza_crust|
+							label.radio
+								- if !@pizza_preset.product_info.blank? && @pizza_preset.product_info['pizza_crust'].present? && @pizza_preset.product_info['pizza_crust'] == pizza_crust.name.parameterize
+									input type="radio" name="product[pizza_crust]" value="#{pizza_crust.name.parameterize}" id="product_pizza_crust" checked=""
+								- else
+									input type="radio" name="product[pizza_crust]" value="#{pizza_crust.name.parameterize}" id="product_pizza_crust"
+								= pizza_crust.name
+				
+				span5#product_pizza_crust_style_group class="#{if @pizza_preset && @pizza_preset.product_info['pizza_size'].present? && @pizza_preset.product_info['pizza_size'] == 'gluten-free' then 'hide' end}"
+								h3 Select Crust Style
+								fieldset
+							
+									- PizzaCrustStyle.where(:active => true).order("position ASC").each do |pizza_crust_style|
+							
+										label.radio
+											- if @pizza_preset && @pizza_preset.product_info['pizza_crust_style'] && @pizza_preset.product_info['pizza_crust_style'] == pizza_crust_style.name.parameterize
+												input type="radio" name="product[pizza_crust_style]" value="#{pizza_crust_style.name.parameterize}" id="pizza_crust_style" checked=""
+											- else
+												input type="radio" name="product[pizza_crust_style]" value="#{pizza_crust_style.name.parameterize}" id="product_pizza_crust_style"
+											= pizza_crust_style.name
+							
+									#deep_dish_option_price class="#{if @pizza_preset && @pizza_preset.product_info['pizza_size'].present? && @pizza_preset.product_info['pizza_size'] == 'gluten-free' || !@pizza_preset.product_info['pizza_crust_style'].present? then 'hideit' end}"
+										small 
+											p.muted
+												| Deep Dish option adds: 
+												span#deep_dish_option_price
+													/ - if @pizza_preset && @pizza_preset.product_info['pizza_size'].present?
+													/ 	= number_to_currency(@pizza_preset.)
+				
+			.row 
+				.span6 class="#{unless @pizza_preset then "hideit" end}"
+					h3 Special Instructions
+					<br />
+					fieldset
+						- PizzaSpecialInstruction.active.order("position ASC").each do |pizza_sp|
+							label.radio
+								- if !@pizza_preset.product_info.blank? && @pizza_preset.product_info['special_instructions'].present? && @pizza_preset.product_info['special_instructions'] == pizza_sp.name.parameterize
+									input type="radio" name="product[special_instructions]" value="#{pizza_sp.name.parameterize}" id="product_special_instructions" checked=""
+								- else
+									input type="radio" name="product[special_instructions]" value="#{pizza_sp.name.parameterize}" id="product_special_instructions"
+								= pizza_sp.name
+
+
+			.row#product_toppings_group class="#{unless @pizza_preset then 'hideit' end}"
+
+				.span12
+					<br />
+					h3
+						| Select Toppings
+						- unless @pizza_preset
+							small Step 3 of 5
+
+				.clear
+
+				- TypeOfTopping.where(:active => true).order("name ASC").each do |type_of_topping|
+					.span2.toppings
+						legend= type_of_topping.name
+						- type_of_topping.toppings.where(:active => true).order("name ASC").each do |topping|
+					
+							div id=topping.name.parameterize
+							
+								input name="product[toppings][topping-#{topping.id}][id]" type="hidden" value="#{topping.id}"
+								input name="product[toppings][topping-#{topping.id}][name]" type="hidden" value="#{topping.name}"
+					
+								label.checkbox.small
+									- if !@pizza_preset.product_info.blank? && @pizza_preset.product_info['toppings']["topping-#{topping.id}"].present? && @pizza_preset.product_info['toppings']["topping-#{topping.id}"]['selected'] == "1"
+										- selected = true
+										input.hideshow_topping type="checkbox" id="product_toppings_topping-#{topping.id}_selected" name="product[toppings][topping-#{topping.id}][selected]" value="1" checked="" data-topping-id="#{topping.id}"
+									- else
+										- selected = false
+										input.hideshow_topping type="checkbox" id="product_toppings_topping-#{topping.id}_selected" name="product[toppings][topping-#{topping.id}][selected]" value="1" data-topping-id="#{topping.id}"
+									= topping.name
+									| <br />
+									- if topping.free_topping?
+										small	free
+									- else
+										small.topping_price= "$0.00"
+							
+								- pref = topping.name.parameterize + "-preference"
+								select.span2.small id="product_toppings_topping-#{topping.id}_preference" name="product[toppings][topping-#{topping.id}][preference]" class="#{unless selected == true then 'hideit' end}" data-topping-preference-id="#{topping.id}"
+									
+									- if topping.type_of_topping.preference_normal?
+										- if !@pizza_preset.product_info.blank? && @pizza_preset.product_info['toppings']["topping-#{topping.id}"].present? && @pizza_preset.product_info['toppings']["topping-#{topping.id}"]['preference'] == "Normal"
+											option selected="selected"
+												| Normal
+										- else
+											option Normal
+									- if topping.type_of_topping.preference_light?
+										- if !@pizza_preset.product_info.blank? && @pizza_preset.product_info['toppings']["topping-#{topping.id}"].present? && @pizza_preset.product_info['toppings']["topping-#{topping.id}"]['preference'] == "Light"
+											option selected="selected"
+												| Light
+										- else
+											option Light
+									- if topping.type_of_topping.preference_extra?
+										- if !@pizza_preset.product_info.blank? && @pizza_preset.product_info['toppings']["topping-#{topping.id}"].present? && @pizza_preset.product_info['toppings']["topping-#{topping.id}"]['preference'] == "Extra"
+											option selected="selected"
+												| Extra
+										- else
+											option Extra
+									//- if topping.type_of_topping.preference_double? && @pizza_preset.present? && @pizza_preset.is_product_combo
+									- if topping.type_of_topping.preference_double? && @pizza_preset.present?
+										- if !@pizza_preset.product_info.blank? && @pizza_preset.product_info['toppings']["topping-#{topping.id}"].present? && @pizza_preset.product_info['toppings']["topping-#{topping.id}"]['preference'] == "Double"
+											option selected="selected"
+												| Double
+										- else
+											option Double
+								
+								
+								- position = topping.name.parameterize + "-position"
+								select.span2.small id="product_toppings_topping-#{topping.id}_position" name="product[toppings][topping-#{topping.id}][position]" class="#{unless selected == true then 'hideit' end}" data-topping-position-id="#{topping.id}"
+									- position_arr = ["Whole Pizza","Left Side","Right Side"]
+									- position_arr.each do |pos|
+										- if !@pizza_preset.product_info.blank? && @pizza_preset.product_info['toppings']["topping-#{topping.id}"].present? && @pizza_preset.product_info['toppings']["topping-#{topping.id}"]['position'].present? && @pizza_preset.product_info['toppings']["topping-#{topping.id}"]['position'] == pos
+											option selected="selected"
+												= pos
+										- else
+											option
+												=pos
+
+			hr
+				= f.button :submit, "Save/Update This Pizza", :class => "btn-green"
+				
+				= " "
+				
+				= link_to "Cancel", admins_pizza_presets_path, :class => "btn"
+				
+				

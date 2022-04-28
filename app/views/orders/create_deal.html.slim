@@ -1,0 +1,151 @@
+- meta title: "#{@seo_title if @seo_title}",
+     	description: "#{@seo_metadescription if @seo_metadescription}",
+     	keywords: "#{@seo_keywords if @seo_keywords}"
+
+- content_for(:heading) {("#{@product_combo.try(:title)}").html_safe}
+- content_for(:description) {("#{@product_combo.try(:description)}").html_safe}
+- content_for(:body_class) {"deals_page"}
+
+- if @product_combo.present? && @product_combo.no_of_pizza.to_i > 1
+  .container.hide
+    .orders-index.extra-p
+      .home-content-panel.pp-page-title.mobile-home-content.pizza-type-name
+        .row
+          .col-sm-8.offset-sm-4.pp-ipad-styling
+            .homepage-headings
+              h2.malbeck.super-header.light.green <%= @product_combo.title.try(:html_safe).try(:html_safe) %
+              p.ingredients
+                span style=("font-size: 18px;font-family: 'Lance-Sans-Regular';")  1
+                | Medium Double Toni Roni (Tiny cup & char Pepperoni)
+                br/
+                span style=("font-size: 18px;font-family: 'Lance-Sans-Regular';")  1
+                | Medium Original Double Toni Pepperoni
+
+  .dual-deal-page-bg
+    .page-background-pepproni style="background-image: url('/assets/new_design/pepproni_banner.png'); background-repeat: no-repeat; background-size: cover;"
+  .pp-main-page-mobile-only
+    = image_tag "/assets/new_design/pepproni_banner_mobile.png"
+
+  .container
+    .row
+      .col-md-8.col-xs-12
+        - @order.order_items.where(deal_id: @deal_id).each_with_index do |order_item, index| 
+          .multiple-pizza-card
+            .multiple-pizza-details
+              .multiple-pizza-image
+                = image_tag order_item.item_image 
+              .multiple-pizza-content
+                h2 = order_item.product_info['product_name'].try(:html_safe)
+                - if order_item.pizza_preset_description?
+                  p = order_item.pizza_preset_description
+                - else
+                  p = order_item.toppings.to_sentence(:last_word_connector => ' and ')
+
+            .multiple-pizza-customize
+              a.multiple-customize-btn href="javascript:void(0)" data-deal-item="deal_order_item_modal_#{index}"
+                | Customize
+
+            .deal-order-modal.modal id="deal_order_item_modal_#{index}"
+              .deal-order-modal-content.modal-content
+                .deal-order-modal-header.modal-header
+                  h2 = ActionView::Base.full_sanitizer.sanitize(order_item.product_info['product_name'])
+                  span.deal-order-close.close onclick=("dataDealItem(#{index})")  &times;
+                .modal-body.deal-order-modal-body
+                  .deal-order-modal-header.modal-header
+                    h2 = ActionView::Base.full_sanitizer.sanitize(order_item.product_info['product_name'])
+                    span.deal-order-close.close onclick=("dataDealItem(#{index})")  &times;
+                  .deal-pepperoni-body-content
+                    .container
+                      .row
+                        = render(:partial => 'order_items/deal_order_item_form', locals: {order_item: order_item, deal_id: @deal_id, pizza_preset: order_item.pizza_preset, index: index})
+
+      .col-md-4.col-xs-12
+        .deal_order_summary#deal_order_summary
+          = render(:partial => 'orders/deal_order_summary')
+        
+    .deal-order-complete-meal-btn
+      = link_to "/orders/complete_meal", class: 'btn-green' do
+        | ADD TO ORDER
+
+- else
+  section
+    div.page-background-catering style="#{if params[:set_catering_order].nil?  then "display:none;" end}"
+      div.bg-img style="background-image: url('/assets/new_design/MEAT_LOVER.jpg'); background-repeat: no-repeat; background-size: cover;"
+
+    div.page-background-catering style="#{if (params[:pizza_preset_id].nil? && params[:slug].nil? && params[:deals_slug].nil?) then "display:none;" end}"
+      - if params[:slug].present?
+        div.bg-img style="background-image: url('#{PizzaPreset.find_by_slug(params[:slug]).pizza_image_angled.size_800.url}'); background-repeat: no-repeat; background-size: cover; background-position: bottom;"
+
+    div.container	
+      #edit_or_update_order_items
+        
+        .container
+          
+          .tab-content
+            .tab-pane#select_pizza
+              - cache('pizza_presets') do
+                = render(:partial => 'orders/pizza_selection')
+
+            .tab-pane#select_calzone
+              = render(:partial => 'orders/calzone_selection')
+      
+          
+      .home-content-panel.page-sub-title style="#{if params[:calzone_preset_id] || params[:calzone_slug] || params[:additional_items] || params[:pizza_preset_id] ||  params[:slug] || params[:deals_slug] || params[:set_catering_order] == "1" || params[:side_order] == "1" then "display:none;" end}"
+        .row
+          .col-sm-8.offset-sm-4
+            h2 COMPLETE <br> Your MEAL.
+      div.home-category-thumb style="#{if params[:calzone_preset_id] || params[:calzone_slug] || params[:additional_items] || params[:pizza_preset_id] ||  params[:slug] || params[:deals_slug] || params[:set_catering_order] == "1" || params[:side_order] == "1" then "display:none;" end}"
+        div.mobile-container
+          div.row.no-gutters.order-additional.order-additional-mobile-style
+            
+            div.food-category.calzones
+              a.pizza_category   href="/orders/additional_items#Bottles" 
+                div.card.border-0.rounded-0.hc-block
+                  = image_tag '/assets/new_design/drink_dips.jpg'
+                  div.card-img-overlay.d-flex.align-items-center.justify-content-center
+                    h2.card-title DRINKS
+
+            div.food-category.beverages
+              a href="/orders/additional_items#Dipping"
+                div.card.border-0.rounded-0.hc-block
+                  = image_tag '/assets/new_design/dips-cat.jpg'
+                  div.card-img-overlay.d-flex.align-items-center.justify-content-center
+                    h2.card-title DIPS
+
+            div.food-category.salads
+              a href="/orders/additional_items#salads"
+                div.card.border-0.rounded-0.hc-block
+                  = image_tag '/assets/new_design/salad.jpg'
+                  div.card-img-overlay.d-flex.align-items-center.justify-content-center
+                    h2.card-title SALADS
+
+            div.food-category.beverages
+              a href="/orders/additional_items#garlic"
+                div.card.border-0.rounded-0.hc-block
+                  = image_tag '/assets/new_design/garlic_break.jpg'
+                  div.card-img-overlay.d-flex.align-items-center.justify-content-center
+                    h2.card-title GARLIC<br>BREAD
+
+            div.food-category.calzones
+              a.pizza_category   href="/orders/calzone/baked-calzone" 
+                div.card.border-0.rounded-0.hc-block
+                  = image_tag '/assets/new_design/calzones.jpg'
+                  div.card-img-overlay.d-flex.align-items-center.justify-content-center
+                    h2.card-title CALZONES				
+                    
+            
+        
+      #order_item_form
+      
+          - if params[:pizza_preset_id] || params[:calzone_preset_id] || params[:slug] || params[:calzone_slug] || params[:deals_slug]
+            .deals-top-margin
+              = render(:partial => 'order_items/order_item_form')
+
+            / this is where the form to edit/update/add from will be rendered
+          - if params[:additional_items] == "1" || params[:set_catering_order] == "1" || params[:side_order] == "1"
+            = render(:partial => 'orders/order_additional')
+        
+      .row.order_actions_bottom.single-pizza style="#{unless params[:calzone_preset_id] || params[:calzone_slug] then "display:none;" end}"
+        .order-update-btn.calzone-btn.hidden-mobile
+          button.button.default.m-r.add_product_to_order.order-page-bottom-btn
+            |  ADD TO ORDER

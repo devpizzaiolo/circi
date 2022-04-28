@@ -1,0 +1,118 @@
+- meta title: "Pizzaiolo | Gourmet Pizza | Pizza Delivery Toronto | Take Out Pizza",
+	description: "Pizzaiolo prides themselves on making fresh pizza with fresh ingredients daily. Pizza delivery Toronto, best pizza delivery Toronto. Gluten-free pizza, wheat free pizza dough, thin crust pizza. Pizzaiolo is a pizza catering company, pizza delivery company, order pizza online, popular pizza.",
+	keywords: "Pizzaiolo"
+
+- content_for(:heading) {("Delivery Address").html_safe}
+//- content_for(:description) {""}
+- content_for(:body_class) {"delivery_address_page"}
+
+div.top-bar
+	h1 
+		= link_to raw('&#8592;'), request.referer.present? ? request.referer : root_path
+		| Delivery Address
+
+div.body-container.order-pickup
+	.container
+		- unless current_customer
+			.row
+				.span6.centered.col-12.col-md-5
+					h2.static-header.m-t-0.green.inner-page-sub-title Delivery Address
+
+					p.regular-p Please enter and/or update the delivery address below.
+
+					= simple_form_for(@order, :url => orders_update_order_with_delivery_address_path, :html => {:class => 'default-form'}) do |f|
+						
+						- if @order.delivery_address_1.blank?
+							= f.input :delivery_address_1, :required => true, :input_html => {:value => @order.address_1, :class => "google-autocomplete", :data_id => "delivery-address-form"}, :label => false, :placeholder => "Address 1"
+						- else
+							= f.input :delivery_address_1, :required => true, :label => false, :placeholder => "Address 1", :input_html => {:class => "google-autocomplete", :data_id => "delivery-address-form"}
+							
+						- if @order.delivery_address_2.blank?
+							= f.input :delivery_address_2, :required => false, :input_html => {:value => @order.address_2}, :label => false, :placeholder => "Address 2(e.g. unit #574, buzzer code: 12)"
+						- else
+							= f.input :delivery_address_2, :required => false, :label => false, :placeholder => "Address 2(e.g. unit #574, buzzer code: 12)"
+							
+						- if @order.delivery_city.blank?
+							= f.input :delivery_city, :required => true, :input_html => {:value => @order.city}, :label => false, :placeholder => "City"
+						- else
+							= f.input :delivery_city, :required => true, :label => false, :placeholder => "City"
+
+						#order_delivery_postal_code_wrapper	
+							- if @order.delivery_postal_code.blank?
+								= f.input :delivery_postal_code, :required => true, :input_html => {:value => @order.postal_code}, :label => false, :placeholder => "Postal Code"
+							- else
+								= f.input :delivery_postal_code, :required => true, :label => false, :placeholder => "Postal Code"
+						div.sub-next-btn
+							= link_to "Go back", orders_delivery_path, :class => "button gray m-r go-back-btn"
+							= f.button :submit, "Submit/Next", :class => "default"
+		- else
+			.row.signin-row.desktop-layout
+				.span6.col-12.col-md-5.signin-layout
+					h2.static-header.m-t-0.green.static-mobile-header.inner-page-sub-title SELECT DELIVERY ADDRESS
+			
+					.m-t-30.clearfix.user-contact-info
+						.pull-left
+							.address
+								p = current_customer.address_1
+								- unless current_customer.address_2.blank?
+									p = current_customer.address_2
+								p = current_customer.city
+								p = current_customer.postal_code
+						.pull-right
+							- @address = Address.new
+							= simple_form_for(@address, :url => orders_add_delivery_address_path, :html => {:class => 'default-form'}) do |f|
+
+								= f.input :address_1, :as => :hidden, :required => true, :input_html => {:value => current_customer.address_1}, :label => false, :placeholder => "Address 1"
+								= f.input :address_2, :as => :hidden, :required => false, :input_html => {:value => current_customer.address_2}, :label => false, :placeholder => "Address 2(e.g. unit #574, buzzer code: 12)"
+								= f.input :city, :as => :hidden, :required => true, :input_html => {:value => current_customer.city}, :label => false, :placeholder => "City"
+								= f.input :postal_code, :as => :hidden, :as => :hidden, :required => true, :input_html => {:value => current_customer.postal_code}, :label => false, :placeholder => "Postal Code"
+								/ = f.input :address_id, :as => :hidden, :input_html => {:value => address.id}
+							
+								= f.button :submit, "Deliver Here", :class => "default smaller"
+					
+					- unless current_customer.addresses.count < 1
+						- current_customer.addresses.where(is_deleted: false).order("created_at DESC").limit(3).each do |address|
+							.m-t-30.clearfix.user-contact-info
+								a class="remove-address-icon"	 id="#{address.id}"
+									= image_tag "/assets/new_design/close_menu_black.png"
+								.pull-left
+									div class="address address_box_#{address.id}"
+										p = address.address_1
+										- unless address.address_2.blank?
+											p = address.address_2
+										p = address.city
+										p = address.postal_code
+								.pull-right
+									- @address = Address.new
+									= simple_form_for(@address, :url => orders_add_delivery_address_path, :html => {:class => 'default-form'}) do |f|
+	
+										= f.input :address_1, :as => :hidden, :required => true, :input_html => {:value => address.address_1}
+										= f.input :address_2, :as => :hidden, :required => false, :input_html => {:value => address.address_2}
+										= f.input :city, :as => :hidden, :required => true, :input_html => {:value => address.city}
+										= f.input :postal_code, :as => :hidden, :required => true, :input_html => {:value => address.postal_code}
+										= f.input :address_id, :as => :hidden, :input_html => {:value => address.id}
+									
+										= f.button :submit, "Deliver Here", :class => "default smaller"
+					.visible-phone.m-t-30
+						p.regular-p.green.show-next#add_new_address
+							| Add new address
+							= image_tag "ui/plus-green.png"
+				
+
+				.span6.next-div.col-12.col-md-5.offset-md-2
+				
+					h2.static-header.m-t-0.green.visible-phone.inner-page-sub-title New Address
+					h2.static-header.m-t-0.green.hidden-phone.inner-page-sub-title DELIVER TO A NEW ADDRESS
+					.m-t-30
+						- @address = Address.new
+						= simple_form_for(@address, :url => orders_add_delivery_address_path, :html => {:class => 'default-form user-contact-info'}) do |f|
+				
+							= f.input :address_1, :required => true, :input_html => {:class => "contact-info google-autocomplete add1", :data_id => "new-delivery-form"}, :label => false, :placeholder => "Address 1"
+							= f.input :address_2, :required => false, :input_html => {:class => "contact-info"}, :label => false, :placeholder => "Address 2(e.g. unit #574, buzzer code: 12)"
+							= f.input :city, :required => true, :input_html => {:class => "contact-info city1"}, :label => false, :placeholder => "City"
+							#new_delivery_postal_code_wrapper
+								= f.input :postal_code, :required => true, :input_html => {:class => "contact-info pin1"}, :label => false, :placeholder => "Postal Code"
+							= f.input :save_new, :as => :hidden, :input_html => {:value => "1"}
+							
+							= f.button :submit, "Save & Deliver Here", :class => "default full"
+	

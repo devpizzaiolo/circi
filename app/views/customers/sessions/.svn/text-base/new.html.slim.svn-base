@@ -1,0 +1,16 @@
+- content_for(:title) {"Account"}
+h1 style="display:none;" Account Login
+	
+p.lead Login to your account to view your past orders, begin ordering, or update address information.
+
+br
+
+= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+  
+	= f.input :email, :required => false, :autofocus => true
+	= f.input :password, :required => false
+  
+  
+	= f.button :submit, "Login"
+
+= render "devise/shared/links"

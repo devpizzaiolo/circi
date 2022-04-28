@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<title>Order Confirmation</title>
+	
+	<style type="text/css">
+
+		#outlook a {padding:0;}
+		
+		body{width:100% !important; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; margin:0; padding:0;}
+
+		.ExternalClass {width:100%;}
+		.ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div {line-height: 100%;}
+
+		#backgroundTable {margin:0; padding:0; width:100% !important; line-height: 100% !important;}
+		
+		img {outline:none; text-decoration:none; -ms-interpolation-mode: bicubic;}
+		a img {border:none;}
+		.image_fix {display:block;}
+		p {margin: 1em 0;}
+		h1, h2, h3, h4, h5, h6 {color: black !important;}
+		
+		h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {color: blue !important;}
+		h1 a:active, h2 a:active,  h3 a:active, h4 a:active, h5 a:active, h6 a:active {
+			color: red !important;
+		 }
+
+		h1 a:visited, h2 a:visited,  h3 a:visited, h4 a:visited, h5 a:visited, h6 a:visited {
+			color: purple !important;
+		}
+
+		table td {border-collapse: collapse;}
+
+		table { border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt; }
+
+		a {color: orange;}
+		a:link { color: orange; }
+		a:visited { color: blue; }
+		a:hover { color: green; }
+		
+		body {
+			background-color: #008e4e;
+			background-image: url(http://stage.pizzaiolo.ca/assets/ui/background.gif);
+		}
+
+		p, h1, h2, h3, h4, h5, h6, th, td {
+			font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+		}
+
+		p, td, th {
+			font-size: 12px;
+			line-height: 14px;
+		}
+
+		small {
+			font-size: 10px;
+			line-height: 14px;
+		}
+
+		h1 {
+			color: #006f41;
+		}
+
+		h2 {
+			color: #00a65b;
+		}
+
+		#contentTable {
+			background-color: #fff;
+			max-width: 640px;
+		}
+
+		table.table th {
+			color: #fff;
+			background-color: #008d52;
+		}
+		
+		table.table th, table.table td {
+			padding-left:  8px;
+			padding-right:  8px;
+			padding-top: 1px;
+			padding-bottom: 1px;
+		}
+		
+		.side-col {
+			min-width: 10px;
+		}
+		
+		
+
+	</style>
+
+</head>
+<body>
+
+	<table cellpadding="0" cellspacing="0" border="0" id="backgroundTable" width="100%">
+	<tr>
+		<td>
+
+		<table width="90%" cellpadding="0" cellspacing="0" border="0" align="center" id="contentTable">
+			<tr>
+				<td colspan="3">
+					
+				</td>
+			</tr>
+			<tr>
+				<td width="5%" class="side-col">
+				<td width="90%" valign="top">
+					
+					<br />
+					
+					<p>A customer service request has been received.</p>
+					
+					<p><strong><%= @customer_service.first_name %> <%= @customer_service.last_name %></strong></p>
+					
+					<p>email: <%= mail_to @customer_service.email %></p>
+					
+					<p>telephone: <%= @customer_service.telephone %></p>
+					
+					<p><strong><%= if @customer_service.pickup? then "PICKUP ORDER" else "DELIVERY ORDER" end %></strong></p>
+					
+					<p>Location: <strong><%= @customer_service.franchise_location.address %></strong><p>
+					
+					<p>Comment:</p>
+					<%= simple_format(@customer_service.comment) %>
+					
+					<br /><br />
+		
+				</td>
+				<td width="5%" class="side-col">
+			</tr>
+		</table>
+
+		</td>
+	</tr>
+	</table>
+
+</body>
+</html>

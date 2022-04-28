@@ -1,0 +1,3 @@
+$('div#shopping_cart').hide();
+$('div#shopping_cart').html("<%= escape_javascript(render(:partial => 'orders/shopping_cart_table')) %>");
+$('div#shopping_cart').show();

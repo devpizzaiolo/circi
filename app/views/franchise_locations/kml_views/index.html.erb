@@ -1,0 +1,66 @@
+<style>
+  html, body {
+    height: 370px;
+    padding: 0;
+    margin: 0;
+    }
+  #map {
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    float: left;
+    border: thin solid #333;
+    }
+
+</style>
+<div id="map"></div>	
+
+
+<script>
+    var map;
+    var lat = parseFloat(document.getElementById('latitude').value);
+    var long = parseFloat(document.getElementById('longitude').value);
+    var title = document.getElementById('title').value;
+
+    function initMap() {
+      map = new google.maps.Map(document.getElementById('map'), {
+        center: new google.maps.LatLng(lat, long),
+        zoom: 16
+      });
+
+      var kmlLayers = [];
+
+      <%- FranchiseLocation.where(active: true).each do |fl| %>
+        src = "https://pizzaiolo.ca<%= fl.kml.url %>";
+        kmlLayer = new google.maps.KmlLayer(src, {
+          suppressInfoWindows: true,
+          preserveViewport: false,
+          map: map
+        });
+        var infowindow = new google.maps.InfoWindow({
+          content: "<%= fl.address %>"
+        });
+
+        kmlLayer.addListener('click', function(kmlEvent) {
+          var content = "<div>" + "<%= fl.address %>" + "</div>";
+          infowindow.setPosition(kmlEvent.latLng);
+          infowindow.setOptions({
+            pixelOffset:kmlEvent.pixelOffset,
+            content: content
+          });
+          infowindow.open(map);
+        });
+        myLatLng = {lat: <%= fl.latitude.to_f %>, lng: <%= fl.longitude.to_f %>};
+        console.log(myLatLng)
+        marker = new google.maps.Marker({
+          position: myLatLng,
+          map: map,
+          title: "<%= fl.address %>",
+          more_info: "<%= fl.attributes.to_json %>"
+        });
+      <% end %>
+    }
+  </script>
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPVYwXziaEirqCtv-YJnnM0KUcsot5a2Y&callback=initMap">
+</script>

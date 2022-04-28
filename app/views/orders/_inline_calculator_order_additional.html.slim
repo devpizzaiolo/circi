@@ -1,0 +1,129 @@
+
+
+div.summery-table id="summery-table"
+	table.table.table-condensed.default-table.green.gray-body
+		//thead
+		//	th.first Order Summary
+		//	th.text-right = "#{number_to_currency(@order.total_price)}"
+		tbody
+
+			- additional_count = 0
+			- unless @order.order_additional.blank?
+
+				- if @order.order_additional && @order.order_additional["catering_pizza"].present? && @order.order_additional["catering_pizza"].count > 0
+					- @order.order_additional["catering_pizza"].each do |order_item|
+						//- binding.pry 
+						- if order_item[1]['quantity'] && order_item[1]['quantity'].to_i > 0
+							tr
+								td.first
+									- @pizza_preset = PizzaPreset.find_by_id(order_item[1]['pizza_preset_id'])
+									strong = "#{@pizza_preset.product_name} - #{order_item[1]['pizza_size'].try(:titleize)} Size"
+									= " "
+									small
+										= "x #{order_item[1]['quantity']}"
+								td
+									div align="right"
+										= "#{number_to_currency(order_item[1]['price'].to_f * order_item[1]['quantity'].to_i)}"
+					
+		
+				// dipping sauces
+
+				- @order.order_additional['dipping_sauces'] && @order.order_additional['dipping_sauces'].each do |dipping_sauce|
+					- if dipping_sauce[1].to_i > 0
+						- additional_count += 1
+						tr
+							td.first
+								strong = "#{get_dipping_sauce_name(dipping_sauce[0])} Dipping Sauce"
+								= " "
+								small
+									= "x #{dipping_sauce[1]}"
+							td
+								div align="right"
+									= number_to_currency( get_dipping_sauce_price_total(dipping_sauce[0],dipping_sauce[1]) )
+					
+		
+				// beverages
+
+				- @order.order_additional['beverages'] && @order.order_additional['beverages'].each do |beverage|
+					- if beverage[1].to_i > 0
+						- additional_count += 1
+						tr
+							td.first
+								strong = get_beverage_name(beverage[0])
+								= " "
+								small
+									= "x #{beverage[1]}"
+							td
+								div align="right"
+									= number_to_currency( get_beverage_price_total(beverage[0],beverage[1]) )
+					
+
+
+				// salads
+				- @order.order_additional['salads'] && @order.order_additional['salads'].each do |salad|
+					- if salad[1].to_i > 0
+						- additional_count += 1
+						tr
+							td.first
+								strong= get_salad_name(salad[0])
+								= " "
+								small
+									= "x #{salad[1]}"
+							td
+								div align="right"
+									= number_to_currency(get_salad_price_total(@order, salad[0], salad[1]) )
+					
+
+				// garlic_breads
+				- @order.order_additional['garlic_breads'] && @order.order_additional['garlic_breads'].each do |garlic_bread|
+					- if garlic_bread[1].to_i > 0
+						- additional_count += 1
+						tr
+							td.first
+								strong= get_garlic_bread_name(garlic_bread[0])
+								= " "
+								small
+									= "x #{garlic_bread[1]}"
+							td
+								div align="right"
+									= number_to_currency(get_garlic_bread_price_total(@order, garlic_bread[0], garlic_bread[1]) )			
+							
+			
+				// desserts
+				- if @order.order_additional['catering_order'] == "1"
+					- @order.order_additional['desserts'] && @order.order_additional['desserts'].each do |dessert|
+						- if dessert[1].to_i > 0
+							- additional_count += 1
+							tr
+								td.first
+									strong= "#{get_dessert_name(dessert[0])}"
+									= " "
+									small
+										= "x #{dessert[1]}"
+								td
+									div align="right"
+										= number_to_currency( get_dessert_price_total(dessert[0], dessert[1]))
+						
+								
+								
+								
+				// utensils
+				- if @order.order_additional['catering_order'] == "1"
+					- @order.order_additional['utensils'] && @order.order_additional['utensils'].each do |utensil|
+						- if utensil[1].to_i > 0
+							- additional_count += 1
+							tr
+								td.first
+									strong= "#{get_utensil_name(utensil[0])}"
+									= " "
+									small
+										= "x #{utensil[1]}"
+								td
+									div align="right"
+										= "free"
+										
+			- if additional_count < 1
+				tr
+					td colspan="2"
+						small
+							p No additional items selected.

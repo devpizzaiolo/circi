@@ -1,0 +1,35 @@
+- @header = "careers"
+- @heading = "careers"
+
+- meta title: "Pizzaiolo Careers | Pizza Delivery Toronto | Gourmet Take Out Pizza",
+     description: "Pizzaiolo career opportunities, pizza store jobs. Vegan pizza dough, nut free pizza, non gmo pizza, gluten free pizza, wheat free pizza, preservative free pizza, high quality pizza, gourmet pizza, take out pizza, pizza delivery Toronto, popular pizza places toronto, online pizza, order pizza online.",
+     keywords: "Pizza Store Jobs"
+
+div.top-bar
+	h1
+		= link_to raw('&#8592;'), request.referer.present? ? request.referer : root_path
+		| Careers
+		
+div.page-header.careers
+
+div.body-container.nunito
+	.container
+		h2.static-header.visible-phone
+			| Are you energetic and driven? Are you passionate about pizza and people?
+		h2.static-header.text-center.hidden-phone
+			| Are you energetic and driven? Are you passionate about pizza and people?
+
+		p.regular-p Pizzaiolo offers a great environment for people to earn, learn and have fun. From serving customers in the front zone to preparing food in our kitchens, Pizzaiolo restaurant positions are always interesting and rewarding. As a Pizzaiolo crew member, you will have the opportunity to:
+
+		ul.checkmark-list.m-b-20
+			li Be part of an exciting team and meet new people
+			li Multi-task and gain valuable skills that can be transferred into future career opportunities
+			li Learn the benefits of committing to Customer Service Excellence
+			li Enjoy a fun, friendly and safe work environment
+
+		p.regular-p
+			| Pizzaiolo locations are always on the lookout for passionate people who are eager to be part of a fun, fast-paced environment. 
+			
+		= mail_to 'jobs@pizzaiolo.ca', "Send your resume", class: 'button default full visible-phone'
+		div.text-center.hidden-phone.m-t-40
+			= mail_to 'jobs@pizzaiolo.ca', "Send your resume", class: 'button default'

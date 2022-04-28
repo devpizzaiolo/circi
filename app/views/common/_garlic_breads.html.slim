@@ -1,0 +1,69 @@
+- if params[:id] == "catering"
+	- cache('catering_garlic_breads') do
+		div.table-responsive
+			table.table.pricing-table.default-table.black
+				thead.thead-dark
+					tr
+						th.first Garlic Breads
+						th 1-5 People
+						th 6-19 People
+						th 20+ People
+				tbody
+					- GarlicBread.where(:active => true).order("name ASC").each do |garlic_bread|
+						tr
+							td.first = garlic_bread.name
+							td= "#{number_to_currency(garlic_bread.price_one_to_five)} each"
+							td= "#{number_to_currency(garlic_bread.price_six_to_nineteen)} each"
+							td= "#{number_to_currency(garlic_bread.price_twenty_plus)} each"
+
+	//p.table-bottom.p-style Fresh and healthy salads are the perfect companion to a great gourmet pizza. All our salads are made on the premises with fresh ingredients. Garden and Greco salads come with balsamic dressing.
+									
+- else
+
+	.row
+		.span12
+			
+			h3 Garlic Breads
+	
+			/ p.p-style Fresh and healthy salads are the perfect companion to a great gourmet pizza. All our salads are made on the premises with fresh ingredients. Garden and Greco salads come with balsamic dressing.
+	
+			- cache('garlic_breads_modal') do
+	
+				- unless @garlic_breads
+					- @garlic_breads = GarlicBread.where(:active => true)
+
+				- @garlic_breads.each do |garlic_bread|
+
+					div id="lightbox_garlic_bread_#{garlic_bread.id.to_s}" class="lightbox hide fade"  tabindex="-1" role="dialog" aria-hidden="true"
+						.lightbox-content
+							img src="#{garlic_bread.product_image.size_800.url}"
+							div.lightbox-caption
+								p= garlic_bread.name
+
+
+	.row
+	
+		.span12
+
+			.media-list
+			
+				- cache('garlic_breads_menu') do
+			
+					- @garlic_breads.each do |garlic_bread|
+
+						.media.product_display.garlic_bread
+
+							a.pull-left href="#lightbox_garlic_bread_#{garlic_bread.id.to_s}" data-toggle="lightbox"
+								= image_tag garlic_bread.product_image.size_300.url, :class => "img-polaroid"
+								
+							.media-body
+
+								h4
+									= "#{garlic_bread.name} "
+								p= garlic_bread.description
+								p
+									span.item_price= "#{number_to_currency(garlic_bread.price)}"
+
+
+								span=link_to "Order", orders_path(:side_order => 1), :class => "btn btn-primary pull-right"
+

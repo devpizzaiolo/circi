@@ -1,0 +1,30 @@
+- content_for(:title) {"Mailing List"}
+/ - @header = "about_us"
+- @heading = "mailing_list"
+
+h1 style="display:none;" Mailing List
+
+div.page-header.customers
+	= image_tag 'ui/pizzaiolo_logo_trans.png'
+	h1 Join our mailing list
+
+div.body-container
+	.row
+		.span12
+			h3.hidden-phone.static-header.m-b-40.m-t-0.text-center By joining the Pizzaiolo mailing list, you will be among the first to know about promotions and news.
+		.span6
+			form action="http://colorshadow.createsend.com/t/y/s/ajlhuu/" method="post" class="default-form smaller-dsk"
+				input.required id="fieldEmail" name="cm-ajlhuu-ajlhuu" type="email" placeholder="E-mail"
+				input.required id="fieldName" name="cm-name" type="text" placeholder="First Name"
+				input.required id="fieldmilydu" name="cm-f-milydu" type="text" placeholder="Last Name"
+				
+				.controls
+					button.button.default.full type="submit" Subscribe
+
+				- unless current_customer
+					div.text-center.shared-links.visible-phone
+						= link_to "Create an account", new_customer_registration_path, class: 'regular'
+		- unless current_customer
+			.span5.hidden-phone
+					h3.semi-header.light Would you like to create an account to make online ordering faster? It only takes a minute or two.
+					= link_to "CREATE AN ACCOUNT", new_customer_registration_path, class: 'button default half'

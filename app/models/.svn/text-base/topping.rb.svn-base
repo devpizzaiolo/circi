@@ -1,0 +1,23 @@
+class Topping < ActiveRecord::Base
+  
+  belongs_to :type_of_topping
+  attr_accessible :active, :free_topping, :non_gluten_free, :name, :type_of_topping_id, :move_to_top, :move_to_end_of_description, :extra_free, :double_free
+  
+  after_update :expire_fragments
+  after_create :expire_fragments
+  
+  private
+    
+    def expire_fragments
+      
+      # expire calzone caches
+      ActionController::Base.new.expire_fragment('calzone_preset_selection')
+      
+      # expire pizza caches
+      ActionController::Base.new.expire_fragment('pizza_presets')
+      ActionController::Base.new.expire_fragment('pizza_presets_menu')
+      ActionController::Base.new.expire_fragment('pizza_presets_nutritional')
+      
+    end
+  
+end

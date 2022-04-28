@@ -1,0 +1,97 @@
+= simple_form_for([:admins, @franchise_location], multipart: true) do |f|
+
+	fieldset
+		legend Visibility
+		
+		=f.input :active
+		=f.input :order_online, :label => "Can Accept Online Orders"
+		
+	fieldset
+		legend Order Confirmations
+		=f.input :email, :input_html => {:class => 'validate[custom[email]]'}
+		=f.input :receive_order_confirmation_emails
+	
+	fieldset
+		legend Location Address
+	
+		=f.input :address
+		=f.input :address_details
+		=f.input :phone
+		=f.input :area_name
+	
+	fieldset
+		legend
+			| Open Hours 
+			small (inc. pickup orders)
+	
+		=f.input :mon_open, :input_html => {:class => 'span1'}
+		=f.input :mon_closed, :input_html => {:class => 'span1'}
+		=f.input :tue_open, :input_html => {:class => 'span1'}
+		=f.input :tue_closed, :input_html => {:class => 'span1'}
+		=f.input :wed_open, :input_html => {:class => 'span1'}
+		=f.input :wed_closed, :input_html => {:class => 'span1'}
+		=f.input :thu_open, :input_html => {:class => 'span1'}
+		=f.input :thu_closed, :input_html => {:class => 'span1'}
+		=f.input :fri_open, :input_html => {:class => 'span1'}
+		=f.input :fri_closed, :input_html => {:class => 'span1'}
+		=f.input :sat_open, :input_html => {:class => 'span1'}
+		=f.input :sat_closed, :input_html => {:class => 'span1'}
+		=f.input :sun_open, :input_html => {:class => 'span1'}
+		=f.input :sun_closed, :input_html => {:class => 'span1'}
+	
+	fieldset
+		legend Delivery Hours
+		
+		=f.input :delivery_mon_open, :input_html => {:class => 'span1'}
+		=f.input :delivery_mon_closed, :input_html => {:class => 'span1'}
+		=f.input :delivery_tue_open, :input_html => {:class => 'span1'}
+		=f.input :delivery_tue_closed, :input_html => {:class => 'span1'}
+		=f.input :delivery_wed_open, :input_html => {:class => 'span1'}
+		=f.input :delivery_wed_closed, :input_html => {:class => 'span1'}
+		=f.input :delivery_thu_open, :input_html => {:class => 'span1'}
+		=f.input :delivery_thu_closed, :input_html => {:class => 'span1'}
+		=f.input :delivery_fri_open, :input_html => {:class => 'span1'}
+		=f.input :delivery_fri_closed, :input_html => {:class => 'span1'}
+		=f.input :delivery_sat_open, :input_html => {:class => 'span1'}
+		=f.input :delivery_sat_closed, :input_html => {:class => 'span1'}
+		=f.input :delivery_sun_open, :input_html => {:class => 'span1'}
+		=f.input :delivery_sun_closed, :input_html => {:class => 'span1'}
+	
+	fieldset
+		legend Location Info
+		=f.input :google_maps_url
+		=f.input :latitude
+		=f.input :longitude
+		
+	fieldset
+		legend KML Boundary Files
+		
+		=f.input :kml, :as => :file, :label => "Upload/Replace KML file A"
+		
+		- unless @franchise_location.kml.blank?
+			label
+				= f.check_box :remove_kml
+				| Remove Uploaded File
+			hr
+		
+		=f.input :kml_b, :as => :file, :label => "Upload/Replace KML file B"
+		
+		- unless @franchise_location.kml_b.blank?
+			label
+				= f.check_box :remove_kml_b
+				| Remove Uploaded File
+			hr
+		
+		
+	fieldset
+		legend Printer IP Setup		
+		=f.input :printer_ip
+		=f.input :printer_port
+	
+	hr
+	
+	= f.button :submit, "Save/Update", :class => "btn btn-primary"
+	
+	= " "
+	
+	= link_to "Cancel", admins_franchise_locations_path, :class => "btn"

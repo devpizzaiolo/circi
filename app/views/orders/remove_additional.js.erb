@@ -1,0 +1,6 @@
+$("#order_additional_form").hide();
+$("#order_additional_form").html("<%= escape_javascript(render(:partial => 'orders/order_additional_form')) %>");
+$("#order_additional_form").show();
+
+$('div#shopping_cart').html("<%= escape_javascript(render(:partial => 'orders/shopping_cart_table')) %>");
+TweenLite.from($('div#shopping_cart'), 0, {opacity:0});

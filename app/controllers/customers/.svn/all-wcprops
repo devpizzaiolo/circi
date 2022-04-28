@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/pizzaioloca/!svn/ver/189/trunk/pizzaiolo.ca/app/controllers/customers
+END
+customers_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/pizzaioloca/!svn/ver/73/trunk/pizzaiolo.ca/app/controllers/customers/customers_controller.rb
+END
+sessions_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/pizzaioloca/!svn/ver/82/trunk/pizzaiolo.ca/app/controllers/customers/sessions_controller.rb
+END
+orders_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/pizzaioloca/!svn/ver/189/trunk/pizzaiolo.ca/app/controllers/customers/orders_controller.rb
+END
